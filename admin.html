@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Rodney.AI — Admin</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -424,55 +425,98 @@ a:hover{color:var(--gold-2)}
   <h2 class="page-title">Analytics</h2>
   <p class="page-sub">Website traffic and visitor insights</p>
 
-  <div class="stat-grid" id="analyticsStats">
-    <div class="stat-card">
-      <div class="num" id="aPageviews">—</div>
-      <div class="lbl">Page Views (30d)</div>
+  <!-- SETUP CARD (hidden once connected) -->
+  <div class="admin-card" id="gaSetupCard">
+    <h3>Connect Google Analytics</h3>
+    <p>To show live analytics data, you need to complete a one-time Google Cloud setup:</p>
+    <ol style="color:var(--text-dim);font-size:14px;margin:14px 0 14px 20px;line-height:1.8">
+      <li>Go to <a href="https://console.cloud.google.com/apis/library/analyticsdata.googleapis.com" target="_blank">Google Cloud Console</a> and enable the <strong>Google Analytics Data API</strong></li>
+      <li>Go to <a href="https://console.cloud.google.com/apis/credentials" target="_blank">Credentials</a> → Create Credentials → <strong>OAuth Client ID</strong></li>
+      <li>Application type: <strong>Web application</strong></li>
+      <li>Add <strong>https://rodney-ai.com</strong> to Authorized JavaScript origins</li>
+      <li>Copy the Client ID and paste below</li>
+      <li>Find your GA4 Property ID: Analytics → Admin → Property Settings → Property ID (numeric)</li>
+    </ol>
+    <div class="form-row">
+      <div class="form-group">
+        <label>OAuth Client ID</label>
+        <input type="text" id="gaClientId" placeholder="xxxxxxxxxxxx.apps.googleusercontent.com">
+      </div>
+      <div class="form-group">
+        <label>GA4 Property ID (numeric)</label>
+        <input type="text" id="gaPropertyId" placeholder="123456789">
+      </div>
     </div>
-    <div class="stat-card">
-      <div class="num" id="aVisitors">—</div>
-      <div class="lbl">Unique Visitors (30d)</div>
-    </div>
-    <div class="stat-card">
-      <div class="num" id="aTopPage">—</div>
-      <div class="lbl">Top Page</div>
-    </div>
-    <div class="stat-card">
-      <div class="num" id="aAvgTime">—</div>
-      <div class="lbl">Avg. Time on Site</div>
-    </div>
-  </div>
-
-  <div class="admin-card" id="analyticsSetupCard">
-    <h3>Google Analytics Setup</h3>
-    <p>Connect Google Analytics to track visitors, page views, and engagement on your site.</p>
     <div class="form-group">
       <label>GA4 Measurement ID</label>
-      <input type="text" id="gaId" placeholder="G-XXXXXXXXXX">
-      <p style="font-size:12px;color:var(--text-muted);margin-top:6px">Find this in Google Analytics → Admin → Data Streams → Your stream → Measurement ID</p>
+      <input type="text" id="gaId" placeholder="G-XXXXXXXXXX" value="G-QZ9C4MLQS8">
     </div>
-    <button class="btn btn-gold btn-sm" onclick="saveGA()">Save & Add Tracking</button>
+    <button class="btn btn-gold btn-sm" onclick="saveGAConfig()">Save Configuration</button>
   </div>
 
-  <div class="admin-card">
-    <h3>Google Analytics Dashboard</h3>
-    <p style="margin-bottom:14px">Once connected, view your full analytics dashboard:</p>
-    <a href="https://analytics.google.com" target="_blank" class="btn btn-outline btn-sm">Open Google Analytics →</a>
+  <!-- CONNECT BUTTON -->
+  <div class="admin-card" id="gaConnectCard" style="display:none;text-align:center;padding:32px">
+    <h3>Google Analytics</h3>
+    <p style="margin-bottom:18px">Sign in with Google to load your analytics data.</p>
+    <button class="btn btn-gold" onclick="gaSignIn()" id="gaSignInBtn">Sign in with Google</button>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:10px">Property: <span id="gaPropertyLabel">—</span></p>
   </div>
 
-  <div class="admin-card">
-    <h3>Page Performance</h3>
-    <p>Accelerator page views (tracked via gate interactions)</p>
-    <div id="pagePerformance">
-      <div class="list-item"><span class="li-title">FS AI Maturity Assessment</span><span class="li-meta">—</span></div>
-      <div class="list-item"><span class="li-title">AI Governance Framework</span><span class="li-meta">—</span></div>
-      <div class="list-item"><span class="li-title">AI Risk Taxonomy</span><span class="li-meta">—</span></div>
-      <div class="list-item"><span class="li-title">AI Tokenomics</span><span class="li-meta">—</span></div>
-      <div class="list-item"><span class="li-title">Exchange AI Use Cases</span><span class="li-meta">—</span></div>
-      <div class="list-item"><span class="li-title">Agentic AI for CEOs & CFOs</span><span class="li-meta">—</span></div>
-      <div class="list-item"><span class="li-title">Executive AI Training</span><span class="li-meta">—</span></div>
+  <!-- LIVE STATS (shown after auth) -->
+  <div id="gaLiveData" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+      <div>
+        <select id="gaDateRange" onchange="loadAnalytics()" style="padding:8px 14px;border-radius:8px;border:1px solid var(--border-strong);background:var(--bg);color:var(--text);font-size:13px">
+          <option value="7">Last 7 days</option>
+          <option value="30" selected>Last 30 days</option>
+          <option value="90">Last 90 days</option>
+        </select>
+      </div>
+      <button class="btn btn-outline btn-sm" onclick="loadAnalytics()">Refresh</button>
     </div>
-    <p style="font-size:12px;color:var(--text-muted);margin-top:12px">Analytics data will populate once Google Analytics is connected and tracking is active.</p>
+
+    <div class="stat-grid" id="analyticsStats">
+      <div class="stat-card">
+        <div class="num" id="aPageviews">—</div>
+        <div class="lbl">Page Views</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="aVisitors">—</div>
+        <div class="lbl">Unique Visitors</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="aSessions">—</div>
+        <div class="lbl">Sessions</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="aAvgTime">—</div>
+        <div class="lbl">Avg. Engagement</div>
+      </div>
+    </div>
+
+    <div class="admin-card">
+      <h3>Top Pages</h3>
+      <div id="gaTopPages"><p style="color:var(--text-muted);font-size:13px">Loading...</p></div>
+    </div>
+
+    <div class="admin-card">
+      <h3>Traffic Sources</h3>
+      <div id="gaTrafficSources"><p style="color:var(--text-muted);font-size:13px">Loading...</p></div>
+    </div>
+
+    <div class="admin-card">
+      <h3>Visitor Countries</h3>
+      <div id="gaCountries"><p style="color:var(--text-muted);font-size:13px">Loading...</p></div>
+    </div>
+
+    <div class="admin-card">
+      <h3>Devices</h3>
+      <div id="gaDevices"><p style="color:var(--text-muted);font-size:13px">Loading...</p></div>
+    </div>
+  </div>
+
+  <div class="admin-card" style="margin-top:18px">
+    <a href="https://analytics.google.com" target="_blank" class="btn btn-outline btn-sm">Open full Google Analytics →</a>
   </div>
 </div>
 
@@ -625,6 +669,8 @@ const STATE = {
   ghOwner: 'rodneyjerry-debug',
   ghRepo: 'rodney-ai',
   gaId: '',
+  gaClientId: '',
+  gaPropertyId: '',
   gateKey: 'rodney',
   siteHtml: '',
   siteFileSha: '',
@@ -647,6 +693,8 @@ window.addEventListener('DOMContentLoaded', () => {
       if (s.ghOwner) STATE.ghOwner = s.ghOwner;
       if (s.ghRepo) STATE.ghRepo = s.ghRepo;
       if (s.gaId) STATE.gaId = s.gaId;
+      if (s.gaClientId) STATE.gaClientId = s.gaClientId;
+      if (s.gaPropertyId) STATE.gaPropertyId = s.gaPropertyId;
       if (s.gateKey) STATE.gateKey = s.gateKey;
     } catch(e) {}
   }
@@ -664,6 +712,10 @@ window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('ghToken').value = STATE.ghToken || '';
   document.getElementById('gaId').value = STATE.gaId || '';
   document.getElementById('gateKey').value = STATE.gateKey || 'rodney';
+  var gaClientIdEl = document.getElementById('gaClientId');
+  var gaPropertyIdEl = document.getElementById('gaPropertyId');
+  if (gaClientIdEl) gaClientIdEl.value = STATE.gaClientId || '';
+  if (gaPropertyIdEl) gaPropertyIdEl.value = STATE.gaPropertyId || '';
 });
 
 function doLogin() {
@@ -688,6 +740,7 @@ async function initApp() {
     await loadCommitHistory();
   }
   checkSiteStatus();
+  initGAUI();
 }
 
 function saveState() {
@@ -697,6 +750,8 @@ function saveState() {
     ghOwner: STATE.ghOwner,
     ghRepo: STATE.ghRepo,
     gaId: STATE.gaId,
+    gaClientId: STATE.gaClientId,
+    gaPropertyId: STATE.gaPropertyId,
     gateKey: STATE.gateKey
   }));
 }
@@ -997,6 +1052,195 @@ async function saveGA() {
   if (STATE.gaId) {
     markChanged('index.html');
     showToast('Analytics ID saved — will be added on next publish');
+  }
+}
+
+// ── Google Analytics Data API ──
+var gaAccessToken = null;
+var gaTokenClient = null;
+
+function escHtml(s) {
+  var d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function saveGAConfig() {
+  STATE.gaClientId = (document.getElementById('gaClientId').value || '').trim();
+  STATE.gaPropertyId = (document.getElementById('gaPropertyId').value || '').trim();
+  STATE.gaId = (document.getElementById('gaId').value || '').trim();
+  saveState();
+  if (STATE.gaClientId && STATE.gaPropertyId) {
+    document.getElementById('gaSetupCard').style.display = 'none';
+    document.getElementById('gaConnectCard').style.display = 'block';
+    document.getElementById('gaPropertyLabel').textContent = STATE.gaPropertyId;
+    showToast('Analytics config saved — click Sign in to load data');
+  } else {
+    showToast('Please enter both Client ID and Property ID', 'error');
+  }
+}
+
+function initGAUI() {
+  // Show correct card based on saved config
+  if (STATE.gaClientId && STATE.gaPropertyId) {
+    document.getElementById('gaSetupCard').style.display = 'none';
+    document.getElementById('gaConnectCard').style.display = 'block';
+    document.getElementById('gaPropertyLabel').textContent = STATE.gaPropertyId;
+    var cid = document.getElementById('gaClientId');
+    var pid = document.getElementById('gaPropertyId');
+    if (cid) cid.value = STATE.gaClientId;
+    if (pid) pid.value = STATE.gaPropertyId;
+  }
+}
+
+function gaSignIn() {
+  if (!STATE.gaClientId) {
+    showToast('Set up Google Cloud credentials first', 'error');
+    return;
+  }
+  try {
+    gaTokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: STATE.gaClientId,
+      scope: 'https://www.googleapis.com/auth/analytics.readonly',
+      callback: function(response) {
+        if (response.error) {
+          showToast('Google auth failed: ' + response.error, 'error');
+          return;
+        }
+        gaAccessToken = response.access_token;
+        document.getElementById('gaConnectCard').style.display = 'none';
+        document.getElementById('gaLiveData').style.display = 'block';
+        loadAnalytics();
+      }
+    });
+    gaTokenClient.requestAccessToken();
+  } catch(e) {
+    showToast('Google sign-in error: ' + e.message, 'error');
+  }
+}
+
+async function gaRunReport(body) {
+  var url = 'https://analyticsdata.googleapis.com/v1beta/properties/' + STATE.gaPropertyId + ':runReport';
+  var res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + gaAccessToken,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) {
+    var err = await res.json();
+    throw new Error(err.error.message || res.statusText);
+  }
+  return res.json();
+}
+
+async function loadAnalytics() {
+  var days = parseInt(document.getElementById('gaDateRange').value) || 30;
+  var startDate = days + 'daysAgo';
+
+  try {
+    // 1. Overview stats
+    var overview = await gaRunReport({
+      dateRanges: [{ startDate: startDate, endDate: 'today' }],
+      metrics: [
+        { name: 'screenPageViews' },
+        { name: 'totalUsers' },
+        { name: 'sessions' },
+        { name: 'averageSessionDuration' }
+      ]
+    });
+    if (overview.rows && overview.rows[0]) {
+      var vals = overview.rows[0].metricValues;
+      setText('aPageviews', Number(vals[0].value).toLocaleString());
+      setText('aVisitors', Number(vals[1].value).toLocaleString());
+      setText('aSessions', Number(vals[2].value).toLocaleString());
+      var secs = Math.round(parseFloat(vals[3].value));
+      setText('aAvgTime', Math.floor(secs / 60) + 'm ' + (secs % 60) + 's');
+    }
+
+    // 2. Top pages
+    var pages = await gaRunReport({
+      dateRanges: [{ startDate: startDate, endDate: 'today' }],
+      dimensions: [{ name: 'pagePath' }],
+      metrics: [{ name: 'screenPageViews' }, { name: 'totalUsers' }],
+      orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
+      limit: 10
+    });
+    var pagesHtml = '';
+    if (pages.rows) {
+      pages.rows.forEach(function(row) {
+        var path = row.dimensionValues[0].value;
+        var views = Number(row.metricValues[0].value).toLocaleString();
+        var users = Number(row.metricValues[1].value).toLocaleString();
+        pagesHtml += '<div class="list-item"><span class="li-title">' + escHtml(path) + '</span><span class="li-meta">' + views + ' views · ' + users + ' users</span></div>';
+      });
+    }
+    document.getElementById('gaTopPages').innerHTML = pagesHtml || '<p style="color:var(--text-muted)">No data yet</p>';
+
+    // 3. Traffic sources
+    var sources = await gaRunReport({
+      dateRanges: [{ startDate: startDate, endDate: 'today' }],
+      dimensions: [{ name: 'sessionSource' }],
+      metrics: [{ name: 'sessions' }],
+      orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+      limit: 8
+    });
+    var srcHtml = '';
+    if (sources.rows) {
+      sources.rows.forEach(function(row) {
+        var src = row.dimensionValues[0].value || '(direct)';
+        var sess = Number(row.metricValues[0].value).toLocaleString();
+        srcHtml += '<div class="list-item"><span class="li-title">' + escHtml(src) + '</span><span class="li-meta">' + sess + ' sessions</span></div>';
+      });
+    }
+    document.getElementById('gaTrafficSources').innerHTML = srcHtml || '<p style="color:var(--text-muted)">No data yet</p>';
+
+    // 4. Countries
+    var countries = await gaRunReport({
+      dateRanges: [{ startDate: startDate, endDate: 'today' }],
+      dimensions: [{ name: 'country' }],
+      metrics: [{ name: 'totalUsers' }],
+      orderBys: [{ metric: { metricName: 'totalUsers' }, desc: true }],
+      limit: 8
+    });
+    var countryHtml = '';
+    if (countries.rows) {
+      countries.rows.forEach(function(row) {
+        var country = row.dimensionValues[0].value;
+        var users = Number(row.metricValues[0].value).toLocaleString();
+        countryHtml += '<div class="list-item"><span class="li-title">' + escHtml(country) + '</span><span class="li-meta">' + users + ' visitors</span></div>';
+      });
+    }
+    document.getElementById('gaCountries').innerHTML = countryHtml || '<p style="color:var(--text-muted)">No data yet</p>';
+
+    // 5. Devices
+    var devices = await gaRunReport({
+      dateRanges: [{ startDate: startDate, endDate: 'today' }],
+      dimensions: [{ name: 'deviceCategory' }],
+      metrics: [{ name: 'totalUsers' }],
+      orderBys: [{ metric: { metricName: 'totalUsers' }, desc: true }]
+    });
+    var devHtml = '';
+    if (devices.rows) {
+      devices.rows.forEach(function(row) {
+        var dev = row.dimensionValues[0].value;
+        var users = Number(row.metricValues[0].value).toLocaleString();
+        devHtml += '<div class="list-item"><span class="li-title">' + dev.charAt(0).toUpperCase() + dev.slice(1) + '</span><span class="li-meta">' + users + ' visitors</span></div>';
+      });
+    }
+    document.getElementById('gaDevices').innerHTML = devHtml || '<p style="color:var(--text-muted)">No data yet</p>';
+
+    showToast('Analytics loaded', 'success');
+  } catch(e) {
+    showToast('Analytics error: ' + e.message, 'error');
+    console.error('GA error:', e);
+  }
+
+  function setText(id, val) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = val;
   }
 }
 
