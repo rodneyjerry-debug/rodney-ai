@@ -1078,11 +1078,11 @@ function checkSiteStatus() {
   if (!dot) return;
   if (STATE.ghToken && STATE.siteHtml) {
     dot.className = 'status-dot live';
-    var label = document.getElementById('siteStatusLabel');
+    var label = document.getElementById('statusText');
     if (label) label.textContent = 'Live';
   } else {
     dot.className = 'status-dot offline';
-    var label = document.getElementById('siteStatusLabel');
+    var label = document.getElementById('statusText');
     if (label) label.textContent = 'Offline';
   }
 }
@@ -1321,7 +1321,7 @@ function buildUpdatedHtml() {
   const doc = parser.parseFromString(STATE.siteHtml, 'text/html');
 
   // Update hero strip
-  const strip = doc.querySelector('.hero-strip');
+  const strip = doc.querySelector('.topstrip .advisor-line');
   if (strip) {
     const val = document.getElementById('heroStrip').value;
     if (val) strip.textContent = val;
