@@ -289,7 +289,7 @@ a:hover{color:var(--gold-2)}
 
   <div class="admin-card">
     <h3>Stats Bar</h3>
-    <div class="form-row-3">
+    <div class="form-row">
       <div class="form-group">
         <label>Stat 1 — Number</label>
         <input type="text" id="heroStat1Num">
@@ -298,12 +298,8 @@ a:hover{color:var(--gold-2)}
         <label>Stat 1 — Label</label>
         <input type="text" id="heroStat1Label">
       </div>
-      <div class="form-group">
-        <label>Stat 1 — Detail</label>
-        <input type="text" id="heroStat1Detail">
-      </div>
     </div>
-    <div class="form-row-3">
+    <div class="form-row">
       <div class="form-group">
         <label>Stat 2 — Number</label>
         <input type="text" id="heroStat2Num">
@@ -312,12 +308,8 @@ a:hover{color:var(--gold-2)}
         <label>Stat 2 — Label</label>
         <input type="text" id="heroStat2Label">
       </div>
-      <div class="form-group">
-        <label>Stat 2 — Detail</label>
-        <input type="text" id="heroStat2Detail">
-      </div>
     </div>
-    <div class="form-row-3">
+    <div class="form-row">
       <div class="form-group">
         <label>Stat 3 — Number</label>
         <input type="text" id="heroStat3Num">
@@ -326,9 +318,15 @@ a:hover{color:var(--gold-2)}
         <label>Stat 3 — Label</label>
         <input type="text" id="heroStat3Label">
       </div>
+    </div>
+    <div class="form-row">
       <div class="form-group">
-        <label>Stat 3 — Detail</label>
-        <input type="text" id="heroStat3Detail">
+        <label>Stat 4 — Number</label>
+        <input type="text" id="heroStat4Num">
+      </div>
+      <div class="form-group">
+        <label>Stat 4 — Label</label>
+        <input type="text" id="heroStat4Label">
       </div>
     </div>
   </div>
@@ -769,7 +767,7 @@ function parseSiteContent() {
   const doc = parser.parseFromString(STATE.siteHtml, 'text/html');
 
   // Parse hero
-  const strip = doc.querySelector('.hero-strip');
+  const strip = doc.querySelector('.topstrip .advisor-line');
   if (strip) document.getElementById('heroStrip').value = strip.textContent.trim();
 
   const heroTitle = doc.querySelector('.hero-title');
@@ -778,16 +776,16 @@ function parseSiteContent() {
   const heroSub = doc.querySelector('.hero-sub');
   if (heroSub) document.getElementById('heroSubtitle').value = heroSub.textContent.trim();
 
-  // Parse stats
+  // Parse stats (site has 4 stats, admin has fields for up to 4)
   const stats = doc.querySelectorAll('.stat');
   stats.forEach((stat, i) => {
     const num = i + 1;
-    const valEl = stat.querySelector('.stat-val');
+    const valEl = stat.querySelector('.stat-num');
     const lblEl = stat.querySelector('.stat-label');
-    const detEl = stat.querySelector('.stat-detail');
-    if (valEl) document.getElementById(`heroStat${num}Num`).value = valEl.textContent.trim();
-    if (lblEl) document.getElementById(`heroStat${num}Label`).value = lblEl.textContent.trim();
-    if (detEl) document.getElementById(`heroStat${num}Detail`).value = detEl.textContent.trim();
+    const numField = document.getElementById(`heroStat${num}Num`);
+    const lblField = document.getElementById(`heroStat${num}Label`);
+    if (valEl && numField) numField.value = valEl.textContent.trim();
+    if (lblEl && lblField) lblField.value = lblEl.textContent.trim();
   });
 
   // Parse services
@@ -813,38 +811,42 @@ function parseSiteContent() {
   });
   renderAccelerators();
 
-  // Parse insights/posts
+  // Parse insights/posts — try multiple selectors
   STATE.insights = [];
-  doc.querySelectorAll('.post-highlight, .highlight-post').forEach(p => {
-    const link = p.querySelector('a[href*="linkedin"]');
-    STATE.insights.push({
-      title: p.querySelector('h4, h3')?.textContent.trim() || '',
-      excerpt: p.querySelector('.post-excerpt, p')?.textContent.trim() || '',
-      url: link?.getAttribute('href') || '',
-      likes: p.querySelector('.post-likes, .likes')?.textContent.trim() || '',
-      comments: p.querySelector('.post-comments, .comments')?.textContent.trim() || '',
-      reposts: p.querySelector('.post-reposts, .reposts')?.textContent.trim() || ''
+  try {
+    const postEls = doc.querySelectorAll('.post-highlight, .highlight-post, .insight-card, [class*="post"]');
+    postEls.forEach(p => {
+      const link = p.querySelector('a[href*="linkedin"]');
+      if (!link) return; // Skip non-post elements
+      STATE.insights.push({
+        title: p.querySelector('h4, h3')?.textContent?.trim() || '',
+        excerpt: p.querySelector('.post-excerpt, p:not(.post-meta)')?.textContent?.trim() || '',
+        url: link?.getAttribute('href') || '',
+        likes: '',
+        comments: '',
+        reposts: ''
+      });
     });
-  });
+  } catch(e) { console.warn('Insights parse warning:', e.message); }
   renderInsights();
 
-  // Parse about
-  const aboutEl = doc.querySelector('#about p, .about-text');
-  if (aboutEl) document.getElementById('aboutText').value = aboutEl.textContent.trim();
+  // Parse about — safely set values with null checks
+  try {
+    const aboutEl = doc.querySelector('#about p, .about-text');
+    if (aboutEl) document.getElementById('aboutText').value = aboutEl.textContent.trim();
 
-  // Parse contact
-  const emailLink = doc.querySelector('a[href^="mailto:"]');
-  if (emailLink) document.getElementById('contactEmail').value = emailLink.textContent.trim();
-  const phoneLink = doc.querySelector('a[href^="tel:"]');
-  if (phoneLink) document.getElementById('contactPhone').value = phoneLink.textContent.trim();
-  const linkedInLink = doc.querySelector('a[href*="linkedin.com/in/"]');
-  if (linkedInLink) document.getElementById('contactLinkedIn').value = linkedInLink.getAttribute('href');
+    const emailLink = doc.querySelector('a[href^="mailto:"]');
+    if (emailLink) document.getElementById('contactEmail').value = emailLink.textContent.trim();
+    const phoneLink = doc.querySelector('a[href^="tel:"]');
+    if (phoneLink) document.getElementById('contactPhone').value = phoneLink.textContent.trim();
+    const linkedInLink = doc.querySelector('a[href*="linkedin.com/in/"]');
+    if (linkedInLink) document.getElementById('contactLinkedIn').value = linkedInLink.getAttribute('href');
 
-  // Parse meta
-  const titleEl = doc.querySelector('title');
-  if (titleEl) document.getElementById('metaTitle').value = titleEl.textContent.trim();
-  const descEl = doc.querySelector('meta[name="description"]');
-  if (descEl) document.getElementById('metaDesc').value = descEl.getAttribute('content');
+    const titleEl = doc.querySelector('title');
+    if (titleEl) document.getElementById('metaTitle').value = titleEl.textContent.trim();
+    const descEl = doc.querySelector('meta[name="description"]');
+    if (descEl) document.getElementById('metaDesc').value = descEl.getAttribute('content');
+  } catch(e) { console.warn('Parse warning:', e.message); }
 
   // Update dashboard stats
   document.getElementById('statServices').textContent = STATE.services.length;
