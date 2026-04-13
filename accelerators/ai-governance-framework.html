@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-QZ9C4MLQS8");
+</script>
+<title>AI Governance Framework for FS · Rodney.AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared.css">
+</head>
+<body>
+<div class="container">
+  <a class="back" href="../index.html">← Back to Rodney.AI</a>
+  <div class="header">
+    <span class="eyebrow"><span class="dot"></span> Accelerator · Framework</span>
+    <h1 class="display">AI Governance Framework for Financial Services</h1>
+    <p class="lead">A practical, regulator-aware blueprint for governing AI across a financial institution. Designed to extend — not replace — your existing model risk, operational risk and three-lines-of-defense disciplines.</p>
+  </div>
+
+  <div class="card">
+    <h2>The five pillars</h2>
+    <p>Effective AI governance in FS rests on five mutually reinforcing pillars. Weakness in any one creates exposure that the others cannot fully compensate for.</p>
+    <div class="grid-2">
+      <div>
+        <h3>1. Policy &amp; Standards</h3>
+        <p>An enterprise AI policy approved by the board, supplemented by standards for model development, GenAI usage, third-party AI and data use.</p>
+      </div>
+      <div>
+        <h3>2. Decision Rights &amp; Committees</h3>
+        <p>Clear RACI for AI decisions. Most institutions need an AI Steering Committee (executive) and an AI Risk Committee (independent), feeding into existing risk governance.</p>
+      </div>
+      <div>
+        <h3>3. Risk Identification &amp; Controls</h3>
+        <p>An AI risk taxonomy mapped to existing operational, model and conduct risk frameworks, with controls embedded in the SDLC and MLOps pipeline.</p>
+      </div>
+      <div>
+        <h3>4. Inventory &amp; Lifecycle</h3>
+        <p>A single AI/ML inventory that tracks every model from intake through decommissioning, with risk tiering, validation status and ownership.</p>
+      </div>
+      <div>
+        <h3>5. Reporting &amp; Assurance</h3>
+        <p>Dashboards for the board, regulators and external auditors that prove AI is being used responsibly — not just claimed to be.</p>
+      </div>
+      <div>
+        <h3>6. People &amp; Culture</h3>
+        <p>AI literacy at every level, escalation paths people actually use, and incentives that reward raising concerns rather than hiding them.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Roles and accountability (RACI)</h2>
+    <table>
+      <thead><tr><th>Activity</th><th>Board / Risk Cmte</th><th>AI Steering</th><th>1st Line</th><th>2nd Line</th><th>3rd Line</th></tr></thead>
+      <tbody>
+        <tr><td>Approve AI strategy &amp; risk appetite</td><td><strong style="color:var(--text)">A</strong></td><td>R</td><td>C</td><td>C</td><td>I</td></tr>
+        <tr><td>Approve high-risk AI use cases</td><td>I</td><td><strong style="color:var(--text)">A</strong></td><td>R</td><td>C</td><td>I</td></tr>
+        <tr><td>Develop &amp; deploy models</td><td>I</td><td>I</td><td><strong style="color:var(--text)">A/R</strong></td><td>C</td><td>I</td></tr>
+        <tr><td>Independent model validation</td><td>I</td><td>I</td><td>C</td><td><strong style="color:var(--text)">A/R</strong></td><td>I</td></tr>
+        <tr><td>Audit of AI controls</td><td>I</td><td>I</td><td>C</td><td>C</td><td><strong style="color:var(--text)">A/R</strong></td></tr>
+        <tr><td>Regulatory reporting on AI</td><td>I</td><td>R</td><td>C</td><td><strong style="color:var(--text)">A</strong></td><td>I</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;margin-top:10px"><em>R = Responsible · A = Accountable · C = Consulted · I = Informed</em></p>
+  </div>
+
+  <div class="card">
+    <h2>Risk-tiering AI use cases</h2>
+    <p>Not every AI use case needs the same level of governance. A pragmatic tiering model lets you concentrate scrutiny where it matters and avoid suffocating low-risk experimentation.</p>
+    <table>
+      <thead><tr><th>Tier</th><th>Examples</th><th>Approval</th><th>Validation</th><th>Monitoring</th></tr></thead>
+      <tbody>
+        <tr><td><strong style="color:#ff7ac0">Tier 1 — Critical</strong></td><td>Credit decisioning, AML, fraud, customer-facing GenAI</td><td>AI Steering + Risk Cmte</td><td>Independent, pre-launch</td><td>Real-time, monthly review</td></tr>
+        <tr><td><strong style="color:#bfb5ff">Tier 2 — High</strong></td><td>Underwriting support, KYC enrichment, advisor copilots</td><td>AI Steering</td><td>Independent, pre-launch</td><td>Weekly metrics, quarterly review</td></tr>
+        <tr><td><strong style="color:#bfd5ff">Tier 3 — Moderate</strong></td><td>Operational automation, marketing personalization</td><td>Business head + 2nd line</td><td>Peer review</td><td>Monthly metrics</td></tr>
+        <tr><td><strong style="color:#a7f3d0">Tier 4 — Low</strong></td><td>Internal productivity, document summarisation</td><td>Business head</td><td>Self-attestation</td><td>Sample-based</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>What "good" looks like in 12 months</h2>
+    <ol>
+      <li>Board-approved AI policy and risk appetite statement.</li>
+      <li>Single, complete AI/ML inventory with risk tiers and owners.</li>
+      <li>AI Steering Committee meeting monthly with real decisions.</li>
+      <li>Independent AI validation function inside 2nd line.</li>
+      <li>GenAI usage policy and a controlled enterprise GenAI gateway.</li>
+      <li>EU AI Act / NIST AI RMF mapping completed and tracked.</li>
+      <li>Quarterly AI risk dashboard reaching the board.</li>
+      <li>AI literacy training completed by 100% of executives and risk staff.</li>
+    </ol>
+  </div>
+
+  <div class="footer-note">© 2026 Rodney.AI · This framework is a starting point. Tailoring it to your institution's specific regulatory footprint and risk profile is what advisory engagements are for.</div>
+</div>
+<script src="_gate.js"></script>
+</body>
+</html>

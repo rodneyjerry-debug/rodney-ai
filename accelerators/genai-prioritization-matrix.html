@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-QZ9C4MLQS8");
+</script>
+<title>GenAI Use Case Prioritization Matrix · Rodney.AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared.css">
+<style>
+  .uc-table input,.uc-table select{
+    width:100%;padding:8px 10px;border-radius:6px;
+    background:rgba(255,255,255,0.04);border:1px solid var(--border-strong);
+    color:var(--text);font-family:inherit;font-size:13.5px;
+  }
+  .score-cell{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;text-align:center}
+  .priority{display:inline-block;padding:4px 10px;border-radius:6px;font-size:11.5px;font-weight:600}
+  .p-do-now{background:rgba(34,211,238,0.15);color:#67e8f9;border:1px solid rgba(34,211,238,0.3)}
+  .p-plan{background:rgba(124,92,255,0.15);color:#bfb5ff;border:1px solid rgba(124,92,255,0.3)}
+  .p-watch{background:rgba(255,255,255,0.05);color:var(--text-dim);border:1px solid var(--border-strong)}
+  .p-park{background:rgba(255,122,192,0.12);color:#fbcfe8;border:1px solid rgba(255,122,192,0.3)}
+  .add-btn{margin-top:14px;padding:10px 18px;border:1px dashed var(--border-strong);background:transparent;color:var(--text-dim);border-radius:8px;cursor:pointer;font-family:inherit;font-size:13px}
+  .add-btn:hover{color:var(--text);border-color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="container">
+  <a class="back" href="../index.html">← Back to Rodney.AI</a>
+  <div class="header">
+    <span class="eyebrow"><span class="dot"></span> Accelerator · Template</span>
+    <h1 class="display">GenAI Use Case Prioritization Matrix</h1>
+    <p class="lead">Score and rank GenAI use cases across value, feasibility, risk and time-to-impact. Built for FS executives drowning in a long list of opportunities and looking for objective triage.</p>
+  </div>
+
+  <div class="card">
+    <h2>The four scoring dimensions</h2>
+    <div class="grid-2">
+      <div><h3>Value (1-5)</h3><p>Material P&amp;L or risk-reduction impact at the enterprise level. Score 5 only for use cases with direct, measurable, line-of-business value.</p></div>
+      <div><h3>Feasibility (1-5)</h3><p>Data readiness, technical maturity and organisational capability. Score 5 only when you could ship in this quarter with existing capability.</p></div>
+      <div><h3>Risk (1-5, inverse)</h3><p>Inherent regulatory, conduct and reputational exposure. Score 5 = low risk, 1 = high risk. The matrix favours lower-risk use cases at parity.</p></div>
+      <div><h3>Time-to-Impact (1-5)</h3><p>How quickly value materialises. Score 5 = within 90 days, 1 = 18+ months.</p></div>
+    </div>
+    <p style="margin-top:14px"><strong style="color:var(--text)">Composite score</strong> = (Value × 2) + Feasibility + Risk + Time. Cases above 18 are <strong style="color:var(--text)">Do Now</strong>, 14–18 are <strong style="color:var(--text)">Plan</strong>, 10–14 are <strong style="color:var(--text)">Watch</strong>, below 10 are <strong style="color:var(--text)">Park</strong>.</p>
+  </div>
+
+  <div class="card">
+    <h2>Worked example portfolio</h2>
+    <p>The table below comes pre-loaded with 8 illustrative FS use cases. Edit any cell to recalculate live, or add your own.</p>
+    <table class="uc-table">
+      <thead><tr><th>Use case</th><th>Domain</th><th>Value</th><th>Feas.</th><th>Risk</th><th>Time</th><th>Score</th><th>Priority</th></tr></thead>
+      <tbody id="ucBody"></tbody>
+    </table>
+    <button class="add-btn" id="addRow">+ Add use case</button>
+  </div>
+
+  <div class="card">
+    <h2>How to run this in your institution</h2>
+    <ol>
+      <li>Run a one-week intake: every business head submits 3-5 GenAI ideas in a single template.</li>
+      <li>Pre-screen for hard blockers (regulation, data residency, vendor policy).</li>
+      <li>Score in a single 90-minute session with business + technology + risk in the room.</li>
+      <li>Lock the top 5-7 for the next 6 months. Defer the rest publicly so they don't keep coming back.</li>
+      <li>Publish a one-page portfolio view to the AI Steering Committee monthly.</li>
+    </ol>
+  </div>
+
+  <div class="footer-note">© 2026 Rodney.AI · A scoring matrix is only as good as the conversation it enables. The real value is the trade-offs the room agrees to.</div>
+</div>
+
+<script>
+const seed=[
+  ["Customer service copilot","Retail bank",5,4,3,5],
+  ["Adviser research assistant","Wealth",4,4,4,4],
+  ["KYC document summarisation","Compliance",4,5,4,5],
+  ["Synthetic transaction monitoring narratives","AML",4,3,3,3],
+  ["Credit memo drafting","Commercial credit",4,3,4,3],
+  ["Code modernisation copilot","IT",3,5,5,4],
+  ["Customer-facing GenAI advisor","Retail",5,2,1,2],
+  ["Internal policy chatbot","HR/Ops",2,5,5,5],
+];
+const body=document.getElementById('ucBody');
+function priority(s){
+  if(s>=18)return ['Do Now','p-do-now'];
+  if(s>=14)return ['Plan','p-plan'];
+  if(s>=10)return ['Watch','p-watch'];
+  return ['Park','p-park'];
+}
+function row(d){
+  const tr=document.createElement('tr');
+  tr.innerHTML=`
+    <td><input value="${d[0]}"></td>
+    <td><input value="${d[1]}"></td>
+    <td><input type="number" min="1" max="5" value="${d[2]}"></td>
+    <td><input type="number" min="1" max="5" value="${d[3]}"></td>
+    <td><input type="number" min="1" max="5" value="${d[4]}"></td>
+    <td><input type="number" min="1" max="5" value="${d[5]}"></td>
+    <td class="score-cell"></td>
+    <td class="priority-cell"></td>`;
+  body.appendChild(tr);
+  tr.addEventListener('input',()=>recalc(tr));
+  recalc(tr);
+}
+function recalc(tr){
+  const inputs=tr.querySelectorAll('input');
+  const v=+inputs[2].value,f=+inputs[3].value,r=+inputs[4].value,t=+inputs[5].value;
+  const score=(v*2)+f+r+t;
+  tr.querySelector('.score-cell').textContent=score;
+  const [p,cls]=priority(score);
+  tr.querySelector('.priority-cell').innerHTML=`<span class="priority ${cls}">${p}</span>`;
+}
+seed.forEach(row);
+document.getElementById('addRow').addEventListener('click',()=>row(["New use case","Domain",3,3,3,3]));
+</script>
+<script src="_gate.js"></script>
+</body>
+</html>

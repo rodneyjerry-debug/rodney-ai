@@ -1,0 +1,2547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-QZ9C4MLQS8');
+</script>
+<title>Rodney.AI — Executive Advisor on AI · Banking, Capital Markets &amp; Sovereign Institutions</title>
+<meta name="description" content="Rodney Coutinho — Executive Advisor on AI. SCALE · GOVERN · UNLOCK. Helping banks, capital markets and sovereign institutions turn AI ambition into P&L, ROE and market cap." />
+<meta property="og:title" content="Rodney.AI — Executive Advisor on AI" />
+<meta property="og:description" content="SCALE · GOVERN · UNLOCK. Helping banks, capital markets and sovereign institutions turn AI ambition into P&L, ROE and market cap." />
+<meta property="og:image" content="assets/brand/03_linkedin_banner.png" />
+<link rel="icon" type="image/png" href="assets/brand/04_avatar_square.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=Fraunces:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Real Rodney.AI brand tokens */
+    --navy:#0D1B2A;
+    --navy-2:#0a1521;
+    --navy-3:#081118;
+    --accent:#1B4F72;
+    --accent-2:#2874A6;
+    --soft:#BFD4E8;
+    --light:#F2F6FA;
+    --gold:#C9A227;
+    --gold-2:#e0b84a;
+    --white:#FFFFFF;
+
+    --bg:var(--navy);
+    --bg-2:var(--navy-2);
+    --bg-3:#0e1d30;
+    --surface:#112236;
+    --surface-2:#15293f;
+    --surface-3:#1a3250;
+    --border:rgba(191,212,232,0.10);
+    --border-strong:rgba(191,212,232,0.18);
+    --border-gold:rgba(201,162,39,0.40);
+    --text:#F2F6FA;
+    --text-dim:#BFD4E8;
+    --text-muted:#8aa0b8;
+    --gradient-gold:linear-gradient(135deg,#e0b84a 0%,#C9A227 100%);
+    --gradient-navy:linear-gradient(180deg,#0D1B2A 0%,#081118 100%);
+    --gradient-accent:linear-gradient(135deg,#1B4F72 0%,#2874A6 100%);
+    --radius:14px;
+    --radius-lg:22px;
+    --radius-xl:28px;
+    --shadow:0 20px 60px -20px rgba(0,0,0,0.6);
+    --shadow-lg:0 40px 110px -30px rgba(0,0,0,0.75);
+    --shadow-gold:0 10px 40px -10px rgba(201,162,39,0.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',-apple-system,system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    font-feature-settings:"ss01","cv11";
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  ::selection{background:var(--gold);color:var(--navy)}
+
+  /* ---------- AMBIENT BACKGROUND ---------- */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background:
+      radial-gradient(900px 600px at 15% -10%, rgba(40,116,166,0.18), transparent 60%),
+      radial-gradient(800px 500px at 100% 0%, rgba(201,162,39,0.10), transparent 60%),
+      radial-gradient(1200px 800px at 50% 100%, rgba(27,79,114,0.22), transparent 60%);
+    pointer-events:none;z-index:0;
+  }
+  main,header,footer{position:relative;z-index:1}
+
+  .container{max-width:1240px;margin:0 auto;padding:0 28px}
+
+  /* ---------- TOP STRIP ---------- */
+  .topstrip{
+    background:#070f18;
+    border-bottom:1px solid var(--border);
+    font-size:12px;
+    color:var(--text-dim);
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+  }
+  .topstrip-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 28px;max-width:1240px;margin:0 auto;gap:24px;
+  }
+  .topstrip .advisor-line{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .topstrip .advisor-line span{position:relative}
+  .topstrip .advisor-line span+span::before{
+    content:"//";color:var(--gold);margin-right:14px;font-weight:700;
+  }
+  .topstrip .live{
+    display:inline-flex;align-items:center;gap:8px;color:var(--gold-2);
+    font-weight:600;
+  }
+  .live-dot{
+    width:7px;height:7px;border-radius:50%;background:var(--gold);
+    box-shadow:0 0 0 0 rgba(201,162,39,0.7);
+    animation:pulse 2.2s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(201,162,39,0.7)}
+    70%{box-shadow:0 0 0 10px rgba(201,162,39,0)}
+    100%{box-shadow:0 0 0 0 rgba(201,162,39,0)}
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(13,27,42,0.86);
+    backdrop-filter:saturate(140%) blur(14px);
+    -webkit-backdrop-filter:saturate(140%) blur(14px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 28px;gap:24px;
+  }
+  .logo{display:flex;align-items:center;gap:14px;flex-shrink:0}
+  .brand-mark{
+    position:relative;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    width:62px;height:62px;
+    background:var(--white);
+    border:2px solid var(--gold);
+    border-radius:6px;
+    padding:6px 4px;
+    box-shadow:0 8px 24px -8px rgba(201,162,39,0.35);
+  }
+  .brand-mark span{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:9.5px;
+    letter-spacing:0.04em;
+    color:var(--navy);
+    line-height:1.15;
+  }
+  .brand-mark span.gold{color:var(--gold)}
+  .logo-text{display:flex;flex-direction:column;line-height:1.1}
+  .wordmark{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:26px;
+    font-weight:800;
+    letter-spacing:-0.01em;
+    color:var(--white);
+  }
+  .wordmark .dot{color:var(--gold)}
+  .tag{
+    font-size:11px;
+    color:var(--text-dim);
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    margin-top:3px;
+  }
+  .nav-links{display:flex;align-items:center;gap:32px}
+  .nav-links a{
+    font-size:14px;color:var(--text-dim);font-weight:500;
+    transition:color 0.2s;position:relative;
+  }
+  .nav-links a:not(.btn):hover{color:var(--gold-2)}
+  .nav-links a:not(.btn)::after{
+    content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;
+    background:var(--gold);transform:scaleX(0);transform-origin:left;
+    transition:transform 0.25s;
+  }
+  .nav-links a:not(.btn):hover::after{transform:scaleX(1)}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:11px 22px;border-radius:999px;font-weight:600;font-size:14px;
+    transition:all 0.25s;border:1px solid transparent;white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--gradient-gold);color:var(--navy);
+    box-shadow:var(--shadow-gold);
+  }
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 14px 40px -10px rgba(201,162,39,0.55)}
+  .btn-ghost{background:transparent;border:1px solid var(--border-strong);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold-2)}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:84px 0 80px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(600px 400px at 85% 20%, rgba(201,162,39,0.10), transparent 70%),
+      radial-gradient(700px 500px at 15% 80%, rgba(40,116,166,0.16), transparent 70%);
+    pointer-events:none;
+  }
+  .hero-title{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(38px,5vw,64px);
+    font-weight:700;
+    line-height:1.06;
+    letter-spacing:-0.025em;
+    margin-bottom:40px;
+    position:relative;
+  }
+  .hero-title .gold{color:var(--gold-2)}
+  .hero-title .thin{font-weight:300;color:var(--soft)}
+  .hero-grid{
+    display:grid;grid-template-columns:1.25fr 1fr;
+    gap:48px;align-items:start;position:relative;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:12px;
+    padding:9px 18px;border-radius:999px;
+    background:rgba(201,162,39,0.08);
+    border:1px solid var(--border-gold);
+    color:var(--gold-2);font-size:12px;font-weight:600;
+    letter-spacing:0.14em;text-transform:uppercase;
+    margin-bottom:28px;
+  }
+  .eyebrow::before{
+    content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);
+  }
+  .hero-sub{
+    font-size:19px;color:var(--text-dim);
+    max-width:620px;margin-bottom:12px;line-height:1.55;
+  }
+  .hero-sub strong{color:var(--white);font-weight:600}
+  .sgu-inline{
+    display:flex;gap:14px;align-items:center;margin:28px 0 32px;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;
+    font-size:14px;letter-spacing:0.22em;
+  }
+  .sgu-inline span{color:var(--gold-2)}
+  .sgu-inline em{color:var(--text-muted);font-style:normal;font-weight:400}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px}
+
+  .impact-stats{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+    border-top:1px solid var(--border);padding-top:28px;
+  }
+  .stat{position:relative;padding:0 20px}
+  .stat:first-child{padding-left:0}
+  .stat:not(:last-child)::after{
+    content:"";position:absolute;right:0;top:6px;bottom:6px;width:1px;
+    background:var(--border);
+  }
+  .stat-num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:30px;font-weight:700;color:var(--white);
+    line-height:1;margin-bottom:8px;
+    font-feature-settings:"tnum";
+  }
+  .stat-num .gold{color:var(--gold-2)}
+  .stat-label{font-size:11.5px;color:var(--text-muted);
+    letter-spacing:0.1em;text-transform:uppercase;line-height:1.35}
+
+  .hero-visual{
+    position:relative;aspect-ratio:13/6;
+    border-radius:var(--radius-xl);
+    overflow:hidden;
+    border:1px solid var(--border-gold);
+    box-shadow:var(--shadow-lg);
+    background:linear-gradient(180deg,#0b1828,#050a12);
+  }
+  .hero-visual img{
+    width:100%;height:100%;object-fit:cover;object-position:center center;
+    filter:saturate(1.05) contrast(1.02);
+  }
+  .hero-visual::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(90deg,transparent 40%,rgba(13,27,42,0.35) 100%);
+    z-index:2;pointer-events:none;
+  }
+  .hero-visual-label{
+    position:absolute;bottom:16px;left:18px;right:18px;z-index:3;
+  }
+  .hero-visual-label .name{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:18px;font-weight:700;color:var(--white);
+    margin-bottom:2px;
+    text-shadow:0 1px 6px rgba(0,0,0,0.6);
+  }
+  .hero-visual-label .role{
+    font-size:10px;color:var(--gold-2);letter-spacing:0.16em;
+    text-transform:uppercase;
+    text-shadow:0 1px 4px rgba(0,0,0,0.5);
+  }
+  .hero-visual-badge{
+    position:absolute;top:14px;right:14px;z-index:3;
+    background:rgba(13,27,42,0.88);
+    border:1px solid var(--gold);
+    border-radius:10px;padding:8px 12px;
+    font-size:9.5px;color:var(--gold-2);
+    letter-spacing:0.14em;text-transform:uppercase;font-weight:700;
+  }
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    padding:22px 0;
+    background:rgba(8,17,24,0.5);
+    overflow:hidden;
+    position:relative;
+  }
+  .marquee::before,.marquee::after{
+    content:"";position:absolute;top:0;bottom:0;width:140px;z-index:2;pointer-events:none;
+  }
+  .marquee::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+  .marquee::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+  .marquee-track{
+    display:flex;gap:64px;white-space:nowrap;
+    animation:marquee 48s linear infinite;
+    font-family:'Space Grotesk',sans-serif;font-weight:600;
+    font-size:16px;color:var(--text-dim);letter-spacing:0.05em;
+  }
+  .marquee-track span{display:inline-flex;align-items:center;gap:64px}
+  .marquee-track span::after{
+    content:"◆";color:var(--gold);font-size:9px;
+  }
+  @keyframes marquee{
+    0%{transform:translateX(0)}
+    100%{transform:translateX(-50%)}
+  }
+
+  /* ---------- SECTION CHROME ---------- */
+  section{padding:110px 0;position:relative}
+  .section-label{
+    display:inline-flex;align-items:center;gap:12px;
+    font-size:12px;color:var(--gold-2);font-weight:700;
+    letter-spacing:0.18em;text-transform:uppercase;margin-bottom:20px;
+  }
+  .section-label::before{
+    content:"";width:36px;height:1px;background:var(--gold);
+  }
+  .section-title{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(32px,4.2vw,52px);
+    font-weight:700;line-height:1.08;
+    letter-spacing:-0.02em;margin-bottom:22px;
+    max-width:900px;
+  }
+  .section-title .gold{color:var(--gold-2)}
+  .section-title .thin{font-weight:300;color:var(--soft)}
+  .section-intro{
+    font-size:18px;color:var(--text-dim);max-width:760px;line-height:1.65;
+  }
+  .section-head{margin-bottom:64px}
+
+  /* ---------- SCALE / GOVERN / UNLOCK PILLARS ---------- */
+  .sgu{
+    padding:110px 0;
+    background:linear-gradient(180deg,transparent,rgba(11,24,40,0.75),transparent);
+    position:relative;
+  }
+  .sgu-head{text-align:center;margin-bottom:72px}
+  .sgu-head h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(36px,5vw,64px);
+    font-weight:700;line-height:1;letter-spacing:-0.02em;
+    margin-bottom:20px;
+  }
+  .sgu-head p{
+    font-size:18px;color:var(--text-dim);max-width:700px;margin:0 auto;
+  }
+  .sgu-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+    margin-top:48px;
+  }
+  .sgu-card{
+    position:relative;
+    background:linear-gradient(180deg,rgba(15,29,45,0.7),rgba(8,17,28,0.9));
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:42px 34px 38px;
+    transition:all 0.35s;
+    overflow:hidden;
+  }
+  .sgu-card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:var(--gradient-gold);
+    transform:scaleX(0);transform-origin:left;
+    transition:transform 0.4s;
+  }
+  .sgu-card:hover{
+    transform:translateY(-4px);
+    border-color:var(--border-gold);
+    box-shadow:var(--shadow-lg);
+  }
+  .sgu-card:hover::before{transform:scaleX(1)}
+  .sgu-num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:12px;color:var(--gold);font-weight:700;
+    letter-spacing:0.18em;margin-bottom:20px;
+  }
+  .sgu-word{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:44px;font-weight:800;color:var(--gold-2);
+    letter-spacing:0.01em;line-height:1;margin-bottom:18px;
+  }
+  .sgu-card h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:20px;font-weight:600;color:var(--white);
+    margin-bottom:14px;line-height:1.3;
+  }
+  .sgu-card p{
+    font-size:15px;color:var(--text-dim);line-height:1.65;margin-bottom:22px;
+  }
+  .sgu-list{
+    list-style:none;padding:0;margin-top:auto;
+    border-top:1px solid var(--border);padding-top:18px;
+  }
+  .sgu-list li{
+    font-size:13px;color:var(--soft);padding:6px 0 6px 20px;position:relative;
+  }
+  .sgu-list li::before{
+    content:"→";position:absolute;left:0;color:var(--gold);font-weight:700;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;grid-template-columns:1.2fr 1fr;gap:72px;align-items:start;
+  }
+  .about-content p{
+    font-size:17px;color:var(--text-dim);line-height:1.75;margin-bottom:20px;
+  }
+  .about-content p strong{color:var(--white);font-weight:600}
+  .about-highlight{
+    margin-top:32px;padding:28px 32px;
+    border-left:3px solid var(--gold);
+    background:linear-gradient(90deg,rgba(201,162,39,0.08),transparent);
+    border-radius:0 var(--radius) var(--radius) 0;
+  }
+  .about-highlight p{
+    font-family:'Fraunces',serif;
+    font-size:19px;font-weight:500;color:var(--white);
+    font-style:italic;line-height:1.5;margin:0;
+  }
+  .about-meta{
+    display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:36px;
+  }
+  .meta-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:18px 20px;
+  }
+  .meta-label{font-size:11px;color:var(--text-muted);letter-spacing:0.1em;
+    text-transform:uppercase;margin-bottom:6px}
+  .meta-value{font-size:14px;color:var(--white);font-weight:600;line-height:1.4}
+
+  .pillar-stack{display:flex;flex-direction:column;gap:14px}
+  .pillar{
+    display:grid;grid-template-columns:44px 1fr;gap:18px;
+    padding:22px;background:var(--surface);
+    border:1px solid var(--border);border-radius:var(--radius);
+    transition:all 0.25s;
+  }
+  .pillar:hover{border-color:var(--border-gold);transform:translateX(4px)}
+  .pillar-icon{
+    width:44px;height:44px;border-radius:10px;
+    background:rgba(201,162,39,0.10);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:800;font-size:15px;color:var(--gold-2);
+    border:1px solid var(--border-gold);
+  }
+  .pillar h4{font-size:15px;font-weight:600;color:var(--white);margin-bottom:6px}
+  .pillar p{font-size:13.5px;color:var(--text-dim);line-height:1.55}
+
+  /* ---------- FEATURED ARTICLE (Scoreboard Part 1) ---------- */
+  .feature-article{
+    padding:120px 0;
+    background:
+      radial-gradient(800px 500px at 0% 0%, rgba(40,116,166,0.14), transparent 60%),
+      linear-gradient(180deg,rgba(8,17,24,0.5),rgba(13,27,42,0.3));
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+  }
+  .article-header{text-align:left;max-width:900px;margin-bottom:56px}
+  .series-ribbon{
+    display:inline-flex;align-items:center;gap:12px;padding:10px 18px;
+    background:rgba(201,162,39,0.10);border:1px solid var(--gold);
+    border-radius:6px;font-family:'Space Grotesk',sans-serif;
+    font-size:11px;color:var(--gold-2);font-weight:700;
+    letter-spacing:0.18em;text-transform:uppercase;margin-bottom:24px;
+  }
+  .series-ribbon span{color:var(--text-muted)}
+  .series-ribbon span::before{content:"//";color:var(--gold);margin:0 10px}
+  .article-title{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(36px,5vw,60px);
+    font-weight:700;line-height:1.05;letter-spacing:-0.02em;
+    margin-bottom:22px;
+  }
+  .article-title .gold{color:var(--gold-2)}
+  .article-byline{
+    font-size:13px;color:var(--text-muted);
+    letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;
+  }
+  .article-byline strong{color:var(--white);font-weight:700;letter-spacing:0.02em;text-transform:none;font-size:14px}
+
+  .prize-panel{
+    display:grid;grid-template-columns:1.5fr 1fr;gap:48px;
+    padding:56px;
+    background:linear-gradient(135deg,rgba(27,79,114,0.25) 0%,rgba(13,27,42,0.6) 100%);
+    border:1px solid var(--border-gold);
+    border-radius:var(--radius-xl);
+    margin-bottom:64px;
+    position:relative;overflow:hidden;
+  }
+  .prize-panel::before{
+    content:"";position:absolute;top:0;right:0;
+    width:300px;height:300px;
+    background:radial-gradient(circle,rgba(201,162,39,0.15),transparent 70%);
+    pointer-events:none;
+  }
+  .prize-panel .label{
+    font-size:11px;color:var(--gold-2);letter-spacing:0.18em;
+    text-transform:uppercase;font-weight:700;margin-bottom:14px;
+  }
+  .prize-panel .prize-num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(72px,10vw,128px);
+    font-weight:800;color:var(--white);line-height:0.9;
+    letter-spacing:-0.03em;margin-bottom:18px;
+  }
+  .prize-panel .prize-num sup{font-size:0.5em;color:var(--gold-2);vertical-align:top;font-weight:700}
+  .prize-panel .prize-sub{
+    font-size:22px;color:var(--gold-2);font-weight:600;line-height:1.35;
+    margin-bottom:10px;max-width:500px;
+  }
+  .prize-panel .prize-context{
+    font-size:15px;color:var(--text-dim);line-height:1.6;max-width:540px;
+  }
+  .prize-cards{display:flex;flex-direction:column;gap:14px;position:relative;z-index:2}
+  .prize-card{
+    background:rgba(8,17,28,0.65);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:22px 24px;
+    backdrop-filter:blur(6px);
+  }
+  .prize-card .k{
+    font-size:10.5px;color:var(--gold-2);letter-spacing:0.14em;
+    text-transform:uppercase;font-weight:700;margin-bottom:6px;
+  }
+  .prize-card .v{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:26px;font-weight:700;color:var(--white);line-height:1.1;
+    font-feature-settings:"tnum";
+  }
+  .prize-card .d{font-size:12px;color:var(--text-muted);margin-top:4px}
+
+  .article-body{max-width:860px;margin:0 auto}
+  .article-body h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:26px;font-weight:700;color:var(--white);
+    margin:48px 0 18px;letter-spacing:-0.01em;
+  }
+  .article-body h3 .num{color:var(--gold-2);font-size:0.8em;margin-right:14px}
+  .article-body p{
+    font-size:17px;color:var(--text-dim);line-height:1.78;
+    margin-bottom:20px;
+  }
+  .article-body p strong{color:var(--white);font-weight:600}
+  .article-body blockquote{
+    font-family:'Fraunces',serif;
+    font-size:22px;font-style:italic;color:var(--white);
+    border-left:3px solid var(--gold);
+    padding:12px 28px;margin:32px 0;line-height:1.5;
+  }
+
+  .pools-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:18px;
+    margin:36px 0 24px;
+  }
+  .pool{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:26px;
+    transition:all 0.25s;
+  }
+  .pool:hover{border-color:var(--border-gold);transform:translateY(-2px)}
+  .pool .pnum{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:11px;color:var(--gold);font-weight:700;
+    letter-spacing:0.18em;margin-bottom:10px;
+  }
+  .pool h4{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:18px;font-weight:700;color:var(--white);
+    margin-bottom:10px;
+  }
+  .pool p{font-size:14px;color:var(--text-dim);line-height:1.6;margin-bottom:14px}
+  .pool .size{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:16px;color:var(--gold-2);font-weight:700;
+    padding-top:10px;border-top:1px solid var(--border);
+    font-feature-settings:"tnum";
+  }
+
+  /* Scoreboard table */
+  .scoreboard-wrap{margin:40px 0}
+  .scoreboard{
+    width:100%;border-collapse:collapse;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    overflow:hidden;
+    font-feature-settings:"tnum";
+  }
+  .scoreboard th,.scoreboard td{
+    padding:18px 22px;text-align:left;
+    border-bottom:1px solid var(--border);
+  }
+  .scoreboard thead th{
+    background:rgba(27,79,114,0.30);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:11px;color:var(--gold-2);font-weight:700;
+    letter-spacing:0.14em;text-transform:uppercase;
+  }
+  .scoreboard tbody td{font-size:14px;color:var(--text-dim)}
+  .scoreboard tbody td:first-child{color:var(--white);font-weight:500}
+  .scoreboard .num{
+    text-align:right;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;color:var(--white);
+  }
+  .scoreboard .base{background:rgba(201,162,39,0.06)}
+  .scoreboard .base .num{color:var(--gold-2)}
+  .scoreboard tfoot td{
+    background:rgba(27,79,114,0.25);
+    font-weight:700;color:var(--white);
+    border-bottom:none;border-top:2px solid var(--gold);
+  }
+  .scoreboard tfoot .num{color:var(--gold-2);font-size:16px}
+  .scoreboard .small{font-size:11px;color:var(--text-muted);font-weight:400}
+
+  .article-cta{
+    display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+    margin-top:56px;padding-top:48px;
+    border-top:1px solid var(--border);
+  }
+
+  /* ---------- SERIES ROADMAP ---------- */
+  .series{padding:120px 0}
+  .series-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:48px;
+  }
+  .series-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:26px 22px;
+    transition:all 0.3s;
+    position:relative;
+    overflow:hidden;
+  }
+  .series-card.live{
+    border-color:var(--gold);
+    background:linear-gradient(180deg,rgba(201,162,39,0.08),var(--surface));
+  }
+  .series-card.live::after{
+    content:"LIVE";position:absolute;top:14px;right:14px;
+    font-size:9px;color:var(--navy);background:var(--gold);
+    padding:3px 8px;border-radius:3px;font-weight:800;letter-spacing:0.1em;
+  }
+  .series-card:hover{transform:translateY(-3px);border-color:var(--border-gold)}
+  .series-num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:13px;color:var(--gold-2);font-weight:700;
+    letter-spacing:0.14em;margin-bottom:14px;
+  }
+  .series-card h4{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:17px;font-weight:700;color:var(--white);
+    margin-bottom:10px;line-height:1.25;
+  }
+  .series-card p{font-size:12.5px;color:var(--text-dim);line-height:1.5}
+  .series-status{
+    margin-top:16px;font-size:10px;color:var(--text-muted);
+    letter-spacing:0.12em;text-transform:uppercase;
+  }
+
+  /* ---------- PEER BENCHMARKS ---------- */
+  .benchmarks{background:var(--surface)}
+  .bench-table-wrap{
+    overflow-x:auto;-webkit-overflow-scrolling:touch;
+    border:1px solid var(--border);border-radius:var(--radius-lg);
+    background:var(--bg);
+  }
+  .bench-table{
+    width:100%;border-collapse:collapse;
+    font-size:14px;line-height:1.5;
+    min-width:640px;
+  }
+  .bench-table th,.bench-table td{
+    padding:14px 18px;text-align:center;
+    border-bottom:1px solid var(--border);
+  }
+  .bench-table th{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;
+    color:var(--white);letter-spacing:0.06em;text-transform:uppercase;
+    background:rgba(13,27,42,0.6);
+  }
+  .bench-table th .subhead{
+    display:block;font-weight:400;font-size:10px;
+    color:var(--text-muted);letter-spacing:0.08em;margin-top:2px;
+  }
+  .bench-table td:first-child{
+    text-align:left;font-weight:600;color:var(--white);
+  }
+  .bench-table td{color:var(--text-body)}
+  .bench-table .highlight{
+    background:rgba(201,162,39,0.08);color:var(--gold-2);font-weight:700;
+  }
+  .bench-table th.highlight{
+    border-bottom:2px solid var(--gold);
+  }
+  .bench-table tbody tr:hover{background:rgba(201,162,39,0.04)}
+  .bench-note{
+    margin-top:18px;font-size:11.5px;color:var(--text-muted);
+    line-height:1.6;font-style:italic;
+  }
+
+  /* ---------- REGULATORY LANDSCAPE ---------- */
+  .reg-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  }
+  .reg-card{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius-lg);padding:32px 28px;
+    transition:border-color 0.25s,box-shadow 0.25s;
+  }
+  .reg-card:hover{
+    border-color:var(--gold);box-shadow:0 0 20px rgba(201,162,39,0.08);
+  }
+  .reg-origin{
+    font-size:10px;color:var(--gold-2);letter-spacing:0.16em;
+    text-transform:uppercase;font-weight:700;margin-bottom:10px;
+  }
+  .reg-card h4{
+    font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;
+    color:var(--white);margin:0 0 12px;
+  }
+  .reg-card p{
+    font-size:14px;color:var(--text-body);line-height:1.65;margin:0 0 16px;
+  }
+  .reg-applies{
+    font-size:11px;color:var(--text-muted);letter-spacing:0.06em;
+    padding-top:14px;border-top:1px solid var(--border);
+  }
+
+  /* ---------- SERVICES ---------- */
+  .services-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  }
+  .service{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:36px 30px;
+    transition:all 0.35s;
+    position:relative;overflow:hidden;
+  }
+  .service::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:2px;
+    background:var(--gradient-gold);transform:scaleX(0);transform-origin:left;
+    transition:transform 0.4s;
+  }
+  .service:hover{
+    border-color:var(--border-gold);
+    transform:translateY(-4px);
+    box-shadow:var(--shadow);
+  }
+  .service:hover::before{transform:scaleX(1)}
+  .service-num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:11px;color:var(--gold);font-weight:700;
+    letter-spacing:0.2em;margin-bottom:18px;
+  }
+  .service h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:20px;font-weight:700;color:var(--white);
+    margin-bottom:12px;line-height:1.3;
+  }
+  .service p{font-size:14.5px;color:var(--text-dim);line-height:1.65;margin-bottom:18px}
+  .service-tags{
+    display:flex;flex-wrap:wrap;gap:7px;
+    padding-top:18px;border-top:1px solid var(--border);
+  }
+  .service-tags span{
+    font-size:11px;color:var(--soft);
+    background:rgba(191,212,232,0.06);
+    border:1px solid var(--border);
+    padding:4px 10px;border-radius:999px;
+  }
+
+  /* ---------- CASE NOTES ---------- */
+  .cases{
+    padding:110px 0;
+    background:linear-gradient(180deg,transparent,rgba(8,17,28,0.5));
+  }
+  .cases-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:24px;
+  }
+  .case{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:38px 34px;
+    transition:all 0.35s;
+    display:grid;grid-template-columns:1fr;gap:20px;
+  }
+  .case:hover{border-color:var(--border-gold);box-shadow:var(--shadow)}
+  .case-meta{
+    display:flex;align-items:center;gap:14px;
+    font-size:11px;color:var(--gold-2);font-weight:700;
+    letter-spacing:0.16em;text-transform:uppercase;
+  }
+  .case-meta .pill{
+    background:rgba(201,162,39,0.10);
+    border:1px solid var(--border-gold);
+    padding:5px 11px;border-radius:999px;
+  }
+  .case h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:22px;font-weight:700;color:var(--white);
+    line-height:1.3;
+  }
+  .case p{font-size:15px;color:var(--text-dim);line-height:1.65}
+  .case-metric{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:0;padding-top:22px;border-top:1px solid var(--border);
+  }
+  .case-metric > div{padding:0 16px;position:relative}
+  .case-metric > div:first-child{padding-left:0}
+  .case-metric > div:not(:last-child)::after{
+    content:"";position:absolute;right:0;top:4px;bottom:4px;
+    width:1px;background:var(--border);
+  }
+  .case-metric .v{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:20px;font-weight:700;color:var(--gold-2);line-height:1;
+    margin-bottom:5px;font-feature-settings:"tnum";
+  }
+  .case-metric .l{font-size:10.5px;color:var(--text-muted);
+    letter-spacing:0.1em;text-transform:uppercase;line-height:1.3}
+
+  /* ---------- INSIGHTS / POSTS ---------- */
+  .insights-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+  }
+  .insight{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:30px 28px;transition:all 0.3s;
+    display:flex;flex-direction:column;
+  }
+  .insight:hover{border-color:var(--border-gold);transform:translateY(-3px)}
+  .insight-meta{
+    display:flex;align-items:center;gap:10px;margin-bottom:16px;
+  }
+  .insight-type{
+    font-size:10.5px;color:var(--gold-2);font-weight:700;
+    letter-spacing:0.14em;text-transform:uppercase;
+  }
+  .insight-date{font-size:11px;color:var(--text-muted)}
+  .insight h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:18px;font-weight:700;color:var(--white);
+    margin-bottom:12px;line-height:1.3;
+  }
+  .insight p{
+    font-size:14px;color:var(--text-dim);line-height:1.6;
+    flex:1;margin-bottom:20px;
+  }
+  .insight-link{
+    font-size:12px;color:var(--gold-2);font-weight:600;
+    letter-spacing:0.08em;text-transform:uppercase;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .insight-link::after{content:"→";transition:transform 0.25s}
+  .insight:hover .insight-link::after{transform:translateX(4px)}
+  .insight.feature-post{
+    grid-column:span 1;
+    background:linear-gradient(180deg,rgba(201,162,39,0.10),var(--surface));
+    border-color:var(--border-gold);
+  }
+  .insight.highlight-post{
+    border-left:3px solid var(--gold);
+  }
+  .insight.highlight-post:hover{
+    border-color:var(--gold);
+    border-left:3px solid var(--gold);
+  }
+  .insight-engagement{
+    margin:12px 0 4px;
+    font-size:11px;color:var(--text-muted);letter-spacing:0.08em;
+  }
+  .insight-engagement span{
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .insight-engagement span::before{
+    content:"";width:14px;height:14px;border-radius:50%;
+    background:var(--gold);opacity:0.5;
+  }
+  .insight-foot{
+    display:flex;align-items:center;justify-content:center;flex-wrap:wrap;
+    gap:14px;margin-top:40px;padding:22px 28px;
+    border-top:1px solid var(--border);
+    font-size:12.5px;color:var(--text-muted);
+    letter-spacing:0.08em;text-transform:uppercase;
+  }
+  .insight-foot a{
+    color:var(--gold-2);font-weight:700;
+    letter-spacing:0.1em;
+  }
+  .insight-foot a:hover{color:var(--white)}
+  .insight-foot .sep{color:var(--border-strong)}
+
+  /* ---------- CREDENTIALS STRIP ---------- */
+  .creds{
+    padding:80px 0;
+    background:linear-gradient(180deg,transparent,rgba(8,17,28,0.4),transparent);
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+  }
+  .creds-head{text-align:center;margin-bottom:48px}
+  .creds-head .section-label{display:inline-flex;margin-bottom:14px}
+  .creds-head h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(26px,3.4vw,38px);
+    font-weight:700;color:var(--white);
+    letter-spacing:-0.01em;line-height:1.15;
+  }
+  .creds-head h2 .gold{color:var(--gold-2)}
+  .creds-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
+  }
+  .cred{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:24px 22px;
+    transition:all 0.25s;
+  }
+  .cred:hover{border-color:var(--border-gold);transform:translateY(-2px)}
+  .cred-label{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:10.5px;color:var(--gold-2);font-weight:700;
+    letter-spacing:0.16em;text-transform:uppercase;margin-bottom:12px;
+  }
+  .cred-value{
+    font-size:14.5px;color:var(--white);font-weight:600;line-height:1.45;
+    margin-bottom:6px;
+  }
+  .cred-sub{
+    font-size:12px;color:var(--text-muted);line-height:1.45;
+  }
+
+  /* ---------- CAPABILITIES ---------- */
+  .caps{
+    padding:110px 0;
+    background:linear-gradient(180deg,rgba(8,17,28,0.5),transparent);
+  }
+  .caps-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:32px;
+  }
+  .caps-col{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-xl);
+    padding:44px 40px;
+    position:relative;overflow:hidden;
+  }
+  .caps-col::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:var(--gradient-gold);
+  }
+  .caps-col h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:26px;font-weight:700;color:var(--white);
+    margin-bottom:10px;
+  }
+  .caps-col h3 .gold{color:var(--gold-2)}
+  .caps-col > p{
+    font-size:15px;color:var(--text-dim);line-height:1.6;
+    margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--border);
+  }
+  .caps-list{display:grid;grid-template-columns:1fr 1fr;gap:14px 24px}
+  .caps-list > div{
+    display:flex;align-items:flex-start;gap:10px;
+    font-size:13.5px;color:var(--soft);line-height:1.45;
+  }
+  .caps-list > div::before{
+    content:"";flex-shrink:0;margin-top:7px;
+    width:5px;height:5px;border-radius:50%;background:var(--gold);
+  }
+
+  /* ---------- ACCELERATORS ---------- */
+  .acc-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+  }
+  .acc{
+    display:block;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:30px 28px;
+    transition:all 0.3s;
+  }
+  .acc:hover{
+    border-color:var(--gold);transform:translateY(-4px);
+    box-shadow:var(--shadow-gold);
+  }
+  .acc-icon{
+    width:44px;height:44px;border-radius:10px;
+    background:rgba(201,162,39,0.10);
+    border:1px solid var(--border-gold);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:20px;
+  }
+  .acc-icon svg{width:22px;height:22px;stroke:var(--gold-2);stroke-width:1.8;fill:none}
+  .acc h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:17px;font-weight:700;color:var(--white);
+    margin-bottom:10px;line-height:1.3;
+  }
+  .acc p{font-size:13.5px;color:var(--text-dim);line-height:1.55;margin-bottom:18px}
+  .acc-link{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11.5px;font-weight:700;color:var(--gold-2);
+    letter-spacing:0.1em;text-transform:uppercase;
+  }
+  .acc-link::after{content:"→";transition:transform 0.25s}
+  .acc:hover .acc-link::after{transform:translateX(4px)}
+
+  /* ---------- SPEAKING ---------- */
+  .speaking{padding:100px 0}
+  .speaking-grid{
+    display:grid;grid-template-columns:1fr 2fr;gap:48px;align-items:center;
+  }
+  .speak-stage{
+    display:grid;grid-template-columns:1fr 1fr;gap:14px;
+  }
+  .stage{
+    padding:22px 20px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    transition:all 0.25s;
+  }
+  .stage:hover{border-color:var(--border-gold)}
+  .stage .name{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:17px;font-weight:700;color:var(--white);margin-bottom:5px;
+  }
+  .stage .loc{font-size:12px;color:var(--gold-2);
+    letter-spacing:0.08em;text-transform:uppercase}
+  .stage .top{font-size:13px;color:var(--text-dim);margin-top:10px;line-height:1.4}
+
+  /* ---------- CONTACT ---------- */
+  .contact{
+    padding:110px 0;
+    background:
+      radial-gradient(700px 500px at 50% 100%, rgba(201,162,39,0.14), transparent 70%),
+      linear-gradient(180deg,transparent,rgba(8,17,28,0.8));
+    border-top:1px solid var(--border);
+  }
+  .contact-inner{
+    max-width:860px;margin:0 auto;text-align:center;
+  }
+  .contact h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(38px,5vw,60px);
+    font-weight:700;line-height:1.05;letter-spacing:-0.02em;
+    margin-bottom:22px;
+  }
+  .contact h2 .gold{color:var(--gold-2)}
+  .contact-sub{
+    font-size:18px;color:var(--text-dim);margin-bottom:44px;max-width:620px;
+    margin-left:auto;margin-right:auto;line-height:1.6;
+  }
+  .contact-cards{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:44px;
+  }
+  .contact-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:28px 24px;
+    transition:all 0.25s;
+  }
+  .contact-card:hover{
+    border-color:var(--gold);
+    transform:translateY(-3px);
+    box-shadow:var(--shadow-gold);
+  }
+  .contact-card .cl{
+    font-size:11px;color:var(--gold-2);letter-spacing:0.14em;
+    text-transform:uppercase;margin-bottom:10px;font-weight:700;
+  }
+  .contact-card .cv{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:16px;color:var(--white);font-weight:600;
+    word-break:break-word;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:#060d16;
+    border-top:1px solid var(--border);
+    padding:68px 0 36px;
+  }
+  .footer-grid{
+    display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;
+    padding-bottom:44px;border-bottom:1px solid var(--border);
+  }
+  .footer-brand .logo{margin-bottom:18px}
+  .footer-brand p{
+    font-size:13.5px;color:var(--text-dim);line-height:1.65;
+    max-width:340px;
+  }
+  .footer-col h4{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:12px;color:var(--gold-2);font-weight:700;
+    letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;
+  }
+  .footer-col ul{list-style:none}
+  .footer-col li{margin-bottom:10px}
+  .footer-col a{
+    font-size:13.5px;color:var(--text-dim);
+    transition:color 0.2s;
+  }
+  .footer-col a:hover{color:var(--gold-2)}
+  .footer-bottom{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:28px;font-size:12px;color:var(--text-muted);
+    flex-wrap:wrap;gap:18px;
+  }
+  .footer-bottom .sgu-mini{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;
+    color:var(--gold-2);letter-spacing:0.22em;font-size:11px;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:1100px){
+    .hero-grid,.about-grid,.caps-grid,.prize-panel,.speaking-grid{grid-template-columns:1fr;gap:40px}
+    .services-grid,.insights-grid,.acc-grid,.reg-grid{grid-template-columns:repeat(2,1fr)}
+    .cases-grid{grid-template-columns:1fr}
+    .sgu-grid{grid-template-columns:1fr;gap:18px}
+    .series-grid{grid-template-columns:repeat(2,1fr)}
+    .pools-grid{grid-template-columns:1fr}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:36px}
+    .contact-cards{grid-template-columns:1fr}
+    .impact-stats{grid-template-columns:repeat(2,1fr);gap:20px}
+    .stat{padding:0 0 20px}
+    .stat:not(:last-child)::after{display:none}
+    .nav-links{gap:20px}
+    .nav-links a:not(.btn){display:none}
+    .nav-links a.btn{display:inline-flex}
+    .hero{padding:60px 0}
+    .hero-visual{aspect-ratio:16/7}
+    section{padding:80px 0}
+    .speak-stage{grid-template-columns:1fr}
+  }
+  @media (max-width:720px){
+    .topstrip{display:none}
+    .container{padding:0 20px}
+    .nav-inner{padding:14px 20px}
+    .brand-mark{width:54px;height:54px}
+    .brand-mark span{font-size:8.5px}
+    .wordmark{font-size:22px}
+    .tag{font-size:10px}
+    .services-grid,.insights-grid,.acc-grid,.reg-grid{grid-template-columns:1fr}
+    .series-grid{grid-template-columns:1fr}
+    .prize-panel{padding:36px 28px}
+    .feature-article{padding:80px 0}
+    .caps-list{grid-template-columns:1fr}
+    .case{padding:30px 24px}
+    .case-metric{grid-template-columns:1fr;gap:14px}
+    .case-metric > div{padding:12px 0;border-top:1px solid var(--border)}
+    .case-metric > div::after{display:none}
+  }
+</style>
+</head>
+<body id="top">
+
+<!-- =========== TOP STRIP =========== -->
+<div class="topstrip">
+  <div class="topstrip-inner">
+    <div class="advisor-line">
+      <span>Rodney Coutinho</span>
+      <span>Executive Advisor on AI</span>
+      <span>Banking, Capital Markets, Government &amp; Sovereign Institutions</span>
+      <span>Middle East</span>
+    </div>
+    <div class="live"><span class="live-dot"></span>Series 01 · Part 1 live on LinkedIn</div>
+  </div>
+</div>
+
+<!-- =========== NAV =========== -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="logo" aria-label="Rodney.AI home">
+      <div class="brand-mark" aria-hidden="true">
+        <span>SCALE</span><span class="gold">GOVERN</span><span>UNLOCK</span>
+      </div>
+      <div class="logo-text">
+        <span class="wordmark">RODNEY<span class="dot">.AI</span></span>
+        <span class="tag">Executive Advisor · AI</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#promise">Promise</a>
+      <a href="#about">About</a>
+      <a href="#scoreboard">Scoreboard</a>
+      <a href="#benchmarks">Benchmarks</a>
+      <a href="#services">Advisory</a>
+      <a href="#insights">Writing</a>
+      <a href="#accelerators">Accelerators</a>
+      <a href="#contact" class="btn btn-primary">Book a consultation →</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- =========== HERO =========== -->
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Rodney.AI · Executive Advisory</div>
+    <h1 class="hero-title">
+      <span class="thin">The boardroom voice</span>
+      turning AI ambition into <span class="gold">P&amp;L, ROE and market cap.</span>
+    </h1>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="hero-sub">
+          <strong>Rodney Coutinho</strong> advises bank boards, capital markets infrastructure,
+          regulators and sovereign institutions on AI strategy, governance, risk and execution —
+          across the <strong>Middle East, UK and Europe</strong>. 25+ years at the intersection of
+          business, technology, and compliance now published as <strong>The Vision 2030 Bank Scoreboard</strong>.
+        </p>
+        <div class="sgu-inline">
+          <span>SCALE</span><em>·</em>
+          <span>GOVERN</span><em>·</em>
+          <span>UNLOCK</span>
+        </div>
+        <div class="hero-cta">
+          <a href="#contact" class="btn btn-primary">Book a consultation →</a>
+          <a href="#scoreboard" class="btn btn-ghost">Read the $295B Scoreboard</a>
+        </div>
+        <div class="impact-stats">
+          <div class="stat">
+            <div class="stat-num">25<span class="gold">+</span></div>
+            <div class="stat-label">Years<br/>Banking × AI</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num"><span class="gold">$</span>500M<span class="gold">+</span></div>
+            <div class="stat-label">Business Value Delivered</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num"><span class="gold">$</span>295B</div>
+            <div class="stat-label">KSA Bank Cap<br/>Unlock Modelled</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">10<span class="gold">×</span></div>
+            <div class="stat-label">Practice Growth<br/>at a Big-4</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="assets/rodney-hero-cropped.jpg" alt="Rodney Coutinho — Executive Advisor on AI"
+             onerror="this.onerror=null;this.src='assets/rodney-hero.jpg';" />
+        <div class="hero-visual-badge">Series 01 · Part 1 of 5</div>
+        <div class="hero-visual-label">
+          <div class="name">Rodney Coutinho</div>
+          <div class="role">Executive Advisor · AI</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== MARQUEE =========== -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>
+      Saudi Tadawul Group <span></span>
+      Capital Market Authority KSA <span></span>
+      First Abu Dhabi Bank <span></span>
+      Saudi Central Bank (SAMA) <span></span>
+      Emirates NBD <span></span>
+      HSBC <span></span>
+      Lloyds Banking Group <span></span>
+      Fidelity Investments <span></span>
+      UBS <span></span>
+      Royal Bank of Scotland <span></span>
+      HUMAIN <span></span>
+      NVIDIA <span></span>
+      DELL <span></span>
+      NDF <span></span>
+      Social Development Bank <span></span>
+      CBUAE <span></span>
+      AXA <span></span>
+      Assurant <span></span>
+      Big 4 Advisory <span></span>
+      EY <span></span>
+      Google <span></span>
+      AWS <span></span>
+      G42 <span></span>
+      Azure <span></span>
+    </span>
+    <span>
+      Saudi Tadawul Group <span></span>
+      Capital Market Authority KSA <span></span>
+      First Abu Dhabi Bank <span></span>
+      Saudi Central Bank (SAMA) <span></span>
+      Emirates NBD <span></span>
+      HSBC <span></span>
+      Lloyds Banking Group <span></span>
+      Fidelity Investments <span></span>
+      UBS <span></span>
+      Royal Bank of Scotland <span></span>
+      HUMAIN <span></span>
+      NVIDIA <span></span>
+      DELL <span></span>
+      NDF <span></span>
+      Social Development Bank <span></span>
+      CBUAE <span></span>
+      AXA <span></span>
+      Assurant <span></span>
+      Big 4 Advisory <span></span>
+      EY <span></span>
+      Google <span></span>
+      AWS <span></span>
+      G42 <span></span>
+      Azure <span></span>
+    </span>
+  </div>
+</div>
+
+<!-- =========== SCALE / GOVERN / UNLOCK =========== -->
+<section id="promise" class="sgu">
+  <div class="container">
+    <div class="sgu-head">
+      <div class="section-label">The Three-Word Promise</div>
+      <h2>SCALE <span style="color:var(--text-muted);font-weight:300">·</span>
+          GOVERN <span style="color:var(--text-muted);font-weight:300">·</span>
+          <span style="color:var(--gold-2)">UNLOCK</span></h2>
+      <p>The framework that sits inside every Rodney.AI engagement. Three disciplines that
+         move an institution from AI pilots to a P&amp;L-grade operating model.</p>
+    </div>
+    <div class="sgu-grid">
+      <div class="sgu-card">
+        <div class="sgu-num">DISCIPLINE · 01</div>
+        <div class="sgu-word">SCALE</div>
+        <h3>From pilots to production at institution scale.</h3>
+        <p>Most banks have 40+ AI use cases in PowerPoint and three in production.
+           I build the operating model — platform, MLOps, data products, talent —
+           that takes the top ten from idea to ten-digit impact.</p>
+        <ul class="sgu-list">
+          <li>Enterprise AI/GenAI platforms on NVIDIA, Snowflake, AWS &amp; Azure</li>
+          <li>MLOps, feature stores, agentic architectures, model factories</li>
+          <li>Centre of Excellence, hub-and-spoke, product org design</li>
+          <li>Vendor architecture: Anthropic, OpenAI, NVIDIA Nemotron, Cohere</li>
+        </ul>
+      </div>
+      <div class="sgu-card">
+        <div class="sgu-num">DISCIPLINE · 02</div>
+        <div class="sgu-word">GOVERN</div>
+        <h3>Model risk, regulation, trust — by design.</h3>
+        <p>Scale without governance is a supervisory incident waiting to happen.
+           I wire in SR 11-7, SS1/23, NIST AI RMF, EU AI Act, NDMO and PDPL from day one,
+           so the board can move fast without losing sleep.</p>
+        <ul class="sgu-list">
+          <li>AI governance frameworks, RACI, risk tiering, MRM uplift</li>
+          <li>Regulatory liaison: SAMA, CMA KSA, CBUAE, FSRA, FCA, PRA, ECB</li>
+          <li>GenAI &amp; agentic AI risk taxonomies, red-teaming, evals</li>
+          <li>Board and audit committee readiness, independent assurance</li>
+        </ul>
+      </div>
+      <div class="sgu-card">
+        <div class="sgu-num">DISCIPLINE · 03</div>
+        <div class="sgu-word">UNLOCK</div>
+        <h3>The economics the board actually cares about.</h3>
+        <p>The job isn't "more AI". The job is more revenue, lower cost-to-income,
+           better ROE, higher market cap. I translate AI ambition into the three
+           numbers a bank CEO defends in front of investors.</p>
+        <ul class="sgu-list">
+          <li>Value cases tied to NIM, fee income, cost/income, RoRWA, ROE</li>
+          <li>Capital efficiency: Basel IV, IRB, RWA optimisation</li>
+          <li>Monetization: BaaS, data products, embedded finance, IaaS</li>
+          <li>Market infrastructure economics: CCP, CSD, tokenization</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== ABOUT =========== -->
+<section id="about">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">About Rodney</div>
+      <h2 class="section-title">A <span class="gold">bilingual operator</span> —<br/>
+          fluent in the P&amp;L <span class="thin">and</span> the GPU cluster.</h2>
+      <p class="section-intro">
+        One of a small number of advisors who can sit with a CFO in the morning
+        and an AI platform team in the afternoon — and be useful to both.
+      </p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-content">
+        <p>
+          Rodney is an <strong>AI &amp; Data Partner at a Big 4 firm</strong>
+          in the Middle East, with a 25+ year career focused on Financial Services. He describes
+          his mandate simply — "driving the enterprise-wide Data and AI agenda to meet Board and
+          Shareholder commitments." He grew the regional AI practice <strong>ten-fold</strong> and
+          has led AI and data programmes at <strong>Tier-1 global and regional banks</strong>
+          across the Saudi, UAE, UK and European banking sectors.
+        </p>
+        <p>
+          He has advised boards of <strong>sovereign exchanges, national regulators,
+          central banks and Tier-1 commercial banks</strong> across the GCC on AI and
+          data strategy, operating models, governance and execution — with the Kingdom's Vision
+          2030 and HUMAIN's $100B sovereign AI agenda as the backdrop. The brief, in his own words,
+          is to <em>"strategise and realise the benefits of modernisation and monetisation"</em>
+          inside financial services.
+        </p>
+        <p>
+          His work spans <strong>agentic AI</strong> (<em>Zora AI™</em>, built with 200+ engineers
+          on NVIDIA Llama Nemotron), <strong>model risk management</strong> (SR 11-7, SS1/23),
+          <strong>capital markets infrastructure</strong> (CCP, CSD, trading venues) and
+          <strong>sovereign-scale data platforms</strong>. He writes regularly on
+          <strong>ROE, valuation and AI scaling risk</strong> on LinkedIn as <strong>Rodney.AI</strong>
+          — 4,000+ followers and growing.
+        </p>
+
+        <div class="about-highlight">
+          <p>"One of very few people in the market who can speak to a bank board
+             about ROE and to a platform team about tensor parallelism — in the same hour,
+             without losing either room."</p>
+        </div>
+
+        <div class="about-meta">
+          <div class="meta-card">
+            <div class="meta-label">Current</div>
+            <div class="meta-value">Executive Advisor on AI<br/>Independent · Rodney.AI</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Geography</div>
+            <div class="meta-value">Middle East primary<br/>UK &amp; EU supporting</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Sectors</div>
+            <div class="meta-value">Banking · Capital Markets<br/>Regulators · Sovereign</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Engagement</div>
+            <div class="meta-value">Board advisory · Operator-in-residence<br/>Independent assurance</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pillar-stack">
+        <div class="pillar">
+          <div class="pillar-icon">01</div>
+          <div>
+            <h4>Bilingual — business × tech</h4>
+            <p>Equally at home in a CFO's Basel IV conversation and a platform team's
+               Nemotron fine-tuning review.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">02</div>
+          <div>
+            <h4>Regulator-grade governance</h4>
+            <p>Has sat on both sides of the table — FS regulators trust the work because
+               it anticipates their questions before they ask them.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">03</div>
+          <div>
+            <h4>P&amp;L accountability</h4>
+            <p>Programmes measured in $100M+ of revenue uplift, not slideware.
+               Every recommendation carries a line-item owner.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">04</div>
+          <div>
+            <h4>Sovereign-scale experience</h4>
+            <p>Tadawul, CMA KSA, SAMA, HUMAIN, Vision 2030 — the operating patterns
+               for nation-scale AI and data infrastructure.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== FEATURED ARTICLE — $295B SCOREBOARD =========== -->
+<section id="scoreboard" class="feature-article">
+  <div class="container">
+    <div class="article-header">
+      <div class="series-ribbon">
+        Series 01 <span>The Vision 2030 Bank Scoreboard</span> <span>Part 1 of 5</span> <span>Monetization</span>
+      </div>
+      <h1 class="article-title">
+        Are Saudi Banks <span class="gold">Underpricing</span><br/>
+        the Biggest P&amp;L Opportunity<br/>of the Decade?
+      </h1>
+      <div class="article-byline">By <strong>Rodney Coutinho</strong> · Executive Advisor on AI · Middle East</div>
+    </div>
+
+    <div class="prize-panel">
+      <div>
+        <div class="label">The Prize</div>
+        <div class="prize-num"><sup>$</sup>295B</div>
+        <div class="prize-sub">of Saudi bank market cap unlock by 2030, in the Base case.</div>
+        <div class="prize-context">
+          Not a forecast — a scoreboard. Built bottom-up across four levers, with every input
+          sourced and stress-tested. The number moves between <strong>$212B and $392B</strong>
+          depending on how ambitious the sector chooses to be. The Base case assumes nothing heroic.
+        </div>
+      </div>
+      <div class="prize-cards">
+        <div class="prize-card">
+          <div class="k">New Annual Income</div>
+          <div class="v">SAR 40.8B</div>
+          <div class="d">Four levers · Base case</div>
+        </div>
+        <div class="prize-card">
+          <div class="k">2030 Sector ROE</div>
+          <div class="v">25%</div>
+          <div class="d">Up from ~17% today</div>
+        </div>
+        <div class="prize-card">
+          <div class="k">Non-interest Share</div>
+          <div class="v">38%</div>
+          <div class="d">From 25% · GCC peer 45%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="article-body">
+      <p>
+        Five opportunities will define which Saudi banks lead the next decade — and which
+        simply watch it happen. <strong>Monetization. Tokenization. Capital Efficiency.
+        AI-Led Sovereign Ecosystem. The Scoreboard.</strong> I've modelled the whole thing.
+        Four levers. Three scenarios. One number for the board.
+      </p>
+
+      <h3><span class="num">01</span>The opportunity most boards haven't yet sized</h3>
+      <p>
+        Non-interest income is around <strong>25% of Saudi bank operating income</strong>.
+        Saudi banks grew net fees and commissions 16.4% in 2024 — the direction is right,
+        the level is still a long way from what the best-run banks in the world run their P&amp;Ls on.
+      </p>
+      <p>
+        The global picture makes the size of the prize unmistakable. GCC peers like Emirates NBD
+        and FAB are running at roughly <strong>45%</strong> non-interest income share.
+        <strong>DBS Singapore</strong> — the fairest apples-to-apples comparison for a sovereign-backed
+        universal bank in a high-growth economy — is at <strong>40%</strong>. <strong>JPMorgan
+        Chase</strong> runs a 48% fee-led P&amp;L. <strong>UBS</strong>, the wealth endgame, runs
+        at 75%. Saudi banks are not just behind the region. They are behind the world.
+      </p>
+
+      <blockquote>
+        "Close even half the gap to global peers on a SAR 160B sector operating income base
+         and you unlock SAR 29.5 billion of new recurring, capital-light income every year
+         — before the balance sheet moves."
+      </blockquote>
+
+      <p>
+        Monetization is the <strong>fastest, least capital-intensive</strong> route to the P&amp;L
+        Saudi banks are already capable of running. The building blocks exist. The regulation is live.
+        The fee pools are real. What's missing is a named owner, a target number, and a date.
+      </p>
+
+      <h3><span class="num">02</span>The four fee pools already on the table</h3>
+
+      <div class="pools-grid">
+        <div class="pool">
+          <div class="pnum">POOL · 01</div>
+          <h4>BaaS &amp; embedded finance</h4>
+          <p>Saudi embedded finance is tracking from $17.8B to over $28B by 2030. The rails
+             are being laid right now. The fees accrue to whoever owns them.</p>
+          <div class="size">SAR 8B · Base · SAR 13B · High</div>
+        </div>
+        <div class="pool">
+          <div class="pnum">POOL · 02</div>
+          <h4>Data products</h4>
+          <p>Saudi banks hold the richest behavioural datasets in the Kingdom and monetise
+             almost none of them. Every sovereign AI model being trained here needs them.</p>
+          <div class="size">SAR 5B · per year</div>
+        </div>
+        <div class="pool">
+          <div class="pnum">POOL · 03</div>
+          <h4>Open Banking APIs</h4>
+          <p>SAMA's framework went live in 2026. First-movers earn platform economics for a
+             decade. Every day you wait is a day your API competitor compounds.</p>
+          <div class="size">Function of fintechs on your rails</div>
+        </div>
+        <div class="pool">
+          <div class="pnum">POOL · 04</div>
+          <h4>Intelligence-as-a-Service</h4>
+          <p>The AI capability a bank builds for fraud, credit and advisory is a product,
+             not a cost line. Packaged properly it's recurring revenue. This is how the AI
+             investment pays itself back twice.</p>
+          <div class="size">SAR 6B · Base · HUMAIN upside</div>
+        </div>
+      </div>
+
+      <h3><span class="num">03</span>The scoreboard so far</h3>
+      <p>
+        The four-lever view for the Saudi banking sector. <strong>Low</strong> is the 'anchor
+        and hold' path. <strong>Base</strong> is the 'execute what's already committed' path.
+        <strong>High</strong> is the path available to any bank that moves fast across all
+        four levers in parallel.
+      </p>
+
+      <div class="scoreboard-wrap">
+        <table class="scoreboard">
+          <thead>
+            <tr>
+              <th>Lever</th>
+              <th class="num">Low</th>
+              <th class="num base">Base</th>
+              <th class="num">High</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>L1 · Monetization <span class="small">(fee income, IaaS, BaaS)</span></td>
+              <td class="num">15.9</td>
+              <td class="num base">29.5</td>
+              <td class="num">38.6</td>
+            </tr>
+            <tr>
+              <td>L2 · Tokenization <span class="small">(direct, sukuk on-chain)</span></td>
+              <td class="num">0.5</td>
+              <td class="num base">2.7</td>
+              <td class="num">11.9</td>
+            </tr>
+            <tr>
+              <td>L3 · Capital Efficiency <span class="small">(Basel IV, RWA)</span></td>
+              <td class="num">0.5</td>
+              <td class="num base">2.5</td>
+              <td class="num">5.3</td>
+            </tr>
+            <tr>
+              <td>L4 · Sovereign Ecosystem <span class="small">(PIF, HUMAIN, VRPs)</span></td>
+              <td class="num">2.7</td>
+              <td class="num base">7.1</td>
+              <td class="num">13.7</td>
+            </tr>
+            <tr>
+              <td><em>Less: L1/L4 overlap</em></td>
+              <td class="num">(0.3)</td>
+              <td class="num base">(1.1)</td>
+              <td class="num">(2.7)</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>TOTAL · SAR B / year</td>
+              <td class="num">19.2</td>
+              <td class="num base">40.8</td>
+              <td class="num">66.8</td>
+            </tr>
+            <tr>
+              <td>2030 Sector ROE</td>
+              <td class="num">21%</td>
+              <td class="num base">25%</td>
+              <td class="num">30%</td>
+            </tr>
+            <tr>
+              <td>Market cap unlock</td>
+              <td class="num">$212B</td>
+              <td class="num base">$295B</td>
+              <td class="num">$392B</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <p>
+        None of this requires anyone to invent anything. <strong>SAMA's open banking framework</strong>
+        is live. <strong>HUMAIN's $100B sovereign AI commitment</strong> is funded. <strong>Basel IV</strong>
+        is biting. The first tokenised sukuks are trading on regulated venues. Every lever is anchored
+        in something already in motion. The only question is which bank moves first.
+      </p>
+
+      <div class="article-cta">
+        <a href="https://www.linkedin.com/in/rodneycoutinho" target="_blank" rel="noopener" class="btn btn-primary">
+          Read on LinkedIn →
+        </a>
+        <a href="#contact" class="btn btn-ghost">Request the model</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== SERIES ROADMAP =========== -->
+<section class="series">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">The Writing · 5-Part Series</div>
+      <h2 class="section-title">The Vision 2030 Bank Scoreboard — <span class="gold">the full roadmap</span></h2>
+      <p class="section-intro">
+        A five-part published body of work on the economics of Saudi banking between now and 2030.
+        Each part is a LinkedIn document carousel backed by an open Excel model.
+      </p>
+    </div>
+    <div class="series-grid">
+      <div class="series-card live">
+        <div class="series-num">PART · 01</div>
+        <h4>Monetization</h4>
+        <p>The $295B fee-income unlock. Non-interest income, BaaS, data, APIs, IaaS.</p>
+        <div class="series-status">Live · 12 April 2026</div>
+      </div>
+      <div class="series-card">
+        <div class="series-num">PART · 02</div>
+        <h4>Tokenization</h4>
+        <p>Which Saudi bank puts the first sukuk on-chain? Market infrastructure + DLT economics.</p>
+        <div class="series-status">Next · Queued</div>
+      </div>
+      <div class="series-card">
+        <div class="series-num">PART · 03</div>
+        <h4>Capital Efficiency</h4>
+        <p>RWA optimisation, Basel IV bite, IRB pathway, SAR 2.5–5.3B annual unlock.</p>
+        <div class="series-status">Queued</div>
+      </div>
+      <div class="series-card">
+        <div class="series-num">PART · 04</div>
+        <h4>AI-Led Sovereign Ecosystem</h4>
+        <p>PIF, HUMAIN, Vision Realisation Programs, banks as national AI infrastructure.</p>
+        <div class="series-status">Queued</div>
+      </div>
+      <div class="series-card">
+        <div class="series-num">PART · 05</div>
+        <h4>The Scoreboard</h4>
+        <p>ROE, market cap, and the one question every bank CEO takes to the board.</p>
+        <div class="series-status">Queued</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== PEER BENCHMARKS =========== -->
+<section id="benchmarks" class="benchmarks">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Industry Benchmarks</div>
+      <h2 class="section-title">Where Saudi banks stand against <span class="gold">global best-in-class</span></h2>
+      <p class="section-intro">
+        The gap between Saudi banking economics and the world's best-performing institutions
+        is the opportunity set that defines the next five years.
+      </p>
+    </div>
+    <div class="bench-table-wrap">
+      <table class="bench-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Saudi Avg<br/><span class="subhead">2024</span></th>
+            <th>GCC Peers<br/><span class="subhead">ENBD · FAB</span></th>
+            <th class="highlight">DBS<br/><span class="subhead">Singapore</span></th>
+            <th>JPM<br/><span class="subhead">USA</span></th>
+            <th>UBS<br/><span class="subhead">Switzerland</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Non-interest income share</td>
+            <td>~25%</td>
+            <td>~45%</td>
+            <td class="highlight">40%</td>
+            <td>48%</td>
+            <td>75%</td>
+          </tr>
+          <tr>
+            <td>ROE</td>
+            <td>~17%</td>
+            <td>~19%</td>
+            <td class="highlight">18%</td>
+            <td>17%</td>
+            <td>10%</td>
+          </tr>
+          <tr>
+            <td>Cost-to-income</td>
+            <td>~32%</td>
+            <td>~33%</td>
+            <td class="highlight">40%</td>
+            <td>55%</td>
+            <td>74%</td>
+          </tr>
+          <tr>
+            <td>AI maturity (est.)</td>
+            <td>Level 2</td>
+            <td>Level 2–3</td>
+            <td class="highlight">Level 4</td>
+            <td>Level 4</td>
+            <td>Level 3</td>
+          </tr>
+          <tr>
+            <td>Open banking stage</td>
+            <td>Live 2026</td>
+            <td>Maturing</td>
+            <td class="highlight">Advanced</td>
+            <td>Mature</td>
+            <td>Mature</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="bench-note">
+      Sources: bank annual reports 2024, SAMA data, PwC Middle East Banking Survey.
+      DBS highlighted as the closest structural peer to Vision 2030 banks: sovereign-backed,
+      high-growth, universal, digitally native.
+    </p>
+  </div>
+</section>
+
+<!-- =========== REGULATORY LANDSCAPE =========== -->
+<section id="regulatory" class="regulatory">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Governance &amp; Regulation</div>
+      <h2 class="section-title">The regulatory frameworks that shape <span class="gold">every AI decision</span></h2>
+      <p class="section-intro">
+        Banks deploying AI at scale must navigate overlapping regulatory regimes across
+        model risk, data privacy, algorithmic accountability, and capital requirements.
+      </p>
+    </div>
+    <div class="reg-grid">
+      <div class="reg-card">
+        <div class="reg-origin">Federal Reserve · USA</div>
+        <h4>SR 11-7</h4>
+        <p>Model Risk Management guidance. The global gold standard for model validation,
+           inventory, performance monitoring, and board-level MRM governance.</p>
+        <div class="reg-applies">Applies: All banks using quantitative models for decisions</div>
+      </div>
+      <div class="reg-card">
+        <div class="reg-origin">PRA · UK</div>
+        <h4>SS1/23</h4>
+        <p>Model risk management principles for banks. Extended scope covering AI/ML models,
+           third-party models, and proportionality expectations.</p>
+        <div class="reg-applies">Applies: UK-regulated banks and branches</div>
+      </div>
+      <div class="reg-card">
+        <div class="reg-origin">NIST · USA</div>
+        <h4>AI RMF 1.0</h4>
+        <p>AI Risk Management Framework. Voluntary but increasingly referenced by regulators.
+           Four pillars: Govern, Map, Measure, Manage.</p>
+        <div class="reg-applies">Applies: Cross-industry, adopted by forward-thinking FS firms</div>
+      </div>
+      <div class="reg-card">
+        <div class="reg-origin">European Union</div>
+        <h4>EU AI Act</h4>
+        <p>World's first comprehensive AI regulation. Risk-tiered approach with strict requirements
+           for high-risk AI systems including credit scoring and insurance pricing.</p>
+        <div class="reg-applies">Applies: Any AI system serving EU citizens</div>
+      </div>
+      <div class="reg-card">
+        <div class="reg-origin">SDAIA · KSA</div>
+        <h4>NDMO &amp; PDPL</h4>
+        <p>Saudi National Data Management Office governance framework and Personal Data Protection Law.
+           Mandatory for all entities processing data in the Kingdom.</p>
+        <div class="reg-applies">Applies: All Saudi-operating financial institutions</div>
+      </div>
+      <div class="reg-card">
+        <div class="reg-origin">Basel Committee</div>
+        <h4>Basel IV</h4>
+        <p>Revised standardised approaches and output floors. Directly impacts RWA calculations
+           and capital efficiency — a core lever in the Scoreboard model.</p>
+        <div class="reg-applies">Applies: Globally significant banks, phased 2025–2028</div>
+      </div>
+      <div class="reg-card">
+        <div class="reg-origin">CBUAE · UAE</div>
+        <h4>AI &amp; ML Guidance</h4>
+        <p>Published February 2026. Consumer protection and responsible AI adoption framework
+           for all UAE-licensed financial institutions. Five pillars: governance and accountability,
+           fairness and non-discrimination, transparency and explainability, effective human
+           oversight, and data management and privacy.</p>
+        <div class="reg-applies">Applies: All licensed financial institutions in the UAE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== SERVICES =========== -->
+<section id="services">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Advisory Services</div>
+      <h2 class="section-title">Seven ways I work with <span class="gold">bank boards, regulators</span> and <span class="thin">sovereign institutions.</span></h2>
+      <p class="section-intro">
+        Every engagement is anchored in the SCALE · GOVERN · UNLOCK discipline and
+        measured against P&amp;L or regulatory outcomes — never slideware.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service">
+        <div class="service-num">SERVICE · 01</div>
+        <h3>Board AI Strategy &amp; Scoreboard</h3>
+        <p>Three-hour board session to size the AI opportunity in the language of
+           revenue, cost/income, RoRWA, ROE and market cap. Delivers a named scoreboard
+           with owners and dates.</p>
+        <div class="service-tags">
+          <span>SCALE</span><span>UNLOCK</span><span>Board-grade</span>
+        </div>
+      </div>
+      <div class="service">
+        <div class="service-num">SERVICE · 02</div>
+        <h3>AI Governance Uplift</h3>
+        <p>End-to-end governance programme against SR 11-7, SS1/23, NIST AI RMF and the
+           EU AI Act. Risk taxonomies, model inventories, MRM uplift, GenAI red-teaming
+           and independent assurance.</p>
+        <div class="service-tags">
+          <span>GOVERN</span><span>Regulator-grade</span><span>Independent</span>
+        </div>
+      </div>
+      <div class="service">
+        <div class="service-num">SERVICE · 03</div>
+        <h3>Enterprise AI &amp; GenAI Platform</h3>
+        <p>Reference architecture, vendor selection (NVIDIA, Anthropic, OpenAI, Snowflake,
+           AWS, Azure), MLOps, feature stores, agentic orchestration, platform team design
+           and operating model.</p>
+        <div class="service-tags">
+          <span>SCALE</span><span>Technical</span><span>Vendor-neutral</span>
+        </div>
+      </div>
+      <div class="service">
+        <div class="service-num">SERVICE · 04</div>
+        <h3>Capital Markets AI &amp; Market Infrastructure</h3>
+        <p>CCP, CSD, trading venue and post-trade platforms — the programme I ran at
+           Tadawul. Tokenization readiness, real-time risk, market surveillance,
+           regulator interface.</p>
+        <div class="service-tags">
+          <span>SCALE</span><span>GOVERN</span><span>Tokenization-ready</span>
+        </div>
+      </div>
+      <div class="service">
+        <div class="service-num">SERVICE · 05</div>
+        <h3>Regulator &amp; Supervisory Advisory</h3>
+        <p>For central banks and market regulators building AI supervisory capability.
+           Supervisory handbooks, thematic reviews, stress testing frameworks, cross-border
+           coordination.</p>
+        <div class="service-tags">
+          <span>GOVERN</span><span>Regulator-side</span><span>Confidential</span>
+        </div>
+      </div>
+      <div class="service">
+        <div class="service-num">SERVICE · 06</div>
+        <h3>Sovereign &amp; Vision 2030 Advisory</h3>
+        <p>For PIF-backed entities, Vision Realisation Programs and HUMAIN-adjacent
+           organisations. National AI fabric, sovereign data strategy, banks-as-infrastructure
+           positioning.</p>
+        <div class="service-tags">
+          <span>UNLOCK</span><span>Sovereign</span><span>Vision 2030</span>
+        </div>
+      </div>
+      <div class="service">
+        <div class="service-num">SERVICE · 07</div>
+        <h3>Executive AI Training &amp; Workshops</h3>
+        <p>Bespoke training programmes for boards, ExCos and senior leadership — from
+           half-day AI literacy sessions to multi-week immersive workshops. Covers strategic
+           AI thinking, hands-on GenAI tooling, risk awareness, and responsible AI — tailored
+           to financial services, regulators and sovereign institutions.</p>
+        <div class="service-tags">
+          <span>SCALE</span><span>GOVERN</span><span>Hands-on</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== CASE NOTES =========== -->
+<section class="cases">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Case Notes</div>
+      <h2 class="section-title">Four programmes. <span class="gold">Ten-digit impact.</span></h2>
+      <p class="section-intro">Selected engagements at institution scale — capital markets, global banks and
+         regulators where the work had to hold up in front of a board and a supervisor.</p>
+    </div>
+    <div class="cases-grid">
+      <div class="case">
+        <div class="case-meta">
+          <span class="pill">Capital Markets Infrastructure</span>
+          <span>Middle East</span>
+        </div>
+        <h3>National Exchange Group — Capital Markets Transformation &amp; Agentic AI Platform</h3>
+        <p>Served as partner on a sovereign exchange group transformation — next-generation trading,
+           post-trade, CCP and CSD platforms — and on the build-out of a flagship
+           agentic AI platform with 200+ engineers on NVIDIA Llama Nemotron.
+           Underpins a nation's equity, debt and derivatives market infrastructure.</p>
+        <div class="case-metric">
+          <div><div class="v">$100M+</div><div class="l">Revenue unlock</div></div>
+          <div><div class="v">200+</div><div class="l">Engineers led</div></div>
+          <div><div class="v">Nemotron</div><div class="l">NVIDIA foundation</div></div>
+        </div>
+      </div>
+      <div class="case">
+        <div class="case-meta">
+          <span class="pill">Financial Market Regulator</span>
+          <span>Middle East</span>
+        </div>
+        <h3>National Securities Regulator — GenAI Supervisory Programme</h3>
+        <p>Designed and delivered the GenAI and agentic AI supervisory programme for a
+           national capital market authority. Regulator-grade risk taxonomy, red-teaming
+           and a supervisory handbook aligned to the spirit of NIST AI RMF and EU AI Act.</p>
+        <div class="case-metric">
+          <div><div class="v">3–10×</div><div class="l">Productivity uplift</div></div>
+          <div><div class="v">30+</div><div class="l">Risks tiered</div></div>
+          <div><div class="v">National First</div><div class="l">GenAI handbook</div></div>
+        </div>
+      </div>
+      <div class="case">
+        <div class="case-meta">
+          <span class="pill">Global Banking</span>
+          <span>UK · Europe</span>
+        </div>
+        <h3>Two Top-5 UK Banks — AI-Led Customer &amp; Risk Transformation</h3>
+        <p>Ten+ years leading AI, data and customer transformation across two of the UK's
+           largest banking groups. Credit decisioning, fraud, customer intelligence, regulatory reporting
+           and the Basel programme work that sits underneath every major UK bank today.</p>
+        <div class="case-metric">
+          <div><div class="v">£1B+</div><div class="l">ROI delivered</div></div>
+          <div><div class="v">SR 11-7</div><div class="l">Aligned</div></div>
+          <div><div class="v">20+ countries</div><div class="l">Cross-border</div></div>
+        </div>
+      </div>
+      <div class="case">
+        <div class="case-meta">
+          <span class="pill">Asset Management</span>
+          <span>US · UK</span>
+        </div>
+        <h3>Global Top-5 Asset Manager — AI-Driven Portfolio &amp; Research</h3>
+        <p>Built the AI and data backbone behind a $750B+ asset manager's equity research and portfolio
+           management platform. Alternative data, alpha models,
+           vendor architecture and the governance wrapper around every model in production.</p>
+        <div class="case-metric">
+          <div><div class="v">$750B</div><div class="l">AUM covered</div></div>
+          <div><div class="v">60+ PMs</div><div class="l">Direct users</div></div>
+          <div><div class="v">Buy-side</div><div class="l">Scale-out</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== INSIGHTS / LINKEDIN POSTS =========== -->
+<section id="insights">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Writing · Rodney.AI on LinkedIn</div>
+      <h2 class="section-title">Ideas in public. <span class="gold">Modelled. Sourced. Stress-tested.</span></h2>
+      <p class="section-intro">
+        All posts and long-form articles from the Rodney.AI LinkedIn page,
+        organised by theme — Scoreboard, Governance, Tech, Sovereign.
+      </p>
+    </div>
+    <div class="insights-grid">
+
+      <article class="insight feature-post">
+        <div class="insight-meta">
+          <span class="insight-type">Article · Series 01 of 05</span>
+          <span class="insight-date">12 Apr 2026</span>
+        </div>
+        <h3>The $295B Saudi bank market cap unlock hiding in plain sight</h3>
+        <p>Four levers. Three scenarios. Every input sourced. Part 1 of the Vision 2030
+           Bank Scoreboard — the Monetization play, the four fee pools already on the table,
+           and the one question every bank CEO should take to their next board meeting.</p>
+        <a href="#scoreboard" class="insight-link">Read the full article</a>
+      </article>
+
+      <article class="insight highlight-post">
+        <div class="insight-meta">
+          <span class="insight-type">LinkedIn Post · Strategy</span>
+          <span class="insight-date">10 Mar 2026</span>
+        </div>
+        <h3>AI Will Move ROE First in Middle East Banking</h3>
+        <p>Middle East banks already operate at 28–35% cost-to-income ratios vs. 55–60% globally.
+           The AI play here isn't cost reduction — it's ROE. Revenue productivity through targeting
+           and cross-sell, risk quality via credit modelling and fraud detection, and capital
+           efficiency through enhanced risk assessment. AI doesn't simply automate banking
+           operations — it improves the productivity of capital.</p>
+        <div class="insight-engagement"><span>65 reactions</span></div>
+        <a href="https://www.linkedin.com/posts/rodneycoutinho_ai-middleeast-banking-activity-7436970327575904258-Tin-" target="_blank" rel="noopener" class="insight-link">Read on LinkedIn</a>
+      </article>
+
+      <article class="insight highlight-post">
+        <div class="insight-meta">
+          <span class="insight-type">LinkedIn Post · Capital Markets</span>
+          <span class="insight-date">4 Feb 2026</span>
+        </div>
+        <h3>Saudi Tadawul Group at CMFSelect New York 2026</h3>
+        <p>Spotlight on the Kingdom's progress building resilient, innovative capital markets
+           on the global stage. Future-ready market solutions that support market integrity,
+           attract global investment, and accelerate long-term growth — aligned with Vision 2030.</p>
+        <div class="insight-engagement"><span>65 reactions</span></div>
+        <a href="https://www.linkedin.com/posts/rodneycoutinho_cmfselect-sauditadawulgroup-capitalmarkets-activity-7424681390241132544-0PIs" target="_blank" rel="noopener" class="insight-link">Read on LinkedIn</a>
+      </article>
+
+      <article class="insight highlight-post">
+        <div class="insight-meta">
+          <span class="insight-type">LinkedIn Post · Data &amp; Market Infrastructure</span>
+          <span class="insight-date">Dec 2025</span>
+        </div>
+        <h3>DataHub Launch — Trusted Data as a Market Enabler</h3>
+        <p>Trusted, high-quality, accessible data is the fuel that powers market integrity.
+           DataHub — a centralised gateway for market participants to access Saudi Capital
+           Market data — enabling smarter decision-making across the financial sector and
+           supporting Saudi Arabia's Vision 2030.</p>
+        <div class="insight-engagement"><span>51 reactions</span></div>
+        <a href="https://www.linkedin.com/posts/rodneycoutinho_datahub-wamid-aetaeuaedaffaerabraepaesaeqaeyaepaeuaepaes-activity-7404848549206863872-O_Jl" target="_blank" rel="noopener" class="insight-link">Read on LinkedIn</a>
+      </article>
+
+      <article class="insight highlight-post">
+        <div class="insight-meta">
+          <span class="insight-type">LinkedIn Post · AI &amp; Sovereign Infrastructure</span>
+          <span class="insight-date">14 Oct 2025</span>
+        </div>
+        <h3>AI Sovereignty: From Silicon to Service — GITEX Global 2025</h3>
+        <p>Fireside chat on the Silicon-to-Service (S2S) AI acceleration framework — bringing
+           together Dell PowerEdge, PowerScale and NVIDIA Blackwell to deliver end-to-end AI
+           capability from silicon to intelligent applications. Empowering enterprises and
+           governments across the Middle East to build, deploy, and govern AI systems locally,
+           securely, and sustainably.</p>
+        <div class="insight-engagement"><span>91 reactions</span></div>
+        <a href="https://www.linkedin.com/posts/rodneycoutinho_deloitte-gitex-ai-activity-7383792139232702464-JK_J" target="_blank" rel="noopener" class="insight-link">Read on LinkedIn</a>
+      </article>
+
+      <article class="insight">
+        <div class="insight-meta">
+          <span class="insight-type">LinkedIn Article</span>
+          <span class="insight-date">20 Mar 2026</span>
+        </div>
+        <h3>AI Won't Increase Bank Valuations. ROE Will.</h3>
+        <p>The argument the market keeps missing. AI shows up in the share price only when
+           it bends the ROE line — through fee income, cost/income or RWA density. Everything
+           else is slideware. The framework for connecting AI investment directly to the three
+           numbers equity analysts actually use to value a bank.</p>
+        <a href="https://www.linkedin.com/in/rodneycoutinho/recent-activity/articles/" target="_blank" rel="noopener" class="insight-link">Read on LinkedIn</a>
+      </article>
+
+      <article class="insight">
+        <div class="insight-meta">
+          <span class="insight-type">LinkedIn Article · Part 1 of 2</span>
+          <span class="insight-date">18 Mar 2026</span>
+        </div>
+        <h3>Next Growth Curve for Banks? Middle East Lenders Take Note</h3>
+        <p>Why the next decade of bank valuation growth is set to come disproportionately from
+           the Middle East — and what it means for ROE, the fee line and capital allocation.
+           Part 1 of a two-part piece on the GCC's claim on the next banking growth curve.</p>
+        <a href="https://www.linkedin.com/in/rodneycoutinho/recent-activity/articles/" target="_blank" rel="noopener" class="insight-link">Read on LinkedIn</a>
+      </article>
+
+      <article class="insight">
+        <div class="insight-meta">
+          <span class="insight-type">LinkedIn Article</span>
+          <span class="insight-date">16 Mar 2026</span>
+        </div>
+        <h3>AI Will Not Scale Alone — There's a Growing Risk</h3>
+        <p>Why the consulting partnership model has become the de-facto AI scaling engine
+           for banks — and the concentration risk that comes with it. A frank look at the
+           dependency banks have built on a handful of firms to run their AI agenda, and
+           how to govern it without losing momentum.</p>
+        <a href="https://www.linkedin.com/in/rodneycoutinho/recent-activity/articles/" target="_blank" rel="noopener" class="insight-link">Read on LinkedIn</a>
+      </article>
+
+      <article class="insight">
+        <div class="insight-meta">
+          <span class="insight-type">Governance</span>
+          <span class="insight-date">February 2026</span>
+        </div>
+        <h3>GenAI Model Risk: what SR 11-7 actually asks of you</h3>
+        <p>A practitioner's walk through the real model-risk questions a supervisor will ask
+           of a GenAI system in a bank — from conceptual soundness through outcomes monitoring,
+           mapped to SS1/23 and NIST AI RMF. Built alongside the MRM checklist accelerator.</p>
+        <a href="accelerators/mrm-checklist.html" class="insight-link">Read the accelerator</a>
+      </article>
+
+      <article class="insight">
+        <div class="insight-meta">
+          <span class="insight-type">Series · Queued</span>
+          <span class="insight-date">Next week</span>
+        </div>
+        <h3>Which Saudi bank puts the first sukuk on-chain?</h3>
+        <p>Part 2 of the Vision 2030 Bank Scoreboard. Tokenization economics — regulated DLT
+           venues, settlement finality, sukuk structures, and why the first mover captures
+           decade-long platform economics across the GCC fixed income market.</p>
+        <a href="https://www.linkedin.com/in/rodneycoutinho" target="_blank" rel="noopener" class="insight-link">Follow on LinkedIn</a>
+      </article>
+
+    </div>
+    <div class="insight-foot">
+      <span>Follow Rodney.AI on LinkedIn</span>
+      <a href="https://www.linkedin.com/in/rodneycoutinho" target="_blank" rel="noopener">linkedin.com/in/rodneycoutinho →</a>
+      <span class="sep">·</span>
+      <span>4,300+ followers</span>
+      <span class="sep">·</span>
+      <span>Series 01/05 live</span>
+    </div>
+  </div>
+</section>
+
+<!-- =========== DUAL CAPABILITIES — BUSINESS + TECH =========== -->
+<section class="caps">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Capabilities</div>
+      <h2 class="section-title">Bilingual by design — <span class="gold">business and technology</span> in one conversation.</h2>
+      <p class="section-intro">
+        The point of Rodney.AI is to be useful on both sides of the room. Most advisors
+        pick one. These are the two stacks I carry into every engagement.
+      </p>
+    </div>
+    <div class="caps-grid">
+      <div class="caps-col">
+        <h3>Business <span class="gold">·</span> the boardroom stack</h3>
+        <p>Spoken in the language a CFO, Chief Risk Officer and audit committee can underwrite.
+           What the board gets delivered — not the platform team's reading list.</p>
+        <div class="caps-list">
+          <div>P&amp;L, cost/income, ROE, RoRWA framing</div>
+          <div>Basel IV, IRB, capital efficiency, RWA optimisation</div>
+          <div>Non-interest income strategy, fee pools, BaaS economics</div>
+          <div>Model risk (SR 11-7, SS1/23) &amp; board-ready MRM</div>
+          <div>Regulatory strategy · SAMA, CMA KSA, CBUAE, FCA, ECB</div>
+          <div>Target operating models, CoE design, product-org shifts</div>
+          <div>Vendor strategy, build-vs-buy, platform economics</div>
+          <div>Market cap and equity story — the investor-grade narrative</div>
+        </div>
+      </div>
+      <div class="caps-col">
+        <h3>Technology <span class="gold">·</span> the platform stack</h3>
+        <p>Deep enough to sit in an architecture review and be useful. The vocabulary
+           that earns trust from the people actually building the systems.</p>
+        <div class="caps-list">
+          <div>Agentic AI · multi-agent orchestration, planner/executor patterns</div>
+          <div>Foundation models · Anthropic, OpenAI, NVIDIA Llama Nemotron, Cohere</div>
+          <div>GenAI platforms · RAG, fine-tuning, evals, guardrails, red-teaming</div>
+          <div>Data platforms · Snowflake, Databricks, lakehouse, feature stores</div>
+          <div>Cloud · AWS, Azure, GCP — FS-grade landing zones</div>
+          <div>MLOps · CI/CD for models, monitoring, drift, observability</div>
+          <div>Market infrastructure · CCP, CSD, trading, post-trade, DLT</div>
+          <div>Cybersecurity &amp; AI red-teaming · Cisco (2024–present)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== ACCELERATORS =========== -->
+<section id="accelerators">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Accelerators · Open Tools</div>
+      <h2 class="section-title">Ten accelerators to <span class="gold">jump-start</span> your AI programme.</h2>
+      <p class="section-intro">
+        Interactive tools I use in client engagements. Each is a single-file HTML app —
+        open them on any device, use them as diagnostics with your board or platform team.
+      </p>
+    </div>
+    <div class="acc-grid">
+      <a href="accelerators/fs-ai-maturity-assessment.html" class="acc">
+        <div class="acc-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></div>
+        <h3>FS AI Maturity Assessment</h3>
+        <p>Interactive 6-dimension diagnostic — SCALE, GOVERN and UNLOCK readiness on a
+           single page, with live scoring and a heat-map output.</p>
+        <span class="acc-link">Open tool →</span>
+      </a>
+      <a href="accelerators/ai-governance-framework.html" class="acc">
+        <div class="acc-icon"><svg viewBox="0 0 24 24"><path d="M12 2L3 7v6c0 5 4 9 9 10 5-1 9-5 9-10V7l-9-5z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>AI Governance Framework</h3>
+        <p>Pillars, RACI matrix, risk tiering, operating model — pressure-tested against
+           SR 11-7, SS1/23, NIST AI RMF and EU AI Act.</p>
+        <span class="acc-link">Open tool →</span>
+      </a>
+      <a href="accelerators/ai-risk-taxonomy.html" class="acc">
+        <div class="acc-icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/></svg></div>
+        <h3>AI Risk Taxonomy</h3>
+        <p>30+ risks tiered across six dimensions — model, data, operational, regulatory,
+           reputational, concentration. FS-grade, with mitigations.</p>
+        <span class="acc-link">Open tool →</span>
+      </a>
+      <a href="accelerators/genai-prioritization-matrix.html" class="acc">
+        <div class="acc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
+        <h3>GenAI Prioritization Matrix</h3>
+        <p>Live scoring template with 8 worked FS examples — value vs feasibility vs risk,
+           plotted on a 2×2 your board can reason about in 15 minutes.</p>
+        <span class="acc-link">Open tool →</span>
+      </a>
+      <a href="accelerators/mrm-checklist.html" class="acc">
+        <div class="acc-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+        <h3>MRM Checklist · SR 11-7 aligned</h3>
+        <p>Board-ready model risk management checklist — conceptual soundness,
+           outcomes testing, monitoring, independent review. Live coverage tracker.</p>
+        <span class="acc-link">Open tool →</span>
+      </a>
+      <a href="accelerators/eu-ai-act-tracker.html" class="acc">
+        <div class="acc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <h3>EU AI Act Tracker</h3>
+        <p>Compliance timeline, FS classification map, and 10-step readiness checklist
+           for banks with any European-facing activity.</p>
+        <span class="acc-link">Open tool →</span>
+      </a>
+      <a href="accelerators/ai-tokenomics.html" class="acc">
+        <div class="acc-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+        <h3>AI Tokenomics</h3>
+        <p>The real economics of running AI at scale — LLM token consumption,
+           cost-vs-value frameworks, private vs public AI factory decisioning,
+           and the unit economics every board should understand.</p>
+        <span class="acc-link">Open tool →</span>
+      </a>
+      <a href="accelerators/exchange-ai-use-cases.html" class="acc">
+        <div class="acc-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <h3>Art of the Possible · Exchange AI</h3>
+        <p>42 AI use cases across 8 domains of a global exchange — surveillance,
+           listing, trading, post-trade, data products, regulatory, cyber, and enterprise.
+           Built from real programme experience.</p>
+        <span class="acc-link">Open tool →</span>
+      </a>
+      <a href="accelerators/agentic-ai-ceo-cfo.html" class="acc">
+        <div class="acc-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <h3>Agentic AI for CEOs &amp; CFOs</h3>
+        <p>What the C-suite needs to know about AI agents — where they create
+           value, how they differ from copilots, the P&amp;L impact for banking,
+           and the governance framework to start without losing control.</p>
+        <span class="acc-link">Open tool →</span>
+      </a>
+      <a href="accelerators/executive-ai-training.html" class="acc">
+        <div class="acc-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
+        <h3>Executive AI Training &amp; Workshops</h3>
+        <p>Bespoke training programmes for boards, ExCos and senior leadership —
+           from half-day AI literacy to multi-week immersives. FS-native, practitioner-led,
+           anchored in outcomes not awareness.</p>
+        <span class="acc-link">Open tool →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========== SPEAKING =========== -->
+<section class="speaking">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Speaking · Keynotes · Panels</div>
+      <h2 class="section-title">From the <span class="gold">main stage</span> to the boardroom.</h2>
+    </div>
+    <div class="speaking-grid">
+      <p style="font-size:17px;color:var(--text-dim);line-height:1.75">
+        Keynotes, panels and workshops with bank boards, regulators, sovereign institutions
+        and the AI vendor ecosystem. Formats run from a 20-minute opener to a two-day
+        executive masterclass for a single bank's leadership team.
+      </p>
+      <div class="speak-stage">
+        <div class="stage">
+          <div class="name">LEAP</div>
+          <div class="loc">Riyadh</div>
+          <div class="top">AI-led banking and Vision 2030 economics</div>
+        </div>
+        <div class="stage">
+          <div class="name">GITEX Global</div>
+          <div class="loc">Dubai</div>
+          <div class="top">Agentic AI, regulation and regional rollout</div>
+        </div>
+        <div class="stage">
+          <div class="name">Money20/20</div>
+          <div class="loc">EMEA</div>
+          <div class="top">Embedded finance, BaaS and open banking economics</div>
+        </div>
+        <div class="stage">
+          <div class="name">Gov AI Summit</div>
+          <div class="loc">Middle East</div>
+          <div class="top">Sovereign AI, national fabric, regulator liaison</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== CREDENTIALS STRIP =========== -->
+<section class="creds">
+  <div class="container">
+    <div class="creds-head">
+      <div class="section-label">Credentials &amp; Background</div>
+      <h2>20+ years innovating, evangelising, strategising &amp; <span class="gold">shipping.</span></h2>
+    </div>
+    <div class="creds-grid">
+      <div class="cred">
+        <div class="cred-label">Current · Partner</div>
+        <div class="cred-value">Big 4 · Middle East</div>
+        <div class="cred-sub">Partner · AI &amp; Data · Financial Services Leader · Dubai</div>
+      </div>
+      <div class="cred">
+        <div class="cred-label">LinkedIn Reach</div>
+        <div class="cred-value">4,000+ followers</div>
+        <div class="cred-sub">Rodney.AI — writing on bank ROE, AI governance and Vision 2030</div>
+      </div>
+      <div class="cred">
+        <div class="cred-label">Languages</div>
+        <div class="cred-value">English · Hindi · Marathi</div>
+        <div class="cred-sub">Native / bilingual proficiency across all three</div>
+      </div>
+      <div class="cred">
+        <div class="cred-label">Formal Education</div>
+        <div class="cred-value">Institute of Software Engineering</div>
+        <div class="cred-sub">Distinction · Software Design &amp; Development · 2000–2001</div>
+      </div>
+      <div class="cred">
+        <div class="cred-label">Certification</div>
+        <div class="cred-value">Certified Data Integrator</div>
+        <div class="cred-sub">Ab Initio · Aug 2004 — foundational data-platform credential</div>
+      </div>
+      <div class="cred">
+        <div class="cred-label">Recognition</div>
+        <div class="cred-value">Outstanding Performer of the Year</div>
+        <div class="cred-sub">Tech Mahindra · 2003</div>
+      </div>
+      <div class="cred">
+        <div class="cred-label">Academic</div>
+        <div class="cred-value">Graduation Merit Rank</div>
+        <div class="cred-sub">Mumbai University · 1996</div>
+      </div>
+      <div class="cred">
+        <div class="cred-label">Geography</div>
+        <div class="cred-value">Middle East primary</div>
+        <div class="cred-sub">UK &amp; EU supporting · KSA · UAE · Bahrain · Qatar</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== CONTACT =========== -->
+<section id="contact" class="contact">
+  <div class="container contact-inner">
+    <div class="section-label" style="margin-bottom:28px">Book a Consultation</div>
+    <h2>Ready to turn <span class="gold">AI ambition</span><br/>into a board-grade P&amp;L line?</h2>
+    <p class="contact-sub">
+      The first 30 minutes are a free conversation to pressure-test the opportunity and
+      the operating reality behind it. No slides, no pitch — just the clearest possible
+      read on where you are and what moves next.
+    </p>
+    <div class="contact-cards">
+      <a href="mailto:rodneyjerry@yahoo.com" class="contact-card">
+        <div class="cl">Email</div>
+        <div class="cv">rodneyjerry@yahoo.com</div>
+      </a>
+      <a href="https://www.linkedin.com/in/rodneycoutinho" target="_blank" rel="noopener" class="contact-card">
+        <div class="cl">LinkedIn · Rodney.AI</div>
+        <div class="cv">/in/rodneycoutinho</div>
+      </a>
+      <a href="tel:+971568845741" class="contact-card">
+        <div class="cl">Direct · UAE</div>
+        <div class="cv">+971 56 884 5741</div>
+      </a>
+    </div>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a href="mailto:rodneyjerry@yahoo.com?subject=Rodney.AI%20%E2%80%94%20Consultation%20Request" class="btn btn-primary">Book a consultation →</a>
+      <a href="https://www.linkedin.com/in/rodneycoutinho" target="_blank" rel="noopener" class="btn btn-ghost">Follow on LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- =========== FOOTER =========== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#top" class="logo" aria-label="Rodney.AI home">
+          <div class="brand-mark">
+            <span>SCALE</span><span class="gold">GOVERN</span><span>UNLOCK</span>
+          </div>
+          <div class="logo-text">
+            <span class="wordmark">RODNEY<span class="dot">.AI</span></span>
+            <span class="tag">Executive Advisor · AI</span>
+          </div>
+        </a>
+        <p>Rodney Coutinho — Executive Advisor on AI. Helping banks, capital markets
+           and sovereign institutions across the Middle East, UK and Europe turn AI
+           ambition into the three numbers a board actually defends in front of investors.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#promise">The promise</a></li>
+          <li><a href="#about">About Rodney</a></li>
+          <li><a href="#scoreboard">$295B Scoreboard</a></li>
+          <li><a href="#services">Advisory services</a></li>
+          <li><a href="#insights">Writing on LinkedIn</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Accelerators</h4>
+        <ul>
+          <li><a href="accelerators/fs-ai-maturity-assessment.html">Maturity assessment</a></li>
+          <li><a href="accelerators/ai-governance-framework.html">Governance framework</a></li>
+          <li><a href="accelerators/ai-risk-taxonomy.html">Risk taxonomy</a></li>
+          <li><a href="accelerators/mrm-checklist.html">MRM checklist</a></li>
+          <li><a href="accelerators/eu-ai-act-tracker.html">EU AI Act tracker</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:rodneyjerry@yahoo.com">rodneyjerry@yahoo.com</a></li>
+          <li><a href="https://www.linkedin.com/in/rodneycoutinho" target="_blank" rel="noopener">/in/rodneycoutinho</a></li>
+          <li><a href="tel:+971568845741">+971 56 884 5741</a></li>
+          <li>Middle East · UK · EU</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Rodney.AI · Rodney Coutinho · Executive Advisor on AI · All rights reserved.</div>
+      <div class="sgu-mini">SCALE · GOVERN · UNLOCK</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>                           

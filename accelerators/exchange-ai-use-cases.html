@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-QZ9C4MLQS8");
+</script>
+<title>Art of the Possible — AI Use Cases for a Global Exchange · Rodney.AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="_shared.css"/>
+<style>
+  .domain-section{margin-bottom:36px}
+  .domain-header{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+  .domain-num{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;background:var(--gradient);-webkit-background-clip:text;background-clip:text;color:transparent;min-width:48px}
+  .domain-title{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--text)}
+  .uc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .uc{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;transition:border-color 0.25s}
+  .uc:hover{border-color:rgba(124,92,255,0.4)}
+  .uc h4{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--text);margin-bottom:8px}
+  .uc p{font-size:13.5px;color:var(--text-dim);margin:0 0 10px}
+  .uc-tags{display:flex;flex-wrap:wrap;gap:4px}
+  .uc-impact{display:inline-block;font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:5px;margin-right:4px}
+  .uc-impact.high{background:rgba(34,211,238,0.12);color:#22d3ee;border:1px solid rgba(34,211,238,0.25)}
+  .uc-impact.medium{background:rgba(124,92,255,0.12);color:#bfb5ff;border:1px solid rgba(124,92,255,0.25)}
+  .uc-impact.transformative{background:rgba(255,122,192,0.12);color:#ff7ac0;border:1px solid rgba(255,122,192,0.25)}
+  .summary-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:28px 0}
+  .summary-stat{text-align:center;padding:18px;background:var(--bg-2);border-radius:12px;border:1px solid var(--border)}
+  .summary-stat .val{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--text)}
+  .summary-stat .lbl{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-top:2px}
+  @media(max-width:760px){.uc-grid{grid-template-columns:1fr}.summary-bar{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="../index.html#accelerators" class="back">← Back to Rodney.AI</a>
+  <div class="header">
+    <div class="eyebrow"><span class="dot"></span>Accelerator · Exchange AI</div>
+    <h1 class="display">Art of the <span class="gradient-text">Possible</span></h1>
+    <p class="lead">A comprehensive map of AI use cases across the value chain of a global exchange —
+       from market surveillance and listing intelligence through post-trade, data products, and
+       enterprise operations. Built from real programme experience.</p>
+  </div>
+
+  <div class="summary-bar">
+    <div class="summary-stat"><div class="val">42</div><div class="lbl">Use cases mapped</div></div>
+    <div class="summary-stat"><div class="val">8</div><div class="lbl">Value chain domains</div></div>
+    <div class="summary-stat"><div class="val">14</div><div class="lbl">High-impact</div></div>
+    <div class="summary-stat"><div class="val">6</div><div class="lbl">Transformative</div></div>
+  </div>
+
+  <!-- DOMAIN 1 -->
+  <div class="domain-section">
+    <div class="domain-header"><span class="domain-num">01</span><span class="domain-title">Market Surveillance &amp; Integrity</span></div>
+    <div class="uc-grid">
+      <div class="uc">
+        <h4>Real-time anomaly detection</h4>
+        <p>ML models detecting spoofing, layering, wash trading, and front-running patterns across order book data in real-time, replacing rules-based alerting.</p>
+        <div class="uc-tags"><span class="uc-impact transformative">Transformative</span><span class="tag">NLP</span><span class="tag">Time-series</span></div>
+      </div>
+      <div class="uc">
+        <h4>Cross-market manipulation detection</h4>
+        <p>Graph neural networks mapping relationships across equities, derivatives, and ETFs to detect coordinated manipulation spanning multiple venues.</p>
+        <div class="uc-tags"><span class="uc-impact high">High impact</span><span class="tag">GNN</span><span class="tag">Multi-venue</span></div>
+      </div>
+      <div class="uc">
+        <h4>Insider trading pattern recognition</h4>
+        <p>Combining trading pattern analysis with news sentiment, corporate calendar data, and communication metadata to flag potential insider trading.</p>
+        <div class="uc-tags"><span class="uc-impact high">High impact</span><span class="tag">NLP</span><span class="tag">Fusion</span></div>
+      </div>
+      <div class="uc">
+        <h4>Automated suspicious activity reporting</h4>
+        <p>GenAI-drafted SARs with evidence chains auto-assembled from surveillance alerts, reducing analyst report preparation time by 70%.</p>
+        <div class="uc-tags"><span class="uc-impact medium">Medium</span><span class="tag">GenAI</span><span class="tag">Workflow</span></div>
+      </div>
+      <div class="uc">
+        <h4>Market microstructure intelligence</h4>
+        <p>AI analysis of order flow toxicity, bid-ask dynamics, and liquidity patterns to provide exchange leadership with real-time market health dashboards.</p>
+        <div class="uc-tags"><span class="uc-impact high">High impact</span><span class="tag">Analytics</span><span class="tag">Real-time</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMAIN 2 -->
+  <div class="domain-section">
+    <div class="domain-header"><span class="domain-num">02</span><span class="domain-title">Listing &amp; Issuer Services</span></div>
+    <div class="uc-grid">
+      <div class="uc">
+        <h4>IPO readiness assessment</h4>
+        <p>AI scoring of IPO candidate readiness across financial, governance, and disclosure dimensions — benchmarked against successful listings in the market.</p>
+        <div class="uc-tags"><span class="uc-impact high">High impact</span><span class="tag">Scoring</span><span class="tag">NLP</span></div>
+      </div>
+      <div class="uc">
+        <h4>Prospectus analysis &amp; compliance check</h4>
+        <p>GenAI review of draft prospectuses against listing rules, flagging gaps, inconsistencies, and missing disclosures before human review.</p>
+        <div class="uc-tags"><span class="uc-impact high">High impact</span><span class="tag">GenAI</span><span class="tag">Compliance</span></div>
+      </div>
+      <div class="uc">
+        <h4>Continuous disclosure monitoring</h4>
+        <p>NLP monitoring of issuer announcements, financial reports, and news for material events that may trigger disclosure obligations.</p>
+        <div class="uc-tags"><span class="uc-impact medium">Medium</span><span class="tag">NLP</span><span class="tag">Monitoring</span></div>
+      </div>
+      <div class="uc">
+        <h4>Issuer pipeline intelligence</h4>
+        <p>Predictive models identifying potential listing candidates from private company data, M&A activity, and market conditions to build the issuer pipeline.</p>
+        <div class="uc-tags"><span class="uc-impact medium">Medium</span><span class="tag">Predictive</span><span class="tag">Sales</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMAIN 3 -->
+  <div class="domain-section">
+    <div class="domain-header"><span class="domain-num">03</span><span class="domain-title">Trading &amp; Matching Engine</span></div>
+    <div class="uc-grid">
+      <div class="uc">
+        <h4>Latency prediction &amp; capacity planning</h4>
+        <p>ML models predicting order flow surges, latency spikes, and capacity bottlenecks before they materialise — enabling proactive infrastructure scaling.</p>
+        <div class="uc-tags"><span class="uc-impact high">High impact</span><span class="tag">Prediction</span><span class="tag">Infra</span></div>
+      </div>
+      <div class="uc">
+        <h4>Smart order routing optimisation</h4>
+        <p>Reinforcement learning models optimising order routing across venues, order types, and execution strategies to minimise market impact.</p>
+        <div class="uc-tags"><span class="uc-impact transformative">Transformative</span><span class="tag">RL</span><span class="tag">Execution</span></div>
+      </div>
+      <div class="uc">
+        <h4>Circuit breaker calibration</h4>
+        <p>Dynamic circuit breaker thresholds calibrated by AI to market volatility regime, replacing static rules with adaptive halting mechanisms.</p>
+        <div class="uc-tags"><span class="uc-impact medium">Medium</span><span class="tag">Adaptive</span><span class="tag">Risk</span></div>
+      </div>
+      <div class="uc">
+        <h4>Market-making quality analytics</h4>
+        <p>AI assessment of market maker performance — spread, depth, presence — to incentivise liquidity provision and optimise market maker programmes.</p>
+        <div class="uc-tags"><span class="uc-impact medium">Medium</span><span class="tag">Analytics</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMAIN 4 -->
+  <div class="domain-section">
+    <div class="domain-header"><span class="domain-num">04</span><span class="domain-title">Post-Trade, CCP &amp; CSD</span></div>
+    <div class="uc-grid">
+      <div class="uc">
+        <h4>Intelligent trade matching &amp; exception handling</h4>
+        <p>ML models auto-resolving trade breaks and mismatches using pattern recognition from historical resolution data, reducing manual intervention by 60%.</p>
+        <div class="uc-tags"><span class="uc-impact high">High impact</span><span class="tag">ML</span><span class="tag">Operations</span></div>
+      </div>
+      <div class="uc">
+        <h4>Margin call prediction &amp; optimisation</h4>
+        <p>Predictive models forecasting margin calls before they trigger, enabling CCP members to optimise collateral positioning and reduce funding costs.</p>
+        <div class="uc-tags"><span class="uc-impact transformative">Transformative</span><span class="tag">Prediction</span><span class="tag">Risk</span></div>
+      </div>
+      <div class="uc">
+        <h4>Default waterfall simulation</h4>
+        <p>AI-powered stress testing of CCP default waterfalls under thousands of scenarios, identifying concentration risks and adequacy gaps in real-time.</p>
+        <div class="uc-tags"><span class="uc-impact high">High impact</span><span class="tag">Simulation</span><span class="tag">Stress test</span></div>
+      </div>
+      <div class="uc">
+        <h4>Corporate actions automation</h4>
+        <p>GenAI processing of corporate action notices — dividends, splits, mergers — extracting terms and auto-applying entitlements to beneficial owners.</p>
+        <div class="uc-tags"><span class="uc-impact medium">Medium</span><span class="tag">GenAI</span><span class="tag">NLP</span></div>
+      </div>
+      <div class="uc">
+        <h4>Settlement failure prediction</h4>
+        <p>Models predicting settlement failures before the settlement date based on counterparty behaviour, position data, and historical patterns.</p>
+        <div class="uc-tags"><span class="uc-impact high">High impact</span><span class="tag">Prediction</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMAIN 5 -->
+  <div class="domain-section">
+    <div class="domain-header"><span class="domain-num">05</span><span class="domain-title">Data Products &amp; Market Intelligence</span></div>
+    <div class="uc-grid">
+      <div class="uc">
+        <h4>AI-enriched market data products</h4>
+        <p>Sentiment scores, event impact predictions, and alternative data overlays packaged as premium data feeds for institutional subscribers.</p>
+        <div class="uc-tags"><span class="uc-impact transformative">Transformative</span><span class="tag">Revenue</span><span class="tag">NLP</span></div>
+      </div>
+      <div class="uc">
+        <h4>Research report generation</h4>
+        <p>GenAI-authored market reports, sector summaries, and statistical bulletins from structured market data — reducing analyst time by 80%.</p>
+        <div class="uc-tags"><span class="uc-impact high">High impact</span><span class="tag">GenAI</span><span class="tag">Content</span></div>
+      </div>
+      <div class="uc">
+        <h4>ESG data extraction &amp; scoring</h4>
+        <p>NLP extraction of ESG metrics from issuer disclosures, sustainability reports, and news — feeding a standardised ESG scoring framework.</p>
+        <div class="uc-tags"><span class="uc-impact medium">Medium</span><span class="tag">NLP</span><span class="tag">ESG</span></div>
+      </div>
+      <div class="uc">
+        <h4>Index construction &amp; rebalancing</h4>
+        <p>AI-assisted index methodology design, constituent screening, and rebalancing optimisation — enabling faster launch of thematic and smart-beta indices.</p>
+        <div class="uc-tags"><span class="uc-impact high">High impact</span><span class="tag">Quant</span><span class="tag">Products</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMAIN 6 -->
+  <div class="domain-section">
+    <div class="domain-header"><span class="domain-num">06</span><span class="domain-title">Regulatory &amp; Compliance</span></div>
+    <div class="uc-grid">
+      <div class="uc">
+        <h4>Regulatory change intelligence</h4>
+        <p>NLP monitoring of regulatory publications across jurisdictions, classifying impact and auto-mapping changes to internal policies and controls.</p>
+        <div class="uc-tags"><span class="uc-impact high">High impact</span><span class="tag">NLP</span><span class="tag">RegTech</span></div>
+      </div>
+      <div class="uc">
+        <h4>Automated regulatory reporting</h4>
+        <p>AI-assembled regulatory returns — transaction reports, position limits, capital adequacy — with automated validation and reconciliation.</p>
+        <div class="uc-tags"><span class="uc-impact high">High impact</span><span class="tag">Automation</span></div>
+      </div>
+      <div class="uc">
+        <h4>KYC/AML for market participants</h4>
+        <p>Continuous monitoring of participant risk profiles using entity resolution, UBO identification, and sanctions screening powered by AI.</p>
+        <div class="uc-tags"><span class="uc-impact medium">Medium</span><span class="tag">Entity resolution</span></div>
+      </div>
+      <div class="uc">
+        <h4>Policy document Q&amp;A</h4>
+        <p>RAG-powered assistant enabling staff and participants to query exchange rulebooks, listing rules, and regulatory guidance in natural language.</p>
+        <div class="uc-tags"><span class="uc-impact medium">Medium</span><span class="tag">RAG</span><span class="tag">GenAI</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMAIN 7 -->
+  <div class="domain-section">
+    <div class="domain-header"><span class="domain-num">07</span><span class="domain-title">Technology &amp; Cyber</span></div>
+    <div class="uc-grid">
+      <div class="uc">
+        <h4>AI-powered threat detection</h4>
+        <p>Anomaly detection across network traffic, API calls, and system logs — identifying zero-day threats, DDoS patterns, and insider threat indicators.</p>
+        <div class="uc-tags"><span class="uc-impact transformative">Transformative</span><span class="tag">Security</span><span class="tag">Real-time</span></div>
+      </div>
+      <div class="uc">
+        <h4>Incident response automation</h4>
+        <p>AI-orchestrated playbooks that contain, investigate, and remediate security incidents — reducing mean time to respond from hours to minutes.</p>
+        <div class="uc-tags"><span class="uc-impact high">High impact</span><span class="tag">SOAR</span></div>
+      </div>
+      <div class="uc">
+        <h4>Infrastructure observability</h4>
+        <p>AI correlating metrics across trading engines, network, storage, and application layers to predict failures and auto-remediate before impact.</p>
+        <div class="uc-tags"><span class="uc-impact high">High impact</span><span class="tag">AIOps</span></div>
+      </div>
+      <div class="uc">
+        <h4>Code review &amp; deployment intelligence</h4>
+        <p>AI-assisted code review for matching engine and critical path changes, with automated regression risk scoring and deployment confidence metrics.</p>
+        <div class="uc-tags"><span class="uc-impact medium">Medium</span><span class="tag">DevOps</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMAIN 8 -->
+  <div class="domain-section">
+    <div class="domain-header"><span class="domain-num">08</span><span class="domain-title">Enterprise &amp; Corporate Functions</span></div>
+    <div class="uc-grid">
+      <div class="uc">
+        <h4>Investor relations intelligence</h4>
+        <p>AI analysis of investor sentiment, ownership changes, and peer exchange performance to shape IR strategy and board reporting.</p>
+        <div class="uc-tags"><span class="uc-impact medium">Medium</span><span class="tag">NLP</span><span class="tag">Strategy</span></div>
+      </div>
+      <div class="uc">
+        <h4>Participant onboarding automation</h4>
+        <p>AI-powered document processing for new member applications — extracting data from legal, financial, and technical submissions and auto-assessing eligibility.</p>
+        <div class="uc-tags"><span class="uc-impact medium">Medium</span><span class="tag">IDP</span><span class="tag">Workflow</span></div>
+      </div>
+      <div class="uc">
+        <h4>Revenue forecasting &amp; pricing</h4>
+        <p>ML models forecasting trading volumes, listing revenue, data subscription trends, and connectivity fees to support dynamic pricing and budget planning.</p>
+        <div class="uc-tags"><span class="uc-impact high">High impact</span><span class="tag">Prediction</span><span class="tag">Finance</span></div>
+      </div>
+      <div class="uc">
+        <h4>Board &amp; committee intelligence</h4>
+        <p>GenAI-curated board packs — summarising market performance, regulatory developments, risk events, and strategic KPIs with automated commentary.</p>
+        <div class="uc-tags"><span class="uc-impact medium">Medium</span><span class="tag">GenAI</span><span class="tag">Governance</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>How to use this accelerator</h2>
+    <p>This map is designed to be used in three ways:</p>
+    <ol>
+      <li><strong>Strategy workshops</strong> — walk the board through each domain to identify where AI creates the most value for your specific exchange.</li>
+      <li><strong>Prioritisation</strong> — score each use case on feasibility, impact, and data readiness to build a sequenced roadmap.</li>
+      <li><strong>Vendor evaluation</strong> — use the use case taxonomy to structure RFPs and assess platform capabilities against real business needs.</li>
+    </ol>
+  </div>
+<p class="footer-note">Rodney.AI · Executive Advisor on AI · rodney-ai.com</p>
+</div>
+<script src="_gate.js"></script>
+</body>
+</html>

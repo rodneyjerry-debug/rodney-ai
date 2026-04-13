@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-QZ9C4MLQS8");
+</script>
+<title>AI Tokenomics — Rodney.AI Accelerator</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="_shared.css"/>
+<style>
+  .metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:22px 0}
+  .metric{text-align:center;padding:18px 12px;background:var(--bg-2);border-radius:12px;border:1px solid var(--border)}
+  .metric .val{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:4px}
+  .metric .lbl{font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em}
+  .tier{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:14px;transition:border-color 0.25s}
+  .tier:hover{border-color:rgba(124,92,255,0.4)}
+  .tier h4{font-family:'Space Grotesk',sans-serif;font-size:17px;color:var(--text);margin-bottom:6px}
+  .tier-meta{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+  .tier p{font-size:14px;color:var(--text-dim);margin:0}
+  .compare-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+  .compare-table th,.compare-table td{padding:12px 14px;border-bottom:1px solid var(--border);text-align:center}
+  .compare-table th{text-align:center;color:var(--text);font-weight:600;background:rgba(255,255,255,0.03);font-size:12px;text-transform:uppercase;letter-spacing:0.06em}
+  .compare-table td:first-child{text-align:left;font-weight:500;color:var(--text)}
+  .compare-table .best{color:var(--accent-2);font-weight:700}
+  .decision-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:18px 0}
+  .decision-box{background:var(--bg-2);border:1px solid var(--border);border-radius:14px;padding:24px}
+  .decision-box h4{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--text);margin-bottom:10px}
+  .decision-box ul{margin:0 0 0 18px;color:var(--text-dim);font-size:14px}
+  .decision-box li{margin-bottom:6px}
+  .formula{background:var(--bg-2);border:1px solid var(--border);border-radius:14px;padding:28px;margin:18px 0;text-align:center}
+  .formula .expr{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--text);margin-bottom:8px;letter-spacing:0.02em}
+  .formula .explain{font-size:13px;color:var(--text-muted)}
+  .scenario-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:18px 0}
+  .scenario{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;text-align:center}
+  .scenario h4{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--text);margin-bottom:10px}
+  .scenario .big{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;margin:8px 0}
+  .scenario .big.low{color:#22d3ee}
+  .scenario .big.mid{color:var(--accent)}
+  .scenario .big.high{color:var(--accent-3)}
+  .scenario p{font-size:12.5px;color:var(--text-dim);margin:0}
+  @media(max-width:760px){.metric-row{grid-template-columns:1fr 1fr}.decision-grid,.scenario-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="../index.html#accelerators" class="back">← Back to Rodney.AI</a>
+  <div class="header">
+    <div class="eyebrow"><span class="dot"></span>Accelerator · AI Tokenomics</div>
+    <h1 class="display">AI <span class="gradient-text">Tokenomics</span></h1>
+    <p class="lead">The real economics of running AI at enterprise scale — LLM token consumption,
+       cost-vs-value frameworks, private vs public AI factory decision-making, and the unit
+       economics that determine whether your AI programme is an investment or a cost centre.</p>
+  </div>
+
+  <!-- WHY IT MATTERS -->
+  <div class="card">
+    <h2>Why tokenomics is the new AI board conversation</h2>
+    <p>Every call to a large language model consumes tokens — fragments of text that are the unit
+       currency of inference. The economics of those tokens now drive the total cost of AI ownership
+       for every bank, regulator, and exchange deploying GenAI at scale. Most organisations are
+       running pilots without understanding their run-rate. The ones that do are making fundamentally
+       different architecture and vendor decisions.</p>
+    <div class="metric-row">
+      <div class="metric"><div class="val">~750</div><div class="lbl">Tokens per typical page of text</div></div>
+      <div class="metric"><div class="val">10–100×</div><div class="lbl">Cost range across model tiers</div></div>
+      <div class="metric"><div class="val">60–80%</div><div class="lbl">Inference as % of total AI cost</div></div>
+      <div class="metric"><div class="val">$2–30</div><div class="lbl">Per 1M output tokens (frontier)</div></div>
+    </div>
+  </div>
+
+  <!-- TOKEN COST LANDSCAPE -->
+  <div class="card">
+    <h2>The token cost landscape · 2026</h2>
+    <p>Token pricing varies by orders of magnitude depending on model tier, provider, and whether
+       you're consuming input or output tokens. Understanding this landscape is the starting point
+       for any rational AI cost model.</p>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Model tier</th>
+          <th>Input / 1M tokens</th>
+          <th>Output / 1M tokens</th>
+          <th>Context window</th>
+          <th>Best for</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Frontier reasoning (e.g. GPT-4o, Claude Opus, Gemini Ultra)</td>
+          <td>$2.50–15.00</td>
+          <td>$10.00–75.00</td>
+          <td>128K–1M</td>
+          <td>Complex analysis, strategy</td>
+        </tr>
+        <tr>
+          <td>Mid-tier (e.g. Claude Sonnet, GPT-4o-mini, Gemini Flash)</td>
+          <td class="best">$0.30–3.00</td>
+          <td class="best">$1.00–15.00</td>
+          <td>128K–200K</td>
+          <td>Production workloads</td>
+        </tr>
+        <tr>
+          <td>Lightweight (e.g. Haiku, Gemini Nano, Phi, Mistral)</td>
+          <td class="best">$0.01–0.25</td>
+          <td class="best">$0.05–1.00</td>
+          <td>32K–128K</td>
+          <td>High-volume, classification</td>
+        </tr>
+        <tr>
+          <td>Self-hosted open-source (e.g. Llama, Nemotron, Mixtral)</td>
+          <td>Infra cost only</td>
+          <td>Infra cost only</td>
+          <td>Configurable</td>
+          <td>Sovereignty, cost control</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><em>Prices indicative as of Q1 2026. Frontier model pricing is falling ~40–50% annually.
+       The smart play is architecture that can swap models without re-engineering the application layer.</em></p>
+  </div>
+
+  <!-- COST vs VALUE FRAMEWORK -->
+  <div class="card">
+    <h2>Cost vs Value framework</h2>
+    <p>The board question is never "what does AI cost?" — it's "what does each unit of AI
+       generate in value?" This framework connects token spend to business outcomes.</p>
+    <div class="formula">
+      <div class="expr">AI ROI = (Value Generated − Total AI Cost) ÷ Total AI Cost</div>
+      <div class="explain">Where Total AI Cost = Inference (tokens) + Infrastructure + Engineering + Governance + Data</div>
+    </div>
+
+    <h3>The five cost layers</h3>
+    <div class="tier">
+      <h4>1. Inference cost (tokens)</h4>
+      <div class="tier-meta"><span class="tag">40–60% of total</span><span class="tag">Variable</span></div>
+      <p>Direct token consumption across all models in production. Scales linearly with usage.
+         The largest and most controllable cost lever — model selection, prompt engineering,
+         caching, and routing decisions directly impact this line.</p>
+    </div>
+    <div class="tier">
+      <h4>2. Infrastructure cost</h4>
+      <div class="tier-meta"><span class="tag">15–30% of total</span><span class="tag">Fixed + Variable</span></div>
+      <p>GPU compute (NVIDIA A100/H100/Blackwell), storage, networking, and orchestration.
+         For self-hosted models this is the dominant cost; for API-consumed models it's embedded
+         in token pricing. The private AI factory vs public cloud decision lives here.</p>
+    </div>
+    <div class="tier">
+      <h4>3. Engineering cost</h4>
+      <div class="tier-meta"><span class="tag">15–25% of total</span><span class="tag">Fixed</span></div>
+      <p>Prompt engineering, RAG pipeline development, fine-tuning, evaluation harnesses,
+         MLOps, and integration. Often underestimated — the "last mile" from model to
+         production is where most programmes stall and overspend.</p>
+    </div>
+    <div class="tier">
+      <h4>4. Governance &amp; risk cost</h4>
+      <div class="tier-meta"><span class="tag">5–10% of total</span><span class="tag">Fixed</span></div>
+      <p>Model risk management (SR 11-7 / SS1/23), testing, monitoring, audit, bias detection,
+         explainability tooling, and the human oversight layer that regulators demand.
+         Under-investing here is a false economy — it creates regulatory exposure.</p>
+    </div>
+    <div class="tier">
+      <h4>5. Data cost</h4>
+      <div class="tier-meta"><span class="tag">5–15% of total</span><span class="tag">Variable</span></div>
+      <p>Data acquisition, labelling, cleaning, vector embeddings, and ongoing data pipeline
+         maintenance. RAG architectures shift cost from fine-tuning to data infrastructure.
+         The quality of your data layer determines the quality ceiling of every model.</p>
+    </div>
+  </div>
+
+  <!-- VALUE SIDE -->
+  <div class="card">
+    <h2>The value side · what tokens generate</h2>
+    <p>Every token consumed should trace to one of four value categories. If it doesn't,
+       you're subsidising experimentation at production prices.</p>
+    <div class="decision-grid">
+      <div class="decision-box">
+        <h4>Revenue uplift</h4>
+        <ul>
+          <li>Cross-sell/upsell targeting precision</li>
+          <li>Fee income from AI-powered products (IaaS, data products)</li>
+          <li>Client advisory quality and throughput</li>
+          <li>New revenue streams (Intelligence-as-a-Service)</li>
+        </ul>
+      </div>
+      <div class="decision-box">
+        <h4>Cost avoidance</h4>
+        <ul>
+          <li>Manual processing hours displaced</li>
+          <li>Straight-through processing uplift</li>
+          <li>Regulatory reporting automation</li>
+          <li>Contact centre deflection rate</li>
+        </ul>
+      </div>
+      <div class="decision-box">
+        <h4>Risk reduction</h4>
+        <ul>
+          <li>Fraud detection accuracy improvement</li>
+          <li>Credit loss reduction from better models</li>
+          <li>Operational risk event prevention</li>
+          <li>Regulatory penalty avoidance</li>
+        </ul>
+      </div>
+      <div class="decision-box">
+        <h4>Capital efficiency</h4>
+        <ul>
+          <li>RWA optimisation (Basel IV)</li>
+          <li>Collateral efficiency through better risk models</li>
+          <li>Faster time-to-market for new products</li>
+          <li>Employee productivity × decision quality</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIVATE vs PUBLIC AI FACTORY -->
+  <div class="card">
+    <h2>Private vs Public AI factory · decision framework</h2>
+    <p>The most consequential infrastructure decision in enterprise AI. It determines your cost
+       floor, your sovereignty posture, and your ability to scale.</p>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Public cloud / API</th>
+          <th>Private AI factory</th>
+          <th>Hybrid</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Capital outlay</td>
+          <td class="best">Low (OpEx)</td>
+          <td>High (CapEx)</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td>Unit cost at scale</td>
+          <td>Higher (margin embedded)</td>
+          <td class="best">Lower (amortised)</td>
+          <td>Optimised</td>
+        </tr>
+        <tr>
+          <td>Data sovereignty</td>
+          <td>Shared tenancy risk</td>
+          <td class="best">Full control</td>
+          <td>Tiered</td>
+        </tr>
+        <tr>
+          <td>Model flexibility</td>
+          <td class="best">Widest choice</td>
+          <td>Open-source focused</td>
+          <td class="best">Best of both</td>
+        </tr>
+        <tr>
+          <td>Time to production</td>
+          <td class="best">Weeks</td>
+          <td>Months</td>
+          <td>Weeks–Months</td>
+        </tr>
+        <tr>
+          <td>Regulatory comfort</td>
+          <td>Depends on jurisdiction</td>
+          <td class="best">Highest</td>
+          <td>High</td>
+        </tr>
+        <tr>
+          <td>Scaling ceiling</td>
+          <td class="best">Elastic</td>
+          <td>Capacity-bound</td>
+          <td>Elastic + local</td>
+        </tr>
+        <tr>
+          <td>Best for</td>
+          <td>Early stage, variable demand</td>
+          <td>Sovereignty-first, high volume</td>
+          <td class="best">Most enterprises at scale</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>The sweet spot for most FS institutions:</strong> a hybrid model — sovereign-sensitive
+       workloads (customer data, credit models, surveillance) on a private AI factory; frontier
+       reasoning tasks and low-sensitivity workloads via API. The router layer that decides which
+       request goes where is the most important piece of AI infrastructure you'll build.</p>
+  </div>
+
+  <!-- TOKEN OPTIMISATION LEVERS -->
+  <div class="card">
+    <h2>Eight levers to optimise token economics</h2>
+    <div class="grid-2">
+      <div>
+        <h3>Architecture levers</h3>
+        <ol>
+          <li><strong>Model routing</strong> — Route each request to the cheapest model that meets
+              the quality bar. Frontier for complex reasoning; lightweight for classification and extraction.</li>
+          <li><strong>Prompt engineering</strong> — Concise, structured prompts reduce input tokens by
+              30–50%. System prompts cached and reused, not resent per call.</li>
+          <li><strong>Semantic caching</strong> — Cache responses for similar queries. At scale, 20–40%
+              of enterprise queries are near-duplicates. Caching eliminates repeat inference.</li>
+          <li><strong>RAG over fine-tuning</strong> — Retrieval-augmented generation is cheaper to maintain
+              than fine-tuned models. Data updates don't require retraining.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Commercial levers</h3>
+        <ol start="5">
+          <li><strong>Committed volume pricing</strong> — Negotiate committed-use discounts with providers.
+              Provisioned throughput can cut per-token cost by 30–60%.</li>
+          <li><strong>Batch vs real-time</strong> — Batch inference is 50% cheaper than real-time at most
+              providers. Schedule non-urgent workloads (reports, summaries) for batch.</li>
+          <li><strong>Open-source for base workloads</strong> — Llama, Mistral, and Nemotron models
+              on owned infrastructure for high-volume, stable workloads.</li>
+          <li><strong>Metering and chargeback</strong> — Instrument every application's token consumption.
+              Business units that see their AI bill make better architecture decisions.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENARIO MODEL -->
+  <div class="card">
+    <h2>What does enterprise AI actually cost? · Three scenarios</h2>
+    <p>Annual run-rate for a mid-size bank or exchange running 15–25 AI use cases in production,
+       modelled across three infrastructure strategies.</p>
+    <div class="scenario-row">
+      <div class="scenario">
+        <h4>All-API</h4>
+        <div class="big low">$4–8M</div>
+        <p>Per year. Fastest to deploy. Highest unit cost. Vendor-dependent. Limited sovereignty.</p>
+      </div>
+      <div class="scenario">
+        <h4>Hybrid</h4>
+        <div class="big mid">$2.5–5M</div>
+        <p>Per year. Best balance. Sovereign workloads on-prem, frontier reasoning via API. Requires router.</p>
+      </div>
+      <div class="scenario">
+        <h4>Private AI factory</h4>
+        <div class="big high">$6–12M</div>
+        <p>Year 1 (CapEx heavy). Drops to $1.5–3M/yr run-rate. Full sovereignty. Open-source models.</p>
+      </div>
+    </div>
+    <p><em>Indicative ranges for illustration. Actual costs depend on use case mix, model selection,
+       data volume, and geographic deployment. The right answer is almost always hybrid.</em></p>
+  </div>
+
+  <!-- BOARD QUESTIONS -->
+  <div class="card">
+    <h2>Questions the board should be asking</h2>
+    <ol>
+      <li>What is our current monthly token consumption and run-rate — and who owns the number?</li>
+      <li>What is the blended cost per AI-assisted decision across our top 5 use cases?</li>
+      <li>For each use case, can we quantify the value generated per dollar of token spend?</li>
+      <li>Are we routing requests to the right model tier, or paying frontier prices for commodity tasks?</li>
+      <li>What percentage of our AI workloads require data sovereignty — and are those workloads on sovereign infrastructure?</li>
+      <li>Do we have a private AI factory business case, and at what volume does it break even vs API?</li>
+      <li>Is our AI cost growing linearly with value, or are we on a diverging curve?</li>
+      <li>Who in the organisation has P&amp;L accountability for AI economics — not just AI delivery?</li>
+    </ol>
+  </div>
+
+  <p class="footer-note">Rodney.AI · AI Tokenomics Accelerator · The economics of running AI at enterprise scale</p>
+</div>
+<script src="_gate.js"></script>
+</body>
+</html>

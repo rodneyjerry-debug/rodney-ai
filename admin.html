@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Rodney.AI — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0D1B2A;--bg-2:#0a1521;--surface:#112236;--surface-2:#15293f;
+  --border:rgba(191,212,232,0.10);--border-strong:rgba(191,212,232,0.18);
+  --text:#F2F6FA;--text-dim:#BFD4E8;--text-muted:#8aa0b8;
+  --gold:#C9A227;--gold-2:#e0b84a;--accent:#1B4F72;--accent-2:#2874A6;
+  --green:#22c55e;--red:#ef4444;--blue:#3b82f6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--gold);text-decoration:none}
+a:hover{color:var(--gold-2)}
+
+/* LOGIN */
+.login-overlay{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center}
+.login-box{background:var(--surface);border:1px solid var(--border-strong);border-radius:18px;padding:48px;max-width:400px;width:90%;text-align:center}
+.login-box h1{font-family:'Space Grotesk',sans-serif;font-size:28px;margin-bottom:8px}
+.login-box .sub{color:var(--text-dim);font-size:14px;margin-bottom:28px}
+.login-box input{width:100%;padding:14px 18px;border-radius:10px;border:1px solid var(--border-strong);background:var(--bg);color:var(--text);font-size:15px;margin-bottom:16px;outline:none}
+.login-box input:focus{border-color:var(--gold)}
+.login-box button{width:100%;padding:14px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#0D1B2A;font-size:15px;font-weight:600;cursor:pointer}
+.login-box button:hover{opacity:0.9}
+.login-error{color:var(--red);font-size:13px;margin-top:8px;display:none}
+
+/* LAYOUT */
+.app{display:none;min-height:100vh}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(13,27,42,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:60px}
+.topbar-left{display:flex;align-items:center;gap:16px}
+.topbar h1{font-family:'Space Grotesk',sans-serif;font-size:18px;letter-spacing:-0.01em}
+.topbar h1 .dot{color:var(--gold)}
+.topbar-right{display:flex;align-items:center;gap:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#0D1B2A}
+.btn-gold:hover{opacity:0.9}
+.btn-outline{background:transparent;border:1px solid var(--border-strong);color:var(--text)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.btn-danger{background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);color:var(--red)}
+.btn-sm{padding:7px 14px;font-size:12px}
+.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.status-dot.live{background:var(--green);box-shadow:0 0 8px var(--green)}
+.status-dot.offline{background:var(--red)}
+
+.layout{display:flex;min-height:calc(100vh - 60px)}
+.sidebar{width:240px;background:var(--bg-2);border-right:1px solid var(--border);padding:20px 0;flex-shrink:0;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto}
+.nav-group{margin-bottom:24px}
+.nav-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);padding:0 20px;margin-bottom:8px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:14px;color:var(--text-dim);cursor:pointer;border-left:3px solid transparent;transition:all 0.15s}
+.nav-item:hover{background:rgba(191,212,232,0.04);color:var(--text)}
+.nav-item.active{background:rgba(201,162,39,0.08);color:var(--gold);border-left-color:var(--gold)}
+.nav-icon{width:18px;height:18px;opacity:0.6}
+
+.main{flex:1;padding:32px;max-width:960px}
+.page{display:none}
+.page.active{display:block}
+.page-title{font-family:'Space Grotesk',sans-serif;font-size:26px;margin-bottom:6px}
+.page-sub{color:var(--text-dim);font-size:14px;margin-bottom:28px}
+
+/* CARDS */
+.admin-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:18px}
+.admin-card h3{font-family:'Space Grotesk',sans-serif;font-size:18px;margin-bottom:12px}
+.admin-card p{color:var(--text-dim);font-size:14px;margin-bottom:14px}
+
+/* FORMS */
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin-bottom:6px}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:12px 16px;border-radius:10px;border:1px solid var(--border-strong);background:var(--bg);color:var(--text);font-size:14px;font-family:'Inter',sans-serif;outline:none;resize:vertical}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group textarea{min-height:80px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+
+/* STAT CARDS */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px}
+.stat-card .num{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:var(--gold)}
+.stat-card .lbl{font-size:12px;color:var(--text-muted);margin-top:2px}
+.stat-card .change{font-size:12px;margin-top:6px}
+.stat-card .change.up{color:var(--green)}
+.stat-card .change.down{color:var(--red)}
+
+/* LIST ITEMS */
+.list-item{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;margin-bottom:8px}
+.list-item .li-title{font-size:14px;font-weight:500}
+.list-item .li-meta{font-size:12px;color:var(--text-muted)}
+.list-item .li-actions{display:flex;gap:8px}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;padding:14px 24px;border-radius:12px;font-size:14px;font-weight:500;z-index:9999;transform:translateY(100px);opacity:0;transition:all 0.3s}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:var(--green)}
+.toast.error{background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:var(--red)}
+.toast.info{background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:var(--blue)}
+
+/* PUBLISH */
+.publish-status{display:flex;align-items:center;gap:10px;padding:14px 18px;border-radius:10px;margin-bottom:18px;font-size:14px}
+.publish-status.synced{background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);color:var(--green)}
+.publish-status.pending{background:rgba(201,162,39,0.08);border:1px solid rgba(201,162,39,0.2);color:var(--gold)}
+.publish-status.error{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);color:var(--red)}
+
+.publish-btn{width:100%;padding:18px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#0D1B2A;font-size:16px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:all 0.2s;letter-spacing:0.02em}
+.publish-btn:hover{opacity:0.9;transform:translateY(-1px)}
+.publish-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.publish-btn .spinner{display:none;width:18px;height:18px;border:2px solid rgba(13,27,42,0.3);border-top-color:#0D1B2A;border-radius:50%;animation:spin 0.6s linear infinite;margin-right:8px}
+.publish-btn.loading .spinner{display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* CHANGELOG */
+.changelog-entry{padding:14px 0;border-bottom:1px solid var(--border)}
+.changelog-entry:last-child{border:none}
+.changelog-entry .cl-date{font-size:12px;color:var(--text-muted)}
+.changelog-entry .cl-msg{font-size:14px;margin-top:2px}
+.changelog-entry .cl-files{font-size:12px;color:var(--gold);margin-top:4px}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9000;display:none;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border-strong);border-radius:18px;padding:32px;max-width:600px;width:90%;max-height:80vh;overflow-y:auto}
+.modal h2{font-family:'Space Grotesk',sans-serif;font-size:22px;margin-bottom:16px}
+.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:24px}
+
+/* ANALYTICS EMBED */
+.analytics-frame{width:100%;height:500px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
+.analytics-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;height:300px;background:var(--surface);border:1px dashed var(--border-strong);border-radius:14px;color:var(--text-muted);text-align:center;padding:28px}
+.analytics-placeholder svg{width:48px;height:48px;opacity:0.3;margin-bottom:16px}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .sidebar{display:none}
+  .stat-grid{grid-template-columns:1fr 1fr}
+  .form-row,.form-row-3{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <h1>RODNEY<span style="color:var(--gold)">.AI</span></h1>
+    <div class="sub">Admin Dashboard</div>
+    <input type="password" id="loginPass" placeholder="Enter admin password" autofocus>
+    <button onclick="doLogin()">Sign In</button>
+    <div class="login-error" id="loginError">Incorrect password</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app" id="app">
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <h1>RODNEY<span class="dot">.AI</span> Admin</h1>
+    <span class="status-dot live" id="statusDot" title="Site is live"></span>
+    <span style="font-size:12px;color:var(--text-muted)" id="statusText">Live</span>
+  </div>
+  <div class="topbar-right">
+    <a href="index.html" target="_blank" class="btn btn-outline btn-sm">View Site →</a>
+    <button class="btn btn-gold btn-sm" onclick="showPage('publish')">Publish</button>
+  </div>
+</div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="nav-group">
+    <div class="nav-label">Overview</div>
+    <div class="nav-item active" data-page="dashboard" onclick="showPage('dashboard')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </div>
+    <div class="nav-item" data-page="analytics" onclick="showPage('analytics')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Analytics
+    </div>
+  </div>
+  <div class="nav-group">
+    <div class="nav-label">Content</div>
+    <div class="nav-item" data-page="hero" onclick="showPage('hero')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15 9 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 9"/></svg>
+      Hero Section
+    </div>
+    <div class="nav-item" data-page="services" onclick="showPage('services')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L3 7v6c0 5 4 9 9 10 5-1 9-5 9-10V7l-9-5z"/></svg>
+      Advisory Services
+    </div>
+    <div class="nav-item" data-page="accelerators" onclick="showPage('accelerators')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      Accelerators
+    </div>
+    <div class="nav-item" data-page="insights" onclick="showPage('insights')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+      Insights / Posts
+    </div>
+    <div class="nav-item" data-page="about" onclick="showPage('about')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      About / Credentials
+    </div>
+  </div>
+  <div class="nav-group">
+    <div class="nav-label">System</div>
+    <div class="nav-item" data-page="settings" onclick="showPage('settings')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      Settings
+    </div>
+    <div class="nav-item" data-page="publish" onclick="showPage('publish')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+      Publish
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+<!-- DASHBOARD -->
+<div class="page active" id="page-dashboard">
+  <h2 class="page-title">Dashboard</h2>
+  <p class="page-sub">Overview of your Rodney.AI website</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="num" id="statServices">7</div>
+      <div class="lbl">Advisory Services</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" id="statAccelerators">10</div>
+      <div class="lbl">Accelerators</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" id="statPosts">4</div>
+      <div class="lbl">LinkedIn Posts</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" id="statStatus">—</div>
+      <div class="lbl">Site Status</div>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h3>Quick Actions</h3>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+      <button class="btn btn-outline btn-sm" onclick="showPage('hero')">Edit Hero</button>
+      <button class="btn btn-outline btn-sm" onclick="showPage('services')">Edit Services</button>
+      <button class="btn btn-outline btn-sm" onclick="showPage('accelerators')">Manage Accelerators</button>
+      <button class="btn btn-outline btn-sm" onclick="showPage('insights')">Add Post</button>
+      <button class="btn btn-gold btn-sm" onclick="showPage('publish')">Publish Changes</button>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h3>Recent Commits</h3>
+    <div id="recentCommits"><p style="color:var(--text-muted);font-size:13px">Connect GitHub to see commit history</p></div>
+  </div>
+</div>
+
+<!-- HERO SECTION -->
+<div class="page" id="page-hero">
+  <h2 class="page-title">Hero Section</h2>
+  <p class="page-sub">Edit the main landing area of your website</p>
+
+  <div class="admin-card">
+    <h3>Industry Strip</h3>
+    <div class="form-group">
+      <label>Industries displayed at the top</label>
+      <input type="text" id="heroStrip" placeholder="Banking, Capital Markets, Government...">
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h3>Main Title & Subtitle</h3>
+    <div class="form-group">
+      <label>Hero Title</label>
+      <input type="text" id="heroTitle" placeholder="The boardroom voice...">
+    </div>
+    <div class="form-group">
+      <label>Subtitle</label>
+      <textarea id="heroSubtitle" rows="3" placeholder="From strategy to governance..."></textarea>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h3>Stats Bar</h3>
+    <div class="form-row-3">
+      <div class="form-group">
+        <label>Stat 1 — Number</label>
+        <input type="text" id="heroStat1Num">
+      </div>
+      <div class="form-group">
+        <label>Stat 1 — Label</label>
+        <input type="text" id="heroStat1Label">
+      </div>
+      <div class="form-group">
+        <label>Stat 1 — Detail</label>
+        <input type="text" id="heroStat1Detail">
+      </div>
+    </div>
+    <div class="form-row-3">
+      <div class="form-group">
+        <label>Stat 2 — Number</label>
+        <input type="text" id="heroStat2Num">
+      </div>
+      <div class="form-group">
+        <label>Stat 2 — Label</label>
+        <input type="text" id="heroStat2Label">
+      </div>
+      <div class="form-group">
+        <label>Stat 2 — Detail</label>
+        <input type="text" id="heroStat2Detail">
+      </div>
+    </div>
+    <div class="form-row-3">
+      <div class="form-group">
+        <label>Stat 3 — Number</label>
+        <input type="text" id="heroStat3Num">
+      </div>
+      <div class="form-group">
+        <label>Stat 3 — Label</label>
+        <input type="text" id="heroStat3Label">
+      </div>
+      <div class="form-group">
+        <label>Stat 3 — Detail</label>
+        <input type="text" id="heroStat3Detail">
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-gold" onclick="saveHero()">Save Hero Changes</button>
+</div>
+
+<!-- SERVICES -->
+<div class="page" id="page-services">
+  <h2 class="page-title">Advisory Services</h2>
+  <p class="page-sub">Manage the 7 advisory services shown on the site</p>
+
+  <div id="servicesList"></div>
+
+  <button class="btn btn-outline" onclick="addService()" style="margin-top:14px">+ Add Service</button>
+  <button class="btn btn-gold" onclick="saveServices()" style="margin-top:14px;margin-left:10px">Save All Services</button>
+</div>
+
+<!-- ACCELERATORS -->
+<div class="page" id="page-accelerators">
+  <h2 class="page-title">Accelerators</h2>
+  <p class="page-sub">Manage your accelerator tools and their gating</p>
+
+  <div class="admin-card">
+    <h3>Gate Settings</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Gate Bypass Key</label>
+        <input type="text" id="gateKey" placeholder="rodney">
+      </div>
+      <div class="form-group">
+        <label>Contact Email for Gate CTA</label>
+        <input type="email" id="gateEmail" placeholder="rodneyjerry@yahoo.com">
+      </div>
+    </div>
+    <button class="btn btn-outline btn-sm" onclick="saveGateSettings()">Update Gate Settings</button>
+  </div>
+
+  <div id="acceleratorsList"></div>
+</div>
+
+<!-- INSIGHTS -->
+<div class="page" id="page-insights">
+  <h2 class="page-title">Insights / LinkedIn Posts</h2>
+  <p class="page-sub">Manage highlighted LinkedIn posts on the website</p>
+
+  <div id="insightsList"></div>
+
+  <button class="btn btn-outline" onclick="showAddPostModal()" style="margin-top:14px">+ Add LinkedIn Post</button>
+  <button class="btn btn-gold" onclick="saveInsights()" style="margin-top:14px;margin-left:10px">Save All Posts</button>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="page-about">
+  <h2 class="page-title">About / Credentials</h2>
+  <p class="page-sub">Edit the About section and credentials on the site</p>
+
+  <div class="admin-card">
+    <h3>About Text</h3>
+    <div class="form-group">
+      <label>Main About Paragraph</label>
+      <textarea id="aboutText" rows="6"></textarea>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h3>Contact Details</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="contactEmail">
+      </div>
+      <div class="form-group">
+        <label>Phone</label>
+        <input type="tel" id="contactPhone">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>LinkedIn URL</label>
+        <input type="url" id="contactLinkedIn">
+      </div>
+      <div class="form-group">
+        <label>Location</label>
+        <input type="text" id="contactLocation">
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-gold" onclick="saveAbout()">Save About Changes</button>
+</div>
+
+<!-- ANALYTICS -->
+<div class="page" id="page-analytics">
+  <h2 class="page-title">Analytics</h2>
+  <p class="page-sub">Website traffic and visitor insights</p>
+
+  <div class="stat-grid" id="analyticsStats">
+    <div class="stat-card">
+      <div class="num" id="aPageviews">—</div>
+      <div class="lbl">Page Views (30d)</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" id="aVisitors">—</div>
+      <div class="lbl">Unique Visitors (30d)</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" id="aTopPage">—</div>
+      <div class="lbl">Top Page</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" id="aAvgTime">—</div>
+      <div class="lbl">Avg. Time on Site</div>
+    </div>
+  </div>
+
+  <div class="admin-card" id="analyticsSetupCard">
+    <h3>Google Analytics Setup</h3>
+    <p>Connect Google Analytics to track visitors, page views, and engagement on your site.</p>
+    <div class="form-group">
+      <label>GA4 Measurement ID</label>
+      <input type="text" id="gaId" placeholder="G-XXXXXXXXXX">
+      <p style="font-size:12px;color:var(--text-muted);margin-top:6px">Find this in Google Analytics → Admin → Data Streams → Your stream → Measurement ID</p>
+    </div>
+    <button class="btn btn-gold btn-sm" onclick="saveGA()">Save & Add Tracking</button>
+  </div>
+
+  <div class="admin-card">
+    <h3>Google Analytics Dashboard</h3>
+    <p style="margin-bottom:14px">Once connected, view your full analytics dashboard:</p>
+    <a href="https://analytics.google.com" target="_blank" class="btn btn-outline btn-sm">Open Google Analytics →</a>
+  </div>
+
+  <div class="admin-card">
+    <h3>Page Performance</h3>
+    <p>Accelerator page views (tracked via gate interactions)</p>
+    <div id="pagePerformance">
+      <div class="list-item"><span class="li-title">FS AI Maturity Assessment</span><span class="li-meta">—</span></div>
+      <div class="list-item"><span class="li-title">AI Governance Framework</span><span class="li-meta">—</span></div>
+      <div class="list-item"><span class="li-title">AI Risk Taxonomy</span><span class="li-meta">—</span></div>
+      <div class="list-item"><span class="li-title">AI Tokenomics</span><span class="li-meta">—</span></div>
+      <div class="list-item"><span class="li-title">Exchange AI Use Cases</span><span class="li-meta">—</span></div>
+      <div class="list-item"><span class="li-title">Agentic AI for CEOs & CFOs</span><span class="li-meta">—</span></div>
+      <div class="list-item"><span class="li-title">Executive AI Training</span><span class="li-meta">—</span></div>
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:12px">Analytics data will populate once Google Analytics is connected and tracking is active.</p>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div class="page" id="page-settings">
+  <h2 class="page-title">Settings</h2>
+  <p class="page-sub">Site configuration and GitHub connection</p>
+
+  <div class="admin-card">
+    <h3>GitHub Connection</h3>
+    <p>Connect to your GitHub repository to enable one-click publishing.</p>
+    <div class="form-row">
+      <div class="form-group">
+        <label>GitHub Owner</label>
+        <input type="text" id="ghOwner" value="rodneyjerry-debug">
+      </div>
+      <div class="form-group">
+        <label>Repository Name</label>
+        <input type="text" id="ghRepo" value="rodney-ai">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Personal Access Token</label>
+      <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+      <p style="font-size:12px;color:var(--text-muted);margin-top:6px">Generate at <a href="https://github.com/settings/tokens" target="_blank">github.com/settings/tokens</a> — needs 'repo' scope</p>
+    </div>
+    <button class="btn btn-gold btn-sm" onclick="saveGitHub()">Save & Test Connection</button>
+    <span id="ghStatus" style="font-size:13px;margin-left:12px"></span>
+  </div>
+
+  <div class="admin-card">
+    <h3>Admin Password</h3>
+    <p>Change the password used to access this admin dashboard.</p>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Current Password</label>
+        <input type="password" id="currentPass">
+      </div>
+      <div class="form-group">
+        <label>New Password</label>
+        <input type="password" id="newPass">
+      </div>
+    </div>
+    <button class="btn btn-outline btn-sm" onclick="changePassword()">Update Password</button>
+  </div>
+
+  <div class="admin-card">
+    <h3>Site Metadata</h3>
+    <div class="form-group">
+      <label>Page Title</label>
+      <input type="text" id="metaTitle" placeholder="Rodney.AI — Executive Advisor on AI">
+    </div>
+    <div class="form-group">
+      <label>Meta Description</label>
+      <textarea id="metaDesc" rows="2"></textarea>
+    </div>
+    <button class="btn btn-outline btn-sm" onclick="saveMetadata()">Save Metadata</button>
+  </div>
+</div>
+
+<!-- PUBLISH -->
+<div class="page" id="page-publish">
+  <h2 class="page-title">Publish to rodney-ai.com</h2>
+  <p class="page-sub">Push your changes live with one click</p>
+
+  <div class="publish-status synced" id="publishStatus">
+    <span class="status-dot live"></span>
+    <span>Site is live at rodney-ai.com</span>
+  </div>
+
+  <div class="admin-card">
+    <h3>Pending Changes</h3>
+    <div id="pendingChanges">
+      <p style="color:var(--text-muted);font-size:13px">No pending changes. Edit content to see changes here.</p>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h3>Commit Message</h3>
+    <div class="form-group">
+      <label>Describe your changes</label>
+      <input type="text" id="commitMsg" placeholder="Update site content">
+    </div>
+  </div>
+
+  <button class="publish-btn" id="publishBtn" onclick="publishToGitHub()">
+    <span class="spinner"></span>
+    Publish to rodney-ai.com
+  </button>
+
+  <div class="admin-card" style="margin-top:28px">
+    <h3>Publish History</h3>
+    <div id="publishHistory"><p style="color:var(--text-muted);font-size:13px">Connect GitHub to see publish history</p></div>
+  </div>
+</div>
+
+</div><!-- /main -->
+</div><!-- /layout -->
+</div><!-- /app -->
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ADD POST MODAL -->
+<div class="modal-overlay" id="postModal">
+  <div class="modal">
+    <h2>Add LinkedIn Post</h2>
+    <div class="form-group">
+      <label>Post Title</label>
+      <input type="text" id="newPostTitle" placeholder="AI Governance in Banking...">
+    </div>
+    <div class="form-group">
+      <label>Post Excerpt</label>
+      <textarea id="newPostExcerpt" rows="4" placeholder="Summary of the post..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>LinkedIn URL</label>
+      <input type="url" id="newPostUrl" placeholder="https://linkedin.com/posts/...">
+    </div>
+    <div class="form-row-3">
+      <div class="form-group">
+        <label>Likes</label>
+        <input type="text" id="newPostLikes" placeholder="234">
+      </div>
+      <div class="form-group">
+        <label>Comments</label>
+        <input type="text" id="newPostComments" placeholder="45">
+      </div>
+      <div class="form-group">
+        <label>Reposts</label>
+        <input type="text" id="newPostReposts" placeholder="12">
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline btn-sm" onclick="closeModal('postModal')">Cancel</button>
+      <button class="btn btn-gold btn-sm" onclick="addPost()">Add Post</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   RODNEY.AI ADMIN — Client-side CMS with GitHub API integration
+   ================================================================ */
+
+// ── State ──
+const STATE = {
+  password: null,
+  ghToken: null,
+  ghOwner: 'rodneyjerry-debug',
+  ghRepo: 'rodney-ai',
+  gaId: '',
+  gateKey: 'rodney',
+  siteHtml: '',
+  siteFileSha: '',
+  gateJsSha: '',
+  pendingFiles: {},
+  services: [],
+  accelerators: [],
+  insights: []
+};
+
+// ── Init ──
+window.addEventListener('DOMContentLoaded', () => {
+  // Load saved state from localStorage
+  const saved = localStorage.getItem('rodneyai_admin');
+  if (saved) {
+    try {
+      const s = JSON.parse(saved);
+      if (s.password) STATE.password = s.password;
+      if (s.ghToken) STATE.ghToken = s.ghToken;
+      if (s.ghOwner) STATE.ghOwner = s.ghOwner;
+      if (s.ghRepo) STATE.ghRepo = s.ghRepo;
+      if (s.gaId) STATE.gaId = s.gaId;
+      if (s.gateKey) STATE.gateKey = s.gateKey;
+    } catch(e) {}
+  }
+
+  // Auto-login if password saved
+  if (STATE.password) {
+    document.getElementById('loginOverlay').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    initApp();
+  }
+
+  // Populate settings fields
+  document.getElementById('ghOwner').value = STATE.ghOwner;
+  document.getElementById('ghRepo').value = STATE.ghRepo;
+  document.getElementById('ghToken').value = STATE.ghToken || '';
+  document.getElementById('gaId').value = STATE.gaId || '';
+  document.getElementById('gateKey').value = STATE.gateKey || 'rodney';
+});
+
+function doLogin() {
+  const pass = document.getElementById('loginPass').value;
+  if (!pass) return;
+  // First login sets the password; subsequent logins must match
+  if (!STATE.password) {
+    STATE.password = pass;
+    saveState();
+  } else if (pass !== STATE.password) {
+    document.getElementById('loginError').style.display = 'block';
+    return;
+  }
+  document.getElementById('loginOverlay').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  initApp();
+}
+
+async function initApp() {
+  if (STATE.ghToken) {
+    await loadSiteFromGitHub();
+    await loadCommitHistory();
+  }
+  checkSiteStatus();
+}
+
+function saveState() {
+  localStorage.setItem('rodneyai_admin', JSON.stringify({
+    password: STATE.password,
+    ghToken: STATE.ghToken,
+    ghOwner: STATE.ghOwner,
+    ghRepo: STATE.ghRepo,
+    gaId: STATE.gaId,
+    gateKey: STATE.gateKey
+  }));
+}
+
+// ── Navigation ──
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  const navItem = document.querySelector(`.nav-item[data-page="${page}"]`);
+  if (navItem) navItem.classList.add('active');
+}
+
+// ── Toast ──
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type + ' show';
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ── Modal ──
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+function showAddPostModal() { document.getElementById('postModal').classList.add('show'); }
+
+// ── GitHub API ──
+async function ghFetch(path, opts = {}) {
+  const url = `https://api.github.com/repos/${STATE.ghOwner}/${STATE.ghRepo}${path}`;
+  const headers = {
+    'Authorization': `Bearer ${STATE.ghToken}`,
+    'Accept': 'application/vnd.github.v3+json',
+    ...opts.headers
+  };
+  const res = await fetch(url, { ...opts, headers });
+  if (!res.ok) throw new Error(`GitHub API ${res.status}: ${res.statusText}`);
+  return res.json();
+}
+
+async function loadSiteFromGitHub() {
+  try {
+    // Load index.html
+    const file = await ghFetch('/contents/index.html');
+    STATE.siteFileSha = file.sha;
+    STATE.siteHtml = decodeBase64(file.content);
+    parseSiteContent();
+
+    // Load _gate.js
+    try {
+      const gateFile = await ghFetch('/contents/accelerators/_gate.js');
+      STATE.gateJsSha = gateFile.sha;
+      const gateContent = decodeBase64(gateFile.content);
+      // Extract current gate key
+      const keyMatch = gateContent.match(/get\('key'\)\s*===\s*'([^']+)'/);
+      if (keyMatch) {
+        STATE.gateKey = keyMatch[1];
+        document.getElementById('gateKey').value = STATE.gateKey;
+      }
+    } catch(e) {}
+
+    showToast('Site loaded from GitHub', 'success');
+  } catch(e) {
+    showToast('Failed to load site: ' + e.message, 'error');
+  }
+}
+
+function parseSiteContent() {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(STATE.siteHtml, 'text/html');
+
+  // Parse hero
+  const strip = doc.querySelector('.hero-strip');
+  if (strip) document.getElementById('heroStrip').value = strip.textContent.trim();
+
+  const heroTitle = doc.querySelector('.hero-title');
+  if (heroTitle) document.getElementById('heroTitle').value = heroTitle.textContent.trim();
+
+  const heroSub = doc.querySelector('.hero-sub');
+  if (heroSub) document.getElementById('heroSubtitle').value = heroSub.textContent.trim();
+
+  // Parse stats
+  const stats = doc.querySelectorAll('.stat');
+  stats.forEach((stat, i) => {
+    const num = i + 1;
+    const valEl = stat.querySelector('.stat-val');
+    const lblEl = stat.querySelector('.stat-label');
+    const detEl = stat.querySelector('.stat-detail');
+    if (valEl) document.getElementById(`heroStat${num}Num`).value = valEl.textContent.trim();
+    if (lblEl) document.getElementById(`heroStat${num}Label`).value = lblEl.textContent.trim();
+    if (detEl) document.getElementById(`heroStat${num}Detail`).value = detEl.textContent.trim();
+  });
+
+  // Parse services
+  STATE.services = [];
+  doc.querySelectorAll('.service').forEach(s => {
+    STATE.services.push({
+      num: s.querySelector('.service-num')?.textContent.trim() || '',
+      title: s.querySelector('h3')?.textContent.trim() || '',
+      desc: s.querySelector('p')?.textContent.trim() || '',
+      tags: Array.from(s.querySelectorAll('.service-tags span')).map(t => t.textContent.trim())
+    });
+  });
+  renderServices();
+
+  // Parse accelerators
+  STATE.accelerators = [];
+  doc.querySelectorAll('.acc').forEach(a => {
+    STATE.accelerators.push({
+      href: a.getAttribute('href') || '',
+      title: a.querySelector('h3')?.textContent.trim() || '',
+      desc: a.querySelector('p')?.textContent.trim() || ''
+    });
+  });
+  renderAccelerators();
+
+  // Parse insights/posts
+  STATE.insights = [];
+  doc.querySelectorAll('.post-highlight, .highlight-post').forEach(p => {
+    const link = p.querySelector('a[href*="linkedin"]');
+    STATE.insights.push({
+      title: p.querySelector('h4, h3')?.textContent.trim() || '',
+      excerpt: p.querySelector('.post-excerpt, p')?.textContent.trim() || '',
+      url: link?.getAttribute('href') || '',
+      likes: p.querySelector('.post-likes, .likes')?.textContent.trim() || '',
+      comments: p.querySelector('.post-comments, .comments')?.textContent.trim() || '',
+      reposts: p.querySelector('.post-reposts, .reposts')?.textContent.trim() || ''
+    });
+  });
+  renderInsights();
+
+  // Parse about
+  const aboutEl = doc.querySelector('#about p, .about-text');
+  if (aboutEl) document.getElementById('aboutText').value = aboutEl.textContent.trim();
+
+  // Parse contact
+  const emailLink = doc.querySelector('a[href^="mailto:"]');
+  if (emailLink) document.getElementById('contactEmail').value = emailLink.textContent.trim();
+  const phoneLink = doc.querySelector('a[href^="tel:"]');
+  if (phoneLink) document.getElementById('contactPhone').value = phoneLink.textContent.trim();
+  const linkedInLink = doc.querySelector('a[href*="linkedin.com/in/"]');
+  if (linkedInLink) document.getElementById('contactLinkedIn').value = linkedInLink.getAttribute('href');
+
+  // Parse meta
+  const titleEl = doc.querySelector('title');
+  if (titleEl) document.getElementById('metaTitle').value = titleEl.textContent.trim();
+  const descEl = doc.querySelector('meta[name="description"]');
+  if (descEl) document.getElementById('metaDesc').value = descEl.getAttribute('content');
+
+  // Update dashboard stats
+  document.getElementById('statServices').textContent = STATE.services.length;
+  document.getElementById('statAccelerators').textContent = STATE.accelerators.length;
+  document.getElementById('statPosts').textContent = STATE.insights.length;
+}
+
+// ── Render Services ──
+function renderServices() {
+  const el = document.getElementById('servicesList');
+  el.innerHTML = STATE.services.map((s, i) => `
+    <div class="admin-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <h3>SERVICE · ${String(i + 1).padStart(2, '0')}</h3>
+        <button class="btn btn-danger btn-sm" onclick="removeService(${i})">Remove</button>
+      </div>
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" value="${escHtml(s.title)}" onchange="STATE.services[${i}].title=this.value">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea rows="3" onchange="STATE.services[${i}].desc=this.value">${escHtml(s.desc)}</textarea>
+      </div>
+      <div class="form-group">
+        <label>Tags (comma-separated)</label>
+        <input type="text" value="${s.tags.join(', ')}" onchange="STATE.services[${i}].tags=this.value.split(',').map(t=>t.trim())">
+      </div>
+    </div>
+  `).join('');
+}
+
+function addService() {
+  STATE.services.push({ num: '', title: 'New Service', desc: '', tags: ['SCALE'] });
+  renderServices();
+}
+
+function removeService(i) {
+  STATE.services.splice(i, 1);
+  renderServices();
+}
+
+// ── Render Accelerators ──
+function renderAccelerators() {
+  const el = document.getElementById('acceleratorsList');
+  el.innerHTML = STATE.accelerators.map((a, i) => `
+    <div class="list-item">
+      <div>
+        <div class="li-title">${escHtml(a.title)}</div>
+        <div class="li-meta">${escHtml(a.href)}</div>
+      </div>
+      <div class="li-actions">
+        <a href="${escHtml(a.href)}?key=${STATE.gateKey}" target="_blank" class="btn btn-outline btn-sm">Preview</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── Render Insights ──
+function renderInsights() {
+  const el = document.getElementById('insightsList');
+  el.innerHTML = STATE.insights.map((p, i) => `
+    <div class="admin-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <h3>${escHtml(p.title) || 'LinkedIn Post ' + (i + 1)}</h3>
+        <button class="btn btn-danger btn-sm" onclick="removeInsight(${i})">Remove</button>
+      </div>
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" value="${escHtml(p.title)}" onchange="STATE.insights[${i}].title=this.value">
+      </div>
+      <div class="form-group">
+        <label>Excerpt</label>
+        <textarea rows="2" onchange="STATE.insights[${i}].excerpt=this.value">${escHtml(p.excerpt)}</textarea>
+      </div>
+      <div class="form-group">
+        <label>LinkedIn URL</label>
+        <input type="url" value="${escHtml(p.url)}" onchange="STATE.insights[${i}].url=this.value">
+      </div>
+    </div>
+  `).join('');
+}
+
+function addPost() {
+  STATE.insights.push({
+    title: document.getElementById('newPostTitle').value,
+    excerpt: document.getElementById('newPostExcerpt').value,
+    url: document.getElementById('newPostUrl').value,
+    likes: document.getElementById('newPostLikes').value,
+    comments: document.getElementById('newPostComments').value,
+    reposts: document.getElementById('newPostReposts').value
+  });
+  renderInsights();
+  closeModal('postModal');
+  showToast('Post added — save and publish to update the live site');
+}
+
+function removeInsight(i) {
+  STATE.insights.splice(i, 1);
+  renderInsights();
+}
+
+// ── Save Handlers ──
+function saveHero() {
+  markChanged('index.html');
+  showToast('Hero changes saved locally — publish to go live');
+}
+
+function saveServices() {
+  markChanged('index.html');
+  showToast('Services saved locally — publish to go live');
+}
+
+function saveInsights() {
+  markChanged('index.html');
+  showToast('Insights saved locally — publish to go live');
+}
+
+function saveAbout() {
+  markChanged('index.html');
+  showToast('About section saved locally — publish to go live');
+}
+
+function saveMetadata() {
+  markChanged('index.html');
+  showToast('Metadata saved locally — publish to go live');
+}
+
+async function saveGateSettings() {
+  STATE.gateKey = document.getElementById('gateKey').value || 'rodney';
+  STATE.gateEmail = document.getElementById('gateEmail').value || 'rodneyjerry@yahoo.com';
+  saveState();
+  markChanged('accelerators/_gate.js');
+  showToast('Gate settings saved — publish to go live');
+}
+
+async function saveGA() {
+  STATE.gaId = document.getElementById('gaId').value.trim();
+  saveState();
+  if (STATE.gaId) {
+    markChanged('index.html');
+    showToast('Analytics ID saved — will be added on next publish');
+  }
+}
+
+async function saveGitHub() {
+  STATE.ghOwner = document.getElementById('ghOwner').value.trim();
+  STATE.ghRepo = document.getElementById('ghRepo').value.trim();
+  STATE.ghToken = document.getElementById('ghToken').value.trim();
+  saveState();
+
+  const status = document.getElementById('ghStatus');
+  try {
+    const repo = await ghFetch('');
+    status.innerHTML = '<span style="color:var(--green)">Connected to ' + repo.full_name + '</span>';
+    await loadSiteFromGitHub();
+    await loadCommitHistory();
+    showToast('GitHub connected successfully');
+  } catch(e) {
+    status.innerHTML = '<span style="color:var(--red)">Connection failed: ' + e.message + '</span>';
+  }
+}
+
+function changePassword() {
+  const current = document.getElementById('currentPass').value;
+  const newP = document.getElementById('newPass').value;
+  if (current !== STATE.password) { showToast('Current password incorrect', 'error'); return; }
+  if (!newP) { showToast('New password cannot be empty', 'error'); return; }
+  STATE.password = newP;
+  saveState();
+  showToast('Password updated');
+}
+
+// ── Pending Changes ──
+function markChanged(file) {
+  STATE.pendingFiles[file] = true;
+  renderPendingChanges();
+}
+
+function renderPendingChanges() {
+  const el = document.getElementById('pendingChanges');
+  const files = Object.keys(STATE.pendingFiles);
+  if (!files.length) {
+    el.innerHTML = '<p style="color:var(--text-muted);font-size:13px">No pending changes.</p>';
+    return;
+  }
+  el.innerHTML = files.map(f => `
+    <div class="list-item">
+      <span class="li-title">${f}</span>
+      <span class="li-meta">Modified</span>
+    </div>
+  `).join('');
+}
+
+// ── Build Updated HTML ──
+function buildUpdatedHtml() {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(STATE.siteHtml, 'text/html');
+
+  // Update hero strip
+  const strip = doc.querySelector('.hero-strip');
+  if (strip) {
+    const val = document.getElementById('heroStrip').value;
+    if (val) strip.textContent = val;
+  }
+
+  // Update hero title
+  const heroTitle = doc.querySelector('.hero-title');
+  if (heroTitle) {
+    const val = document.getElementById('heroTitle').value;
+    if (val) heroTitle.textContent = val;
+  }
+
+  // Update hero subtitle
+  const heroSub = doc.querySelector('.hero-sub');
+  if (heroSub) {
+    const val = document.getElementById('heroSubtitle').value;
+    if (val) heroSub.textContent = val;
+  }
+
+  // Update services
+  const servicesGrid = doc.querySelector('.services-grid');
+  if (servicesGrid && STATE.services.length) {
+    // Update section title count
+    const svcTitle = doc.querySelector('#services .section-title');
+    if (svcTitle) {
+      const countWords = ['Zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve'];
+      const word = countWords[STATE.services.length] || STATE.services.length;
+      svcTitle.innerHTML = svcTitle.innerHTML.replace(/^\w+\s+ways/, word + ' ways');
+    }
+
+    servicesGrid.innerHTML = '';
+    STATE.services.forEach((s, i) => {
+      const div = doc.createElement('div');
+      div.className = 'service';
+      div.innerHTML = `
+        <div class="service-num">SERVICE · ${String(i + 1).padStart(2, '0')}</div>
+        <h3>${s.title}</h3>
+        <p>${s.desc}</p>
+        <div class="service-tags">${s.tags.map(t => '<span>' + t + '</span>').join('')}</div>
+      `;
+      servicesGrid.appendChild(div);
+    });
+  }
+
+  // Update accelerators count
+  const accTitle = doc.querySelector('#accelerators .section-title');
+  if (accTitle) {
+    const countWords = ['Zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve'];
+    const word = countWords[STATE.accelerators.length] || STATE.accelerators.length;
+    accTitle.innerHTML = accTitle.innerHTML.replace(/^\w+\s+accelerators/, word + ' accelerators');
+  }
+
+  // Add GA4 if set
+  if (STATE.gaId) {
+    let gaScript = doc.querySelector('script[src*="googletagmanager"]');
+    if (!gaScript) {
+      const head = doc.querySelector('head');
+      const s1 = doc.createElement('script');
+      s1.async = true;
+      s1.src = `https://www.googletagmanager.com/gtag/js?id=${STATE.gaId}`;
+      head.appendChild(s1);
+      const s2 = doc.createElement('script');
+      s2.textContent = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${STATE.gaId}');`;
+      head.appendChild(s2);
+    }
+  }
+
+  // Update meta
+  const metaTitle = document.getElementById('metaTitle').value;
+  if (metaTitle) {
+    const titleEl = doc.querySelector('title');
+    if (titleEl) titleEl.textContent = metaTitle;
+  }
+  const metaDesc = document.getElementById('metaDesc').value;
+  if (metaDesc) {
+    const descEl = doc.querySelector('meta[name="description"]');
+    if (descEl) descEl.setAttribute('content', metaDesc);
+  }
+
+  return '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+}
+
+function buildUpdatedGateJs() {
+  return `/* Rodney.AI — Accelerator content gate
+   Shows the header + first 2 cards, then fades out with a CTA overlay. */
+document.addEventListener('DOMContentLoaded', function () {
+  // Bypass gate with ?key=${STATE.gateKey}
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('key') === '${STATE.gateKey}') return;
+
+  var cards = document.querySelectorAll('.card, .domain-section, .agent-card');
+  if (cards.length < 3) return;
+
+  var showCount = 2;
+  var hidden = [];
+  for (var i = showCount; i < cards.length; i++) { hidden.push(cards[i]); }
+  if (!hidden.length) return;
+
+  var wrapper = document.createElement('div');
+  wrapper.className = 'gated-wrapper';
+  hidden[0].parentNode.insertBefore(wrapper, hidden[0]);
+  hidden.forEach(function (el) { wrapper.appendChild(el); });
+
+  var footerNote = document.querySelector('.footer-note');
+  if (footerNote) footerNote.style.display = 'none';
+
+  var email = '${STATE.gateEmail || 'rodneyjerry@yahoo.com'}';
+  var cta = document.createElement('div');
+  cta.className = 'gate-cta';
+  cta.innerHTML =
+    '<h3>Want the full accelerator?</h3>' +
+    '<p>This is a preview. To access the complete tool with all frameworks, models, and board-ready materials — get in touch.</p>' +
+    '<a href="mailto:' + email + '?subject=Rodney.AI%20Accelerator%20Access" class="btn">Request full access →</a>' +
+    '  <a href="../index.html#contact" class="btn btn-ghost">Contact Rodney</a>';
+  wrapper.parentNode.insertBefore(cta, wrapper.nextSibling);
+});`;
+}
+
+// ── Publish to GitHub ──
+async function publishToGitHub() {
+  if (!STATE.ghToken) {
+    showToast('Connect GitHub first in Settings', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('publishBtn');
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  const msg = document.getElementById('commitMsg').value || 'Update site content';
+
+  try {
+    const files = Object.keys(STATE.pendingFiles);
+    if (!files.length) {
+      // No specific changes tracked — publish current state anyway
+      files.push('index.html');
+    }
+
+    for (const file of files) {
+      let content, sha;
+
+      if (file === 'index.html') {
+        content = buildUpdatedHtml();
+        sha = STATE.siteFileSha;
+      } else if (file === 'accelerators/_gate.js') {
+        content = buildUpdatedGateJs();
+        sha = STATE.gateJsSha;
+      } else {
+        continue;
+      }
+
+      const encoded = encodeBase64(content);
+      const body = { message: msg, content: encoded, sha: sha };
+
+      const result = await ghFetch('/contents/' + file, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+
+      // Update SHA for next commit
+      if (file === 'index.html') {
+        STATE.siteFileSha = result.content.sha;
+        STATE.siteHtml = content;
+      } else if (file === 'accelerators/_gate.js') {
+        STATE.gateJsSha = result.content.sha;
+      }
+    }
+
+    STATE.pendingFiles = {};
+    renderPendingChanges();
+    showToast('Published to rodney-ai.com — live in ~1 minute', 'success');
+    await loadCommitHistory();
+  } catch(e) {
+    showToast('Publish failed: ' + e.message, 'error');
+  } finally {
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+}
+
+// ── Commit History ──
+async function loadCommitHistory() {
+  if (!STATE.ghToken) return;
+  try {
+    const commits = await ghFetch('/commits?per_page=8');
+    const el = document.getElementById('recentCommits');
+    const el2 = document.getElementById('publishHistory');
+    const html = commits.map(c => `
+      <div class="changelog-entry">
+        <div class="cl-date">${new Date(c.commit.author.date).toLocaleString()}</div>
+        <div class="cl-msg">${escHtml(c.commit.message.split('\n')[0])}</div>
+        <div class="cl-files">${c.sha.substring(0, 7)}</div>
+      </div>
+    `).join('');
+    el.innerHTML = html;
+    el2.innerHTML = html;
+  } catch(e) {}
+}
+
+// ── Site Status ──
+async function checkSiteStatus() {
+  try {
+    const res = await fetch('https://rodney-ai.com', { method: 'HEAD', mode: 'no-cors' });
+    document.getElementById('statStatus').textContent = 'Live';
+    document.getElementById('statusDot').className = 'status-dot live';
+    document.getElementById('statusText').textContent = 'Live';
+  } catch(e) {
+    document.getElementById('statStatus').textContent = 'Checking...';
+  }
+}
+
+// ── Utilities ──
+function escHtml(s) {
+  if (!s) return '';
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function decodeBase64(str) {
+  const cleaned = str.replace(/\n/g, '');
+  const bytes = Uint8Array.from(atob(cleaned), c => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+function encodeBase64(str) {
+  const bytes = new TextEncoder().encode(str);
+  let binary = '';
+  bytes.forEach(b => binary += String.fromCharCode(b));
+  return btoa(binary);
+}
+</script>
+</body>
+</html>

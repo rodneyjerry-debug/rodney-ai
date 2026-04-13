@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-QZ9C4MLQS8");
+</script>
+<title>Model Risk Management Checklist for AI · Rodney.AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared.css">
+<style>
+  .check-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+  .check-item:last-child{border:none}
+  .check-item input[type=checkbox]{margin-top:4px;width:18px;height:18px;accent-color:#7c5cff;cursor:pointer}
+  .check-item label{flex:1;color:var(--text-dim);font-size:14.5px;cursor:pointer}
+  .check-item label strong{color:var(--text);display:block;margin-bottom:2px}
+  .progress{margin-top:18px;font-size:13.5px;color:var(--text-dim)}
+</style>
+</head>
+<body>
+<div class="container">
+  <a class="back" href="../index.html">← Back to Rodney.AI</a>
+  <div class="header">
+    <span class="eyebrow"><span class="dot"></span> Accelerator · Checklist</span>
+    <h1 class="display">Model Risk Management Checklist for AI</h1>
+    <p class="lead">An SR 11-7 / SS1/23-aligned checklist extended to cover machine learning and generative AI models. Use it as a self-assessment, a model intake gate or a validation scope document.</p>
+  </div>
+
+  <div class="card">
+    <h2>1 · Intake &amp; classification</h2>
+    <div id="g1"></div>
+  </div>
+  <div class="card">
+    <h2>2 · Data &amp; documentation</h2>
+    <div id="g2"></div>
+  </div>
+  <div class="card">
+    <h2>3 · Development &amp; testing</h2>
+    <div id="g3"></div>
+  </div>
+  <div class="card">
+    <h2>4 · Independent validation</h2>
+    <div id="g4"></div>
+  </div>
+  <div class="card">
+    <h2>5 · Deployment &amp; monitoring</h2>
+    <div id="g5"></div>
+  </div>
+  <div class="card">
+    <h2>6 · Generative AI extensions</h2>
+    <div id="g6"></div>
+  </div>
+
+  <div class="card" style="position:sticky;bottom:20px;background:linear-gradient(180deg,var(--surface),var(--bg-2));border-color:var(--border-strong)">
+    <h2 style="display:flex;justify-content:space-between;align-items:center">Coverage <span class="gradient-text" id="pct">0%</span></h2>
+    <div style="height:8px;background:rgba(255,255,255,0.06);border-radius:100px;overflow:hidden;margin-top:10px"><div id="bar" style="height:100%;background:var(--gradient);width:0%;transition:width .3s"></div></div>
+    <p class="progress" id="msg">Tick items as you confirm them with your model risk team.</p>
+  </div>
+
+  <div class="footer-note">© 2026 Rodney.AI · This checklist complements — it does not replace — your institution's model risk management policy.</div>
+</div>
+
+<script>
+const ITEMS={
+  g1:[
+    ["Model registered in central inventory","With unique ID, owner and risk tier."],
+    ["Risk tier assigned (1-4)","Aligned with enterprise AI risk tiering."],
+    ["Business purpose documented","Including expected value and decisions impacted."],
+    ["Regulatory classification","EU AI Act category, SR 11-7 applicability, GDPR ADM."],
+  ],
+  g2:[
+    ["Data sources identified &amp; lineage captured","From source system to training set."],
+    ["Data quality assessed","Completeness, accuracy, timeliness, representativeness."],
+    ["PII / sensitive data handled appropriately","Minimisation, masking, lawful basis."],
+    ["Model documentation complete","Aligned with MRM template (purpose, design, limitations)."],
+  ],
+  g3:[
+    ["Development methodology documented","Train/test/validation splits, feature selection."],
+    ["Performance metrics defined &amp; measured","Including business and statistical metrics."],
+    ["Fairness &amp; bias testing performed","Disparate impact across protected attributes."],
+    ["Robustness testing performed","Adversarial, drift, edge cases."],
+    ["Explainability artefacts produced","Global &amp; local explanations where needed."],
+  ],
+  g4:[
+    ["Independent validator assigned","Outside the development chain of command."],
+    ["Validation report completed","Conceptual soundness, data, performance, implementation."],
+    ["Validation findings tracked","With owners and remediation deadlines."],
+    ["Validator approves for production","Or conditional approval with controls."],
+  ],
+  g5:[
+    ["Production deployment plan","Including rollback &amp; canary."],
+    ["Monitoring metrics in place","Performance, drift, fairness, business impact."],
+    ["Alerting &amp; escalation defined","Who gets paged, and when."],
+    ["Periodic revalidation scheduled","Frequency by risk tier."],
+    ["Decommissioning criteria documented","When and how to retire the model."],
+  ],
+  g6:[
+    ["Foundation model selection rationale","Including alternatives considered and lock-in risk."],
+    ["Prompt &amp; system instruction governance","Versioned, reviewed, change-controlled."],
+    ["Grounding / RAG architecture documented","Sources, refresh, citations."],
+    ["Hallucination &amp; safety eval suite","Run pre-launch and on every change."],
+    ["Human-in-the-loop checkpoints","For high-stakes outputs."],
+    ["Usage logging &amp; review","For audit and continuous improvement."],
+  ],
+};
+let total=0,done=0;
+Object.entries(ITEMS).forEach(([id,items])=>{
+  const c=document.getElementById(id);
+  items.forEach((it,i)=>{
+    total++;
+    const div=document.createElement('div');
+    div.className='check-item';
+    div.innerHTML=`<input type="checkbox" id="${id}-${i}"><label for="${id}-${i}"><strong>${it[0]}</strong>${it[1]}</label>`;
+    c.appendChild(div);
+    div.querySelector('input').addEventListener('change',e=>{
+      done+=e.target.checked?1:-1;
+      const pct=Math.round(done/total*100);
+      document.getElementById('pct').textContent=pct+'%';
+      document.getElementById('bar').style.width=pct+'%';
+      document.getElementById('msg').textContent=pct===100?'Coverage complete — model is ready for the validation gate.':pct>=70?'Strong coverage — close out remaining items before promotion.':pct>=40?'Mid-stage — keep going.':'Early stage — work with your model risk team.';
+    });
+  });
+});
+</script>
+<script src="_gate.js"></script>
+</body>
+</html>

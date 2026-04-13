@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-QZ9C4MLQS8");
+</script>
+<title>FS AI Maturity Assessment · Rodney.AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared.css">
+<style>
+  .question{margin-bottom:18px;padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg-2)}
+  .question .q-text{font-weight:500;color:var(--text);margin-bottom:12px;font-size:15px}
+  .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .opt{cursor:pointer;padding:8px 14px;border-radius:8px;border:1px solid var(--border-strong);background:rgba(255,255,255,0.03);font-size:13px;color:var(--text-dim);transition:all .2s}
+  .opt:hover{border-color:var(--accent);color:var(--text)}
+  .opt.selected{background:var(--gradient);color:#0a0e1a;border-color:transparent;font-weight:600}
+  .results{position:sticky;top:20px;background:linear-gradient(180deg,var(--surface),var(--bg-2));border:1px solid var(--border-strong);border-radius:18px;padding:28px;margin-top:30px}
+  .score-big{font-family:'Space Grotesk',sans-serif;font-size:64px;font-weight:700;line-height:1}
+  .level{font-size:14px;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent-2);margin-top:8px;font-weight:600}
+  .bar{height:8px;background:rgba(255,255,255,0.06);border-radius:100px;overflow:hidden;margin:18px 0}
+  .bar-fill{height:100%;background:var(--gradient);border-radius:100px;width:0%;transition:width .5s}
+  .dim-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--text-dim)}
+  .dim-row:last-child{border:none}
+  .dim-score{font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text)}
+</style>
+</head>
+<body>
+<div class="container">
+  <a class="back" href="../index.html">← Back to Rodney.AI</a>
+  <div class="header">
+    <span class="eyebrow"><span class="dot"></span> Accelerator · Self-assessment</span>
+    <h1 class="display">FS AI Maturity Assessment</h1>
+    <p class="lead">A six-dimension diagnostic to benchmark your bank, insurer or asset manager's AI maturity. Answer each question honestly — most institutions discover they are 12–18 months behind where they think they are.</p>
+  </div>
+
+  <div class="card">
+    <h2>The six dimensions</h2>
+    <p>Rodney.AI's FS AI maturity model evaluates your organisation across six dimensions, each scored 1 (Initial) to 5 (Leading). The composite score reveals whether you are an AI laggard, follower, fast-follower, leader or differentiator.</p>
+    <div class="grid-3" style="margin-top:18px">
+      <div><span class="tag">1</span><strong style="color:var(--text)">Strategy &amp; Vision</strong><p style="font-size:13px;margin-top:4px">Board-endorsed AI ambition and value pools.</p></div>
+      <div><span class="tag">2</span><strong style="color:var(--text)">Governance &amp; Risk</strong><p style="font-size:13px;margin-top:4px">Policies, committees, three-lines model.</p></div>
+      <div><span class="tag">3</span><strong style="color:var(--text)">Data &amp; Platform</strong><p style="font-size:13px;margin-top:4px">Data foundations, MLOps, GenAI tooling.</p></div>
+      <div><span class="tag">4</span><strong style="color:var(--text)">Talent &amp; Culture</strong><p style="font-size:13px;margin-top:4px">AI literacy, hiring, change capacity.</p></div>
+      <div><span class="tag">5</span><strong style="color:var(--text)">Use Cases &amp; Value</strong><p style="font-size:13px;margin-top:4px">Pipeline, scaling, measured ROI.</p></div>
+      <div><span class="tag">6</span><strong style="color:var(--text)">Responsible AI</strong><p style="font-size:13px;margin-top:4px">Ethics, fairness, regulatory readiness.</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Quick assessment</h2>
+    <p>Pick the statement that best describes your institution today. Your score updates live below.</p>
+    <div id="questions"></div>
+  </div>
+
+  <div class="results">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px">
+      <div>
+        <div style="font-size:13px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em">Composite score</div>
+        <div class="score-big gradient-text" id="score">0.0</div>
+        <div class="level" id="level">Not yet scored</div>
+      </div>
+      <div style="flex:1;min-width:240px">
+        <div id="dimensions"></div>
+      </div>
+    </div>
+    <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+    <p style="font-size:13.5px;color:var(--text-dim)" id="advice">Answer the questions to see Rodney.AI's recommended next steps for your institution.</p>
+  </div>
+
+  <div class="footer-note">© 2026 Rodney.AI · This accelerator is provided as a starting point for executive conversations, not as a substitute for a full advisory engagement.</div>
+</div>
+
+<script>
+const QUESTIONS=[
+  {dim:"Strategy & Vision",q:"How is AI represented in your enterprise strategy?",opts:["No formal mention","Mentioned in strategy document","Dedicated chapter with KPIs","Board-endorsed AI strategy with funding","AI is core to enterprise strategy & competitive thesis"]},
+  {dim:"Governance & Risk",q:"How mature is your AI governance?",opts:["No formal AI governance","Ad-hoc policies, no committee","AI policy & committee exist","Three-lines extended for AI, audited","Regulator-grade AI governance, externally validated"]},
+  {dim:"Data & Platform",q:"How would you describe your AI/ML platform?",opts:["No platform — projects build their own","Pockets of MLOps in some teams","Enterprise MLOps platform in production","MLOps + GenAI gateway with shared services","Differentiating proprietary AI/data platform"]},
+  {dim:"Talent & Culture",q:"What is the state of AI literacy in your firm?",opts:["Pockets of expertise in IT","AI training offered, low adoption","Mandatory literacy for tech & risk","Leaders &amp; board fluent, broad workforce upskilled","AI fluency is core to hiring &amp; promotion"]},
+  {dim:"Use Cases & Value",q:"How many AI use cases are in production with measured value?",opts:["None / fewer than 5","5–15, mostly experiments","15–30, some scaled","30+ scaled with measured ROI","100+ scaled, AI-driven P&amp;L impact"]},
+  {dim:"Responsible AI",q:"Where are you on responsible AI / regulatory readiness?",opts:["Not started","Awareness, no program","Responsible AI program in build","Operating program aligned to EU AI Act / NIST RMF","Leading practice, regulator-engaged"]}
+];
+const LEVELS=[
+  {min:0,name:"Not scored",advice:"Answer the questions to see Rodney.AI's recommended next steps."},
+  {min:1.0,name:"Initial · Laggard",advice:"You are exposed. Start with a board-level AI strategy session and a rapid governance baseline. Rodney.AI's 6-week 'AI Foundations' engagement is built for this."},
+  {min:2.0,name:"Developing · Follower",advice:"You have momentum but lack a coherent operating model. Focus on use case prioritization, MLOps consolidation and a real governance committee."},
+  {min:3.0,name:"Defined · Fast follower",advice:"You're in the mainstream of FS. The next step is scale: federated operating model, regulator-grade governance and a 3-year value plan."},
+  {min:4.0,name:"Managed · Leader",advice:"You're ahead of peers. Protect that position by investing in responsible AI, talent and platform differentiation. Time to consider AI as competitive moat."},
+  {min:4.6,name:"Leading · Differentiator",advice:"You're using AI as a source of strategic advantage. Stay there by engaging regulators proactively and benchmarking against AI-native firms, not just FS peers."}
+];
+const DIMS={};
+const qContainer=document.getElementById('questions');
+QUESTIONS.forEach((Q,i)=>{
+  DIMS[Q.dim]=0;
+  const div=document.createElement('div');
+  div.className='question';
+  div.innerHTML=`<div class="q-text"><span class="tag">${Q.dim}</span><br>${Q.q}</div><div class="opts" data-i="${i}">${Q.opts.map((o,j)=>`<div class="opt" data-score="${j+1}">${j+1}. ${o}</div>`).join('')}</div>`;
+  qContainer.appendChild(div);
+});
+qContainer.addEventListener('click',e=>{
+  if(!e.target.classList.contains('opt'))return;
+  const parent=e.target.parentElement;
+  const i=+parent.dataset.i;
+  parent.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
+  e.target.classList.add('selected');
+  DIMS[QUESTIONS[i].dim]=+e.target.dataset.score;
+  update();
+});
+function update(){
+  const scores=Object.values(DIMS);
+  const filled=scores.filter(s=>s>0);
+  if(!filled.length)return;
+  const avg=filled.reduce((a,b)=>a+b,0)/filled.length;
+  document.getElementById('score').textContent=avg.toFixed(1);
+  document.getElementById('barFill').style.width=(avg/5*100)+'%';
+  let level=LEVELS[0];
+  LEVELS.forEach(L=>{if(avg>=L.min)level=L});
+  document.getElementById('level').textContent=level.name;
+  document.getElementById('advice').textContent=level.advice;
+  document.getElementById('dimensions').innerHTML=Object.entries(DIMS).map(([k,v])=>`<div class="dim-row"><span>${k}</span><span class="dim-score">${v||'-'}/5</span></div>`).join('');
+}
+update();
+</script>
+<script src="_gate.js"></script>
+</body>
+</html>

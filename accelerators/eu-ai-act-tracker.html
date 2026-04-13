@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-QZ9C4MLQS8");
+</script>
+<title>EU AI Act Readiness Tracker · Rodney.AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared.css">
+<style>
+  .timeline{position:relative;padding-left:30px;margin:14px 0}
+  .timeline::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:var(--gradient)}
+  .tl-item{position:relative;padding-bottom:22px}
+  .tl-item::before{content:"";position:absolute;left:-26px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+  .tl-date{font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--accent-2);font-size:13.5px;text-transform:uppercase;letter-spacing:0.08em}
+  .tl-item strong{display:block;color:var(--text);margin:4px 0}
+  .tl-item p{font-size:14px;color:var(--text-dim)}
+  .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+</style>
+</head>
+<body>
+<div class="container">
+  <a class="back" href="../index.html">← Back to Rodney.AI</a>
+  <div class="header">
+    <span class="eyebrow"><span class="dot"></span> Accelerator · Tracker</span>
+    <h1 class="display">EU AI Act Readiness Tracker</h1>
+    <p class="lead">A pragmatic checklist and timeline for FS institutions navigating the EU AI Act. Built specifically for banks, insurers and asset managers operating in or selling into the EU.</p>
+  </div>
+
+  <div class="card">
+    <h2>Why this matters for FS</h2>
+    <p>The EU AI Act applies to any institution placing AI systems on the EU market or whose AI outputs are used in the EU — including non-EU banks. Several common FS use cases are explicitly classified as <strong style="color:var(--text)">high-risk</strong>, including credit scoring of natural persons, certain insurance pricing, and AI used in employment or biometric identification.</p>
+    <p>Penalties scale up to <strong style="color:var(--text)">7% of global turnover</strong> for the most serious breaches. The Act's obligations layer on top of existing model risk and consumer protection regimes — they don't replace them.</p>
+  </div>
+
+  <div class="card">
+    <h2>The enforcement timeline</h2>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-date">Feb 2025</div><strong>Prohibited AI practices in force</strong><p>Bans on social scoring, untargeted scraping, manipulative AI and certain biometric categorisation already apply.</p></div>
+      <div class="tl-item"><div class="tl-date">Aug 2025</div><strong>GPAI rules &amp; governance bodies</strong><p>Obligations for general-purpose AI model providers; AI Office and national authorities operational.</p></div>
+      <div class="tl-item"><div class="tl-date">Aug 2026</div><strong>High-risk AI rules apply</strong><p>Full obligations for high-risk systems including credit scoring, certain insurance and HR uses. <strong>This is the date FS programs must be ready for.</strong></p></div>
+      <div class="tl-item"><div class="tl-date">Aug 2027</div><strong>High-risk under product safety</strong><p>Extension to high-risk AI embedded in regulated products covered by Annex I legislation.</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Risk classification map for FS</h2>
+    <table>
+      <thead><tr><th>Use case</th><th>Likely classification</th><th>Key obligations</th></tr></thead>
+      <tbody>
+        <tr><td>Credit scoring of natural persons</td><td><strong style="color:#ff7ac0">High-risk</strong></td><td>Conformity, data governance, transparency, human oversight</td></tr>
+        <tr><td>Life &amp; health insurance pricing</td><td><strong style="color:#ff7ac0">High-risk</strong></td><td>Same as above + sectoral consumer protection</td></tr>
+        <tr><td>AML / fraud detection</td><td><strong style="color:#bfb5ff">Limited / minimal</strong></td><td>Likely outside high-risk; existing regimes apply</td></tr>
+        <tr><td>Customer-facing chatbot</td><td><strong style="color:#bfb5ff">Limited risk</strong></td><td>Disclosure obligation (user must know it's AI)</td></tr>
+        <tr><td>HR / candidate screening</td><td><strong style="color:#ff7ac0">High-risk</strong></td><td>Full Annex III obligations</td></tr>
+        <tr><td>Internal productivity GenAI</td><td><strong style="color:#a7f3d0">Minimal</strong></td><td>Code of practice, GPAI provider passes through</td></tr>
+        <tr><td>GPAI / foundation model in use</td><td><strong style="color:#bfb5ff">Provider obligations</strong></td><td>Provider documentation; deployer due diligence</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>The 10-step readiness checklist</h2>
+    <ol>
+      <li>Stand up an EU AI Act program owner (typically 2nd line, jointly with legal).</li>
+      <li>Build a complete AI inventory with EU touchpoints flagged.</li>
+      <li>Classify each system: prohibited, high-risk, limited, minimal, or GPAI.</li>
+      <li>Run a gap assessment against Annex III obligations for high-risk systems.</li>
+      <li>Establish data governance evidencing for high-risk training datasets.</li>
+      <li>Document risk management system and post-market monitoring plan.</li>
+      <li>Implement human oversight mechanisms for in-scope systems.</li>
+      <li>Update vendor &amp; foundation-model contracts with deployer-side rights.</li>
+      <li>Prepare conformity assessment and EU technical documentation.</li>
+      <li>Train executives and the board on obligations, and rehearse incident response.</li>
+    </ol>
+  </div>
+
+  <div class="footer-note">© 2026 Rodney.AI · This tracker is intended to support executive conversations and program planning. It is not legal advice.</div>
+</div>
+<script src="_gate.js"></script>
+</body>
+</html>

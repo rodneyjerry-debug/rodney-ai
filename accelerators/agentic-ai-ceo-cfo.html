@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-QZ9C4MLQS8");
+</script>
+<title>Agentic AI for CEOs &amp; CFOs — Rodney.AI Accelerator</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="_shared.css"/>
+<style>
+  .agent-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:16px;transition:border-color 0.25s}
+  .agent-card:hover{border-color:rgba(124,92,255,0.4)}
+  .agent-card h3{margin-top:0;font-family:'Space Grotesk',sans-serif;font-size:18px;color:var(--text)}
+  .agent-card p{font-size:14px;color:var(--text-dim)}
+  .agent-meta{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+  .agent-outcome{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:13px}
+  .agent-outcome strong{color:var(--accent-2)}
+  .maturity-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+  .maturity-table th,.maturity-table td{padding:14px 16px;border-bottom:1px solid var(--border)}
+  .maturity-table th{text-align:left;color:var(--text);font-weight:600;background:rgba(255,255,255,0.03);font-size:11px;text-transform:uppercase;letter-spacing:0.08em}
+  .maturity-table td:first-child{font-weight:600;color:var(--text)}
+  .maturity-table td{color:var(--text-dim)}
+  .level-badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:0.05em}
+  .level-badge.l1{background:rgba(255,255,255,0.06);color:var(--text-muted)}
+  .level-badge.l2{background:rgba(124,92,255,0.12);color:#bfb5ff}
+  .level-badge.l3{background:rgba(34,211,238,0.12);color:#22d3ee}
+  .level-badge.l4{background:rgba(255,122,192,0.12);color:#ff7ac0}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:18px 0}
+  .split-box{background:var(--bg-2);border:1px solid var(--border);border-radius:14px;padding:24px}
+  .split-box h4{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--text);margin-bottom:10px}
+  .split-box p,.split-box li{font-size:14px;color:var(--text-dim)}
+  .split-box ul{margin:0 0 0 18px}
+  .split-box li{margin-bottom:6px}
+  .risk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0}
+  .risk-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;text-align:center}
+  .risk-item h4{font-family:'Space Grotesk',sans-serif;font-size:14px;color:var(--text);margin-bottom:6px}
+  .risk-item p{font-size:12.5px;color:var(--text-dim);margin:0}
+  @media(max-width:760px){.split,.risk-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="../index.html#accelerators" class="back">← Back to Rodney.AI</a>
+  <div class="header">
+    <div class="eyebrow"><span class="dot"></span>Accelerator · Agentic AI</div>
+    <h1 class="display">Agentic AI for <span class="gradient-text">CEOs &amp; CFOs</span></h1>
+    <p class="lead">What the C-suite needs to know about AI agents — autonomous systems that reason,
+       plan, and act across enterprise workflows. How they differ from chatbots, where they create
+       value, what governance they require, and how to start without losing control.</p>
+  </div>
+
+  <!-- WHAT ARE AGENTS -->
+  <div class="card">
+    <h2>From chatbots to agents — what changed</h2>
+    <p>A chatbot responds to a prompt. An agent pursues a goal. The difference is autonomy:
+       agents can break down complex tasks, use tools, access enterprise systems, make decisions,
+       and execute multi-step workflows with minimal human intervention. This is the shift that
+       moves AI from "assistant" to "operator" — and it changes the economics, the risk profile,
+       and the governance requirements of every AI programme.</p>
+    <table class="maturity-table">
+      <thead>
+        <tr>
+          <th>Capability</th>
+          <th>Chatbot / Copilot</th>
+          <th>Agentic AI</th>
+          <th>Multi-Agent System</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Autonomy</td>
+          <td>Human-in-the-loop per step</td>
+          <td>Goal-directed, human oversight at checkpoints</td>
+          <td>Agents collaborate, orchestrate, self-correct</td>
+        </tr>
+        <tr>
+          <td>Tool use</td>
+          <td>None or single-tool</td>
+          <td>Multi-tool (APIs, databases, documents)</td>
+          <td>Each agent has specialised toolsets</td>
+        </tr>
+        <tr>
+          <td>Memory</td>
+          <td>Session-only</td>
+          <td>Persistent task memory</td>
+          <td>Shared state across agents</td>
+        </tr>
+        <tr>
+          <td>Planning</td>
+          <td>None</td>
+          <td>Task decomposition and sequencing</td>
+          <td>Dynamic replanning and delegation</td>
+        </tr>
+        <tr>
+          <td>Error handling</td>
+          <td>Fails or hallucinates</td>
+          <td>Retries, escalates, seeks clarification</td>
+          <td>Self-healing, supervisor agents</td>
+        </tr>
+        <tr>
+          <td>Governance complexity</td>
+          <td><span class="level-badge l1">Low</span></td>
+          <td><span class="level-badge l2">Medium–High</span></td>
+          <td><span class="level-badge l4">High</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CEO VIEW -->
+  <div class="card">
+    <h2>The CEO view — where agents create strategic value</h2>
+    <p>For the CEO, agentic AI is about enterprise leverage: fewer people doing repetitive
+       coordination, faster decisions, and new capabilities that weren't possible at all
+       before. Here's where the impact lands:</p>
+
+    <div class="agent-card">
+      <h3>1. Customer intelligence agent</h3>
+      <div class="agent-meta"><span class="tag">Revenue</span><span class="tag">Cross-sell</span><span class="tag">Personalisation</span></div>
+      <p>Continuously analyses customer behaviour, transaction patterns, life events, and
+         market conditions to generate personalised next-best-action recommendations for
+         relationship managers — in real time, across every segment.</p>
+      <div class="agent-outcome"><strong>Impact:</strong> 15–30% uplift in cross-sell conversion.
+         Replaces quarterly campaign cycles with continuous, personalised engagement.</div>
+    </div>
+
+    <div class="agent-card">
+      <h3>2. Regulatory change agent</h3>
+      <div class="agent-meta"><span class="tag">Compliance</span><span class="tag">NLP</span><span class="tag">Multi-jurisdiction</span></div>
+      <p>Monitors regulatory publications across SAMA, CBUAE, CMA, FCA, PRA, ECB, and
+         Basel. Classifies changes by business impact, maps them to internal policies,
+         drafts impact assessments, and routes to responsible owners.</p>
+      <div class="agent-outcome"><strong>Impact:</strong> Regulatory response time from weeks to hours.
+         Zero missed publications. Audit-ready trail of every assessment.</div>
+    </div>
+
+    <div class="agent-card">
+      <h3>3. Board intelligence agent</h3>
+      <div class="agent-meta"><span class="tag">Strategy</span><span class="tag">Reporting</span><span class="tag">GenAI</span></div>
+      <p>Curates weekly and monthly board-ready intelligence packs — summarising market performance,
+         competitive moves, regulatory developments, risk events, and strategic KPI trends with
+         AI-generated commentary and variance explanations.</p>
+      <div class="agent-outcome"><strong>Impact:</strong> Board prep time cut 60–80%.
+         Consistent quality. Real-time refresh capability for ad-hoc board requests.</div>
+    </div>
+
+    <div class="agent-card">
+      <h3>4. Market surveillance agent</h3>
+      <div class="agent-meta"><span class="tag">Integrity</span><span class="tag">Real-time</span><span class="tag">Multi-venue</span></div>
+      <p>Real-time monitoring of order flow, trade patterns, and cross-market correlations
+         to detect manipulation, insider trading, and market abuse — replacing rules-based
+         alerting with adaptive, learning systems.</p>
+      <div class="agent-outcome"><strong>Impact:</strong> 5–10× improvement in alert quality.
+         Cross-venue detection capability. Automated evidence assembly for investigators.</div>
+    </div>
+  </div>
+
+  <!-- CFO VIEW -->
+  <div class="card">
+    <h2>The CFO view — where agents move the P&amp;L</h2>
+    <p>For the CFO, the question is unit economics. Agents need to demonstrate measurable
+       impact on cost, capital, or revenue — not just productivity.</p>
+
+    <div class="agent-card">
+      <h3>5. Credit decisioning agent</h3>
+      <div class="agent-meta"><span class="tag">Risk</span><span class="tag">Capital</span><span class="tag">Speed</span></div>
+      <p>End-to-end credit assessment — pulling financial data, running models, checking
+         policy rules, preparing the credit memo, and routing for approval. What takes
+         a credit analyst 4–8 hours becomes a 15-minute agent-assisted workflow.</p>
+      <div class="agent-outcome"><strong>P&L impact:</strong> 60–80% reduction in credit processing cost.
+         Improved risk differentiation. Faster time-to-yes for good credits.</div>
+    </div>
+
+    <div class="agent-card">
+      <h3>6. Financial close &amp; reporting agent</h3>
+      <div class="agent-meta"><span class="tag">Finance</span><span class="tag">Reconciliation</span><span class="tag">IFRS</span></div>
+      <p>Automates the month-end and quarter-end close — journal entry preparation,
+         intercompany reconciliation, variance analysis, and narrative commentary
+         for management accounts. Handles the 80% of close activities that are
+         pattern-based.</p>
+      <div class="agent-outcome"><strong>P&L impact:</strong> Close cycle compressed by 30–50%.
+         Finance team redeployed from production to analysis and business partnering.</div>
+    </div>
+
+    <div class="agent-card">
+      <h3>7. Procurement &amp; vendor management agent</h3>
+      <div class="agent-meta"><span class="tag">Cost</span><span class="tag">Contracts</span><span class="tag">NLP</span></div>
+      <p>Reviews contracts, benchmarks pricing, tracks SLA performance, flags renewal
+         risks, and prepares negotiation briefs. Across a $200M+ annual vendor spend,
+         the savings from better information alone are material.</p>
+      <div class="agent-outcome"><strong>P&L impact:</strong> 3–7% procurement cost reduction.
+         Faster contract cycles. Better SLA enforcement with data-backed escalations.</div>
+    </div>
+
+    <div class="agent-card">
+      <h3>8. Capital optimisation agent</h3>
+      <div class="agent-meta"><span class="tag">Basel IV</span><span class="tag">RWA</span><span class="tag">Treasury</span></div>
+      <p>Continuously monitors RWA positions, identifies optimisation opportunities,
+         models capital impact of new business, and recommends portfolio adjustments
+         to improve ROE within regulatory constraints.</p>
+      <div class="agent-outcome"><strong>P&L impact:</strong> 5–15 bps ROE improvement.
+         Real-time capital visibility. Proactive balance sheet management.</div>
+    </div>
+  </div>
+
+  <!-- GOVERNANCE -->
+  <div class="card">
+    <h2>Governing agents — the new risk frontier</h2>
+    <p>Agents that act autonomously create a governance challenge that traditional model risk
+       frameworks weren't designed for. The board needs to understand these six risk dimensions:</p>
+    <div class="risk-grid">
+      <div class="risk-item">
+        <h4>Autonomy risk</h4>
+        <p>Agent takes actions beyond its mandate. Requires clear guardrails, escalation triggers, and kill switches.</p>
+      </div>
+      <div class="risk-item">
+        <h4>Cascade risk</h4>
+        <p>One agent's error propagates through a multi-agent workflow. Requires circuit breakers between agents.</p>
+      </div>
+      <div class="risk-item">
+        <h4>Accountability gap</h4>
+        <p>Who is responsible when an agent makes a decision? Requires clear RACI and audit trails.</p>
+      </div>
+      <div class="risk-item">
+        <h4>Tool misuse risk</h4>
+        <p>Agent uses enterprise tools in unintended ways. Requires scoped permissions and action logging.</p>
+      </div>
+      <div class="risk-item">
+        <h4>Hallucination at scale</h4>
+        <p>A chatbot hallucination is embarrassing. An agent hallucination that triggers a trade or payment is material.</p>
+      </div>
+      <div class="risk-item">
+        <h4>Regulatory clarity</h4>
+        <p>Most AI regulations (EU AI Act, CBUAE) require human oversight. Defining "oversight" for autonomous agents is unsettled.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW TO START -->
+  <div class="card">
+    <h2>How to start — without losing control</h2>
+    <div class="split">
+      <div class="split-box">
+        <h4>Start here (low autonomy, high value)</h4>
+        <ul>
+          <li>Document processing and extraction agents</li>
+          <li>Research and summarisation agents</li>
+          <li>Report generation and board pack agents</li>
+          <li>Internal knowledge Q&A agents</li>
+          <li>Regulatory monitoring and classification</li>
+        </ul>
+      </div>
+      <div class="split-box">
+        <h4>Build towards (higher autonomy, requires governance)</h4>
+        <ul>
+          <li>Credit decisioning and underwriting agents</li>
+          <li>Multi-step customer servicing agents</li>
+          <li>Trading surveillance and investigation agents</li>
+          <li>Capital optimisation and treasury agents</li>
+          <li>Multi-agent orchestration systems</li>
+        </ul>
+      </div>
+    </div>
+    <p>The principle: <strong>start with agents that advise, then progress to agents that act.</strong>
+       Build the governance muscle on low-risk use cases before deploying agents with real-world
+       consequences. Every agent should have a human checkpoint — until you've earned the right
+       to remove it.</p>
+  </div>
+
+  <!-- BOARD QUESTIONS -->
+  <div class="card">
+    <h2>Questions for the board</h2>
+    <ol>
+      <li>Which 3–5 enterprise workflows would benefit most from agentic automation — and what's the annual cost of those workflows today?</li>
+      <li>Do we have the governance framework to manage autonomous AI systems, or are we still governing copilots?</li>
+      <li>What is our risk appetite for AI autonomy — and have we defined escalation thresholds and kill switches?</li>
+      <li>How do we measure the ROI of an agent vs a human doing the same workflow?</li>
+      <li>Are our data systems, APIs, and permissions structured for agent access — or will we need infrastructure work first?</li>
+      <li>Who on the executive committee owns the agentic AI roadmap and its governance?</li>
+    </ol>
+  </div>
+
+  <p class="footer-note">Rodney.AI · Agentic AI for CEOs &amp; CFOs · Accelerator</p>
+</div>
+<script src="_gate.js"></script>
+</body>
+</html>
