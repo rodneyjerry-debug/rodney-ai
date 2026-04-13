@@ -1065,6 +1065,28 @@ function escHtml(s) {
   return d.innerHTML;
 }
 
+function encodeBase64(str) {
+  return btoa(unescape(encodeURIComponent(str)));
+}
+
+function decodeBase64(str) {
+  return decodeURIComponent(escape(atob(str)));
+}
+
+function checkSiteStatus() {
+  var dot = document.querySelector('.status-dot');
+  if (!dot) return;
+  if (STATE.ghToken && STATE.siteHtml) {
+    dot.className = 'status-dot live';
+    var label = document.getElementById('siteStatusLabel');
+    if (label) label.textContent = 'Live';
+  } else {
+    dot.className = 'status-dot offline';
+    var label = document.getElementById('siteStatusLabel');
+    if (label) label.textContent = 'Offline';
+  }
+}
+
 function saveGAConfig() {
   STATE.gaClientId = (document.getElementById('gaClientId').value || '').trim();
   STATE.gaPropertyId = (document.getElementById('gaPropertyId').value || '').trim();
@@ -1319,6 +1341,17 @@ function buildUpdatedHtml() {
     if (val) heroSub.textContent = val;
   }
 
+  // Update stats
+  const statEls = doc.querySelectorAll('.stat');
+  for (let i = 0; i < statEls.length && i < 4; i++) {
+    const numEl = statEls[i].querySelector('.stat-num');
+    const lblEl = statEls[i].querySelector('.stat-label');
+    const numField = document.getElementById('heroStat' + (i + 1) + 'Num');
+    const lblField = document.getElementById('heroStat' + (i + 1) + 'Label');
+    if (numEl && numField && numField.value) numEl.textContent = numField.value;
+    if (lblEl && lblField && lblField.value) lblEl.textContent = lblField.value;
+  }
+
   // Update services
   const servicesGrid = doc.querySelector('.services-grid');
   if (servicesGrid && STATE.services.length) {
@@ -1491,4 +1524,17 @@ async function loadCommitHistory() {
     const html = commits.map(c => `
       <div class="changelog-entry">
         <div class="cl-date">${new Date(c.commit.author.date).toLocaleString()}</div>
-        <div class
+        <div class="cl-msg">${escHtml(c.commit.message.split('\n')[0])}</div>
+        <div class="cl-author">${escHtml(c.commit.author.name)}</div>
+      </div>
+    `).join('');
+    if (el) el.innerHTML = html || '<p style="color:var(--text-muted)">No commits yet</p>';
+    if (el2) el2.innerHTML = html || '<p style="color:var(--text-muted)">No publish history yet</p>';
+  } catch(e) {
+    console.warn('loadCommitHistory error:', e.message);
+  }
+}
+
+</script>
+</body>
+</html>
