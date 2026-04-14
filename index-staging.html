@@ -1321,6 +1321,67 @@
     border-radius:6px;
   }
 
+  /* ---------- ABOUT SPEAKING STRIP ---------- */
+  .about-speaking{
+    margin-top:56px;padding:28px 32px;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    display:grid;grid-template-columns:1fr 1.4fr;gap:28px;align-items:center;
+  }
+  .about-speaking .as-head p{
+    font-size:14px;color:var(--text-dim);line-height:1.55;margin-top:10px;
+  }
+  .about-speaking .as-stages{
+    display:flex;flex-wrap:wrap;gap:10px;
+  }
+  .about-speaking .as-stages span{
+    font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;
+    color:var(--soft);letter-spacing:0.06em;
+    padding:8px 14px;background:rgba(191,212,232,0.05);
+    border:1px solid var(--border);border-radius:999px;
+  }
+
+  /* ---------- ADVISORY CTA ---------- */
+  .advisory-cta{
+    display:flex;gap:14px;justify-content:center;margin-top:48px;flex-wrap:wrap;
+  }
+
+  /* ---------- WHY US ---------- */
+  .why-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:18px;
+  }
+  .why-card{
+    background:linear-gradient(180deg,rgba(15,29,45,0.7),rgba(8,17,28,0.9));
+    border:1px solid var(--border);border-radius:var(--radius-lg);
+    padding:32px 24px;transition:all 0.3s;position:relative;overflow:hidden;
+  }
+  .why-card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:var(--gradient-gold);transform:scaleX(0);transform-origin:left;
+    transition:transform 0.4s;
+  }
+  .why-card:hover{border-color:var(--border-gold);transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .why-card:hover::before{transform:scaleX(1)}
+  .why-num{
+    font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--gold-2);
+    font-weight:700;letter-spacing:0.18em;margin-bottom:16px;
+  }
+  .why-card h3{
+    font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;
+    color:var(--white);margin-bottom:12px;line-height:1.3;
+  }
+  .why-card p{font-size:13.5px;color:var(--text-dim);line-height:1.55}
+
+  /* ---------- STICKY MOBILE CTA ---------- */
+  .sticky-cta{
+    display:none;position:fixed;bottom:16px;left:16px;right:16px;z-index:900;
+  }
+  .sticky-cta .btn{width:100%;justify-content:center;padding:14px 22px;
+    box-shadow:0 14px 40px -10px rgba(201,162,39,0.55);}
+  @media (max-width:720px){
+    .sticky-cta{display:block}
+  }
+
   /* ---------- TESTIMONIALS ---------- */
   .testimonial-grid{
     display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
@@ -1436,12 +1497,11 @@
       </div>
     </a>
     <div class="nav-links">
-      <a href="#promise">Promise</a>
-      <a href="#about">About</a>
+      <a href="#advisory">Advisory</a>
+      <a href="#how">How I Work</a>
+      <a href="#why">Why Us</a>
       <a href="#scoreboard">Scoreboard</a>
-      <a href="#benchmarks">Benchmarks</a>
-      <a href="#services">Advisory</a>
-      <a href="#insights">Writing</a>
+      <a href="#thought-leadership">Thought Leadership</a>
       <a href="#accelerators">Accelerators</a>
       <a href="#contact" class="btn btn-primary">Book a consultation →</a>
     </div>
@@ -1617,63 +1677,72 @@
   </div>
 </section>
 
-<!-- =========== WHO THIS IS FOR =========== -->
-<section id="who">
+<!-- =========== ADVISORY (THE OFFERING) =========== -->
+<section id="advisory">
   <div class="container">
     <div class="section-head">
-      <div class="section-label">Who This Is For</div>
-      <h2 class="section-title">Built for the people who <span class="gold">sign off</span> on AI — and the people who <span class="thin">ship it.</span></h2>
+      <div class="section-label">Advisory · The Offering</div>
+      <h2 class="section-title">Seven ways I work with <span class="gold">bank boards, regulators</span> and <span class="thin">sovereign institutions.</span></h2>
       <p class="section-intro">
-        Rodney.AI works at the intersection of the boardroom and the platform team.
-        If your organisation is deploying AI at scale in financial services, one of these
-        descriptions will sound familiar.
+        The full advisory stack — from strategy and governance, to design, build oversight,
+        regulator interface and board reporting. Every engagement anchored in SCALE · GOVERN · UNLOCK
+        and measured against P&amp;L or regulatory outcomes, never slideware.
       </p>
     </div>
-    <div class="persona-grid">
-      <div class="persona">
-        <div class="persona-icon">B</div>
-        <h3>Bank Boards &amp; ExCos</h3>
-        <p>You need an independent voice who can size the AI opportunity in the language of
-           ROE, cost/income and market cap — and hold programme teams accountable against it.</p>
-        <div class="persona-outcomes">
-          <span>Board-grade AI strategy &amp; scoreboard</span>
-          <span>P&amp;L-anchored value cases</span>
-          <span>Independent assurance on AI risk</span>
-        </div>
-      </div>
-      <div class="persona">
-        <div class="persona-icon">C</div>
-        <h3>CIOs, CDOs &amp; AI Leads</h3>
-        <p>You have the mandate to scale AI but need a partner who can bridge the gap between
-           your platform ambitions and what the board and regulators will underwrite.</p>
-        <div class="persona-outcomes">
-          <span>Enterprise AI architecture &amp; operating model</span>
-          <span>Governance that satisfies the supervisor</span>
-          <span>Vendor strategy and build-vs-buy</span>
-        </div>
-      </div>
-      <div class="persona">
-        <div class="persona-icon">R</div>
-        <h3>Regulators &amp; Central Banks</h3>
-        <p>You are building supervisory capability around AI and GenAI — and need someone
-           who has sat on the other side of the table and knows what good looks like.</p>
-        <div class="persona-outcomes">
-          <span>Supervisory handbooks &amp; thematic reviews</span>
-          <span>AI risk taxonomies &amp; red-teaming</span>
-          <span>Cross-border coordination frameworks</span>
-        </div>
-      </div>
-      <div class="persona">
-        <div class="persona-icon">S</div>
-        <h3>Sovereign &amp; PIF-Backed Entities</h3>
-        <p>You are executing Vision 2030, HUMAIN or a national AI agenda — and need an advisor
-           who understands both nation-scale infrastructure and institutional P&amp;L economics.</p>
-        <div class="persona-outcomes">
-          <span>Sovereign AI fabric &amp; data strategy</span>
-          <span>Banks-as-infrastructure positioning</span>
-          <span>Vision Realisation Programme advisory</span>
-        </div>
-      </div>
+    <div class="services-grid"><div class="service">
+        <div class="service-num">SERVICE · 01</div>
+        <h3>Board AI Strategy &amp; Scoreboard</h3>
+        <p>Three-hour board session to size the AI opportunity in the language of
+           revenue, cost/income, RoRWA, ROE and market cap. Delivers a named scoreboard
+           with owners and dates.</p>
+        <div class="service-tags"><span>SCALE</span><span>UNLOCK</span><span>Board-grade</span></div>
+      </div><div class="service">
+        <div class="service-num">SERVICE · 02</div>
+        <h3>AI Governance Uplift</h3>
+        <p>End-to-end governance programme against SR 11-7, SS1/23, NIST AI RMF and the
+           EU AI Act. Risk taxonomies, model inventories, MRM uplift, GenAI red-teaming
+           and independent assurance.</p>
+        <div class="service-tags"><span>GOVERN</span><span>Regulator-grade</span><span>Independent</span></div>
+      </div><div class="service">
+        <div class="service-num">SERVICE · 03</div>
+        <h3>Enterprise AI &amp; GenAI Platform</h3>
+        <p>Reference architecture, vendor selection (NVIDIA, Anthropic, OpenAI, Snowflake,
+           AWS, Azure), MLOps, feature stores, agentic orchestration, platform team design
+           and operating model.</p>
+        <div class="service-tags"><span>SCALE</span><span>Technical</span><span>Vendor-neutral</span></div>
+      </div><div class="service">
+        <div class="service-num">SERVICE · 04</div>
+        <h3>Capital Markets AI &amp; Market Infrastructure</h3>
+        <p>CCP, CSD, trading venue and post-trade platforms — the programme I ran at
+           Tadawul. Tokenization readiness, real-time risk, market surveillance,
+           regulator interface.</p>
+        <div class="service-tags"><span>SCALE</span><span>GOVERN</span><span>Tokenization-ready</span></div>
+      </div><div class="service">
+        <div class="service-num">SERVICE · 05</div>
+        <h3>Regulator &amp; Supervisory Advisory</h3>
+        <p>For central banks and market regulators building AI supervisory capability.
+           Supervisory handbooks, thematic reviews, stress testing frameworks, cross-border
+           coordination.</p>
+        <div class="service-tags"><span>GOVERN</span><span>Regulator-side</span><span>Confidential</span></div>
+      </div><div class="service">
+        <div class="service-num">SERVICE · 06</div>
+        <h3>Sovereign &amp; Vision 2030 Advisory</h3>
+        <p>For PIF-backed entities, Vision Realisation Programs and HUMAIN-adjacent
+           organisations. National AI fabric, sovereign data strategy, banks-as-infrastructure
+           positioning.</p>
+        <div class="service-tags"><span>UNLOCK</span><span>Sovereign</span><span>Vision 2030</span></div>
+      </div><div class="service">
+        <div class="service-num">SERVICE · 07</div>
+        <h3>Executive AI Training &amp; Workshops</h3>
+        <p>Bespoke training programmes for boards, ExCos and senior leadership — from
+           half-day AI literacy sessions to multi-week immersive workshops. Covers strategic
+           AI thinking, hands-on GenAI tooling, risk awareness, and responsible AI — tailored
+           to financial services, regulators and sovereign institutions.</p>
+        <div class="service-tags"><span>SCALE</span><span>GOVERN</span><span>Hands-on</span></div>
+      </div></div>
+    <div class="advisory-cta">
+      <a href="#how" class="btn btn-ghost">See how we work together →</a>
+      <a href="#contact" class="btn btn-primary">Book a consultation →</a>
     </div>
   </div>
 </section>
@@ -1779,12 +1848,37 @@
         </div>
       </div>
     </div>
+
+    <!-- Speaking strip (folded into About) -->
+    <div class="about-speaking">
+      <div class="as-head">
+        <div class="section-label" style="margin-bottom:0">Speaking · Keynotes · Panels</div>
+        <p>Keynotes and executive masterclasses with bank boards, regulators, sovereign institutions
+          and the AI vendor ecosystem.</p>
+      </div>
+      <div class="as-stages">
+        <span>LEAP · Riyadh</span>
+        <span>GITEX Global · Dubai</span>
+        <span>Money20/20 · EMEA</span>
+        <span>Gov AI Summit · Middle East</span>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- =========== FEATURED ARTICLE — $295B SCOREBOARD =========== -->
+<!-- =========== THE OPPORTUNITY — SIZE OF THE PRIZE =========== -->
 <section id="scoreboard" class="feature-article">
   <div class="container">
+    <div class="section-head" style="margin-bottom:40px">
+      <div class="section-label">The Opportunity · Size of the Prize</div>
+      <h2 class="section-title">How Rodney.AI <span class="gold">sizes an AI opportunity</span> — applied to <span class="thin">Saudi banking.</span></h2>
+      <p class="section-intro">
+        A signature piece of thought leadership that shows the methodology in full —
+        bottom-up, every input sourced, three scenarios, one number for the board.
+        The same discipline applied to your institution.
+      </p>
+    </div>
+
     <div class="article-header">
       <div class="series-ribbon">
         Series 01 <span>The Vision 2030 Bank Scoreboard</span> <span>Part 1 of 5</span> <span>Monetization</span>
@@ -2031,11 +2125,227 @@
   </div>
 </section>
 
+<!-- =========== HOW I WORK — LIFECYCLE + ENGAGEMENT + PARTNERS =========== -->
+<section id="how" style="background:linear-gradient(180deg,transparent,rgba(11,24,40,0.75),transparent)">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">How I Work</div>
+      <h2 class="section-title">From <span class="gold">boardroom ambition</span> to production AI — and <span class="thin">back to the board with results.</span></h2>
+      <p class="section-intro">
+        Every engagement follows the same discipline: size the opportunity, design with governance
+        built in, build with partners who can execute, and report back in the language the board underwrites.
+      </p>
+    </div>
+
+    <!-- Lifecycle -->
+    <div class="journey-track">
+      <div class="journey-step">
+        <div class="journey-num">01</div>
+        <h4>Discovery</h4>
+        <p>Pressure-test the opportunity. Size the prize in P&amp;L terms.</p>
+      </div>
+      <div class="journey-step">
+        <div class="journey-num">02</div>
+        <h4>Strategy</h4>
+        <p>Board-grade AI strategy tied to ROE, cost/income, market cap. Named owners and dates.</p>
+      </div>
+      <div class="journey-step">
+        <div class="journey-num">03</div>
+        <h4>Design</h4>
+        <p>Architecture, operating model, governance framework, vendor selection. Regulator-ready by design.</p>
+      </div>
+      <div class="journey-step">
+        <div class="journey-num">04</div>
+        <h4>Build</h4>
+        <p>Execution through partners in India, UAE and Saudi. Platform, MLOps, data products — at scale.</p>
+      </div>
+      <div class="journey-step">
+        <div class="journey-num">05</div>
+        <h4>Govern</h4>
+        <p>MRM, risk tiering, red-teaming, independent assurance. SR 11-7, SS1/23, NIST, EU AI Act aligned.</p>
+      </div>
+      <div class="journey-step">
+        <div class="journey-num">06</div>
+        <h4>Board Review</h4>
+        <p>Results in the language the board cares about: revenue, cost/income, RoRWA, ROE, market cap.</p>
+      </div>
+    </div>
+
+    <!-- Two engagement paths -->
+    <div class="section-head" style="margin-top:96px;margin-bottom:40px">
+      <div class="section-label" style="color:var(--gold-2)">Two ways to engage</div>
+      <h3 class="section-title" style="font-size:clamp(26px,3.2vw,40px)">Choose the <span class="gold">level of ownership</span> that fits your organisation.</h3>
+      <p class="section-intro">Either way, the first 30 minutes are a free conversation — no slides, no pitch.</p>
+    </div>
+
+    <div class="engage-grid" style="grid-template-columns:1fr 1fr;gap:28px">
+      <div class="engage-card">
+        <div class="engage-label">Model A · Oversight</div>
+        <h3>Advisory &amp; Oversight</h3>
+        <p>Rodney.AI advises; your teams or incumbents execute. Ideal when you have internal delivery capacity
+           and need senior judgement, independent challenge and regulator-grade governance on top.</p>
+        <div class="engage-deliverables">
+          <div class="ed-label">Scope</div>
+          <span>Board strategy &amp; scoreboard</span>
+          <span>Governance uplift &amp; MRM framework</span>
+          <span>Independent assurance &amp; red-teaming</span>
+          <span>Regulator interface &amp; board reporting</span>
+          <span>Architecture review &amp; vendor challenge</span>
+        </div>
+        <div class="engage-duration">Half-day sessions · Sprints · Retained advisory</div>
+      </div>
+      <div class="engage-card">
+        <div class="engage-label">Model B · Execution Ownership</div>
+        <h3>End-to-End Execution</h3>
+        <p>Rodney.AI leads the programme from strategy through build — with delivery
+           partners in India, UAE and Saudi. The advisor who stays until the numbers move.</p>
+        <div class="engage-deliverables">
+          <div class="ed-label">Scope</div>
+          <span>All of Model A, plus:</span>
+          <span>Platform build &amp; MLOps</span>
+          <span>Agentic AI team design &amp; delivery</span>
+          <span>Data products &amp; feature stores</span>
+          <span>Programme leadership to production</span>
+        </div>
+        <div class="engage-duration">Programme advisory · Operator-in-residence</div>
+      </div>
+    </div>
+
+    <!-- Partners as the delivery mechanism -->
+    <div class="section-head" style="margin-top:96px;margin-bottom:40px">
+      <div class="section-label" style="color:var(--gold-2)">Delivery Network</div>
+      <h3 class="section-title" style="font-size:clamp(26px,3.2vw,40px)">Execution through a <span class="gold">global delivery network</span> — built on regional tech partnerships.</h3>
+      <p class="section-intro">
+        The architecture we design and the governance we build can be implemented without a handoff gap.
+        Three delivery hubs. Six anchor technology partners. One accountable advisor.
+      </p>
+    </div>
+
+    <div class="partner-layout">
+      <div class="delivery-map">
+        <div class="delivery-hub">
+          <div class="dh-region">UAE · Dubai &amp; Abu Dhabi</div>
+          <div class="dh-detail">Primary advisory base. Board engagement, strategy and governance.
+            Direct access to DIFC, ADGM and sovereign institutions.</div>
+          <div class="dh-tag">Advisory Hub</div>
+        </div>
+        <div class="delivery-hub">
+          <div class="dh-region">Saudi Arabia · Riyadh</div>
+          <div class="dh-detail">Vision 2030 execution. SAMA, CMA KSA, Tadawul and HUMAIN-aligned
+            programmes. On-the-ground delivery for KSA-first mandates.</div>
+          <div class="dh-tag">KSA Delivery</div>
+        </div>
+        <div class="delivery-hub">
+          <div class="dh-region">India · Mumbai &amp; Bengaluru</div>
+          <div class="dh-detail">Scaled engineering and platform delivery. 200+ engineer programmes
+            with deep FS domain expertise. Enterprise quality at global-delivery economics.</div>
+          <div class="dh-tag">Engineering &amp; Scale</div>
+        </div>
+        <div class="delivery-hub">
+          <div class="dh-region">UK &amp; Europe</div>
+          <div class="dh-detail">Supporting advisory for UK and EU-regulated clients.
+            FCA, PRA, ECB alignment and cross-border coordination.</div>
+          <div class="dh-tag">Regulatory</div>
+        </div>
+      </div>
+      <div class="partner-content">
+        <p>
+          <strong>Delivered with, not just listed.</strong> Every partner logo represents programmes we have
+          co-delivered, jointly architected or taken to regulators alongside. The technology ecosystem that
+          powers Rodney.AI's execution arm is the same one building the region's AI infrastructure.
+        </p>
+        <div class="partner-logos">
+          <div class="partner-logo">
+            <div class="pl-name">NVIDIA</div>
+            <div class="pl-type">AI Infrastructure &amp; Foundation Models</div>
+          </div>
+          <div class="partner-logo">
+            <div class="pl-name">Cisco</div>
+            <div class="pl-type">Cybersecurity &amp; AI Red-Teaming</div>
+          </div>
+          <div class="partner-logo">
+            <div class="pl-name">Snowflake</div>
+            <div class="pl-type">Data Platform &amp; Analytics</div>
+          </div>
+          <div class="partner-logo">
+            <div class="pl-name">Dell Technologies</div>
+            <div class="pl-type">Enterprise AI Infrastructure</div>
+          </div>
+          <div class="partner-logo">
+            <div class="pl-name">AWS</div>
+            <div class="pl-type">Cloud &amp; FS-Grade Landing Zones</div>
+          </div>
+          <div class="partner-logo">
+            <div class="pl-name">Microsoft Azure</div>
+            <div class="pl-type">Cloud &amp; OpenAI Integration</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="journey-note" style="margin-top:56px">
+      <strong>End-to-end accountability.</strong> Most advisors hand off after the strategy slide.
+      Rodney.AI stays through build, governance and board reporting — because the job isn't done until the numbers move.
+    </div>
+  </div>
+</section>
+
+<!-- =========== WHY US =========== -->
+<section id="why">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Why Rodney.AI</div>
+      <h2 class="section-title">Five reasons institutions <span class="gold">choose us</span> over the incumbent <span class="thin">alternatives.</span></h2>
+      <p class="section-intro">
+        Senior advisory. Global delivery. Outcome accountability. Without the leverage model,
+        the overhead or the handoff gaps of a traditional firm.
+      </p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-num">01</div>
+        <h3>Led by AI agents — walking the walk</h3>
+        <p>We don't just advise on AI agents — we use them in our own delivery.
+           Every engagement is augmented by our internal agent stack for research, analysis, modelling
+           and governance. And we build agentic AI teams for clients, not slideware about them.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">02</div>
+        <h3>Expert-led — no leverage model</h3>
+        <p>You get the person who has done the work — at boards, with regulators, on 200+ engineer
+           platforms — directly. Not a pyramid of juniors doing the thinking while a partner signs off.
+           Senior judgement on every engagement.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">03</div>
+        <h3>Extensive experience in FS &amp; sovereign</h3>
+        <p>25+ years. $500M+ delivered. 10× practice growth at a Big 4. Tadawul, CMA KSA, Top-5 UK
+           banks, $750B asset manager. The pattern library for scaling AI in financial services
+           is already built — you don't pay for us to learn your industry.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">04</div>
+        <h3>Focused on outcomes, not hours</h3>
+        <p>Engagements are scoped to outcomes: an approved board scoreboard, a regulator-signed-off
+           governance framework, a platform in production, a risk register cleared by audit.
+           We measure in ROE, cost/income and market cap — not billable days.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">05</div>
+        <h3>More value for the cost</h3>
+        <p>Global delivery network across UAE, Saudi and India. Big-4-grade quality, without Big-4
+           overhead. Partner-led advisory with engineering scale — at a cost structure that
+           actually reflects the value of the outcome.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- =========== PEER BENCHMARKS =========== -->
 <section id="benchmarks" class="benchmarks">
   <div class="container">
     <div class="section-head">
-      <div class="section-label">Industry Benchmarks</div>
+      <div class="section-label">Market Evidence · Peer Benchmarks</div>
       <h2 class="section-title">Where Saudi banks stand against <span class="gold">global best-in-class</span></h2>
       <p class="section-intro">
         The gap between Saudi banking economics and the world's best-performing institutions
@@ -2110,7 +2420,7 @@
 <section id="regulatory" class="regulatory">
   <div class="container">
     <div class="section-head">
-      <div class="section-label">Governance &amp; Regulation</div>
+      <div class="section-label">Market Evidence · Regulatory Landscape</div>
       <h2 class="section-title">The regulatory frameworks that shape <span class="gold">every AI decision</span></h2>
       <p class="section-intro">
         Banks deploying AI at scale must navigate overlapping regulatory regimes across
@@ -2168,192 +2478,6 @@
            fairness and non-discrimination, transparency and explainability, effective human
            oversight, and data management and privacy.</p>
         <div class="reg-applies">Applies: All licensed financial institutions in the UAE</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- =========== SERVICES =========== -->
-<section id="services">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-label">Advisory Services</div>
-      <h2 class="section-title">Seven ways I work with <span class="gold">bank boards, regulators</span> and <span class="thin">sovereign institutions.</span></h2>
-      <p class="section-intro">
-        Every engagement is anchored in the SCALE · GOVERN · UNLOCK discipline and
-        measured against P&amp;L or regulatory outcomes — never slideware.
-      </p>
-    </div>
-    <div class="services-grid"><div class="service">
-        <div class="service-num">SERVICE · 01</div>
-        <h3>Board AI Strategy &amp; Scoreboard</h3>
-        <p>Three-hour board session to size the AI opportunity in the language of
-           revenue, cost/income, RoRWA, ROE and market cap. Delivers a named scoreboard
-           with owners and dates.</p>
-        <div class="service-tags"><span>SCALE</span><span>UNLOCK</span><span>Board-grade</span></div>
-      </div><div class="service">
-        <div class="service-num">SERVICE · 02</div>
-        <h3>AI Governance Uplift</h3>
-        <p>End-to-end governance programme against SR 11-7, SS1/23, NIST AI RMF and the
-           EU AI Act. Risk taxonomies, model inventories, MRM uplift, GenAI red-teaming
-           and independent assurance.</p>
-        <div class="service-tags"><span>GOVERN</span><span>Regulator-grade</span><span>Independent</span></div>
-      </div><div class="service">
-        <div class="service-num">SERVICE · 03</div>
-        <h3>Enterprise AI &amp; GenAI Platform</h3>
-        <p>Reference architecture, vendor selection (NVIDIA, Anthropic, OpenAI, Snowflake,
-           AWS, Azure), MLOps, feature stores, agentic orchestration, platform team design
-           and operating model.</p>
-        <div class="service-tags"><span>SCALE</span><span>Technical</span><span>Vendor-neutral</span></div>
-      </div><div class="service">
-        <div class="service-num">SERVICE · 04</div>
-        <h3>Capital Markets AI &amp; Market Infrastructure</h3>
-        <p>CCP, CSD, trading venue and post-trade platforms — the programme I ran at
-           Tadawul. Tokenization readiness, real-time risk, market surveillance,
-           regulator interface.</p>
-        <div class="service-tags"><span>SCALE</span><span>GOVERN</span><span>Tokenization-ready</span></div>
-      </div><div class="service">
-        <div class="service-num">SERVICE · 05</div>
-        <h3>Regulator &amp; Supervisory Advisory</h3>
-        <p>For central banks and market regulators building AI supervisory capability.
-           Supervisory handbooks, thematic reviews, stress testing frameworks, cross-border
-           coordination.</p>
-        <div class="service-tags"><span>GOVERN</span><span>Regulator-side</span><span>Confidential</span></div>
-      </div><div class="service">
-        <div class="service-num">SERVICE · 06</div>
-        <h3>Sovereign &amp; Vision 2030 Advisory</h3>
-        <p>For PIF-backed entities, Vision Realisation Programs and HUMAIN-adjacent
-           organisations. National AI fabric, sovereign data strategy, banks-as-infrastructure
-           positioning.</p>
-        <div class="service-tags"><span>UNLOCK</span><span>Sovereign</span><span>Vision 2030</span></div>
-      </div><div class="service">
-        <div class="service-num">SERVICE · 07</div>
-        <h3>Executive AI Training &amp; Workshops</h3>
-        <p>Bespoke training programmes for boards, ExCos and senior leadership — from
-           half-day AI literacy sessions to multi-week immersive workshops. Covers strategic
-           AI thinking, hands-on GenAI tooling, risk awareness, and responsible AI — tailored
-           to financial services, regulators and sovereign institutions.</p>
-        <div class="service-tags"><span>SCALE</span><span>GOVERN</span><span>Hands-on</span></div>
-      </div></div>
-  </div>
-</section>
-
-<!-- =========== HOW I WORK =========== -->
-<section id="how" style="background:linear-gradient(180deg,transparent,rgba(11,24,40,0.75),transparent)">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-label">How I Work</div>
-      <h2 class="section-title">From <span class="gold">boardroom ambition</span> to production AI — and <span class="thin">back to the board with results.</span></h2>
-      <p class="section-intro">
-        Every engagement follows the same discipline: start with the economics, design with governance
-        built in, build with partners who can execute, and report back in the language the board underwrites.
-      </p>
-    </div>
-    <div class="journey-track">
-      <div class="journey-step">
-        <div class="journey-num">01</div>
-        <h4>Discovery</h4>
-        <p>Pressure-test the opportunity. Size the prize in P&amp;L terms. Identify the governance gaps.</p>
-      </div>
-      <div class="journey-step">
-        <div class="journey-num">02</div>
-        <h4>Strategy</h4>
-        <p>Board-grade AI strategy tied to ROE, cost/income and market cap. Named owners, dates, scoreboard.</p>
-      </div>
-      <div class="journey-step">
-        <div class="journey-num">03</div>
-        <h4>Design</h4>
-        <p>Architecture, operating model, governance framework, vendor selection. Regulator-ready by design.</p>
-      </div>
-      <div class="journey-step">
-        <div class="journey-num">04</div>
-        <h4>Build</h4>
-        <p>Execution through delivery partners in India, UAE and Saudi. Platform, MLOps, data products — at scale.</p>
-      </div>
-      <div class="journey-step">
-        <div class="journey-num">05</div>
-        <h4>Govern</h4>
-        <p>MRM, risk tiering, red-teaming, independent assurance. SR 11-7, SS1/23, NIST, EU AI Act aligned.</p>
-      </div>
-      <div class="journey-step">
-        <div class="journey-num">06</div>
-        <h4>Board Review</h4>
-        <p>Results in the language the board cares about: revenue, cost/income, RoRWA, ROE, market cap.</p>
-      </div>
-    </div>
-    <div class="journey-note">
-      <strong>End-to-end accountability.</strong> Most advisors hand off after the strategy slide.
-      Rodney.AI stays through build, governance and board reporting — because the job isn't done until the numbers move.
-    </div>
-  </div>
-</section>
-
-<!-- =========== ENGAGEMENT MODELS =========== -->
-<section id="engage">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-label">Engagement Models</div>
-      <h2 class="section-title">Four ways to <span class="gold">start working</span> <span class="thin">together.</span></h2>
-      <p class="section-intro">
-        Every format is anchored in outcomes, not hours. The first conversation is always free —
-        30 minutes to pressure-test the opportunity and agree the right format.
-      </p>
-    </div>
-    <div class="engage-grid">
-      <div class="engage-card">
-        <div class="engage-label">Format A</div>
-        <h3>Board Strategy Session</h3>
-        <p>A concentrated half-day with the board or ExCo to size the AI opportunity and
-           agree the scoreboard — in the language of revenue, cost/income and ROE.</p>
-        <div class="engage-deliverables">
-          <div class="ed-label">Deliverables</div>
-          <span>AI opportunity scoreboard</span>
-          <span>Named owners and target dates</span>
-          <span>Board-ready presentation pack</span>
-        </div>
-        <div class="engage-duration">Half-day · Intensive</div>
-      </div>
-      <div class="engage-card">
-        <div class="engage-label">Format B</div>
-        <h3>Governance Sprint</h3>
-        <p>A focused 2–4 week programme to stand up or uplift AI governance —
-           risk taxonomy, model inventory, MRM framework, regulator-ready documentation.</p>
-        <div class="engage-deliverables">
-          <div class="ed-label">Deliverables</div>
-          <span>AI governance framework &amp; RACI</span>
-          <span>Risk taxonomy with mitigations</span>
-          <span>MRM checklist (SR 11-7 aligned)</span>
-          <span>Independent assurance report</span>
-        </div>
-        <div class="engage-duration">2–4 weeks · Focused</div>
-      </div>
-      <div class="engage-card">
-        <div class="engage-label">Format C</div>
-        <h3>Programme Advisory</h3>
-        <p>Ongoing strategic advisory across a 3–6 month AI transformation programme.
-           Architecture, vendor selection, team build-out, governance and board reporting.</p>
-        <div class="engage-deliverables">
-          <div class="ed-label">Deliverables</div>
-          <span>Enterprise AI architecture</span>
-          <span>Operating model &amp; CoE design</span>
-          <span>Vendor strategy &amp; platform build</span>
-          <span>Monthly board progress packs</span>
-        </div>
-        <div class="engage-duration">3–6 months · Strategic</div>
-      </div>
-      <div class="engage-card">
-        <div class="engage-label">Format D</div>
-        <h3>Operator-in-Residence</h3>
-        <p>Embedded advisory for institutions running sovereign-scale or transformation
-           programmes — the advisor who stays until the numbers move.</p>
-        <div class="engage-deliverables">
-          <div class="ed-label">Deliverables</div>
-          <span>Full-stack advisory: strategy to production</span>
-          <span>Team leadership &amp; delivery oversight</span>
-          <span>Regulator and board interface</span>
-          <span>Scoreboard tracking &amp; course correction</span>
-        </div>
-        <div class="engage-duration">6+ months · Embedded</div>
       </div>
     </div>
   </div>
@@ -2434,15 +2558,16 @@
   </div>
 </section>
 
-<!-- =========== INSIGHTS / LINKEDIN POSTS =========== -->
-<section id="insights">
+<!-- =========== THOUGHT LEADERSHIP =========== -->
+<section id="thought-leadership">
   <div class="container">
     <div class="section-head">
-      <div class="section-label">Writing · Rodney.AI on LinkedIn</div>
-      <h2 class="section-title">Ideas in public. <span class="gold">Modelled. Sourced. Stress-tested.</span></h2>
+      <div class="section-label">Thought Leadership · Rodney.AI on LinkedIn</div>
+      <h2 class="section-title"><span class="gold">Thought leadership</span> — modelled. Sourced. <span class="thin">Stress-tested.</span></h2>
       <p class="section-intro">
-        All posts and long-form articles from the Rodney.AI LinkedIn page,
-        organised by theme — Scoreboard, Governance, Tech, Sovereign.
+        Original research, scoreboard series, governance playbooks and operator insights.
+        Published in the open on LinkedIn and read by the boards, regulators and
+        sovereign institutions that shape financial services in the region.
       </p>
     </div>
     <div class="insights-grid">
@@ -2594,7 +2719,7 @@
 <section class="caps">
   <div class="container">
     <div class="section-head">
-      <div class="section-label">Capabilities</div>
+      <div class="section-label">Depth · Bilingual Capabilities</div>
       <h2 class="section-title">Bilingual by design — <span class="gold">business and technology</span> in one conversation.</h2>
       <p class="section-intro">
         The point of Rodney.AI is to be useful on both sides of the room. Most advisors
@@ -2630,94 +2755,6 @@
           <div>MLOps · CI/CD for models, monitoring, drift, observability</div>
           <div>Market infrastructure · CCP, CSD, trading, post-trade, DLT</div>
           <div>Cybersecurity &amp; AI red-teaming · Cisco (2024–present)</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- =========== DELIVERY & PARTNERS =========== -->
-<section id="partners" style="background:linear-gradient(180deg,transparent,rgba(11,24,40,0.75),transparent)">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-label">Delivery &amp; Partners</div>
-      <h2 class="section-title">Strategy from the boardroom. <span class="gold">Execution</span> through a <span class="thin">global delivery network.</span></h2>
-      <p class="section-intro">
-        Rodney.AI combines senior advisory with the ability to execute at scale — through
-        long-standing partnerships with regional tech players and delivery centres across
-        three continents.
-      </p>
-    </div>
-    <div class="partner-layout">
-      <div class="partner-content">
-        <p>
-          Most executive advisors stop at the strategy deck. Rodney.AI is different — every engagement
-          comes with access to a <strong>proven delivery capability</strong> through partners in
-          <strong>India, UAE and Saudi Arabia</strong>. This means the architecture we design, the
-          governance we build, and the platforms we specify can be implemented without a handoff gap.
-        </p>
-        <p>
-          In the Middle East, we work alongside the <strong>technology ecosystem</strong> that is building the region's
-          AI infrastructure — from hyperscalers and GPU providers to data platform vendors and cybersecurity
-          firms. These aren't sponsor logos on a slide. They are partners we have delivered with, co-sold with,
-          and built joint solutions with on live programmes.
-        </p>
-        <p>
-          The result: <strong>end-to-end accountability</strong> from boardroom strategy through platform build,
-          governance and production operations — with the cost economics of a global delivery model and the
-          quality controls of a Big 4 alumnus who has led 200+ engineer programmes.
-        </p>
-        <div class="partner-logos">
-          <div class="partner-logo">
-            <div class="pl-name">NVIDIA</div>
-            <div class="pl-type">AI Infrastructure &amp; Foundation Models</div>
-          </div>
-          <div class="partner-logo">
-            <div class="pl-name">Cisco</div>
-            <div class="pl-type">Cybersecurity &amp; AI Red-Teaming</div>
-          </div>
-          <div class="partner-logo">
-            <div class="pl-name">Snowflake</div>
-            <div class="pl-type">Data Platform &amp; Analytics</div>
-          </div>
-          <div class="partner-logo">
-            <div class="pl-name">Dell Technologies</div>
-            <div class="pl-type">Enterprise AI Infrastructure</div>
-          </div>
-          <div class="partner-logo">
-            <div class="pl-name">AWS</div>
-            <div class="pl-type">Cloud &amp; FS-Grade Landing Zones</div>
-          </div>
-          <div class="partner-logo">
-            <div class="pl-name">Microsoft Azure</div>
-            <div class="pl-type">Cloud &amp; OpenAI Integration</div>
-          </div>
-        </div>
-      </div>
-      <div class="delivery-map">
-        <div class="delivery-hub">
-          <div class="dh-region">UAE · Dubai &amp; Abu Dhabi</div>
-          <div class="dh-detail">Primary advisory base. Client-facing strategy, governance and board
-            engagement. Direct access to DIFC, ADGM and sovereign institutions.</div>
-          <div class="dh-tag">Advisory Hub</div>
-        </div>
-        <div class="delivery-hub">
-          <div class="dh-region">Saudi Arabia · Riyadh</div>
-          <div class="dh-detail">Vision 2030 execution. SAMA, CMA KSA, Tadawul and HUMAIN-aligned
-            programmes. On-the-ground delivery for KSA-first mandates.</div>
-          <div class="dh-tag">KSA Delivery</div>
-        </div>
-        <div class="delivery-hub">
-          <div class="dh-region">India · Mumbai &amp; Bengaluru</div>
-          <div class="dh-detail">Scaled engineering and platform delivery. 200+ engineer programmes
-            with deep FS domain expertise. Cost-effective build at enterprise quality.</div>
-          <div class="dh-tag">Engineering &amp; Scale</div>
-        </div>
-        <div class="delivery-hub">
-          <div class="dh-region">UK &amp; Europe</div>
-          <div class="dh-detail">Supporting advisory for UK and EU-regulated clients.
-            FCA, PRA, ECB regulatory alignment and cross-border coordination.</div>
-          <div class="dh-tag">Regulatory</div>
         </div>
       </div>
     </div>
@@ -2810,45 +2847,6 @@
            anchored in outcomes not awareness.</p>
         <span class="acc-link">Open tool →</span>
       </a>
-    </div>
-  </div>
-</section>
-
-<!-- =========== SPEAKING =========== -->
-<section class="speaking">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-label">Speaking · Keynotes · Panels</div>
-      <h2 class="section-title">From the <span class="gold">main stage</span> to the boardroom.</h2>
-    </div>
-    <div class="speaking-grid">
-      <p style="font-size:17px;color:var(--text-dim);line-height:1.75">
-        Keynotes, panels and workshops with bank boards, regulators, sovereign institutions
-        and the AI vendor ecosystem. Formats run from a 20-minute opener to a two-day
-        executive masterclass for a single bank's leadership team.
-      </p>
-      <div class="speak-stage">
-        <div class="stage">
-          <div class="name">LEAP</div>
-          <div class="loc">Riyadh</div>
-          <div class="top">AI-led banking and Vision 2030 economics</div>
-        </div>
-        <div class="stage">
-          <div class="name">GITEX Global</div>
-          <div class="loc">Dubai</div>
-          <div class="top">Agentic AI, regulation and regional rollout</div>
-        </div>
-        <div class="stage">
-          <div class="name">Money20/20</div>
-          <div class="loc">EMEA</div>
-          <div class="top">Embedded finance, BaaS and open banking economics</div>
-        </div>
-        <div class="stage">
-          <div class="name">Gov AI Summit</div>
-          <div class="loc">Middle East</div>
-          <div class="top">Sovereign AI, national fabric, regulator liaison</div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -3054,11 +3052,10 @@
       <div class="footer-col">
         <h4>Navigate</h4>
         <ul>
-          <li><a href="#promise">Promise</a></li>
+          <li><a href="#advisory">Advisory</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#services">Advisory</a></li>
           <li><a href="#how">How I Work</a></li>
-          <li><a href="#engage">Engagements</a></li>
+          <li><a href="#why">Why Us</a></li>
           <li><a href="#accelerators">Accelerators</a></li>
         </ul>
       </div>
@@ -3066,8 +3063,8 @@
         <h4>Research</h4>
         <ul>
           <li><a href="#scoreboard">Scoreboard</a></li>
-          <li><a href="#benchmarks">Benchmarks</a></li>
-          <li><a href="#insights">Writing</a></li>
+          <li><a href="#thought-leadership">Thought Leadership</a></li>
+          <li><a href="#benchmarks">Market Evidence</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
       </div>
@@ -3086,5 +3083,11 @@
     </div>
   </div>
 </footer>
+
+<!-- Sticky mobile CTA -->
+<div class="sticky-cta">
+  <a href="#contact" class="btn btn-primary">Book a consultation →</a>
+</div>
+
 </body>
 </html>
