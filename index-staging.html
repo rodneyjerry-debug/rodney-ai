@@ -1237,6 +1237,37 @@
   }
   .journey-note strong{color:var(--gold-2);font-weight:700}
 
+  /* ---------- ENGAGEMENT LEGEND + JOURNEY OVERLAY ---------- */
+  .engagement-legend{
+    display:flex;justify-content:center;gap:32px;margin-bottom:40px;
+    padding:18px 22px;background:rgba(201,162,39,0.05);
+    border:1px solid var(--border-gold);border-radius:var(--radius);
+    flex-wrap:wrap;
+  }
+  .legend-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-dim)}
+  .legend-item strong{color:var(--white);font-weight:700}
+  .legend-swatch{width:14px;height:14px;border-radius:4px;border:1px solid var(--border-strong)}
+  .swatch-advisory{background:rgba(40,116,166,0.35);border-color:rgba(40,116,166,0.7)}
+  .swatch-management{background:rgba(201,162,39,0.35);border-color:var(--gold)}
+
+  .journey-track-overlay .journey-step{padding-top:0}
+  .journey-engage{
+    display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;justify-content:center;min-height:22px;
+  }
+  .je-pill{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:9.5px;font-weight:700;letter-spacing:0.1em;
+    text-transform:uppercase;padding:3px 9px;border-radius:4px;
+  }
+  .je-advisory{
+    background:rgba(40,116,166,0.18);color:#8fc5f0;
+    border:1px solid rgba(40,116,166,0.6);
+  }
+  .je-management{
+    background:rgba(201,162,39,0.14);color:var(--gold-2);
+    border:1px solid var(--border-gold);
+  }
+
   /* ---------- ENGAGEMENT MODELS ---------- */
   .engage-grid{
     display:grid;grid-template-columns:repeat(4,1fr);gap:22px;
@@ -1321,6 +1352,48 @@
     border-radius:6px;
   }
 
+  /* ---------- HIRED TO ANSWER (CLIENT QUESTIONS) ---------- */
+  .hired{
+    padding:110px 0;
+    background:linear-gradient(180deg,transparent,rgba(11,24,40,0.5),transparent);
+  }
+  .question-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+  }
+  .question-card{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius-lg);padding:32px 28px;
+    transition:all 0.3s;position:relative;overflow:hidden;
+  }
+  .question-card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:var(--gradient-gold);
+    transform:scaleX(0);transform-origin:left;transition:transform 0.4s;
+  }
+  .question-card:hover{
+    border-color:var(--border-gold);transform:translateY(-4px);
+    box-shadow:var(--shadow-lg);
+  }
+  .question-card:hover::before{transform:scaleX(1)}
+  .q-num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:11px;color:var(--gold-2);font-weight:700;
+    letter-spacing:0.18em;margin-bottom:16px;
+  }
+  .question-card h3{
+    font-family:'Fraunces',serif;font-size:20px;font-weight:500;
+    color:var(--white);margin-bottom:14px;line-height:1.35;font-style:italic;
+  }
+  .question-card p{
+    font-size:13.5px;color:var(--text-dim);line-height:1.6;margin-bottom:18px;
+  }
+  .q-pill{
+    display:inline-block;font-size:10px;color:var(--gold-2);
+    letter-spacing:0.1em;text-transform:uppercase;font-weight:700;
+    padding:5px 12px;background:rgba(201,162,39,0.08);
+    border:1px solid var(--border-gold);border-radius:6px;
+  }
+
   /* ---------- ABOUT SPEAKING STRIP ---------- */
   .about-speaking{
     margin-top:56px;padding:28px 32px;
@@ -1345,6 +1418,71 @@
   .advisory-cta{
     display:flex;gap:14px;justify-content:center;margin-top:48px;flex-wrap:wrap;
   }
+
+  /* ---------- COMMERCIAL MODEL ---------- */
+  .commercials-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-bottom:56px;
+  }
+  .commercial-card{
+    background:linear-gradient(180deg,rgba(15,29,45,0.7),rgba(8,17,28,0.9));
+    border:1px solid var(--border);border-radius:var(--radius-lg);
+    padding:34px 30px;transition:all 0.3s;position:relative;overflow:hidden;
+  }
+  .commercial-card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:var(--gradient-gold);transform:scaleX(0);transform-origin:left;
+    transition:transform 0.4s;
+  }
+  .commercial-card:hover{border-color:var(--border-gold);transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .commercial-card:hover::before{transform:scaleX(1)}
+  .c-head{
+    display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;
+  }
+  .c-num{
+    font-family:'Space Grotesk',sans-serif;font-size:11px;color:var(--gold-2);
+    font-weight:700;letter-spacing:0.18em;
+  }
+  .c-tag{
+    font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;
+    letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;border-radius:5px;
+  }
+  .c-tag-adv{background:rgba(40,116,166,0.18);color:#8fc5f0;border:1px solid rgba(40,116,166,0.6)}
+  .c-tag-mgmt{background:rgba(201,162,39,0.14);color:var(--gold-2);border:1px solid var(--border-gold)}
+  .commercial-card h3{
+    font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;
+    color:var(--white);margin-bottom:14px;line-height:1.25;
+  }
+  .commercial-card > p{font-size:14px;color:var(--text-dim);line-height:1.6;margin-bottom:22px}
+  .c-detail{
+    border-top:1px solid var(--border);padding-top:16px;display:grid;gap:10px;
+  }
+  .c-detail-row{
+    display:grid;grid-template-columns:130px 1fr;gap:14px;align-items:baseline;
+    font-size:12.5px;
+  }
+  .c-label{
+    color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;
+    font-weight:700;font-size:10.5px;
+  }
+  .c-value{color:var(--white);font-weight:500}
+
+  .commercial-principles{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+    padding:28px 30px;background:rgba(201,162,39,0.05);
+    border:1px solid var(--border-gold);border-radius:var(--radius-lg);
+  }
+  .cp-item{display:flex;gap:16px;align-items:flex-start}
+  .cp-icon{
+    flex-shrink:0;width:40px;height:40px;border-radius:10px;
+    background:rgba(201,162,39,0.12);border:1px solid var(--border-gold);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:13px;color:var(--gold-2);
+  }
+  .cp-content h4{
+    font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;
+    color:var(--white);margin-bottom:6px;
+  }
+  .cp-content p{font-size:12.5px;color:var(--text-dim);line-height:1.5}
 
   /* ---------- WHY US ---------- */
   .why-grid{
@@ -1424,8 +1562,9 @@
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:1100px){
     .hero-grid,.about-grid,.caps-grid,.prize-panel,.speaking-grid,.partner-layout{grid-template-columns:1fr;gap:40px}
-    .services-grid,.insights-grid,.acc-grid,.reg-grid{grid-template-columns:repeat(2,1fr)}
-    .persona-grid,.engage-grid{grid-template-columns:repeat(2,1fr)}
+    .services-grid,.insights-grid,.acc-grid,.reg-grid,.question-grid{grid-template-columns:repeat(2,1fr)}
+    .persona-grid,.engage-grid,.why-grid{grid-template-columns:repeat(2,1fr)}
+    .commercial-principles{grid-template-columns:1fr;gap:14px}
     .cases-grid{grid-template-columns:1fr}
     .sgu-grid{grid-template-columns:1fr;gap:18px}
     .series-grid{grid-template-columns:repeat(2,1fr)}
@@ -1454,8 +1593,9 @@
     .brand-mark span{font-size:8.5px}
     .wordmark{font-size:22px}
     .tag{font-size:10px}
-    .services-grid,.insights-grid,.acc-grid,.reg-grid{grid-template-columns:1fr}
-    .persona-grid,.engage-grid,.faq-grid{grid-template-columns:1fr}
+    .services-grid,.insights-grid,.acc-grid,.reg-grid,.question-grid{grid-template-columns:1fr}
+    .persona-grid,.engage-grid,.faq-grid,.why-grid,.commercials-grid{grid-template-columns:1fr}
+    .c-detail-row{grid-template-columns:1fr;gap:2px}
     .journey-track{grid-template-columns:repeat(2,1fr);gap:24px}
     .partner-logos{grid-template-columns:1fr}
     .series-grid{grid-template-columns:1fr}
@@ -1499,8 +1639,8 @@
     <div class="nav-links">
       <a href="#advisory">Advisory</a>
       <a href="#how">How I Work</a>
+      <a href="#commercials">Commercials</a>
       <a href="#why">Why Us</a>
-      <a href="#scoreboard">Scoreboard</a>
       <a href="#thought-leadership">Thought Leadership</a>
       <a href="#accelerators">Accelerators</a>
       <a href="#contact" class="btn btn-primary">Book a consultation →</a>
@@ -1618,6 +1758,64 @@
     </span>
   </div>
 </div>
+
+<!-- =========== HIRED TO ANSWER — CLIENT QUESTIONS =========== -->
+<section id="hired-to-answer" class="hired">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Hired to Answer</div>
+      <h2 class="section-title">The questions <span class="gold">bank boards, regulators</span> and sovereign institutions <span class="thin">hire us to solve.</span></h2>
+      <p class="section-intro">
+        Every engagement starts with a real question — usually one that's been sitting on a CEO's
+        whiteboard for weeks. Here are the ones we hear most often.
+      </p>
+    </div>
+    <div class="question-grid">
+      <div class="question-card">
+        <div class="q-num">Q · 01</div>
+        <h3>Who can we trust with our AI agenda?</h3>
+        <p>Vendors are loud. Consultants overpromise. Internal teams want budget. You need an
+           independent voice with no product to sell and a track record at institution scale.</p>
+        <span class="q-pill">Trust &amp; Independence</span>
+      </div>
+      <div class="question-card">
+        <div class="q-num">Q · 02</div>
+        <h3>What technology and architecture will be optimal for us?</h3>
+        <p>NVIDIA or open-source GPUs? Snowflake, Databricks or lakehouse on cloud? Azure OpenAI,
+           Anthropic or sovereign LLMs? The right answer depends on your data, your regulator and your P&amp;L.</p>
+        <span class="q-pill">Tech &amp; Architecture</span>
+      </div>
+      <div class="question-card">
+        <div class="q-num">Q · 03</div>
+        <h3>Where will the AI value actually come from?</h3>
+        <p>Cost reduction, revenue growth, capital efficiency, ROE? Your board needs the value
+           translated into numbers an equity analyst can defend — not slideware.</p>
+        <span class="q-pill">Value &amp; ROI</span>
+      </div>
+      <div class="question-card">
+        <div class="q-num">Q · 04</div>
+        <h3>How do we govern AI without slowing it down?</h3>
+        <p>SR 11-7, SS1/23, NIST AI RMF, EU AI Act, NDMO. Governance designed in from day one
+           lets the board move fast — without becoming a supervisory incident.</p>
+        <span class="q-pill">Governance &amp; Risk</span>
+      </div>
+      <div class="question-card">
+        <div class="q-num">Q · 05</div>
+        <h3>How do we scale from 3 pilots to 30 in production?</h3>
+        <p>Most banks have 40+ AI use cases in PowerPoint and three running. The bottleneck is
+           operating model — platform, MLOps, talent, vendor architecture — not ideas.</p>
+        <span class="q-pill">Scale &amp; Operating Model</span>
+      </div>
+      <div class="question-card">
+        <div class="q-num">Q · 06</div>
+        <h3>How do we explain AI to our board and our regulator?</h3>
+        <p>Two different audiences. Two different vocabularies. One coherent story that holds up
+           in the boardroom and at the supervisor's office on the same week.</p>
+        <span class="q-pill">Board &amp; Regulator Story</span>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- =========== SCALE / GOVERN / UNLOCK =========== -->
 <section id="promise" class="sgu">
@@ -2125,67 +2323,102 @@
   </div>
 </section>
 
-<!-- =========== HOW I WORK — LIFECYCLE + ENGAGEMENT + PARTNERS =========== -->
+<!-- =========== HOW I WORK — AI@SCALE JOURNEY + ENGAGEMENT + PARTNERS =========== -->
 <section id="how" style="background:linear-gradient(180deg,transparent,rgba(11,24,40,0.75),transparent)">
   <div class="container">
     <div class="section-head">
-      <div class="section-label">How I Work</div>
+      <div class="section-label">How I Work · The AI@scale Journey</div>
       <h2 class="section-title">From <span class="gold">boardroom ambition</span> to production AI — and <span class="thin">back to the board with results.</span></h2>
       <p class="section-intro">
-        Every engagement follows the same discipline: size the opportunity, design with governance
-        built in, build with partners who can execute, and report back in the language the board underwrites.
+        Every engagement follows the same six-stage AI@scale journey. You choose the level of
+        ownership at each stage — <strong style="color:var(--gold-2)">Advisory</strong> (we guide, you execute) or
+        <strong style="color:var(--gold-2)">Management</strong> (we own delivery end-to-end with our partner network).
       </p>
     </div>
 
-    <!-- Lifecycle -->
-    <div class="journey-track">
+    <!-- Engagement-type legend -->
+    <div class="engagement-legend">
+      <div class="legend-item">
+        <span class="legend-swatch swatch-advisory"></span>
+        <span class="legend-text"><strong>Advisory</strong> — We guide, your teams execute</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-swatch swatch-management"></span>
+        <span class="legend-text"><strong>Management</strong> — We own delivery end-to-end</span>
+      </div>
+    </div>
+
+    <!-- AI@scale Journey with engagement overlay -->
+    <div class="journey-track journey-track-overlay">
       <div class="journey-step">
         <div class="journey-num">01</div>
-        <h4>Discovery</h4>
-        <p>Pressure-test the opportunity. Size the prize in P&amp;L terms.</p>
+        <div class="journey-engage">
+          <span class="je-pill je-advisory">Advisory</span>
+        </div>
+        <h4>Discover</h4>
+        <p>Pressure-test the opportunity. Size the prize in P&amp;L terms. Answer the board's first question.</p>
       </div>
       <div class="journey-step">
         <div class="journey-num">02</div>
-        <h4>Strategy</h4>
+        <div class="journey-engage">
+          <span class="je-pill je-advisory">Advisory</span>
+        </div>
+        <h4>Strategise</h4>
         <p>Board-grade AI strategy tied to ROE, cost/income, market cap. Named owners and dates.</p>
       </div>
       <div class="journey-step">
         <div class="journey-num">03</div>
+        <div class="journey-engage">
+          <span class="je-pill je-advisory">Advisory</span>
+          <span class="je-pill je-management">Management</span>
+        </div>
         <h4>Design</h4>
         <p>Architecture, operating model, governance framework, vendor selection. Regulator-ready by design.</p>
       </div>
       <div class="journey-step">
         <div class="journey-num">04</div>
+        <div class="journey-engage">
+          <span class="je-pill je-management">Management</span>
+        </div>
         <h4>Build</h4>
         <p>Execution through partners in India, UAE and Saudi. Platform, MLOps, data products — at scale.</p>
       </div>
       <div class="journey-step">
         <div class="journey-num">05</div>
+        <div class="journey-engage">
+          <span class="je-pill je-advisory">Advisory</span>
+          <span class="je-pill je-management">Management</span>
+        </div>
         <h4>Govern</h4>
         <p>MRM, risk tiering, red-teaming, independent assurance. SR 11-7, SS1/23, NIST, EU AI Act aligned.</p>
       </div>
       <div class="journey-step">
         <div class="journey-num">06</div>
-        <h4>Board Review</h4>
+        <div class="journey-engage">
+          <span class="je-pill je-advisory">Advisory</span>
+          <span class="je-pill je-management">Management</span>
+        </div>
+        <h4>Report</h4>
         <p>Results in the language the board cares about: revenue, cost/income, RoRWA, ROE, market cap.</p>
       </div>
     </div>
 
-    <!-- Two engagement paths -->
+    <!-- Two engagement types -->
     <div class="section-head" style="margin-top:96px;margin-bottom:40px">
-      <div class="section-label" style="color:var(--gold-2)">Two ways to engage</div>
-      <h3 class="section-title" style="font-size:clamp(26px,3.2vw,40px)">Choose the <span class="gold">level of ownership</span> that fits your organisation.</h3>
-      <p class="section-intro">Either way, the first 30 minutes are a free conversation — no slides, no pitch.</p>
+      <div class="section-label" style="color:var(--gold-2)">Two engagement types</div>
+      <h3 class="section-title" style="font-size:clamp(26px,3.2vw,40px)">Choose <span class="gold">Advisory</span> or <span class="gold">Management</span> — or move from one to the other.</h3>
+      <p class="section-intro">Many clients start in Advisory and graduate to Management once the strategy lands.
+        Either way, the first 30 minutes are a free conversation — no slides, no pitch.</p>
     </div>
 
     <div class="engage-grid" style="grid-template-columns:1fr 1fr;gap:28px">
       <div class="engage-card">
-        <div class="engage-label">Model A · Oversight</div>
-        <h3>Advisory &amp; Oversight</h3>
+        <div class="engage-label">Engagement Type · A</div>
+        <h3>Advisory</h3>
         <p>Rodney.AI advises; your teams or incumbents execute. Ideal when you have internal delivery capacity
            and need senior judgement, independent challenge and regulator-grade governance on top.</p>
         <div class="engage-deliverables">
-          <div class="ed-label">Scope</div>
+          <div class="ed-label">Typical Scope</div>
           <span>Board strategy &amp; scoreboard</span>
           <span>Governance uplift &amp; MRM framework</span>
           <span>Independent assurance &amp; red-teaming</span>
@@ -2195,19 +2428,19 @@
         <div class="engage-duration">Half-day sessions · Sprints · Retained advisory</div>
       </div>
       <div class="engage-card">
-        <div class="engage-label">Model B · Execution Ownership</div>
-        <h3>End-to-End Execution</h3>
-        <p>Rodney.AI leads the programme from strategy through build — with delivery
-           partners in India, UAE and Saudi. The advisor who stays until the numbers move.</p>
+        <div class="engage-label">Engagement Type · B</div>
+        <h3>Management</h3>
+        <p>Rodney.AI owns delivery end-to-end — strategy through build — with our partner network in India,
+           UAE and Saudi. The advisor who stays until the numbers move.</p>
         <div class="engage-deliverables">
-          <div class="ed-label">Scope</div>
-          <span>All of Model A, plus:</span>
+          <div class="ed-label">Typical Scope</div>
+          <span>All of Advisory, plus:</span>
           <span>Platform build &amp; MLOps</span>
           <span>Agentic AI team design &amp; delivery</span>
           <span>Data products &amp; feature stores</span>
           <span>Programme leadership to production</span>
         </div>
-        <div class="engage-duration">Programme advisory · Operator-in-residence</div>
+        <div class="engage-duration">Programme management · Operator-in-residence</div>
       </div>
     </div>
 
@@ -2290,6 +2523,110 @@
   </div>
 </section>
 
+<!-- =========== COMMERCIAL MODEL =========== -->
+<section id="commercials">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Commercial Model</div>
+      <h2 class="section-title">Priced for <span class="gold">outcomes</span>, not for <span class="thin">billable hours.</span></h2>
+      <p class="section-intro">
+        Four commercial structures, mapped to the engagement type and the level of risk-sharing you want.
+        All fees are transparent, agreed up-front, and tied to defined deliverables or outcomes. Directional ranges
+        shown — every engagement is scoped individually based on the problem.
+      </p>
+    </div>
+    <div class="commercials-grid">
+      <div class="commercial-card">
+        <div class="c-head">
+          <span class="c-num">C · 01</span>
+          <span class="c-tag c-tag-adv">Advisory</span>
+        </div>
+        <h3>Fixed-Scope Engagement</h3>
+        <p>A defined deliverable with a defined fee. Best for discrete pieces of work with a clear scope — a
+           board session, a governance sprint, an architecture review, an independent assurance.</p>
+        <div class="c-detail">
+          <div class="c-detail-row"><span class="c-label">Typical Use</span><span class="c-value">Board strategy · Governance sprint · Assurance</span></div>
+          <div class="c-detail-row"><span class="c-label">Duration</span><span class="c-value">Half-day to 4 weeks</span></div>
+          <div class="c-detail-row"><span class="c-label">Fee Structure</span><span class="c-value">Fixed price, milestone-paid</span></div>
+          <div class="c-detail-row"><span class="c-label">Directional Range</span><span class="c-value">USD 15K — 150K</span></div>
+        </div>
+      </div>
+
+      <div class="commercial-card">
+        <div class="c-head">
+          <span class="c-num">C · 02</span>
+          <span class="c-tag c-tag-adv">Advisory</span>
+        </div>
+        <h3>Retainer Advisory</h3>
+        <p>Ongoing senior advisory access with a monthly fee. Best for institutions that need a trusted sounding
+           board through a transformation, or board / ExCo-level challenge on AI programmes already in flight.</p>
+        <div class="c-detail">
+          <div class="c-detail-row"><span class="c-label">Typical Use</span><span class="c-value">Ongoing board &amp; ExCo advisory</span></div>
+          <div class="c-detail-row"><span class="c-label">Duration</span><span class="c-value">3–12 months, renewable</span></div>
+          <div class="c-detail-row"><span class="c-label">Fee Structure</span><span class="c-value">Monthly retainer · 4–8 days / month</span></div>
+          <div class="c-detail-row"><span class="c-label">Directional Range</span><span class="c-value">USD 20K — 60K / month</span></div>
+        </div>
+      </div>
+
+      <div class="commercial-card">
+        <div class="c-head">
+          <span class="c-num">C · 03</span>
+          <span class="c-tag c-tag-mgmt">Management</span>
+        </div>
+        <h3>Programme Fees</h3>
+        <p>Blended-rate fees for multi-workstream programmes where Rodney.AI leads delivery with partner teams in
+           India, UAE and Saudi. Capped T&amp;M with defined phase gates. Ideal for platform build or governance rollout.</p>
+        <div class="c-detail">
+          <div class="c-detail-row"><span class="c-label">Typical Use</span><span class="c-value">Platform build · Agentic AI teams · CoE stand-up</span></div>
+          <div class="c-detail-row"><span class="c-label">Duration</span><span class="c-value">3–12 months</span></div>
+          <div class="c-detail-row"><span class="c-label">Fee Structure</span><span class="c-value">Blended day rates · phase-gated · capped</span></div>
+          <div class="c-detail-row"><span class="c-label">Directional Range</span><span class="c-value">USD 300K — 3M / programme</span></div>
+        </div>
+      </div>
+
+      <div class="commercial-card">
+        <div class="c-head">
+          <span class="c-num">C · 04</span>
+          <span class="c-tag c-tag-mgmt">Management</span>
+        </div>
+        <h3>Outcome-Linked Fees</h3>
+        <p>A lower base fee plus a success fee tied to measurable outcomes — ROE uplift, cost/income delta, value
+           delivered, regulatory milestone hit. For clients who want skin in the game from their advisor.</p>
+        <div class="c-detail">
+          <div class="c-detail-row"><span class="c-label">Typical Use</span><span class="c-value">Transformation · Scoreboard execution</span></div>
+          <div class="c-detail-row"><span class="c-label">Duration</span><span class="c-value">6–24 months</span></div>
+          <div class="c-detail-row"><span class="c-label">Fee Structure</span><span class="c-value">Reduced base + success fee on KPIs</span></div>
+          <div class="c-detail-row"><span class="c-label">Directional Range</span><span class="c-value">Base USD 150K — 500K + success %</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="commercial-principles">
+      <div class="cp-item">
+        <div class="cp-icon">01</div>
+        <div class="cp-content">
+          <h4>No surprise bills</h4>
+          <p>Fees agreed in writing before work starts. Every invoice tied to a defined deliverable or milestone.</p>
+        </div>
+      </div>
+      <div class="cp-item">
+        <div class="cp-icon">02</div>
+        <div class="cp-content">
+          <h4>No leverage tax</h4>
+          <p>You pay for the person doing the work. No partner mark-ups over junior analyst hours.</p>
+        </div>
+      </div>
+      <div class="cp-item">
+        <div class="cp-icon">03</div>
+        <div class="cp-content">
+          <h4>First 30 minutes free</h4>
+          <p>Always. Scope and commercial structure agreed in the second conversation — not the contract.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- =========== WHY US =========== -->
 <section id="why">
   <div class="container">
@@ -2304,7 +2641,7 @@
     <div class="why-grid">
       <div class="why-card">
         <div class="why-num">01</div>
-        <h3>Led by AI agents — walking the walk</h3>
+        <h3>Enabled by AI agents — walking the walk</h3>
         <p>We don't just advise on AI agents — we use them in our own delivery.
            Every engagement is augmented by our internal agent stack for research, analysis, modelling
            and governance. And we build agentic AI teams for clients, not slideware about them.</p>
@@ -3053,8 +3390,8 @@
         <h4>Navigate</h4>
         <ul>
           <li><a href="#advisory">Advisory</a></li>
-          <li><a href="#about">About</a></li>
           <li><a href="#how">How I Work</a></li>
+          <li><a href="#commercials">Commercials</a></li>
           <li><a href="#why">Why Us</a></li>
           <li><a href="#accelerators">Accelerators</a></li>
         </ul>
