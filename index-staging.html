@@ -268,32 +268,29 @@
 
   /* ---- Hero hook strips ---- */
   .hero-hooks{
-    display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;
-    margin:0 auto;max-width:1240px;padding:0 28px;
-    position:relative;z-index:1;margin-top:0;margin-bottom:56px;
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;
+    margin-top:40px;
   }
   .hero-hook{
-    display:flex;flex-direction:column;gap:14px;
-    padding:24px 24px 20px;
-    background:var(--surface);
+    display:flex;align-items:center;gap:14px;
+    padding:18px 20px;
+    background:rgba(17,34,54,0.7);
     border:1px solid var(--border-strong);
-    border-radius:var(--radius-lg);
+    border-radius:var(--radius);
     transition:all 0.3s var(--ease-out);
     cursor:pointer;text-decoration:none;
-    position:relative;
+    backdrop-filter:blur(8px);
   }
   .hero-hook:hover{
     border-color:var(--gold);
     transform:translateY(-2px);
     box-shadow:var(--shadow-gold);
-  }
-  .hero-hook-top{
-    display:flex;align-items:center;gap:12px;
+    background:rgba(17,34,54,0.9);
   }
   .hero-hook-icon{
-    flex-shrink:0;width:40px;height:40px;border-radius:8px;
+    flex-shrink:0;width:38px;height:38px;border-radius:8px;
     display:flex;align-items:center;justify-content:center;
-    font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:15px;
+    font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:14px;
   }
   .hero-hook-icon.scoreboard{
     background:rgba(40,116,166,0.18);color:#8fc5f0;
@@ -303,18 +300,17 @@
     background:rgba(201,162,39,0.14);color:var(--gold-2);
     border:1px solid var(--border-gold);
   }
-  .hero-hook-text{flex:1}
+  .hero-hook-text{flex:1;min-width:0}
   .hero-hook-text .hh-title{
-    font-family:'Space Grotesk',sans-serif;font-size:16px;
-    font-weight:700;color:var(--white);line-height:1.35;margin-bottom:6px;
+    font-family:'Space Grotesk',sans-serif;font-size:14px;
+    font-weight:700;color:var(--white);line-height:1.3;margin-bottom:3px;
   }
   .hero-hook-text .hh-sub{
-    font-size:13px;color:var(--text-dim);line-height:1.5;
+    font-size:12px;color:var(--text-dim);line-height:1.45;
   }
   .hero-hook-arrow{
     color:var(--gold-2);font-size:14px;font-weight:700;
     transition:transform 0.25s;flex-shrink:0;
-    position:absolute;top:24px;right:20px;
   }
   .hero-hook:hover .hero-hook-arrow{transform:translateX(4px)}
 
@@ -1695,6 +1691,41 @@
   }
   .why-card p{font-size:13.5px;color:var(--text-dim);line-height:1.55}
 
+  /* Why Us — Evidence sub-section */
+  .why-evidence-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:18px;
+  }
+  .why-ev-card{
+    display:block;text-decoration:none;color:inherit;
+    background:linear-gradient(180deg,rgba(15,29,45,0.7),rgba(8,17,28,0.9));
+    border:1px solid var(--border);border-radius:var(--radius-lg);
+    padding:28px 24px;transition:all 0.3s;position:relative;overflow:hidden;
+  }
+  .why-ev-card:hover{border-color:var(--border-gold);transform:translateY(-3px);box-shadow:var(--shadow-gold)}
+  .why-ev-label{
+    font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--gold-2);margin-bottom:12px;
+    display:inline-block;padding:4px 10px;border-radius:4px;
+    background:rgba(201,162,39,0.08);border:1px solid rgba(201,162,39,0.18);
+  }
+  .why-ev-card h4{
+    font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;
+    color:var(--white);line-height:1.35;margin-bottom:14px;
+  }
+  .why-ev-stats{
+    display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;
+  }
+  .why-ev-stats span{
+    font-size:11px;color:var(--text-dim);padding:4px 10px;
+    background:rgba(191,212,232,0.06);border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .why-ev-link{
+    font-size:13px;font-weight:600;color:var(--gold-2);
+    transition:color 0.2s;
+  }
+  .why-ev-card:hover .why-ev-link{color:var(--white)}
+
   /* ---------- STICKY MOBILE CTA ---------- */
   .sticky-cta{
     display:none;position:fixed;bottom:16px;left:16px;right:16px;z-index:900;
@@ -1891,11 +1922,12 @@
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:1100px){
-    .hero-hooks{grid-template-columns:1fr 1fr;gap:12px}
+    .hero-hooks{grid-template-columns:1fr 1fr;gap:10px}
     .hero-hooks .hero-hook:last-child{grid-column:1/-1}
+    .hero-hook{padding:14px 16px}
     .hero-grid,.about-grid,.about-grid-2col,.caps-grid,.prize-panel,.speaking-grid,.partner-layout{grid-template-columns:1fr;gap:40px}
     .services-grid,.insights-grid,.acc-grid,.reg-grid,.question-grid,.news-grid{grid-template-columns:repeat(2,1fr)}
-    .persona-grid,.engage-grid,.engage-grid-2col,.why-grid,.outcomes-grid,.conversion-grid{grid-template-columns:repeat(2,1fr)}
+    .persona-grid,.engage-grid,.engage-grid-2col,.why-grid,.outcomes-grid,.conversion-grid,.why-evidence-grid{grid-template-columns:repeat(2,1fr)}
     .commercial-principles{grid-template-columns:1fr;gap:14px}
     .cases-grid{grid-template-columns:1fr}
     .sgu-grid{grid-template-columns:1fr;gap:18px}
@@ -1919,11 +1951,9 @@
     .speak-stage{grid-template-columns:1fr}
   }
   @media (max-width:720px){
-    .hero-hooks{grid-template-columns:1fr;margin-top:0;margin-bottom:32px;padding:0 20px}
-    .hero-hook{padding:16px 18px;flex-direction:row;align-items:center}
-    .hero-hook-top{flex-shrink:0}
-    .hero-hook-arrow{position:static}
-    .hh-title{font-size:14px !important}
+    .hero-hooks{grid-template-columns:1fr;margin-top:24px;gap:8px}
+    .hero-hook{padding:14px 16px}
+    .hero-hooks .hero-hook:last-child{grid-column:auto}
     .container{padding:0 20px}
     .nav-inner{padding:14px 20px}
     .brand-mark{width:54px;height:54px}
@@ -1931,7 +1961,7 @@
     .wordmark{font-size:22px}
     .tag{font-size:10px}
     .services-grid,.insights-grid,.acc-grid,.reg-grid,.question-grid,.news-grid{grid-template-columns:1fr}
-    .persona-grid,.engage-grid,.engage-grid-2col,.faq-grid,.why-grid,.commercials-grid,.outcomes-grid,.conversion-grid{grid-template-columns:1fr}
+    .persona-grid,.engage-grid,.engage-grid-2col,.faq-grid,.why-grid,.commercials-grid,.outcomes-grid,.conversion-grid,.why-evidence-grid{grid-template-columns:1fr}
     .testimonial-grid{grid-template-columns:1fr}
     .c-detail-row{grid-template-columns:1fr;gap:2px}
     .journey-track{grid-template-columns:repeat(2,1fr);gap:24px}
@@ -2188,10 +2218,6 @@
           <span>GOVERN</span><em>·</em>
           <span>UNLOCK</span>
         </div>
-        <div class="hero-cta">
-          <a href="#contact" class="btn btn-primary">Book a consultation →</a>
-          <a href="#scoreboard" class="btn btn-ghost">Banking 2030 Scoreboard →</a>
-        </div>
         <div class="impact-stats">
           <div class="stat">
             <div class="stat-num">25<span class="gold">+</span></div>
@@ -2220,42 +2246,35 @@
         </div>
       </div>
     </div>
+    <!-- Hero hooks — inline with hero -->
+    <div class="hero-hooks">
+      <a href="#scoreboard" class="hero-hook">
+        <div class="hero-hook-icon scoreboard"><span class="live-dot" style="width:8px;height:8px"></span></div>
+        <div class="hero-hook-text">
+          <div class="hh-title">A Trillion for Saudi Banks</div>
+          <div class="hh-sub">Banking 2030 Scoreboard — 5-part series sizing the AI prize. <strong style="color:var(--gold-2)">Parts 1 &amp; 2 live.</strong></div>
+        </div>
+        <span class="hero-hook-arrow">→</span>
+      </a>
+      <a href="#why" class="hero-hook">
+        <div class="hero-hook-icon usp">✦</div>
+        <div class="hero-hook-text">
+          <div class="hh-title">Why Rodney.AI</div>
+          <div class="hh-sub">Unbiased vendor guidance, workable architecture, and models designed to deliver.</div>
+        </div>
+        <span class="hero-hook-arrow">→</span>
+      </a>
+      <a href="#start" class="hero-hook">
+        <div class="hero-hook-icon start" style="background:rgba(39,174,96,0.14);color:#6ee7a0;border:1px solid rgba(39,174,96,0.4)">▶</div>
+        <div class="hero-hook-text">
+          <div class="hh-title">Three ways to start</div>
+          <div class="hh-sub">Model download, governance assessment, or free 30-min consultation.</div>
+        </div>
+        <span class="hero-hook-arrow">→</span>
+      </a>
+    </div>
   </div>
 </section>
-
-<!-- =========== HERO HOOKS =========== -->
-<div class="hero-hooks">
-  <a href="#scoreboard" class="hero-hook">
-    <div class="hero-hook-top">
-      <div class="hero-hook-icon scoreboard"><span class="live-dot" style="width:8px;height:8px"></span></div>
-      <span class="hero-hook-arrow">→</span>
-    </div>
-    <div class="hero-hook-text">
-      <div class="hh-title">A Trillion for Saudi Banks — Banking 2030 Scoreboard</div>
-      <div class="hh-sub">5-part series sizing the AI prize across KSA banks. <strong style="color:var(--gold-2)">Parts 1 &amp; 2 live on LinkedIn.</strong></div>
-    </div>
-  </a>
-  <a href="#why" class="hero-hook">
-    <div class="hero-hook-top">
-      <div class="hero-hook-icon usp">✦</div>
-      <span class="hero-hook-arrow">→</span>
-    </div>
-    <div class="hero-hook-text">
-      <div class="hh-title">Clarity in a market with too many options</div>
-      <div class="hh-sub">Unbiased vendor guidance, workable architecture, and partnership models designed to deliver.</div>
-    </div>
-  </a>
-  <a href="#start" class="hero-hook">
-    <div class="hero-hook-top">
-      <div class="hero-hook-icon start" style="background:rgba(39,174,96,0.14);color:#6ee7a0;border:1px solid rgba(39,174,96,0.4)">▶</div>
-      <span class="hero-hook-arrow">→</span>
-    </div>
-    <div class="hero-hook-text">
-      <div class="hh-title">Three ways to start</div>
-      <div class="hh-sub">Download the model, request a governance assessment, or book a free 30-minute consultation.</div>
-    </div>
-  </a>
-</div>
 
 <!-- =========== MARQUEE =========== -->
 <div class="marquee" aria-hidden="true">
@@ -2680,6 +2699,62 @@
         <p>Too many vendors, too many consultants, too many options in the Kingdom. We cut through the noise
            with workable architecture, unbiased vendor recommendations and partnership models that
            are designed to deliver — not designed to sell the next phase.</p>
+      </div>
+    </div>
+
+    <!-- Sub-section: Client Outcomes -->
+    <div class="why-evidence" style="margin-top:72px">
+      <div class="section-head" style="margin-bottom:36px">
+        <div class="section-label">The Evidence</div>
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:var(--white);margin-bottom:10px">Outcomes that <span class="gold">moved the numbers</span></h3>
+        <p class="section-intro" style="margin-bottom:0">The claims above aren't theoretical. Here are the programmes and client outcomes behind them.</p>
+      </div>
+
+      <div class="why-evidence-grid">
+        <!-- Outcome highlight cards -->
+        <a href="#outcomes" class="why-ev-card">
+          <div class="why-ev-label">Client Outcomes</div>
+          <h4>Tadawul DataHub — First Cloud Data Platform in KSA Capital Markets</h4>
+          <div class="why-ev-stats">
+            <span>Board mandate delivered</span>
+            <span>Data monetisation at scale</span>
+            <span>Regional first</span>
+          </div>
+          <span class="why-ev-link">See full outcomes →</span>
+        </a>
+
+        <a href="#outcomes" class="why-ev-card">
+          <div class="why-ev-label">Client Outcomes</div>
+          <h4>Top-5 UK Bank — Enterprise AI Platform &amp; 200+ Engineer Programme</h4>
+          <div class="why-ev-stats">
+            <span>$500M+ value delivered</span>
+            <span>10× practice growth</span>
+            <span>Platform in production</span>
+          </div>
+          <span class="why-ev-link">See full outcomes →</span>
+        </a>
+
+        <a href="#case-studies" class="why-ev-card">
+          <div class="why-ev-label">Case Study</div>
+          <h4>National Securities Regulator — GenAI Supervisory Programme</h4>
+          <div class="why-ev-stats">
+            <span>3–10× productivity</span>
+            <span>30+ risks tiered</span>
+            <span>National first</span>
+          </div>
+          <span class="why-ev-link">See full case study →</span>
+        </a>
+
+        <a href="#case-studies" class="why-ev-card">
+          <div class="why-ev-label">Case Study</div>
+          <h4>Global Top-5 Asset Manager — AI-Driven Portfolio &amp; Research</h4>
+          <div class="why-ev-stats">
+            <span>$750B AUM</span>
+            <span>60+ PMs</span>
+            <span>Buy-side scale</span>
+          </div>
+          <span class="why-ev-link">See full case study →</span>
+        </a>
       </div>
     </div>
   </div>
@@ -4155,7 +4230,7 @@
   document.querySelectorAll(
     'section .section-head, section .section-label, section .section-title, section .section-intro,' +
     '.sgu-head, .sgu-card, .service, .question-card, .insight, .case, .acc,' +
-    '.reg-card, .pool, .why-card, .engage-card, .commercial-card, .testimonial,' +
+    '.reg-card, .pool, .why-card, .why-ev-card, .engage-card, .commercial-card, .testimonial,' +
     '.faq-item, .cred, .persona, .pillar, .contact-inner > *, .about-grid > *,' +
     '.partner-layout > *, .prize-panel, .journey-track, .series-card,' +
     '.caps-col, .about-speaking, .about-highlight, .hero-grid, .engagement-legend,' +
