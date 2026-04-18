@@ -273,23 +273,27 @@
     position:relative;z-index:1;margin-top:0;margin-bottom:56px;
   }
   .hero-hook{
-    display:flex;align-items:center;gap:16px;
-    padding:20px 24px;
+    display:flex;flex-direction:column;gap:14px;
+    padding:24px 24px 20px;
     background:var(--surface);
     border:1px solid var(--border-strong);
     border-radius:var(--radius-lg);
     transition:all 0.3s var(--ease-out);
     cursor:pointer;text-decoration:none;
+    position:relative;
   }
   .hero-hook:hover{
     border-color:var(--gold);
     transform:translateY(-2px);
     box-shadow:var(--shadow-gold);
   }
+  .hero-hook-top{
+    display:flex;align-items:center;gap:12px;
+  }
   .hero-hook-icon{
-    flex-shrink:0;width:44px;height:44px;border-radius:8px;
+    flex-shrink:0;width:40px;height:40px;border-radius:8px;
     display:flex;align-items:center;justify-content:center;
-    font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:16px;
+    font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:15px;
   }
   .hero-hook-icon.scoreboard{
     background:rgba(40,116,166,0.18);color:#8fc5f0;
@@ -301,15 +305,16 @@
   }
   .hero-hook-text{flex:1}
   .hero-hook-text .hh-title{
-    font-family:'Space Grotesk',sans-serif;font-size:14px;
-    font-weight:700;color:var(--white);line-height:1.3;margin-bottom:3px;
+    font-family:'Space Grotesk',sans-serif;font-size:16px;
+    font-weight:700;color:var(--white);line-height:1.35;margin-bottom:6px;
   }
   .hero-hook-text .hh-sub{
-    font-size:12px;color:var(--text-dim);line-height:1.4;
+    font-size:13px;color:var(--text-dim);line-height:1.5;
   }
   .hero-hook-arrow{
-    color:var(--gold-2);font-size:16px;font-weight:700;
+    color:var(--gold-2);font-size:14px;font-weight:700;
     transition:transform 0.25s;flex-shrink:0;
+    position:absolute;top:24px;right:20px;
   }
   .hero-hook:hover .hero-hook-arrow{transform:translateX(4px)}
 
@@ -603,6 +608,8 @@
 
   /* ---------- ABOUT ---------- */
   .about-subsection{}
+  .about-grid-2col{grid-template-columns:1fr 1fr}
+  .engage-grid-2col{grid-template-columns:1fr 1fr;gap:28px}
   .about-sub-heading{
     font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;
     color:var(--white);margin-bottom:32px;display:flex;align-items:center;gap:14px;
@@ -1886,9 +1893,9 @@
   @media (max-width:1100px){
     .hero-hooks{grid-template-columns:1fr 1fr;gap:12px}
     .hero-hooks .hero-hook:last-child{grid-column:1/-1}
-    .hero-grid,.about-grid,.caps-grid,.prize-panel,.speaking-grid,.partner-layout{grid-template-columns:1fr;gap:40px}
+    .hero-grid,.about-grid,.about-grid-2col,.caps-grid,.prize-panel,.speaking-grid,.partner-layout{grid-template-columns:1fr;gap:40px}
     .services-grid,.insights-grid,.acc-grid,.reg-grid,.question-grid,.news-grid{grid-template-columns:repeat(2,1fr)}
-    .persona-grid,.engage-grid,.why-grid,.outcomes-grid,.conversion-grid{grid-template-columns:repeat(2,1fr)}
+    .persona-grid,.engage-grid,.engage-grid-2col,.why-grid,.outcomes-grid,.conversion-grid{grid-template-columns:repeat(2,1fr)}
     .commercial-principles{grid-template-columns:1fr;gap:14px}
     .cases-grid{grid-template-columns:1fr}
     .sgu-grid{grid-template-columns:1fr;gap:18px}
@@ -1913,7 +1920,10 @@
   }
   @media (max-width:720px){
     .hero-hooks{grid-template-columns:1fr;margin-top:0;margin-bottom:32px;padding:0 20px}
-    .hero-hook{padding:16px 18px}
+    .hero-hook{padding:16px 18px;flex-direction:row;align-items:center}
+    .hero-hook-top{flex-shrink:0}
+    .hero-hook-arrow{position:static}
+    .hh-title{font-size:14px !important}
     .container{padding:0 20px}
     .nav-inner{padding:14px 20px}
     .brand-mark{width:54px;height:54px}
@@ -1921,7 +1931,8 @@
     .wordmark{font-size:22px}
     .tag{font-size:10px}
     .services-grid,.insights-grid,.acc-grid,.reg-grid,.question-grid,.news-grid{grid-template-columns:1fr}
-    .persona-grid,.engage-grid,.faq-grid,.why-grid,.commercials-grid,.outcomes-grid,.conversion-grid{grid-template-columns:1fr}
+    .persona-grid,.engage-grid,.engage-grid-2col,.faq-grid,.why-grid,.commercials-grid,.outcomes-grid,.conversion-grid{grid-template-columns:1fr}
+    .testimonial-grid{grid-template-columns:1fr}
     .c-detail-row{grid-template-columns:1fr;gap:2px}
     .journey-track{grid-template-columns:repeat(2,1fr);gap:24px}
     .partner-logos{grid-template-columns:1fr}
@@ -2215,28 +2226,34 @@
 <!-- =========== HERO HOOKS =========== -->
 <div class="hero-hooks">
   <a href="#scoreboard" class="hero-hook">
-    <div class="hero-hook-icon scoreboard"><span class="live-dot" style="width:8px;height:8px"></span></div>
+    <div class="hero-hook-top">
+      <div class="hero-hook-icon scoreboard"><span class="live-dot" style="width:8px;height:8px"></span></div>
+      <span class="hero-hook-arrow">→</span>
+    </div>
     <div class="hero-hook-text">
       <div class="hh-title">A Trillion for Saudi Banks — Banking 2030 Scoreboard</div>
       <div class="hh-sub">5-part series sizing the AI prize across KSA banks. <strong style="color:var(--gold-2)">Parts 1 &amp; 2 live on LinkedIn.</strong></div>
     </div>
-    <span class="hero-hook-arrow">→</span>
   </a>
   <a href="#why" class="hero-hook">
-    <div class="hero-hook-icon usp">✦</div>
+    <div class="hero-hook-top">
+      <div class="hero-hook-icon usp">✦</div>
+      <span class="hero-hook-arrow">→</span>
+    </div>
     <div class="hero-hook-text">
       <div class="hh-title">Clarity in a market with too many options</div>
       <div class="hh-sub">Unbiased vendor guidance, workable architecture, and partnership models designed to deliver.</div>
     </div>
-    <span class="hero-hook-arrow">→</span>
   </a>
   <a href="#start" class="hero-hook">
-    <div class="hero-hook-icon start" style="background:rgba(39,174,96,0.14);color:#6ee7a0;border:1px solid rgba(39,174,96,0.4)">▶</div>
+    <div class="hero-hook-top">
+      <div class="hero-hook-icon start" style="background:rgba(39,174,96,0.14);color:#6ee7a0;border:1px solid rgba(39,174,96,0.4)">▶</div>
+      <span class="hero-hook-arrow">→</span>
+    </div>
     <div class="hero-hook-text">
       <div class="hh-title">Three ways to start</div>
       <div class="hh-sub">Download the model, request a governance assessment, or book a free 30-minute consultation.</div>
     </div>
-    <span class="hero-hook-arrow">→</span>
   </a>
 </div>
 
@@ -2550,7 +2567,7 @@
     <!-- Sub-section: Expertise -->
     <div id="expertise" class="about-subsection" style="margin-top:64px">
       <h3 class="about-sub-heading"><span class="about-sub-num">02</span> Expertise &amp; Edge</h3>
-      <div class="about-grid" style="grid-template-columns:1fr 1fr">
+      <div class="about-grid about-grid-2col">
         <div class="about-content">
           <p>
             His work spans <strong>agentic AI</strong> (<em>Zora AI™</em>, built with 200+ engineers
@@ -3018,7 +3035,7 @@
         Either way, the first 30 minutes are a free conversation — no slides, no pitch.</p>
     </div>
 
-    <div class="engage-grid" style="grid-template-columns:1fr 1fr;gap:28px">
+    <div class="engage-grid engage-grid-2col">
       <div class="engage-card">
         <div class="engage-label">Engagement Type · A</div>
         <h3>Advisory</h3>
