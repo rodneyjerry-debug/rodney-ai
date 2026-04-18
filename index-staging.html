@@ -268,13 +268,13 @@
 
   /* ---- Hero hook strips ---- */
   .hero-hooks{
-    display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;
+    display:flex;flex-direction:column;gap:10px;
     margin-top:40px;
   }
   .hero-hook{
-    display:flex;align-items:center;gap:14px;
-    padding:18px 20px;
-    background:rgba(17,34,54,0.7);
+    display:flex;align-items:center;gap:16px;
+    padding:16px 22px;
+    background:rgba(17,34,54,0.65);
     border:1px solid var(--border-strong);
     border-radius:var(--radius);
     transition:all 0.3s var(--ease-out);
@@ -283,14 +283,14 @@
   }
   .hero-hook:hover{
     border-color:var(--gold);
-    transform:translateY(-2px);
+    transform:translateX(4px);
     box-shadow:var(--shadow-gold);
     background:rgba(17,34,54,0.9);
   }
   .hero-hook-icon{
-    flex-shrink:0;width:38px;height:38px;border-radius:8px;
+    flex-shrink:0;width:40px;height:40px;border-radius:8px;
     display:flex;align-items:center;justify-content:center;
-    font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:14px;
+    font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:15px;
   }
   .hero-hook-icon.scoreboard{
     background:rgba(40,116,166,0.18);color:#8fc5f0;
@@ -302,15 +302,15 @@
   }
   .hero-hook-text{flex:1;min-width:0}
   .hero-hook-text .hh-title{
-    font-family:'Space Grotesk',sans-serif;font-size:14px;
-    font-weight:700;color:var(--white);line-height:1.3;margin-bottom:3px;
+    font-family:'Space Grotesk',sans-serif;font-size:15px;
+    font-weight:700;color:var(--white);line-height:1.3;margin-bottom:2px;
   }
   .hero-hook-text .hh-sub{
-    font-size:12px;color:var(--text-dim);line-height:1.45;
+    font-size:13px;color:var(--text-dim);line-height:1.45;
   }
   .hero-hook-arrow{
-    color:var(--gold-2);font-size:14px;font-weight:700;
-    transition:transform 0.25s;flex-shrink:0;
+    color:var(--gold-2);font-size:16px;font-weight:700;
+    transition:transform 0.25s;flex-shrink:0;margin-left:auto;
   }
   .hero-hook:hover .hero-hook-arrow{transform:translateX(4px)}
 
@@ -1922,8 +1922,7 @@
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:1100px){
-    .hero-hooks{grid-template-columns:1fr 1fr;gap:10px}
-    .hero-hooks .hero-hook:last-child{grid-column:1/-1}
+    .hero-hooks{gap:8px;margin-top:32px}
     .hero-hook{padding:14px 16px}
     .hero-grid,.about-grid,.about-grid-2col,.caps-grid,.prize-panel,.speaking-grid,.partner-layout{grid-template-columns:1fr;gap:40px}
     .services-grid,.insights-grid,.acc-grid,.reg-grid,.question-grid,.news-grid{grid-template-columns:repeat(2,1fr)}
@@ -1951,9 +1950,10 @@
     .speak-stage{grid-template-columns:1fr}
   }
   @media (max-width:720px){
-    .hero-hooks{grid-template-columns:1fr;margin-top:24px;gap:8px}
-    .hero-hook{padding:14px 16px}
-    .hero-hooks .hero-hook:last-child{grid-column:auto}
+    .hero-hooks{margin-top:20px;gap:6px}
+    .hero-hook{padding:12px 14px;gap:12px}
+    .hero-hook-text .hh-title{font-size:14px}
+    .hero-hook-text .hh-sub{font-size:12px}
     .container{padding:0 20px}
     .nav-inner{padding:14px 20px}
     .brand-mark{width:54px;height:54px}
