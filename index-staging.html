@@ -268,15 +268,14 @@
 
   /* ---- Hero hook strips ---- */
   .hero-hooks{
-    display:grid;grid-template-columns:1fr 1fr;gap:14px;
+    display:grid;grid-template-columns:1fr 1fr;gap:16px;
     margin:0 auto;max-width:1240px;padding:0 28px;
-    position:relative;z-index:1;margin-top:-36px;margin-bottom:48px;
+    position:relative;z-index:1;margin-top:0;margin-bottom:56px;
   }
   .hero-hook{
     display:flex;align-items:center;gap:16px;
-    padding:18px 24px;
-    background:rgba(13,27,42,0.85);
-    backdrop-filter:blur(12px);
+    padding:20px 24px;
+    background:var(--surface);
     border:1px solid var(--border-strong);
     border-radius:var(--radius-lg);
     transition:all 0.3s var(--ease-out);
@@ -1755,8 +1754,7 @@
     .speak-stage{grid-template-columns:1fr}
   }
   @media (max-width:720px){
-    .topstrip{display:none}
-    .hero-hooks{grid-template-columns:1fr;margin-top:-24px;margin-bottom:32px;padding:0 20px}
+    .hero-hooks{grid-template-columns:1fr;margin-top:0;margin-bottom:32px;padding:0 20px}
     .container{padding:0 20px}
     .nav-inner{padding:14px 20px}
     .brand-mark{width:54px;height:54px}
@@ -1874,19 +1872,6 @@
 </head>
 <body id="top">
 
-<!-- =========== TOP STRIP =========== -->
-<div class="topstrip">
-  <div class="topstrip-inner">
-    <div class="advisor-line">
-      <span>Rodney Coutinho</span>
-      <span>Executive Advisor on AI</span>
-      <span>Banking, Capital Markets, Government &amp; Sovereign Institutions</span>
-      <span>Middle East</span>
-    </div>
-    <div class="live"><span class="live-dot"></span>Series 01 · Part 1 live on LinkedIn</div>
-  </div>
-</div>
-
 <!-- =========== NAV =========== -->
 <nav class="nav">
   <div class="container nav-inner">
@@ -1993,14 +1978,13 @@
 <!-- =========== HERO =========== -->
 <section class="hero">
   <div class="container">
-    <div class="eyebrow">Rodney.AI · Executive Advisory</div>
-    <h1 class="hero-title">The boardroom voice      turning AI ambition into P&amp;L, ROE and market cap.</h1>
+    <h1 class="hero-title">The boardroom voice <span class="thin">turning</span> <span class="gold">AI ambition</span> into P&amp;L, ROE and market cap.</h1>
     <div class="hero-grid">
       <div class="hero-copy">
         <p class="hero-sub">Rodney Coutinho advises bank boards, capital markets infrastructure,
           regulators and sovereign institutions on AI strategy, governance, risk and execution —
           across the Middle East, UK and Europe. 25+ years at the intersection of
-          business, technology, and compliance now published as The Vision 2030 Bank Scoreboard.</p>
+          business, technology, and compliance — now published as the Banking 2030 Scoreboard.</p>
         <div class="sgu-inline">
           <span>SCALE</span><em>·</em>
           <span>GOVERN</span><em>·</em>
@@ -2008,7 +1992,7 @@
         </div>
         <div class="hero-cta">
           <a href="#contact" class="btn btn-primary">Book a consultation →</a>
-          <a href="#scoreboard" class="btn btn-ghost">Read the $295B Scoreboard</a>
+          <a href="#scoreboard" class="btn btn-ghost">Banking 2030 Scoreboard →</a>
         </div>
         <div class="impact-stats">
           <div class="stat">
@@ -2031,7 +2015,7 @@
       </div>
       <div class="hero-visual">
         <img src="assets/rodney-hero-cropped.jpg" alt="Rodney Coutinho — Executive Advisor on AI" onerror="this.onerror=null;this.src='assets/rodney-hero.jpg';">
-        <div class="hero-visual-badge">Series 01 · Part 1 of 5</div>
+        <div class="hero-visual-badge"><span class="live-dot" style="display:inline-block;width:6px;height:6px;margin-right:6px;vertical-align:middle"></span>Parts 1 &amp; 2 live</div>
         <div class="hero-visual-label">
           <div class="name">Rodney Coutinho</div>
           <div class="role">Executive Advisor</div>
@@ -2044,18 +2028,18 @@
 <!-- =========== HERO HOOKS =========== -->
 <div class="hero-hooks">
   <a href="#scoreboard" class="hero-hook">
-    <div class="hero-hook-icon scoreboard">S</div>
+    <div class="hero-hook-icon scoreboard"><span class="live-dot" style="width:8px;height:8px"></span></div>
     <div class="hero-hook-text">
-      <div class="hh-title">The FS AI Scoreboard — 5-Part Series</div>
-      <div class="hh-sub">$295B market-cap unlock modelled across KSA's top banks. Part 1 live on LinkedIn.</div>
+      <div class="hh-title">Banking 2030 Scoreboard — A Trillion-Dollar Opportunity</div>
+      <div class="hh-sub">5-part series sizing the AI prize across KSA banks. <strong style="color:var(--gold-2)">Parts 1 &amp; 2 live on LinkedIn.</strong></div>
     </div>
     <span class="hero-hook-arrow">→</span>
   </a>
   <a href="#why" class="hero-hook">
     <div class="hero-hook-icon usp">✦</div>
     <div class="hero-hook-text">
-      <div class="hh-title">Why institutions choose us over the alternatives</div>
-      <div class="hh-sub">Unbiased vendor guidance, workable architecture, and clarity — in a market with too many options.</div>
+      <div class="hh-title">Clarity in a market with too many options</div>
+      <div class="hh-sub">Unbiased vendor guidance, workable architecture, and partnership models designed to deliver.</div>
     </div>
     <span class="hero-hook-arrow">→</span>
   </a>
@@ -2490,7 +2474,7 @@
 
     <div class="article-header">
       <div class="series-ribbon">
-        Series 01 <span>The Vision 2030 Bank Scoreboard</span> <span>Part 1 of 5</span> <span>Monetization</span>
+        <span class="live-dot" style="width:7px;height:7px"></span> Banking 2030 Scoreboard <span>Parts 1 &amp; 2 Live</span> <span>A Trillion-Dollar Opportunity</span>
       </div>
       <h1 class="article-title">
         Are Saudi Banks <span class="gold">Underpricing</span><br>
@@ -2679,8 +2663,11 @@
       </p>
 
       <div class="article-cta">
-        <a href="https://www.linkedin.com/in/rodneycoutinho" target="_blank" rel="noopener" class="btn btn-primary">
-          Read on LinkedIn →
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7448958079272054784/" target="_blank" rel="noopener" class="btn btn-primary">
+          Read Part 1 on LinkedIn →
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7451215346319028224/" target="_blank" rel="noopener" class="btn btn-primary">
+          Read Part 2 on LinkedIn →
         </a>
         <a href="#contact" class="btn btn-ghost">Request the model</a>
       </div>
@@ -2693,7 +2680,7 @@
   <div class="container">
     <div class="section-head">
       <div class="section-label">The Writing · 5-Part Series</div>
-      <h2 class="section-title">The Vision 2030 Bank Scoreboard — <span class="gold">the full roadmap</span></h2>
+      <h2 class="section-title">Banking 2030 Scoreboard — <span class="gold">the full roadmap</span></h2>
       <p class="section-intro">
         A five-part published body of work on the economics of Saudi banking between now and 2030.
         Each part is a LinkedIn document carousel backed by an open Excel model.
@@ -2706,11 +2693,11 @@
         <p>The $295B fee-income unlock. Non-interest income, BaaS, data, APIs, IaaS.</p>
         <div class="series-status">Live · 12 April 2026</div>
       </div>
-      <div class="series-card">
+      <div class="series-card live">
         <div class="series-num">PART · 02</div>
         <h4>Tokenization</h4>
         <p>Which Saudi bank puts the first sukuk on-chain? Market infrastructure + DLT economics.</p>
-        <div class="series-status">Next · Queued</div>
+        <div class="series-status">Live · April 2026</div>
       </div>
       <div class="series-card">
         <div class="series-num">PART · 03</div>
