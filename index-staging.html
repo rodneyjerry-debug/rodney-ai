@@ -268,7 +268,7 @@
 
   /* ---- Hero hook strips ---- */
   .hero-hooks{
-    display:grid;grid-template-columns:1fr 1fr;gap:16px;
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;
     margin:0 auto;max-width:1240px;padding:0 28px;
     position:relative;z-index:1;margin-top:0;margin-bottom:56px;
   }
@@ -602,6 +602,17 @@
   }
 
   /* ---------- ABOUT ---------- */
+  .about-subsection{}
+  .about-sub-heading{
+    font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;
+    color:var(--white);margin-bottom:32px;display:flex;align-items:center;gap:14px;
+    padding-bottom:16px;border-bottom:1px solid var(--border);
+  }
+  .about-sub-num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:32px;height:32px;border-radius:8px;font-size:13px;font-weight:800;
+    background:rgba(201,162,39,0.10);color:var(--gold-2);border:1px solid rgba(201,162,39,0.25);
+  }
   .about-grid{
     display:grid;grid-template-columns:1.2fr 1fr;gap:72px;align-items:start;
   }
@@ -1873,6 +1884,8 @@
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:1100px){
+    .hero-hooks{grid-template-columns:1fr 1fr;gap:12px}
+    .hero-hooks .hero-hook:last-child{grid-column:1/-1}
     .hero-grid,.about-grid,.caps-grid,.prize-panel,.speaking-grid,.partner-layout{grid-template-columns:1fr;gap:40px}
     .services-grid,.insights-grid,.acc-grid,.reg-grid,.question-grid,.news-grid{grid-template-columns:repeat(2,1fr)}
     .persona-grid,.engage-grid,.why-grid,.outcomes-grid,.conversion-grid{grid-template-columns:repeat(2,1fr)}
@@ -1900,6 +1913,7 @@
   }
   @media (max-width:720px){
     .hero-hooks{grid-template-columns:1fr;margin-top:0;margin-bottom:32px;padding:0 20px}
+    .hero-hook{padding:16px 18px}
     .container{padding:0 20px}
     .nav-inner{padding:14px 20px}
     .brand-mark{width:54px;height:54px}
@@ -2062,17 +2076,31 @@
         <span class="nav-link">Research <span class="chevron">▼</span></span>
         <div class="nav-dropdown">
           <div class="dd-label">Scoreboard Series</div>
-          <a href="#scoreboard">The $295B Opportunity</a>
+          <a href="#scoreboard">A Trillion-Dollar Opportunity</a>
           <a href="#series-roadmap">All five parts</a>
           <div class="dd-divider"></div>
           <div class="dd-label">Market Evidence</div>
           <a href="#benchmarks">Peer Benchmarks</a>
           <a href="#regulatory">Regulatory Landscape</a>
           <a href="#thought-leadership">Thought Leadership</a>
+          <a href="#ai-news">AI News Feed</a>
         </div>
       </div>
 
-      <a href="#accelerators" class="nav-link">Accelerators</a>
+      <!-- More dropdown -->
+      <div class="nav-group">
+        <span class="nav-link">More <span class="chevron">▼</span></span>
+        <div class="nav-dropdown">
+          <a href="#about">About Us</a>
+          <a href="#case-studies">Case Studies</a>
+          <a href="#outcomes">Client Outcomes</a>
+          <a href="#accelerators">Accelerators</a>
+          <a href="#video">On Stage</a>
+          <div class="dd-divider"></div>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
 
       <div class="lang-toggle" id="langToggle">
         <button class="active" data-lang="en">EN</button>
@@ -2109,14 +2137,21 @@
   </div>
   <div class="md-group">
     <div class="md-group-label">Research</div>
-    <a href="#scoreboard">The $295B Opportunity</a>
+    <a href="#scoreboard">A Trillion-Dollar Opportunity</a>
     <a href="#series-roadmap">Scoreboard Series (5 parts)</a>
     <a href="#benchmarks">Peer Benchmarks</a>
     <a href="#regulatory">Regulatory Landscape</a>
     <a href="#thought-leadership">Thought Leadership</a>
+    <a href="#ai-news">AI News Feed</a>
   </div>
   <div class="md-group">
-    <a href="#accelerators" style="font-weight:700;color:var(--white)">Accelerators</a>
+    <div class="md-group-label">More</div>
+    <a href="#about">About Us</a>
+    <a href="#case-studies">Case Studies</a>
+    <a href="#outcomes">Client Outcomes</a>
+    <a href="#accelerators">Accelerators</a>
+    <a href="#video">On Stage</a>
+    <a href="#faq">FAQ</a>
   </div>
   <div class="md-group" style="padding-top:12px;border-top:1px solid var(--border)">
     <a href="#contact" class="btn btn-primary" style="text-align:center;justify-content:center;margin-top:8px">Book a consultation →</a>
@@ -2182,7 +2217,7 @@
   <a href="#scoreboard" class="hero-hook">
     <div class="hero-hook-icon scoreboard"><span class="live-dot" style="width:8px;height:8px"></span></div>
     <div class="hero-hook-text">
-      <div class="hh-title">Banking 2030 Scoreboard — A Trillion-Dollar Opportunity</div>
+      <div class="hh-title">A Trillion for Saudi Banks — Banking 2030 Scoreboard</div>
       <div class="hh-sub">5-part series sizing the AI prize across KSA banks. <strong style="color:var(--gold-2)">Parts 1 &amp; 2 live on LinkedIn.</strong></div>
     </div>
     <span class="hero-hook-arrow">→</span>
@@ -2192,6 +2227,14 @@
     <div class="hero-hook-text">
       <div class="hh-title">Clarity in a market with too many options</div>
       <div class="hh-sub">Unbiased vendor guidance, workable architecture, and partnership models designed to deliver.</div>
+    </div>
+    <span class="hero-hook-arrow">→</span>
+  </a>
+  <a href="#start" class="hero-hook">
+    <div class="hero-hook-icon start" style="background:rgba(39,174,96,0.14);color:#6ee7a0;border:1px solid rgba(39,174,96,0.4)">▶</div>
+    <div class="hero-hook-text">
+      <div class="hh-title">Three ways to start</div>
+      <div class="hh-sub">Download the model, request a governance assessment, or book a free 30-minute consultation.</div>
     </div>
     <span class="hero-hook-arrow">→</span>
   </a>
@@ -2314,7 +2357,7 @@
 </section>
 
 <!-- =========== SCALE / GOVERN / UNLOCK =========== -->
-<section id="promise" class="sgu">
+<section id="sgu" class="sgu">
   <div class="container">
     <div class="sgu-head">
       <div class="section-label">The Three-Word Promise</div>
@@ -2441,11 +2484,11 @@
   </div>
 </section>
 
-<!-- =========== ABOUT =========== -->
+<!-- =========== ABOUT US =========== -->
 <section id="about">
   <div class="container">
     <div class="section-head">
-      <div class="section-label">About Rodney</div>
+      <div class="section-label">About Us</div>
       <h2 class="section-title">A <span class="gold">bilingual operator</span> —<br>
           fluent in the P&amp;L <span class="thin">and</span> the GPU cluster.</h2>
       <p class="section-intro">
@@ -2454,107 +2497,121 @@
       </p>
     </div>
 
-    <div class="about-grid">
-      <div class="about-content">
-        <p>
-          Rodney is an <strong>AI &amp; Data Partner at a Big 4 firm</strong>
-          in the Middle East, with a 25+ year career focused on Financial Services. He describes
-          his mandate simply — "driving the enterprise-wide Data and AI agenda to meet Board and
-          Shareholder commitments." He grew the regional AI practice <strong>ten-fold</strong> and
-          has led AI and data programmes at <strong>Tier-1 global and regional banks</strong>
-          across the Saudi, UAE, UK and European banking sectors.
-        </p>
-        <p>
-          He has advised boards of <strong>sovereign exchanges, national regulators,
-          central banks and Tier-1 commercial banks</strong> across the GCC on AI and
-          data strategy, operating models, governance and execution — with the Kingdom's Vision
-          2030 and HUMAIN's $100B sovereign AI agenda as the backdrop. The brief, in his own words,
-          is to <em>"strategise and realise the benefits of modernisation and monetisation"</em>
-          inside financial services.
-        </p>
-        <p>
-          His work spans <strong>agentic AI</strong> (<em>Zora AI™</em>, built with 200+ engineers
-          on NVIDIA Llama Nemotron), <strong>model risk management</strong> (SR 11-7, SS1/23),
-          <strong>capital markets infrastructure</strong> (CCP, CSD, trading venues) and
-          <strong>sovereign-scale data platforms</strong>. He writes regularly on
-          <strong>ROE, valuation and AI scaling risk</strong> on LinkedIn as <strong>Rodney.AI</strong>
-          — 4,000+ followers and growing.
-        </p>
+    <!-- Sub-section: Background -->
+    <div id="background" class="about-subsection">
+      <h3 class="about-sub-heading"><span class="about-sub-num">01</span> Background</h3>
+      <div class="about-grid">
+        <div class="about-content">
+          <p>
+            Rodney is an <strong>AI &amp; Data Partner at a Big 4 firm</strong>
+            in the Middle East, with a 25+ year career focused on Financial Services. He describes
+            his mandate simply — "driving the enterprise-wide Data and AI agenda to meet Board and
+            Shareholder commitments." He grew the regional AI practice <strong>ten-fold</strong> and
+            has led AI and data programmes at <strong>Tier-1 global and regional banks</strong>
+            across the Saudi, UAE, UK and European banking sectors.
+          </p>
+          <p>
+            He has advised boards of <strong>sovereign exchanges, national regulators,
+            central banks and Tier-1 commercial banks</strong> across the GCC on AI and
+            data strategy, operating models, governance and execution — with the Kingdom's Vision
+            2030 and HUMAIN's $100B sovereign AI agenda as the backdrop. The brief, in his own words,
+            is to <em>"strategise and realise the benefits of modernisation and monetisation"</em>
+            inside financial services.
+          </p>
 
-        <div class="about-highlight">
-          <p>"One of very few people in the market who can speak to a bank board
-             about ROE and to a platform team about tensor parallelism — in the same hour,
-             without losing either room."</p>
-        </div>
+          <div class="about-highlight">
+            <p>"One of very few people in the market who can speak to a bank board
+               about ROE and to a platform team about tensor parallelism — in the same hour,
+               without losing either room."</p>
+          </div>
 
-        <div class="about-meta">
-          <div class="meta-card">
-            <div class="meta-label">Current</div>
-            <div class="meta-value">Executive Advisor on AI<br>Independent · Rodney.AI</div>
-          </div>
-          <div class="meta-card">
-            <div class="meta-label">Geography</div>
-            <div class="meta-value">Middle East primary<br>UK &amp; EU supporting</div>
-          </div>
-          <div class="meta-card">
-            <div class="meta-label">Sectors</div>
-            <div class="meta-value">Banking · Capital Markets<br>Regulators · Sovereign</div>
-          </div>
-          <div class="meta-card">
-            <div class="meta-label">Engagement</div>
-            <div class="meta-value">Board advisory · Operator-in-residence<br>Independent assurance</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pillar-stack">
-        <div class="pillar">
-          <div class="pillar-icon">01</div>
-          <div>
-            <h4>Bilingual — business × tech</h4>
-            <p>Equally at home in a CFO's Basel IV conversation and a platform team's
-               Nemotron fine-tuning review.</p>
-          </div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-icon">02</div>
-          <div>
-            <h4>Regulator-grade governance</h4>
-            <p>Has sat on both sides of the table — FS regulators trust the work because
-               it anticipates their questions before they ask them.</p>
-          </div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-icon">03</div>
-          <div>
-            <h4>P&amp;L accountability</h4>
-            <p>Programmes measured in $100M+ of revenue uplift, not slideware.
-               Every recommendation carries a line-item owner.</p>
-          </div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-icon">04</div>
-          <div>
-            <h4>Sovereign-scale experience</h4>
-            <p>Tadawul, CMA KSA, SAMA, HUMAIN, Vision 2030 — the operating patterns
-               for nation-scale AI and data infrastructure.</p>
+          <div class="about-meta">
+            <div class="meta-card">
+              <div class="meta-label">Current</div>
+              <div class="meta-value">Executive Advisor on AI<br>Independent · Rodney.AI</div>
+            </div>
+            <div class="meta-card">
+              <div class="meta-label">Geography</div>
+              <div class="meta-value">Middle East primary<br>UK &amp; EU supporting</div>
+            </div>
+            <div class="meta-card">
+              <div class="meta-label">Sectors</div>
+              <div class="meta-value">Banking · Capital Markets<br>Regulators · Sovereign</div>
+            </div>
+            <div class="meta-card">
+              <div class="meta-label">Engagement</div>
+              <div class="meta-value">Board advisory · Operator-in-residence<br>Independent assurance</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Speaking strip (folded into About) -->
-    <div class="about-speaking">
-      <div class="as-head">
-        <div class="section-label" style="margin-bottom:0">Speaking · Keynotes · Panels</div>
-        <p>Keynotes and executive masterclasses with bank boards, regulators, sovereign institutions
-          and the AI vendor ecosystem.</p>
+    <!-- Sub-section: Expertise -->
+    <div id="expertise" class="about-subsection" style="margin-top:64px">
+      <h3 class="about-sub-heading"><span class="about-sub-num">02</span> Expertise &amp; Edge</h3>
+      <div class="about-grid" style="grid-template-columns:1fr 1fr">
+        <div class="about-content">
+          <p>
+            His work spans <strong>agentic AI</strong> (<em>Zora AI™</em>, built with 200+ engineers
+            on NVIDIA Llama Nemotron), <strong>model risk management</strong> (SR 11-7, SS1/23),
+            <strong>capital markets infrastructure</strong> (CCP, CSD, trading venues) and
+            <strong>sovereign-scale data platforms</strong>. He writes regularly on
+            <strong>ROE, valuation and AI scaling risk</strong> on LinkedIn as <strong>Rodney.AI</strong>
+            — 4,000+ followers and growing.
+          </p>
+        </div>
+        <div class="pillar-stack">
+          <div class="pillar">
+            <div class="pillar-icon">01</div>
+            <div>
+              <h4>Bilingual — business × tech</h4>
+              <p>Equally at home in a CFO's Basel IV conversation and a platform team's
+                 Nemotron fine-tuning review.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">02</div>
+            <div>
+              <h4>Regulator-grade governance</h4>
+              <p>Has sat on both sides of the table — FS regulators trust the work because
+                 it anticipates their questions before they ask them.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">03</div>
+            <div>
+              <h4>P&amp;L accountability</h4>
+              <p>Programmes measured in $100M+ of revenue uplift, not slideware.
+                 Every recommendation carries a line-item owner.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">04</div>
+            <div>
+              <h4>Sovereign-scale experience</h4>
+              <p>Tadawul, CMA KSA, SAMA, HUMAIN, Vision 2030 — the operating patterns
+                 for nation-scale AI and data infrastructure.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="as-stages">
-        <span>LEAP · Riyadh</span>
-        <span>GITEX Global · Dubai</span>
-        <span>Money20/20 · EMEA</span>
-        <span>Gov AI Summit · Middle East</span>
+    </div>
+
+    <!-- Sub-section: Speaking -->
+    <div id="speaking" class="about-subsection" style="margin-top:64px">
+      <h3 class="about-sub-heading"><span class="about-sub-num">03</span> Speaking &amp; Thought Leadership</h3>
+      <div class="about-speaking">
+        <div class="as-head">
+          <p>Keynotes and executive masterclasses with bank boards, regulators, sovereign institutions
+            and the AI vendor ecosystem.</p>
+        </div>
+        <div class="as-stages">
+          <span>LEAP · Riyadh</span>
+          <span>GITEX Global · Dubai</span>
+          <span>Money20/20 · EMEA</span>
+          <span>Gov AI Summit · Middle East</span>
+        </div>
       </div>
     </div>
   </div>
@@ -3433,12 +3490,12 @@
   </div>
 </section>
 
-<!-- =========== CASE NOTES =========== -->
-<section class="cases">
+<!-- =========== CASE STUDIES & TESTIMONIALS =========== -->
+<section id="case-studies" class="cases">
   <div class="container">
     <div class="section-head">
-      <div class="section-label">Case Notes</div>
-      <h2 class="section-title">Four programmes. <span class="gold">Ten-digit impact.</span></h2>
+      <div class="section-label">Case Studies &amp; Testimonials</div>
+      <h2 class="section-title">Four programmes. <span class="gold">Ten-digit impact.</span> Trusted by boards.</h2>
       <p class="section-intro">Selected engagements at institution scale — capital markets, global banks and
          regulators where the work had to hold up in front of a board and a supervisor.</p>
     </div>
@@ -3502,6 +3559,41 @@
           <div><div class="v">$750B</div><div class="l">AUM covered</div></div>
           <div><div class="v">60+ PMs</div><div class="l">Direct users</div></div>
           <div><div class="v">Buy-side</div><div class="l">Scale-out</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonials (merged into Case Studies) -->
+    <div class="section-head" style="margin-top:80px;margin-bottom:40px">
+      <div class="section-label">What Clients Say</div>
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--white)">Trusted by <span class="gold">boards, regulators</span> and platform teams.</h3>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial">
+        <blockquote>Rodney is one of very few people who can walk into a board meeting and explain AI in the
+          language of ROE and capital efficiency — then walk downstairs and review the architecture
+          with the engineering team. That range is genuinely rare.</blockquote>
+        <div class="testimonial-source">
+          <div class="ts-role">Group Chief Technology Officer</div>
+          <div class="ts-org">Tier-1 GCC Bank</div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <blockquote>He didn't just give us a governance framework — he built it alongside our team, tested it
+          against our regulator's expectations, and stayed until the supervisor signed off. That
+          level of follow-through is what separates advice from delivery.</blockquote>
+        <div class="testimonial-source">
+          <div class="ts-role">Head of AI Risk &amp; Governance</div>
+          <div class="ts-org">National Securities Regulator</div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <blockquote>The Banking 2030 Scoreboard work was a turning point for how our leadership
+          thinks about AI investment. For the first time, the conversation moved from
+          'how much does AI cost' to 'how much value are we leaving on the table.'</blockquote>
+        <div class="testimonial-source">
+          <div class="ts-role">Chief Strategy Officer</div>
+          <div class="ts-org">Saudi Banking Group</div>
         </div>
       </div>
     </div>
@@ -3666,7 +3758,7 @@
 </section>
 
 <!-- =========== DUAL CAPABILITIES — BUSINESS + TECH =========== -->
-<section class="caps">
+<section id="capabilities" class="caps">
   <div class="container">
     <div class="section-head">
       <div class="section-label">Depth · Bilingual Capabilities</div>
@@ -3802,7 +3894,7 @@
 </section>
 
 <!-- =========== CREDENTIALS STRIP =========== -->
-<section class="creds">
+<section id="credentials" class="creds">
   <div class="container">
     <div class="creds-head">
       <div class="section-label">Credentials &amp; Background</div>
@@ -3821,8 +3913,8 @@
       </div>
       <div class="cred">
         <div class="cred-label">Languages</div>
-        <div class="cred-value">English · Hindi · Marathi</div>
-        <div class="cred-sub">Native / bilingual proficiency across all three</div>
+        <div class="cred-value">English · Indian Languages</div>
+        <div class="cred-sub">Native / bilingual proficiency</div>
       </div>
       <div class="cred">
         <div class="cred-label">Formal Education</div>
@@ -3848,45 +3940,6 @@
         <div class="cred-label">Geography</div>
         <div class="cred-value">Middle East primary</div>
         <div class="cred-sub">UK &amp; EU supporting · KSA · UAE · Bahrain · Qatar</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- =========== TESTIMONIALS =========== -->
-<section class="testimonials-section">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-label">What Clients Say</div>
-      <h2 class="section-title">Trusted by <span class="gold">boards, regulators</span> and <span class="thin">platform teams.</span></h2>
-    </div>
-    <div class="testimonial-grid">
-      <div class="testimonial">
-        <blockquote>Rodney is one of very few people who can walk into a board meeting and explain AI in the
-          language of ROE and capital efficiency — then walk downstairs and review the architecture
-          with the engineering team. That range is genuinely rare.</blockquote>
-        <div class="testimonial-source">
-          <div class="ts-role">Group Chief Technology Officer</div>
-          <div class="ts-org">Tier-1 GCC Bank</div>
-        </div>
-      </div>
-      <div class="testimonial">
-        <blockquote>He didn't just give us a governance framework — he built it alongside our team, tested it
-          against our regulator's expectations, and stayed until the supervisor signed off. That
-          level of follow-through is what separates advice from delivery.</blockquote>
-        <div class="testimonial-source">
-          <div class="ts-role">Head of AI Risk &amp; Governance</div>
-          <div class="ts-org">National Securities Regulator</div>
-        </div>
-      </div>
-      <div class="testimonial">
-        <blockquote>The Vision 2030 Bank Scoreboard work was a turning point for how our leadership
-          thinks about AI investment. For the first time, the conversation moved from
-          'how much does AI cost' to 'how much value are we leaving on the table.'</blockquote>
-        <div class="testimonial-source">
-          <div class="ts-role">Chief Strategy Officer</div>
-          <div class="ts-org">Saudi Banking Group</div>
-        </div>
       </div>
     </div>
   </div>
@@ -3950,7 +4003,7 @@
 </section>
 
 <!-- =========== CONVERSION PATHS =========== -->
-<section class="conversion-strip">
+<section id="start" class="conversion-strip">
   <div class="container">
     <div class="section-head" style="text-align:center;margin-bottom:48px">
       <div class="section-label" style="margin:0 auto 20px">Next Steps</div>
