@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" href="assets/brand/04_avatar_square.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Fraunces:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Fraunces:wght@400;500;600;700&amp;family=Noto+Sans+Arabic:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <style>
   :root{
     /* Real Rodney.AI brand tokens */
@@ -1726,11 +1726,156 @@
   }
   .faq-item p{font-size:13.5px;color:var(--text-dim);line-height:1.55}
 
+  /* ---------- ARABIC TOGGLE + RTL ---------- */
+  .lang-toggle{
+    display:flex;align-items:center;gap:0;
+    background:var(--surface);border:1px solid var(--border-strong);
+    border-radius:6px;overflow:hidden;margin-left:8px;
+  }
+  .lang-toggle button{
+    padding:6px 12px;font-size:11px;font-weight:700;
+    letter-spacing:0.08em;text-transform:uppercase;
+    background:transparent;border:none;color:var(--text-muted);
+    cursor:pointer;transition:all 0.2s;font-family:inherit;
+  }
+  .lang-toggle button.active{
+    background:rgba(201,162,39,0.15);color:var(--gold-2);
+  }
+  .lang-toggle button:hover:not(.active){color:var(--text-dim)}
+  [lang="ar"]{direction:rtl;text-align:right}
+  .ar-only{display:none}
+  .en-only{display:block}
+  html.ar .ar-only{display:block}
+  html.ar .en-only{display:none}
+  html.ar .hero-title,html.ar .section-title,html.ar .hero-sub{
+    font-family:'Noto Sans Arabic','Inter',sans-serif;
+  }
+
+  /* ---------- CLIENT OUTCOMES ---------- */
+  .outcomes-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:24px;
+  }
+  .outcome-card{
+    background:linear-gradient(180deg,rgba(15,29,45,0.7),rgba(8,17,28,0.9));
+    border:1px solid var(--border);border-radius:var(--radius-lg);
+    padding:36px 32px;transition:all 0.3s;position:relative;overflow:hidden;
+  }
+  .outcome-card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:var(--gradient-gold);
+  }
+  .outcome-card:hover{border-color:var(--border-gold);transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+  .outcome-meta{
+    display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap;
+  }
+  .outcome-meta .om-client{
+    font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;
+    color:var(--gold-2);letter-spacing:0.14em;text-transform:uppercase;
+  }
+  .outcome-meta .om-sector{
+    font-size:10px;color:var(--text-muted);letter-spacing:0.1em;
+    text-transform:uppercase;padding:4px 10px;
+    background:rgba(191,212,232,0.06);border:1px solid var(--border);
+    border-radius:999px;
+  }
+  .outcome-card h3{
+    font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;
+    color:var(--white);margin-bottom:14px;line-height:1.3;
+  }
+  .outcome-card > p{font-size:14px;color:var(--text-dim);line-height:1.65;margin-bottom:22px}
+  .outcome-achievements{
+    border-top:1px solid var(--border);padding-top:18px;
+    display:grid;gap:10px;
+  }
+  .outcome-ach{
+    display:flex;align-items:flex-start;gap:12px;
+    font-size:13.5px;color:var(--soft);line-height:1.45;
+  }
+  .outcome-ach::before{
+    content:"✓";flex-shrink:0;color:var(--gold-2);font-weight:700;
+    margin-top:1px;
+  }
+  .outcome-ach strong{color:var(--white);font-weight:600}
+
+  /* ---------- NEWS FEED ---------- */
+  .news-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+  }
+  .news-card{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius-lg);padding:28px 24px;
+    transition:all 0.3s;display:flex;flex-direction:column;
+  }
+  .news-card:hover{border-color:var(--border-gold);transform:translateY(-3px)}
+  .news-source{
+    display:flex;align-items:center;gap:8px;margin-bottom:14px;
+  }
+  .news-source .ns-dot{
+    width:8px;height:8px;border-radius:50%;background:var(--gold);
+  }
+  .news-source .ns-name{
+    font-size:10px;color:var(--gold-2);letter-spacing:0.12em;
+    text-transform:uppercase;font-weight:700;
+  }
+  .news-source .ns-date{
+    font-size:10px;color:var(--text-muted);margin-left:auto;
+  }
+  .news-card h4{
+    font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;
+    color:var(--white);margin-bottom:10px;line-height:1.35;
+  }
+  .news-card p{font-size:13px;color:var(--text-dim);line-height:1.55;flex:1;margin-bottom:16px}
+  .news-link{
+    font-size:11px;color:var(--gold-2);font-weight:700;
+    letter-spacing:0.08em;text-transform:uppercase;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .news-link::after{content:"→";transition:transform 0.25s}
+  .news-card:hover .news-link::after{transform:translateX(4px)}
+
+  /* ---------- VIDEO EMBED ---------- */
+  .video-wrap{
+    max-width:800px;margin:0 auto;
+    border-radius:var(--radius-lg);overflow:hidden;
+    border:1px solid var(--border-strong);
+    box-shadow:var(--shadow-lg);
+    aspect-ratio:16/9;
+  }
+  .video-wrap iframe{width:100%;height:100%;border:none}
+
+  /* ---------- CONVERSION CTAs ---------- */
+  .conversion-strip{
+    padding:80px 0;
+    background:linear-gradient(180deg,transparent,rgba(201,162,39,0.04),transparent);
+  }
+  .conversion-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+  }
+  .conv-card{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius-lg);padding:32px 28px;
+    transition:all 0.3s;text-align:center;
+    display:flex;flex-direction:column;align-items:center;
+  }
+  .conv-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:var(--shadow-gold)}
+  .conv-icon{
+    width:52px;height:52px;border-radius:12px;
+    background:rgba(201,162,39,0.10);border:1px solid var(--border-gold);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:18px;font-size:22px;
+  }
+  .conv-card h4{
+    font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;
+    color:var(--white);margin-bottom:8px;
+  }
+  .conv-card p{font-size:13px;color:var(--text-dim);line-height:1.5;margin-bottom:18px}
+  .conv-card .btn{width:100%;justify-content:center}
+
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:1100px){
     .hero-grid,.about-grid,.caps-grid,.prize-panel,.speaking-grid,.partner-layout{grid-template-columns:1fr;gap:40px}
-    .services-grid,.insights-grid,.acc-grid,.reg-grid,.question-grid{grid-template-columns:repeat(2,1fr)}
-    .persona-grid,.engage-grid,.why-grid{grid-template-columns:repeat(2,1fr)}
+    .services-grid,.insights-grid,.acc-grid,.reg-grid,.question-grid,.news-grid{grid-template-columns:repeat(2,1fr)}
+    .persona-grid,.engage-grid,.why-grid,.outcomes-grid,.conversion-grid{grid-template-columns:repeat(2,1fr)}
     .commercial-principles{grid-template-columns:1fr;gap:14px}
     .cases-grid{grid-template-columns:1fr}
     .sgu-grid{grid-template-columns:1fr;gap:18px}
@@ -1761,8 +1906,8 @@
     .brand-mark span{font-size:8.5px}
     .wordmark{font-size:22px}
     .tag{font-size:10px}
-    .services-grid,.insights-grid,.acc-grid,.reg-grid,.question-grid{grid-template-columns:1fr}
-    .persona-grid,.engage-grid,.faq-grid,.why-grid,.commercials-grid{grid-template-columns:1fr}
+    .services-grid,.insights-grid,.acc-grid,.reg-grid,.question-grid,.news-grid{grid-template-columns:1fr}
+    .persona-grid,.engage-grid,.faq-grid,.why-grid,.commercials-grid,.outcomes-grid,.conversion-grid{grid-template-columns:1fr}
     .c-detail-row{grid-template-columns:1fr;gap:2px}
     .journey-track{grid-template-columns:repeat(2,1fr);gap:24px}
     .partner-logos{grid-template-columns:1fr}
@@ -1929,6 +2074,11 @@
 
       <a href="#accelerators" class="nav-link">Accelerators</a>
 
+      <div class="lang-toggle" id="langToggle">
+        <button class="active" data-lang="en">EN</button>
+        <button data-lang="ar">عربي</button>
+      </div>
+
       <a href="#contact" class="btn btn-primary">Book a consultation →</a>
 
       <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -1978,13 +2128,15 @@
 <!-- =========== HERO =========== -->
 <section class="hero">
   <div class="container">
-    <h1 class="hero-title">The boardroom voice <span class="thin">turning</span> <span class="gold">AI ambition</span> into P&amp;L, ROE and market cap.</h1>
+    <h1 class="hero-title en-only">The boardroom voice <span class="thin">turning</span> <span class="gold">AI ambition</span> into P&amp;L, ROE and market cap.</h1>
+    <h1 class="hero-title ar-only" lang="ar" style="font-size:clamp(32px,4.5vw,56px);line-height:1.35;font-family:'Noto Sans Arabic',sans-serif">صوت مجلس الإدارة الذي يحوّل <span class="gold">طموح الذكاء الاصطناعي</span> إلى أرباح وعوائد وقيمة سوقية</h1>
     <div class="hero-grid">
       <div class="hero-copy">
-        <p class="hero-sub">Rodney Coutinho advises bank boards, capital markets infrastructure,
+        <p class="hero-sub en-only">Rodney Coutinho advises bank boards, capital markets infrastructure,
           regulators and sovereign institutions on AI strategy, governance, risk and execution —
           across the Middle East, UK and Europe. 25+ years at the intersection of
           business, technology, and compliance — now published as the Banking 2030 Scoreboard.</p>
+        <p class="hero-sub ar-only" lang="ar" style="font-family:'Noto Sans Arabic',sans-serif;font-size:17px;line-height:1.8">رودني كوتينيو يقدم الاستشارات لمجالس إدارة البنوك والبنية التحتية لأسواق المال والجهات التنظيمية والمؤسسات السيادية حول استراتيجية الذكاء الاصطناعي والحوكمة والمخاطر والتنفيذ — في الشرق الأوسط والمملكة المتحدة وأوروبا. أكثر من 25 عامًا من الخبرة عند تقاطع الأعمال والتكنولوجيا والامتثال.</p>
         <div class="sgu-inline">
           <span>SCALE</span><em>·</em>
           <span>GOVERN</span><em>·</em>
@@ -3163,6 +3315,124 @@
   </div>
 </section>
 
+<!-- =========== CLIENT OUTCOMES =========== -->
+<section id="outcomes">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Client Outcomes</div>
+      <h2 class="section-title">Measured in <span class="gold">results</span>, not <span class="thin">deliverables.</span></h2>
+      <p class="section-intro">
+        Every engagement is scoped to an outcome the board can measure. Here are programmes
+        where the numbers moved.
+      </p>
+    </div>
+    <div class="outcomes-grid">
+
+      <div class="outcome-card">
+        <div class="outcome-meta">
+          <span class="om-client">Saudi Tadawul Group</span>
+          <span class="om-sector">Capital Markets</span>
+          <span class="om-sector">Vision 2030</span>
+        </div>
+        <h3>DataHub &amp; Wamid — Saudi Capital Market Data Platform</h3>
+        <p>Led the design and delivery of DataHub, the centralised data access platform
+           for the Saudi capital market — enabling trusted data distribution to market participants,
+           regulators and innovators. A cornerstone of Tadawul's digital transformation and
+           Vision 2030 market development.</p>
+        <div class="outcome-achievements">
+          <div class="outcome-ach"><strong>First capital markets data platform on cloud</strong> in KSA — a regional milestone for market infrastructure modernisation</div>
+          <div class="outcome-ach"><strong>First markets-related data monetisation business at scale</strong> — creating a new commercial revenue stream for the exchange group</div>
+          <div class="outcome-ach"><strong>Board mandate delivered</strong> — from strategy approval through platform launch, on scope, on time, with regulator alignment</div>
+        </div>
+      </div>
+
+      <div class="outcome-card">
+        <div class="outcome-meta">
+          <span class="om-client">Top-5 UK Bank</span>
+          <span class="om-sector">Retail &amp; Commercial Banking</span>
+        </div>
+        <h3>Enterprise AI Platform &amp; 200+ Engineer Programme</h3>
+        <p>Architected and led a 200+ engineer AI/ML platform programme across retail banking,
+           commercial lending and fraud operations. End-to-end: from board strategy through
+           platform build, MLOps, feature stores, and production deployment at scale.</p>
+        <div class="outcome-achievements">
+          <div class="outcome-ach"><strong>$500M+ business value delivered</strong> across revenue uplift, cost reduction, and capital efficiency</div>
+          <div class="outcome-ach"><strong>10× practice growth</strong> at a Big 4 — built from founding team to scaled delivery capability</div>
+          <div class="outcome-ach"><strong>Platform in production</strong> — not a PoC, not a pilot, but enterprise-grade infrastructure serving the bank</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =========== VIDEO — RODNEY ON STAGE =========== -->
+<section id="video" style="background:linear-gradient(180deg,transparent,rgba(11,24,40,0.5),transparent)">
+  <div class="container" style="text-align:center">
+    <div class="section-head" style="text-align:center;margin-bottom:48px">
+      <div class="section-label" style="margin:0 auto 20px">On Stage</div>
+      <h2 class="section-title" style="margin:0 auto 22px;text-align:center">Hear the thinking <span class="gold">first-hand.</span></h2>
+      <p class="section-intro" style="margin:0 auto;text-align:center">
+        Rodney on AI strategy, governance and the opportunity in financial services — live.
+      </p>
+    </div>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/H06SeQ80zzE" title="Rodney Coutinho — AI in Financial Services"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- =========== AI NEWS FEED — MIDDLE EAST =========== -->
+<section id="ai-news">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">AI Intelligence · Middle East</div>
+      <h2 class="section-title">What's moving in <span class="gold">Saudi &amp; Gulf AI</span> — right now.</h2>
+      <p class="section-intro">
+        Curated stories that matter for bank boards, regulators and sovereign institutions
+        across the region. Updated regularly.
+      </p>
+    </div>
+    <div class="news-grid" id="newsGrid">
+      <a href="https://www.arabnews.com/node/2521746/business-economy" target="_blank" rel="noopener" class="news-card">
+        <div class="news-source">
+          <span class="ns-dot"></span>
+          <span class="ns-name">Arab News</span>
+          <span class="ns-date">2026</span>
+        </div>
+        <h4>Saudi Arabia launches HUMAIN — the national AI company with $100B+ ambition</h4>
+        <p>The Kingdom's new AI champion, backed by PIF, is set to build sovereign AI infrastructure,
+           data centres and foundation models. Banks and regulators are first-wave partners.</p>
+        <span class="news-link">Read story</span>
+      </a>
+      <a href="https://www.sama.gov.sa" target="_blank" rel="noopener" class="news-card">
+        <div class="news-source">
+          <span class="ns-dot"></span>
+          <span class="ns-name">SAMA</span>
+          <span class="ns-date">2026</span>
+        </div>
+        <h4>SAMA accelerates AI supervisory framework for Saudi banks</h4>
+        <p>The Saudi Central Bank is building AI-specific supervisory tooling, model risk management
+           guidelines and thematic review capability — setting the pace for GCC regulators.</p>
+        <span class="news-link">Read story</span>
+      </a>
+      <a href="https://u.ae/en/about-the-uae/strategies-initiatives-and-awards/strategies-plans-and-visions/innovation-and-future-shaping/uae-national-strategy-for-artificial-intelligence-2031" target="_blank" rel="noopener" class="news-card">
+        <div class="news-source">
+          <span class="ns-dot"></span>
+          <span class="ns-name">UAE Gov</span>
+          <span class="ns-date">2026</span>
+        </div>
+        <h4>UAE AI Strategy 2031 — the regulatory and infrastructure roadmap</h4>
+        <p>The UAE's national AI strategy positions the country as a global AI hub. CBUAE, ADGM and DIFC
+           are building FS-specific AI governance aligned with international standards.</p>
+        <span class="news-link">Read story</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- =========== CASE NOTES =========== -->
 <section class="cases">
   <div class="container">
@@ -3679,6 +3949,39 @@
   </div>
 </section>
 
+<!-- =========== CONVERSION PATHS =========== -->
+<section class="conversion-strip">
+  <div class="container">
+    <div class="section-head" style="text-align:center;margin-bottom:48px">
+      <div class="section-label" style="margin:0 auto 20px">Next Steps</div>
+      <h2 class="section-title" style="margin:0 auto 22px;text-align:center">Three ways to <span class="gold">start.</span></h2>
+    </div>
+    <div class="conversion-grid">
+      <div class="conv-card">
+        <div class="conv-icon">📊</div>
+        <h4>Download the Scoreboard Model</h4>
+        <p>The open Excel model behind the Banking 2030 Scoreboard. Three scenarios, every input sourced.
+           See the methodology applied to your institution.</p>
+        <a href="mailto:rodneyjerry@yahoo.com?subject=Rodney.AI%20—%20Scoreboard%20Model%20Request" class="btn btn-ghost">Request the model →</a>
+      </div>
+      <div class="conv-card">
+        <div class="conv-icon">🛡️</div>
+        <h4>Request a Governance Assessment</h4>
+        <p>A 2-week sprint to baseline your AI governance maturity against SR 11-7, SS1/23,
+           NIST AI RMF and EU AI Act. Regulator-ready output.</p>
+        <a href="mailto:rodneyjerry@yahoo.com?subject=Rodney.AI%20—%20Governance%20Assessment%20Request" class="btn btn-ghost">Request assessment →</a>
+      </div>
+      <div class="conv-card">
+        <div class="conv-icon">💬</div>
+        <h4>Book a Consultation</h4>
+        <p>The first 30 minutes are free. No slides, no pitch — just the clearest possible read
+           on where you are and what moves next.</p>
+        <a href="mailto:rodneyjerry@yahoo.com?subject=Rodney.AI%20—%20Consultation%20Request" class="btn btn-primary">Book now →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- =========== CONTACT =========== -->
 <section id="contact" class="contact">
   <div class="container contact-inner">
@@ -3896,6 +4199,23 @@
     }, {threshold:0.3});
     statsObs.observe(statsSection);
   }
+
+  /* ===== ARABIC LANGUAGE TOGGLE ===== */
+  var langBtns = document.querySelectorAll('#langToggle button');
+  langBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var lang = this.getAttribute('data-lang');
+      langBtns.forEach(function(b){b.classList.remove('active')});
+      this.classList.add('active');
+      if(lang === 'ar'){
+        document.documentElement.classList.add('ar');
+        document.documentElement.setAttribute('lang','ar');
+      } else {
+        document.documentElement.classList.remove('ar');
+        document.documentElement.setAttribute('lang','en');
+      }
+    });
+  });
 
   /* ===== MOBILE DRAWER ===== */
   var hamburger = document.getElementById('hamburger');
