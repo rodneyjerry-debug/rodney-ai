@@ -168,18 +168,151 @@
     text-transform:uppercase;
     margin-top:3px;
   }
-  .nav-links{display:flex;align-items:center;gap:32px}
-  .nav-links a{
-    font-size:14px;color:var(--text-dim);font-weight:500;
+  .nav-links{display:flex;align-items:center;gap:6px}
+  .nav-link{
+    font-size:13.5px;color:var(--text-dim);font-weight:500;
     transition:color 0.2s;position:relative;
+    padding:8px 14px;border-radius:6px;
+    cursor:pointer;display:flex;align-items:center;gap:5px;
   }
-  .nav-links a:not(.btn):hover{color:var(--gold-2)}
-  .nav-links a:not(.btn)::after{
-    content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;
-    background:var(--gold);transform:scaleX(0);transform-origin:left;
-    transition:transform 0.25s;
+  .nav-link:hover{color:var(--gold-2);background:rgba(201,162,39,0.06)}
+  .nav-link .chevron{
+    font-size:8px;transition:transform 0.25s;opacity:0.5;
   }
-  .nav-links a:not(.btn):hover::after{transform:scaleX(1)}
+  /* ---- Dropdown menus ---- */
+  .nav-group{position:relative}
+  .nav-dropdown{
+    position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);
+    min-width:220px;padding:10px;
+    background:rgba(13,27,42,0.96);
+    backdrop-filter:saturate(160%) blur(20px);
+    -webkit-backdrop-filter:saturate(160%) blur(20px);
+    border:1px solid var(--border-strong);
+    border-radius:var(--radius-lg);
+    box-shadow:0 20px 50px -12px rgba(0,0,0,0.6);
+    opacity:0;visibility:hidden;
+    transition:opacity 0.2s,visibility 0.2s,transform 0.2s;
+    transform:translateX(-50%) translateY(6px);
+    z-index:60;
+  }
+  .nav-group:hover .nav-dropdown,
+  .nav-group.open .nav-dropdown{
+    opacity:1;visibility:visible;
+    transform:translateX(-50%) translateY(0);
+  }
+  .nav-group:hover .chevron{transform:rotate(180deg)}
+  .nav-dropdown a{
+    display:block;padding:10px 14px;border-radius:6px;
+    font-size:13px;color:var(--text-dim);font-weight:500;
+    transition:all 0.15s;line-height:1.35;
+  }
+  .nav-dropdown a:hover{
+    color:var(--gold-2);background:rgba(201,162,39,0.08);
+  }
+  .nav-dropdown .dd-label{
+    font-size:10px;color:var(--text-muted);letter-spacing:0.14em;
+    text-transform:uppercase;font-weight:700;
+    padding:8px 14px 4px;margin-top:4px;
+  }
+  .nav-dropdown .dd-label:first-child{margin-top:0}
+  .nav-dropdown .dd-divider{
+    height:1px;background:var(--border);margin:6px 8px;
+  }
+
+  /* ---- Hamburger + Mobile Drawer ---- */
+  .hamburger{
+    display:none;align-items:center;justify-content:center;
+    width:40px;height:40px;border-radius:6px;
+    background:transparent;border:1px solid var(--border-strong);
+    cursor:pointer;flex-direction:column;gap:5px;
+    transition:all 0.2s;
+  }
+  .hamburger:hover{border-color:var(--gold);background:rgba(201,162,39,0.06)}
+  .hamburger span{
+    display:block;width:18px;height:1.5px;background:var(--text-dim);
+    transition:all 0.3s;
+  }
+  .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4.5px,4.5px)}
+  .hamburger.open span:nth-child(2){opacity:0}
+  .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4.5px,-4.5px)}
+
+  .mobile-drawer{
+    position:fixed;top:0;right:-320px;width:300px;height:100vh;z-index:100;
+    background:rgba(10,21,33,0.98);
+    backdrop-filter:blur(20px);
+    border-left:1px solid var(--border-strong);
+    padding:80px 28px 28px;
+    transition:right 0.35s var(--ease-out);
+    overflow-y:auto;
+  }
+  .mobile-drawer.open{right:0}
+  .mobile-drawer-overlay{
+    position:fixed;inset:0;z-index:99;
+    background:rgba(0,0,0,0.5);
+    opacity:0;visibility:hidden;
+    transition:opacity 0.3s,visibility 0.3s;
+  }
+  .mobile-drawer-overlay.open{opacity:1;visibility:visible}
+  .mobile-drawer .md-group{margin-bottom:24px}
+  .mobile-drawer .md-group-label{
+    font-size:10px;color:var(--gold-2);letter-spacing:0.16em;
+    text-transform:uppercase;font-weight:700;margin-bottom:12px;
+    padding-bottom:8px;border-bottom:1px solid var(--border);
+  }
+  .mobile-drawer a{
+    display:block;padding:10px 0;font-size:15px;
+    color:var(--text-dim);font-weight:500;
+    transition:color 0.15s;
+  }
+  .mobile-drawer a:hover{color:var(--gold-2)}
+
+  /* ---- Hero hook strips ---- */
+  .hero-hooks{
+    display:grid;grid-template-columns:1fr 1fr;gap:14px;
+    margin:0 auto;max-width:1240px;padding:0 28px;
+    position:relative;z-index:1;margin-top:-36px;margin-bottom:48px;
+  }
+  .hero-hook{
+    display:flex;align-items:center;gap:16px;
+    padding:18px 24px;
+    background:rgba(13,27,42,0.85);
+    backdrop-filter:blur(12px);
+    border:1px solid var(--border-strong);
+    border-radius:var(--radius-lg);
+    transition:all 0.3s var(--ease-out);
+    cursor:pointer;text-decoration:none;
+  }
+  .hero-hook:hover{
+    border-color:var(--gold);
+    transform:translateY(-2px);
+    box-shadow:var(--shadow-gold);
+  }
+  .hero-hook-icon{
+    flex-shrink:0;width:44px;height:44px;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:16px;
+  }
+  .hero-hook-icon.scoreboard{
+    background:rgba(40,116,166,0.18);color:#8fc5f0;
+    border:1px solid rgba(40,116,166,0.4);
+  }
+  .hero-hook-icon.usp{
+    background:rgba(201,162,39,0.14);color:var(--gold-2);
+    border:1px solid var(--border-gold);
+  }
+  .hero-hook-text{flex:1}
+  .hero-hook-text .hh-title{
+    font-family:'Space Grotesk',sans-serif;font-size:14px;
+    font-weight:700;color:var(--white);line-height:1.3;margin-bottom:3px;
+  }
+  .hero-hook-text .hh-sub{
+    font-size:12px;color:var(--text-dim);line-height:1.4;
+  }
+  .hero-hook-arrow{
+    color:var(--gold-2);font-size:16px;font-weight:700;
+    transition:transform 0.25s;flex-shrink:0;
+  }
+  .hero-hook:hover .hero-hook-arrow{transform:translateX(4px)}
 
   .btn{
     display:inline-flex;align-items:center;gap:8px;
@@ -1612,9 +1745,10 @@
     .testimonial-grid{grid-template-columns:1fr}
     .stat{padding:0 0 20px}
     .stat:not(:last-child)::after{display:none}
-    .nav-links{gap:20px}
-    .nav-links a:not(.btn){display:none}
-    .nav-links a.btn{display:inline-flex}
+    .nav-links{gap:8px}
+    .nav-group,.nav-link:not(.btn){display:none}
+    .nav-links .btn{display:inline-flex}
+    .hamburger{display:flex}
     .hero{padding:60px 0}
     .hero-visual{aspect-ratio:16/7}
     section{padding:80px 0}
@@ -1622,6 +1756,7 @@
   }
   @media (max-width:720px){
     .topstrip{display:none}
+    .hero-hooks{grid-template-columns:1fr;margin-top:-24px;margin-bottom:32px;padding:0 20px}
     .container{padding:0 20px}
     .nav-inner{padding:14px 20px}
     .brand-mark{width:54px;height:54px}
@@ -1765,16 +1900,93 @@
       </div>
     </a>
     <div class="nav-links">
-      <a href="#advisory">Advisory</a>
-      <a href="#how">How I Work</a>
-      <a href="#commercials">Commercials</a>
-      <a href="#why">Why Us</a>
-      <a href="#thought-leadership">Thought Leadership</a>
-      <a href="#accelerators">Accelerators</a>
+
+      <!-- Services dropdown -->
+      <div class="nav-group">
+        <span class="nav-link">Services <span class="chevron">▼</span></span>
+        <div class="nav-dropdown">
+          <div class="dd-label">The Offering</div>
+          <a href="#services">All seven services</a>
+          <a href="#hired-to-answer">Client questions we solve</a>
+          <div class="dd-divider"></div>
+          <div class="dd-label">Framework</div>
+          <a href="#sgu">Scale · Govern · Unlock</a>
+        </div>
+      </div>
+
+      <!-- How I Work dropdown -->
+      <div class="nav-group">
+        <span class="nav-link">How I Work <span class="chevron">▼</span></span>
+        <div class="nav-dropdown">
+          <a href="#how">AI@scale Journey</a>
+          <a href="#engagement-types">Advisory vs Management</a>
+          <a href="#commercials">Commercial Model</a>
+          <a href="#delivery-network">Delivery Network &amp; Partners</a>
+        </div>
+      </div>
+
+      <a href="#why" class="nav-link">Why Us</a>
+
+      <!-- Research dropdown -->
+      <div class="nav-group">
+        <span class="nav-link">Research <span class="chevron">▼</span></span>
+        <div class="nav-dropdown">
+          <div class="dd-label">Scoreboard Series</div>
+          <a href="#scoreboard">The $295B Opportunity</a>
+          <a href="#series-roadmap">All five parts</a>
+          <div class="dd-divider"></div>
+          <div class="dd-label">Market Evidence</div>
+          <a href="#benchmarks">Peer Benchmarks</a>
+          <a href="#regulatory">Regulatory Landscape</a>
+          <a href="#thought-leadership">Thought Leadership</a>
+        </div>
+      </div>
+
+      <a href="#accelerators" class="nav-link">Accelerators</a>
+
       <a href="#contact" class="btn btn-primary">Book a consultation →</a>
+
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </nav>
+
+<!-- Mobile Drawer -->
+<div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="md-group">
+    <div class="md-group-label">Services</div>
+    <a href="#services">All seven services</a>
+    <a href="#hired-to-answer">Client questions we solve</a>
+    <a href="#sgu">Scale · Govern · Unlock</a>
+  </div>
+  <div class="md-group">
+    <div class="md-group-label">How I Work</div>
+    <a href="#how">AI@scale Journey</a>
+    <a href="#engagement-types">Advisory vs Management</a>
+    <a href="#commercials">Commercial Model</a>
+    <a href="#delivery-network">Delivery Network</a>
+  </div>
+  <div class="md-group">
+    <a href="#why" style="font-weight:700;color:var(--white)">Why Us</a>
+  </div>
+  <div class="md-group">
+    <div class="md-group-label">Research</div>
+    <a href="#scoreboard">The $295B Opportunity</a>
+    <a href="#series-roadmap">Scoreboard Series (5 parts)</a>
+    <a href="#benchmarks">Peer Benchmarks</a>
+    <a href="#regulatory">Regulatory Landscape</a>
+    <a href="#thought-leadership">Thought Leadership</a>
+  </div>
+  <div class="md-group">
+    <a href="#accelerators" style="font-weight:700;color:var(--white)">Accelerators</a>
+  </div>
+  <div class="md-group" style="padding-top:12px;border-top:1px solid var(--border)">
+    <a href="#contact" class="btn btn-primary" style="text-align:center;justify-content:center;margin-top:8px">Book a consultation →</a>
+  </div>
+</div>
 
 <main>
 
@@ -1828,6 +2040,26 @@
     </div>
   </div>
 </section>
+
+<!-- =========== HERO HOOKS =========== -->
+<div class="hero-hooks">
+  <a href="#scoreboard" class="hero-hook">
+    <div class="hero-hook-icon scoreboard">S</div>
+    <div class="hero-hook-text">
+      <div class="hh-title">The FS AI Scoreboard — 5-Part Series</div>
+      <div class="hh-sub">$295B market-cap unlock modelled across KSA's top banks. Part 1 live on LinkedIn.</div>
+    </div>
+    <span class="hero-hook-arrow">→</span>
+  </a>
+  <a href="#why" class="hero-hook">
+    <div class="hero-hook-icon usp">✦</div>
+    <div class="hero-hook-text">
+      <div class="hh-title">Why institutions choose us over the alternatives</div>
+      <div class="hh-sub">Unbiased vendor guidance, workable architecture, and clarity — in a market with too many options.</div>
+    </div>
+    <span class="hero-hook-arrow">→</span>
+  </a>
+</div>
 
 <!-- =========== MARQUEE =========== -->
 <div class="marquee" aria-hidden="true">
@@ -2003,11 +2235,11 @@
   </div>
 </section>
 
-<!-- =========== ADVISORY (THE OFFERING) =========== -->
-<section id="advisory">
+<!-- =========== SERVICES (THE OFFERING) =========== -->
+<section id="services">
   <div class="container">
     <div class="section-head">
-      <div class="section-label">Advisory · The Offering</div>
+      <div class="section-label">Services · The Offering</div>
       <h2 class="section-title">Seven ways I work with <span class="gold">bank boards, regulators</span> and <span class="thin">sovereign institutions.</span></h2>
       <p class="section-intro">
         The full advisory stack — from strategy and governance, to design, build oversight,
@@ -2187,6 +2419,57 @@
         <span>GITEX Global · Dubai</span>
         <span>Money20/20 · EMEA</span>
         <span>Gov AI Summit · Middle East</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== WHY US =========== -->
+<section id="why">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Why Rodney.AI</div>
+      <h2 class="section-title">Five reasons institutions <span class="gold">choose us</span> over the incumbent <span class="thin">alternatives.</span></h2>
+      <p class="section-intro">
+        Senior advisory. Global delivery. Outcome accountability. Without the leverage model,
+        the overhead or the handoff gaps of a traditional firm.
+      </p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-num">01</div>
+        <h3>Enabled by AI agents — walking the walk</h3>
+        <p>We don't just advise on AI agents — we use them in our own delivery.
+           Every engagement is augmented by our internal agent stack for research, analysis, modelling
+           and governance. And we build agentic AI teams for clients, not slideware about them.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">02</div>
+        <h3>Expert-led — no leverage model</h3>
+        <p>You get the person who has done the work — at boards, with regulators, on 200+ engineer
+           platforms — directly. Not a pyramid of juniors doing the thinking while a partner signs off.
+           Senior judgement on every engagement.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">03</div>
+        <h3>Extensive experience in FS &amp; sovereign</h3>
+        <p>25+ years. $500M+ delivered. 10× practice growth at a Big 4. Tadawul, CMA KSA, Top-5 UK
+           banks, $750B asset manager. The pattern library for scaling AI in financial services
+           is already built — you don't pay for us to learn your industry.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">04</div>
+        <h3>Focused on outcomes, not hours</h3>
+        <p>Engagements are scoped to outcomes: an approved board scoreboard, a regulator-signed-off
+           governance framework, a platform in production, a risk register cleared by audit.
+           We measure in ROE, cost/income and market cap — not billable days.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">05</div>
+        <h3>Clarity in a crowded market</h3>
+        <p>Too many vendors, too many consultants, too many options in the Kingdom. We cut through the noise
+           with workable architecture, unbiased vendor recommendations and partnership models that
+           are designed to deliver — not designed to sell the next phase.</p>
       </div>
     </div>
   </div>
@@ -2406,7 +2689,7 @@
 </section>
 
 <!-- =========== SERIES ROADMAP =========== -->
-<section class="series">
+<section id="series-roadmap" class="series">
   <div class="container">
     <div class="section-head">
       <div class="section-label">The Writing · 5-Part Series</div>
@@ -2532,7 +2815,7 @@
     </div>
 
     <!-- Two engagement types -->
-    <div class="section-head" style="margin-top:96px;margin-bottom:40px">
+    <div id="engagement-types" class="section-head" style="margin-top:96px;margin-bottom:40px">
       <div class="section-label" style="color:var(--gold-2)">Two engagement types</div>
       <h3 class="section-title" style="font-size:clamp(26px,3.2vw,40px)">Choose <span class="gold">Advisory</span> or <span class="gold">Management</span> — or move from one to the other.</h3>
       <p class="section-intro">Many clients start in Advisory and graduate to Management once the strategy lands.
@@ -2573,7 +2856,7 @@
     </div>
 
     <!-- Partners as the delivery mechanism -->
-    <div class="section-head" style="margin-top:96px;margin-bottom:40px">
+    <div id="delivery-network" class="section-head" style="margin-top:96px;margin-bottom:40px">
       <div class="section-label" style="color:var(--gold-2)">Delivery Network</div>
       <h3 class="section-title" style="font-size:clamp(26px,3.2vw,40px)">Execution through a <span class="gold">global delivery network</span> — built on regional tech partnerships.</h3>
       <p class="section-intro">
@@ -2648,21 +2931,17 @@
       <strong>End-to-end accountability.</strong> Most advisors hand off after the strategy slide.
       Rodney.AI stays through build, governance and board reporting — because the job isn't done until the numbers move.
     </div>
-  </div>
-</section>
 
-<!-- =========== COMMERCIAL MODEL =========== -->
-<section id="commercials">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-label">Commercial Model</div>
-      <h2 class="section-title">Priced for <span class="gold">outcomes</span>, not for <span class="thin">billable hours.</span></h2>
+    <!-- Commercial Model — merged into How I Work -->
+    <div id="commercials" class="section-head" style="margin-top:96px;margin-bottom:40px">
+      <div class="section-label" style="color:var(--gold-2)">Commercial Model</div>
+      <h3 class="section-title" style="font-size:clamp(26px,3.2vw,40px)">Priced for <span class="gold">outcomes</span>, not for <span class="thin">billable hours.</span></h3>
       <p class="section-intro">
         Four commercial structures, mapped to the engagement type and the level of risk-sharing you want.
-        All fees are transparent, agreed up-front, and tied to defined deliverables or outcomes. Directional ranges
-        shown — every engagement is scoped individually based on the problem.
+        All fees transparent, agreed up-front, and tied to defined deliverables or outcomes.
       </p>
     </div>
+
     <div class="commercials-grid">
       <div class="commercial-card">
         <div class="c-head">
@@ -2750,57 +3029,6 @@
           <h4>First 30 minutes free</h4>
           <p>Always. Scope and commercial structure agreed in the second conversation — not the contract.</p>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- =========== WHY US =========== -->
-<section id="why">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-label">Why Rodney.AI</div>
-      <h2 class="section-title">Five reasons institutions <span class="gold">choose us</span> over the incumbent <span class="thin">alternatives.</span></h2>
-      <p class="section-intro">
-        Senior advisory. Global delivery. Outcome accountability. Without the leverage model,
-        the overhead or the handoff gaps of a traditional firm.
-      </p>
-    </div>
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-num">01</div>
-        <h3>Enabled by AI agents — walking the walk</h3>
-        <p>We don't just advise on AI agents — we use them in our own delivery.
-           Every engagement is augmented by our internal agent stack for research, analysis, modelling
-           and governance. And we build agentic AI teams for clients, not slideware about them.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-num">02</div>
-        <h3>Expert-led — no leverage model</h3>
-        <p>You get the person who has done the work — at boards, with regulators, on 200+ engineer
-           platforms — directly. Not a pyramid of juniors doing the thinking while a partner signs off.
-           Senior judgement on every engagement.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-num">03</div>
-        <h3>Extensive experience in FS &amp; sovereign</h3>
-        <p>25+ years. $500M+ delivered. 10× practice growth at a Big 4. Tadawul, CMA KSA, Top-5 UK
-           banks, $750B asset manager. The pattern library for scaling AI in financial services
-           is already built — you don't pay for us to learn your industry.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-num">04</div>
-        <h3>Focused on outcomes, not hours</h3>
-        <p>Engagements are scoped to outcomes: an approved board scoreboard, a regulator-signed-off
-           governance framework, a platform in production, a risk register cleared by audit.
-           We measure in ROE, cost/income and market cap — not billable days.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-num">05</div>
-        <h3>More value for the cost</h3>
-        <p>Global delivery network across UAE, Saudi and India. Big-4-grade quality, without Big-4
-           overhead. Partner-led advisory with engineering scale — at a cost structure that
-           actually reflects the value of the outcome.</p>
       </div>
     </div>
   </div>
@@ -3517,7 +3745,7 @@
       <div class="footer-col">
         <h4>Navigate</h4>
         <ul>
-          <li><a href="#advisory">Advisory</a></li>
+          <li><a href="#services">Services</a></li>
           <li><a href="#how">How I Work</a></li>
           <li><a href="#commercials">Commercials</a></li>
           <li><a href="#why">Why Us</a></li>
@@ -3681,6 +3909,28 @@
     }, {threshold:0.3});
     statsObs.observe(statsSection);
   }
+
+  /* ===== MOBILE DRAWER ===== */
+  var hamburger = document.getElementById('hamburger');
+  var drawer = document.getElementById('mobileDrawer');
+  var overlay = document.getElementById('drawerOverlay');
+  function toggleDrawer(){
+    var isOpen = drawer.classList.toggle('open');
+    overlay.classList.toggle('open', isOpen);
+    hamburger.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    hamburger.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  hamburger.addEventListener('click', toggleDrawer);
+  overlay.addEventListener('click', closeDrawer);
+  drawer.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', closeDrawer);
+  });
 
   /* ===== SMOOTH ANCHOR SCROLLING ===== */
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
