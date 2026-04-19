@@ -268,12 +268,12 @@
 
   /* ---- Hero hook strips ---- */
   .hero-hooks{
-    display:flex;flex-direction:column;gap:10px;
-    margin-top:40px;
+    display:flex;flex-direction:column;gap:6px;
+    margin-top:24px;
   }
   .hero-hook{
-    display:flex;align-items:center;gap:16px;
-    padding:16px 22px;
+    display:flex;align-items:center;gap:14px;
+    padding:12px 18px;
     background:rgba(17,34,54,0.65);
     border:1px solid var(--border-strong);
     border-radius:var(--radius);
@@ -288,9 +288,9 @@
     background:rgba(17,34,54,0.9);
   }
   .hero-hook-icon{
-    flex-shrink:0;width:40px;height:40px;border-radius:8px;
+    flex-shrink:0;width:36px;height:36px;border-radius:8px;
     display:flex;align-items:center;justify-content:center;
-    font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:15px;
+    font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:14px;
   }
   .hero-hook-icon.hk-scoreboard{
     background:rgba(40,116,166,0.18);color:#8fc5f0;
@@ -302,11 +302,11 @@
   }
   .hero-hook-text{flex:1;min-width:0}
   .hero-hook-text .hh-title{
-    font-family:'Space Grotesk',sans-serif;font-size:15px;
-    font-weight:700;color:var(--white);line-height:1.3;margin-bottom:2px;
+    font-family:'Space Grotesk',sans-serif;font-size:13.5px;
+    font-weight:700;color:var(--white);line-height:1.3;margin-bottom:1px;
   }
   .hero-hook-text .hh-sub{
-    font-size:13px;color:var(--text-dim);line-height:1.45;
+    font-size:11.5px;color:var(--text-dim);line-height:1.4;
   }
   .hero-hook-arrow{
     color:var(--gold-2);font-size:16px;font-weight:700;
@@ -344,7 +344,7 @@
   /* ---------- HERO ---------- */
   .hero{
     position:relative;
-    padding:84px 0 80px;
+    padding:84px 0 48px;
     overflow:hidden;
   }
   .hero::before{
@@ -356,11 +356,11 @@
   }
   .hero-title{
     font-family:'Space Grotesk',sans-serif;
-    font-size:clamp(38px,5vw,64px);
+    font-size:clamp(32px,4vw,48px);
     font-weight:700;
-    line-height:1.06;
+    line-height:1.08;
     letter-spacing:-0.025em;
-    margin-bottom:40px;
+    margin-bottom:24px;
     position:relative;
   }
   .hero-title .gold{
@@ -383,21 +383,21 @@
     border:1px solid rgba(201,162,39,0.20);
     color:var(--gold-2);font-size:11px;font-weight:700;
     letter-spacing:0.16em;text-transform:uppercase;
-    margin-bottom:28px;
+    margin-bottom:18px;
   }
   .eyebrow::before{
     content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);
     flex-shrink:0;animation:pulse 2.2s infinite;
   }
   .hero-sub{
-    font-size:19px;color:var(--text-dim);
-    max-width:620px;margin-bottom:12px;line-height:1.55;
+    font-size:15px;color:var(--text-dim);
+    max-width:620px;margin-bottom:8px;line-height:1.5;
   }
   .hero-sub strong{color:var(--white);font-weight:600}
   .sgu-inline{
-    display:flex;gap:14px;align-items:center;margin:28px 0 32px;
+    display:flex;gap:14px;align-items:center;margin:16px 0 20px;
     font-family:'Space Grotesk',sans-serif;font-weight:700;
-    font-size:14px;letter-spacing:0.22em;
+    font-size:13px;letter-spacing:0.22em;
   }
   .sgu-inline span{color:var(--gold-2)}
   .sgu-inline em{color:var(--text-muted);font-style:normal;font-weight:400}
@@ -405,7 +405,7 @@
 
   .impact-stats{
     display:grid;grid-template-columns:repeat(4,1fr);gap:0;
-    border-top:1px solid rgba(201,162,39,0.15);padding-top:28px;
+    border-top:1px solid rgba(201,162,39,0.15);padding-top:18px;
   }
   .stat{position:relative;padding:0 20px}
   .stat:first-child{padding-left:0}
@@ -415,13 +415,13 @@
   }
   .stat-num{
     font-family:'Space Grotesk',sans-serif;
-    font-size:30px;font-weight:700;color:var(--white);
-    line-height:1;margin-bottom:8px;
+    font-size:24px;font-weight:700;color:var(--white);
+    line-height:1;margin-bottom:6px;
     font-feature-settings:"tnum";
   }
   .stat-num .gold{color:var(--gold-2)}
-  .stat-label{font-size:11.5px;color:var(--text-muted);
-    letter-spacing:0.1em;text-transform:uppercase;line-height:1.35}
+  .stat-label{font-size:10px;color:var(--text-muted);
+    letter-spacing:0.1em;text-transform:uppercase;line-height:1.3}
 
   .hero-visual{
     position:relative;aspect-ratio:13/6;
@@ -507,7 +507,7 @@
   }
   .section-title{
     font-family:'Space Grotesk',sans-serif;
-    font-size:clamp(32px,4.2vw,52px);
+    font-size:clamp(26px,3.4vw,38px);
     font-weight:700;line-height:1.08;
     letter-spacing:-0.02em;margin-bottom:22px;
     max-width:900px;
@@ -522,7 +522,7 @@
   }
   .section-title .thin{font-weight:300;color:var(--soft)}
   .section-intro{
-    font-size:18px;color:var(--text-dim);max-width:760px;line-height:1.65;
+    font-size:15px;color:var(--text-dim);max-width:760px;line-height:1.6;
   }
   .section-head{margin-bottom:64px}
 
@@ -535,12 +535,12 @@
   .sgu-head{text-align:center;margin-bottom:72px}
   .sgu-head h2{
     font-family:'Space Grotesk',sans-serif;
-    font-size:clamp(36px,5vw,64px);
+    font-size:clamp(28px,3.8vw,44px);
     font-weight:700;line-height:1;letter-spacing:-0.02em;
     margin-bottom:20px;
   }
   .sgu-head p{
-    font-size:18px;color:var(--text-dim);max-width:700px;margin:0 auto;
+    font-size:15px;color:var(--text-dim);max-width:700px;margin:0 auto;
   }
   .sgu-grid{
     display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
@@ -620,7 +620,7 @@
     display:grid;grid-template-columns:1.2fr 1fr;gap:72px;align-items:start;
   }
   .about-content p{
-    font-size:17px;color:var(--text-dim);line-height:1.75;margin-bottom:20px;
+    font-size:15px;color:var(--text-dim);line-height:1.7;margin-bottom:18px;
   }
   .about-content p strong{color:var(--white);font-weight:600}
   .about-highlight{
@@ -631,7 +631,7 @@
   }
   .about-highlight p{
     font-family:'Fraunces',serif;
-    font-size:19px;font-weight:500;color:var(--white);
+    font-size:16px;font-weight:500;color:var(--white);
     font-style:italic;line-height:1.5;margin:0;
   }
   .about-meta{
@@ -685,7 +685,7 @@
   .series-ribbon span::before{content:"//";color:var(--gold);margin:0 10px}
   .article-title{
     font-family:'Space Grotesk',sans-serif;
-    font-size:clamp(36px,5vw,60px);
+    font-size:clamp(28px,3.8vw,42px);
     font-weight:700;line-height:1.05;letter-spacing:-0.02em;
     margin-bottom:22px;
   }
@@ -717,13 +717,13 @@
   }
   .prize-panel .prize-num{
     font-family:'Space Grotesk',sans-serif;
-    font-size:clamp(72px,10vw,128px);
+    font-size:clamp(56px,8vw,88px);
     font-weight:800;color:var(--white);line-height:0.9;
     letter-spacing:-0.03em;margin-bottom:18px;
   }
   .prize-panel .prize-num sup{font-size:0.5em;color:var(--gold-2);vertical-align:top;font-weight:700}
   .prize-panel .prize-sub{
-    font-size:22px;color:var(--gold-2);font-weight:600;line-height:1.35;
+    font-size:18px;color:var(--gold-2);font-weight:600;line-height:1.35;
     margin-bottom:10px;max-width:500px;
   }
   .prize-panel .prize-context{
@@ -751,18 +751,18 @@
   .article-body{max-width:860px;margin:0 auto}
   .article-body h3{
     font-family:'Space Grotesk',sans-serif;
-    font-size:26px;font-weight:700;color:var(--white);
+    font-size:22px;font-weight:700;color:var(--white);
     margin:48px 0 18px;letter-spacing:-0.01em;
   }
   .article-body h3 .num{color:var(--gold-2);font-size:0.8em;margin-right:14px}
   .article-body p{
-    font-size:17px;color:var(--text-dim);line-height:1.78;
-    margin-bottom:20px;
+    font-size:15px;color:var(--text-dim);line-height:1.7;
+    margin-bottom:18px;
   }
   .article-body p strong{color:var(--white);font-weight:600}
   .article-body blockquote{
     font-family:'Fraunces',serif;
-    font-size:22px;font-style:italic;color:var(--white);
+    font-size:18px;font-style:italic;color:var(--white);
     border-left:3px solid var(--gold);
     padding:12px 28px;margin:32px 0;line-height:1.5;
   }
@@ -1186,7 +1186,7 @@
   }
   .caps-col h3{
     font-family:'Space Grotesk',sans-serif;
-    font-size:26px;font-weight:700;color:var(--white);
+    font-size:22px;font-weight:700;color:var(--white);
     margin-bottom:10px;
   }
   .caps-col h3 .gold{color:var(--gold-2)}
@@ -1278,13 +1278,13 @@
   }
   .contact h2{
     font-family:'Space Grotesk',sans-serif;
-    font-size:clamp(38px,5vw,60px);
+    font-size:clamp(28px,3.8vw,42px);
     font-weight:700;line-height:1.05;letter-spacing:-0.02em;
     margin-bottom:22px;
   }
   .contact h2 .gold{color:var(--gold-2)}
   .contact-sub{
-    font-size:18px;color:var(--text-dim);margin-bottom:44px;max-width:620px;
+    font-size:15px;color:var(--text-dim);margin-bottom:44px;max-width:620px;
     margin-left:auto;margin-right:auto;line-height:1.6;
   }
   .contact-cards{
@@ -1508,7 +1508,7 @@
     display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:start;
   }
   .partner-content p{
-    font-size:17px;color:var(--text-dim);line-height:1.75;margin-bottom:20px;
+    font-size:15px;color:var(--text-dim);line-height:1.7;margin-bottom:18px;
   }
   .partner-content p strong{color:var(--white);font-weight:600}
   .partner-logos{
@@ -2354,8 +2354,16 @@
         </div>
         <span class="hero-hook-arrow">→</span>
       </a>
+      <a href="#why" class="hero-hook">
+        <div class="hero-hook-icon" style="background:rgba(220,60,60,0.12);color:#f07070;border:1px solid rgba(220,60,60,0.35)"><svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></div>
+        <div class="hero-hook-text">
+          <div class="hh-title">The KPIs we move</div>
+          <div class="hh-sub">Cost per correct decision, ROTE advantage, compliance savings — sourced benchmarks.</div>
+        </div>
+        <span class="hero-hook-arrow">→</span>
+      </a>
       <a href="#start" class="hero-hook">
-        <div class="hero-hook-icon start" style="background:rgba(39,174,96,0.14);color:#6ee7a0;border:1px solid rgba(39,174,96,0.4)">▶</div>
+        <div class="hero-hook-icon" style="background:rgba(39,174,96,0.14);color:#6ee7a0;border:1px solid rgba(39,174,96,0.4)">▶</div>
         <div class="hero-hook-text">
           <div class="hh-title">Three ways to start</div>
           <div class="hh-sub">Model download, governance assessment, or free 30-min consultation.</div>
