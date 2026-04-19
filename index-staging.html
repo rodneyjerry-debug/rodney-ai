@@ -972,6 +972,15 @@
     box-shadow:var(--shadow);
   }
   .service:hover::before{transform:scaleX(1)}
+  .svc-icon{
+    width:48px;height:48px;border-radius:12px;
+    background:rgba(201,162,39,0.08);border:1px solid var(--border-gold);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:16px;
+    transition:all 0.3s var(--ease-out);
+  }
+  .svc-icon svg{width:22px;height:22px;stroke:var(--gold-2);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .service:hover .svc-icon{background:rgba(201,162,39,0.15);border-color:var(--gold);transform:scale(1.05)}
   .service-num{
     font-family:'Space Grotesk',sans-serif;
     font-size:11px;color:var(--gold);font-weight:700;
@@ -1893,6 +1902,41 @@
   .video-wrap iframe{width:100%;height:100%;border:none}
 
   /* ---------- CONVERSION CTAs ---------- */
+  /* ---- Free Resources ---- */
+  .resources-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+  .resource-card{
+    display:block;text-decoration:none;color:inherit;
+    background:linear-gradient(180deg,rgba(15,29,45,0.7),rgba(8,17,28,0.9));
+    border:1px solid var(--border);border-radius:var(--radius-lg);
+    padding:30px 26px;transition:all 0.3s var(--ease-out);
+    position:relative;overflow:hidden;
+  }
+  .resource-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:var(--shadow-gold)}
+  .resource-card:hover .res-dl{color:var(--white)}
+  .resource-card:hover .dl-arrow{transform:translateY(2px)}
+  .res-icon{
+    width:48px;height:48px;border-radius:12px;
+    background:rgba(201,162,39,0.08);border:1px solid var(--border-gold);
+    display:flex;align-items:center;justify-content:center;margin-bottom:16px;
+  }
+  .res-icon svg{width:22px;height:22px;stroke:var(--gold-2);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .res-type{
+    font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--gold-2);margin-bottom:10px;
+    display:inline-block;padding:4px 10px;border-radius:4px;
+    background:rgba(201,162,39,0.06);border:1px solid rgba(201,162,39,0.15);
+  }
+  .resource-card h4{
+    font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;
+    color:var(--white);line-height:1.35;margin-bottom:10px;
+  }
+  .resource-card p{font-size:13px;color:var(--text-dim);line-height:1.55;margin-bottom:18px}
+  .res-dl{
+    font-size:13px;font-weight:600;color:var(--gold-2);
+    display:inline-flex;align-items:center;gap:8px;transition:color 0.2s;
+  }
+  .dl-arrow{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform 0.25s}
+
   .conversion-strip{
     padding:80px 0;
     background:linear-gradient(180deg,transparent,rgba(201,162,39,0.04),transparent);
@@ -1911,8 +1955,9 @@
     width:52px;height:52px;border-radius:12px;
     background:rgba(201,162,39,0.10);border:1px solid var(--border-gold);
     display:flex;align-items:center;justify-content:center;
-    margin-bottom:18px;font-size:22px;
+    margin-bottom:18px;font-size:22px;color:var(--gold-2);
   }
+  .conv-icon svg{width:24px;height:24px;stroke:var(--gold-2)}
   .conv-card h4{
     font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;
     color:var(--white);margin-bottom:8px;
@@ -1926,7 +1971,7 @@
     .hero-hook{padding:14px 16px}
     .hero-grid,.about-grid,.about-grid-2col,.caps-grid,.prize-panel,.speaking-grid,.partner-layout{grid-template-columns:1fr;gap:40px}
     .services-grid,.insights-grid,.acc-grid,.reg-grid,.question-grid,.news-grid{grid-template-columns:repeat(2,1fr)}
-    .persona-grid,.engage-grid,.engage-grid-2col,.why-grid,.outcomes-grid,.conversion-grid,.why-evidence-grid{grid-template-columns:repeat(2,1fr)}
+    .persona-grid,.engage-grid,.engage-grid-2col,.why-grid,.outcomes-grid,.conversion-grid,.why-evidence-grid,.resources-grid{grid-template-columns:repeat(2,1fr)}
     .commercial-principles{grid-template-columns:1fr;gap:14px}
     .cases-grid{grid-template-columns:1fr}
     .sgu-grid{grid-template-columns:1fr;gap:18px}
@@ -1961,7 +2006,7 @@
     .wordmark{font-size:22px}
     .tag{font-size:10px}
     .services-grid,.insights-grid,.acc-grid,.reg-grid,.question-grid,.news-grid{grid-template-columns:1fr}
-    .persona-grid,.engage-grid,.engage-grid-2col,.faq-grid,.why-grid,.commercials-grid,.outcomes-grid,.conversion-grid,.why-evidence-grid{grid-template-columns:1fr}
+    .persona-grid,.engage-grid,.engage-grid-2col,.faq-grid,.why-grid,.commercials-grid,.outcomes-grid,.conversion-grid,.why-evidence-grid,.resources-grid{grid-template-columns:1fr}
     .testimonial-grid{grid-template-columns:1fr}
     .c-detail-row{grid-template-columns:1fr;gap:2px}
     .journey-track{grid-template-columns:repeat(2,1fr);gap:24px}
@@ -2146,6 +2191,7 @@
           <a href="#case-studies">Case Studies</a>
           <a href="#outcomes">Client Outcomes</a>
           <a href="#accelerators">Accelerators</a>
+          <a href="#resources">Free Resources</a>
           <a href="#video">On Stage</a>
           <div class="dd-divider"></div>
           <a href="#faq">FAQ</a>
@@ -2204,6 +2250,7 @@
     <a href="#case-studies">Case Studies</a>
     <a href="#outcomes">Client Outcomes</a>
     <a href="#accelerators">Accelerators</a>
+    <a href="#resources">Free Resources</a>
     <a href="#video">On Stage</a>
     <a href="#faq">FAQ</a>
   </div>
@@ -2473,6 +2520,7 @@
       </p>
     </div>
     <div class="services-grid"><div class="service">
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></div>
         <div class="service-num">SERVICE · 01</div>
         <h3>Board AI Strategy &amp; Scoreboard</h3>
         <p>Three-hour board session to size the AI opportunity in the language of
@@ -2480,6 +2528,7 @@
            with owners and dates.</p>
         <div class="service-tags"><span>SCALE</span><span>UNLOCK</span><span>Board-grade</span></div>
       </div><div class="service">
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
         <div class="service-num">SERVICE · 02</div>
         <h3>AI Governance Uplift</h3>
         <p>End-to-end governance programme against SR 11-7, SS1/23, NIST AI RMF and the
@@ -2487,6 +2536,7 @@
            and independent assurance.</p>
         <div class="service-tags"><span>GOVERN</span><span>Regulator-grade</span><span>Independent</span></div>
       </div><div class="service">
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><circle cx="12" cy="10" r="2"/><path d="M7 10h1M16 10h1"/></svg></div>
         <div class="service-num">SERVICE · 03</div>
         <h3>Enterprise AI &amp; GenAI Platform</h3>
         <p>Reference architecture, vendor selection (NVIDIA, Anthropic, OpenAI, Snowflake,
@@ -2494,6 +2544,7 @@
            and operating model.</p>
         <div class="service-tags"><span>SCALE</span><span>Technical</span><span>Vendor-neutral</span></div>
       </div><div class="service">
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M2 20h20"/><rect x="4" y="8" width="4" height="12" rx="1"/><rect x="10" y="4" width="4" height="16" rx="1"/><rect x="16" y="10" width="4" height="10" rx="1"/></svg></div>
         <div class="service-num">SERVICE · 04</div>
         <h3>Capital Markets AI &amp; Market Infrastructure</h3>
         <p>CCP, CSD, trading venue and post-trade platforms — the programme I ran at
@@ -2501,6 +2552,7 @@
            regulator interface.</p>
         <div class="service-tags"><span>SCALE</span><span>GOVERN</span><span>Tokenization-ready</span></div>
       </div><div class="service">
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
         <div class="service-num">SERVICE · 05</div>
         <h3>Regulator &amp; Supervisory Advisory</h3>
         <p>For central banks and market regulators building AI supervisory capability.
@@ -2508,6 +2560,7 @@
            coordination.</p>
         <div class="service-tags"><span>GOVERN</span><span>Regulator-side</span><span>Confidential</span></div>
       </div><div class="service">
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg></div>
         <div class="service-num">SERVICE · 06</div>
         <h3>Sovereign &amp; Vision 2030 Advisory</h3>
         <p>For PIF-backed entities, Vision Realisation Programs and HUMAIN-adjacent
@@ -2515,6 +2568,7 @@
            positioning.</p>
         <div class="service-tags"><span>UNLOCK</span><span>Sovereign</span><span>Vision 2030</span></div>
       </div><div class="service">
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <div class="service-num">SERVICE · 07</div>
         <h3>Executive AI Training &amp; Workshops</h3>
         <p>Bespoke training programmes for boards, ExCos and senior leadership — from
@@ -4104,6 +4158,47 @@
   </div>
 </section>
 
+<!-- =========== FREE RESOURCES =========== -->
+<section id="resources">
+  <div class="container">
+    <div class="section-head" style="text-align:center;margin-bottom:48px">
+      <div class="section-label" style="margin:0 auto 20px">Free Resources</div>
+      <h2 class="section-title" style="margin:0 auto 16px;text-align:center">Frameworks and tools you can <span class="gold">use today.</span></h2>
+      <p class="section-intro" style="text-align:center">Practical downloads built from real engagements — not whitepapers written to sell. Each one is ready to deploy inside your organisation.</p>
+    </div>
+    <div class="resources-grid">
+      <a href="mailto:rodneyjerry@yahoo.com?subject=Rodney.AI%20—%20AI%20Governance%20Checklist%20Request" class="resource-card">
+        <div class="res-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="res-type">CHECKLIST · PDF</div>
+        <h4>AI Governance Readiness Checklist</h4>
+        <p>40-point assessment against SR 11-7, SS1/23, NIST AI RMF and EU AI Act. Score your institution's governance maturity in under an hour.</p>
+        <span class="res-dl"><svg viewBox="0 0 24 24" class="dl-arrow"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Request download</span>
+      </a>
+      <a href="mailto:rodneyjerry@yahoo.com?subject=Rodney.AI%20—%20Banking%20AI%20Readiness%20Scorecard%20Request" class="resource-card">
+        <div class="res-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></div>
+        <div class="res-type">SCORECARD · EXCEL</div>
+        <h4>Banking AI Readiness Scorecard</h4>
+        <p>Benchmark your bank across 6 AI capability dimensions — data, talent, governance, technology, use cases and operating model. Peer comparison built in.</p>
+        <span class="res-dl"><svg viewBox="0 0 24 24" class="dl-arrow"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Request download</span>
+      </a>
+      <a href="mailto:rodneyjerry@yahoo.com?subject=Rodney.AI%20—%20GenAI%20Risk%20Framework%20Request" class="resource-card">
+        <div class="res-icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <div class="res-type">FRAMEWORK · PDF</div>
+        <h4>GenAI Risk &amp; Red-Teaming Framework</h4>
+        <p>30+ risk categories tiered by severity. Includes prompt injection, hallucination, data leakage, bias, and model drift — with testing protocols for each.</p>
+        <span class="res-dl"><svg viewBox="0 0 24 24" class="dl-arrow"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Request download</span>
+      </a>
+      <a href="mailto:rodneyjerry@yahoo.com?subject=Rodney.AI%20—%20Board%20AI%20Briefing%20Pack%20Request" class="resource-card">
+        <div class="res-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+        <div class="res-type">TEMPLATE · PPTX</div>
+        <h4>Board AI Briefing Pack Template</h4>
+        <p>The 12-slide structure used in real board presentations. Covers AI opportunity sizing, risk appetite, governance gaps, and the recommended action plan.</p>
+        <span class="res-dl"><svg viewBox="0 0 24 24" class="dl-arrow"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Request download</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- =========== CONVERSION PATHS =========== -->
 <section id="start" class="conversion-strip">
   <div class="container">
@@ -4113,21 +4208,21 @@
     </div>
     <div class="conversion-grid">
       <div class="conv-card">
-        <div class="conv-icon">📊</div>
+        <div class="conv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
         <h4>Download the Scoreboard Model</h4>
         <p>The open Excel model behind the Banking 2030 Scoreboard. Three scenarios, every input sourced.
            See the methodology applied to your institution.</p>
         <a href="mailto:rodneyjerry@yahoo.com?subject=Rodney.AI%20—%20Scoreboard%20Model%20Request" class="btn btn-ghost">Request the model →</a>
       </div>
       <div class="conv-card">
-        <div class="conv-icon">🛡️</div>
+        <div class="conv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
         <h4>Request a Governance Assessment</h4>
         <p>A 2-week sprint to baseline your AI governance maturity against SR 11-7, SS1/23,
            NIST AI RMF and EU AI Act. Regulator-ready output.</p>
         <a href="mailto:rodneyjerry@yahoo.com?subject=Rodney.AI%20—%20Governance%20Assessment%20Request" class="btn btn-ghost">Request assessment →</a>
       </div>
       <div class="conv-card">
-        <div class="conv-icon">💬</div>
+        <div class="conv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
         <h4>Book a Consultation</h4>
         <p>The first 30 minutes are free. No slides, no pitch — just the clearest possible read
            on where you are and what moves next.</p>
@@ -4195,6 +4290,7 @@
           <li><a href="#commercials">Commercials</a></li>
           <li><a href="#why">Why Us</a></li>
           <li><a href="#accelerators">Accelerators</a></li>
+          <li><a href="#resources">Free Resources</a></li>
         </ul>
       </div>
       <div class="footer-col">
