@@ -1700,6 +1700,38 @@
   }
   .why-card p{font-size:13.5px;color:var(--text-dim);line-height:1.55}
 
+  /* Why Us — Target KPIs sub-section */
+  .kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .kpi-card{
+    background:linear-gradient(180deg,rgba(15,29,45,0.7),rgba(8,17,28,0.9));
+    border:1px solid var(--border);border-radius:var(--radius-lg);
+    padding:28px 24px;transition:all 0.3s var(--ease-out);
+    position:relative;overflow:hidden;
+  }
+  .kpi-card:hover{border-color:var(--border-gold);transform:translateY(-3px);box-shadow:var(--shadow-gold)}
+  .kpi-icon{
+    width:42px;height:42px;border-radius:10px;
+    background:rgba(201,162,39,0.08);border:1px solid var(--border-gold);
+    display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+  }
+  .kpi-icon svg{width:20px;height:20px;stroke:var(--gold-2);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .kpi-metric{
+    font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;
+    color:var(--gold);line-height:1.1;margin-bottom:8px;
+    background:linear-gradient(135deg,var(--gold),var(--gold-2));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .kpi-card h4{
+    font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;
+    color:var(--white);line-height:1.3;margin-bottom:10px;
+  }
+  .kpi-card p{font-size:13px;color:var(--text-dim);line-height:1.55;margin-bottom:12px}
+  .kpi-source{
+    font-size:10px;color:var(--text-muted);font-style:italic;
+    padding-top:10px;border-top:1px solid var(--border);
+  }
+
   /* Why Us — Evidence sub-section */
   .why-evidence-grid{
     display:grid;grid-template-columns:1fr 1fr;gap:18px;
@@ -1971,7 +2003,7 @@
     .hero-hook{padding:14px 16px}
     .hero-grid,.about-grid,.about-grid-2col,.caps-grid,.prize-panel,.speaking-grid,.partner-layout{grid-template-columns:1fr;gap:40px}
     .services-grid,.insights-grid,.acc-grid,.reg-grid,.question-grid,.news-grid{grid-template-columns:repeat(2,1fr)}
-    .persona-grid,.engage-grid,.engage-grid-2col,.why-grid,.outcomes-grid,.conversion-grid,.why-evidence-grid,.resources-grid{grid-template-columns:repeat(2,1fr)}
+    .persona-grid,.engage-grid,.engage-grid-2col,.why-grid,.outcomes-grid,.conversion-grid,.why-evidence-grid,.resources-grid,.kpi-grid{grid-template-columns:repeat(2,1fr)}
     .commercial-principles{grid-template-columns:1fr;gap:14px}
     .cases-grid{grid-template-columns:1fr}
     .sgu-grid{grid-template-columns:1fr;gap:18px}
@@ -2006,7 +2038,7 @@
     .wordmark{font-size:22px}
     .tag{font-size:10px}
     .services-grid,.insights-grid,.acc-grid,.reg-grid,.question-grid,.news-grid{grid-template-columns:1fr}
-    .persona-grid,.engage-grid,.engage-grid-2col,.faq-grid,.why-grid,.commercials-grid,.outcomes-grid,.conversion-grid,.why-evidence-grid,.resources-grid{grid-template-columns:1fr}
+    .persona-grid,.engage-grid,.engage-grid-2col,.faq-grid,.why-grid,.commercials-grid,.outcomes-grid,.conversion-grid,.why-evidence-grid,.resources-grid,.kpi-grid{grid-template-columns:1fr}
     .testimonial-grid{grid-template-columns:1fr}
     .c-detail-row{grid-template-columns:1fr;gap:2px}
     .journey-track{grid-template-columns:repeat(2,1fr);gap:24px}
@@ -2160,6 +2192,7 @@
         <span class="nav-link">Why Us <span class="chevron">▼</span></span>
         <div class="nav-dropdown">
           <a href="#why">The Rodney.AI Edge</a>
+          <a href="#why">Target KPIs We Move</a>
           <div class="dd-divider"></div>
           <div class="dd-label">The Evidence</div>
           <a href="#outcomes">Client Outcomes</a>
@@ -2734,7 +2767,9 @@
         <h3>Enabled by AI agents — walking the walk</h3>
         <p>We don't just advise on AI agents — we use them in our own delivery.
            Every engagement is augmented by our internal agent stack for research, analysis, modelling
-           and governance. And we build agentic AI teams for clients, not slideware about them.</p>
+           and governance. We track cost per correct decision, not just accuracy — because agents that
+           cost 10× more for 2% better precision are the wrong architecture. We build agentic AI
+           teams for clients that are Pareto-efficient, not just impressive in a demo.</p>
       </div>
       <div class="why-card">
         <div class="why-num">02</div>
@@ -2763,6 +2798,59 @@
         <p>Too many vendors, too many consultants, too many options in the Kingdom. We cut through the noise
            with workable architecture, unbiased vendor recommendations and partnership models that
            are designed to deliver — not designed to sell the next phase.</p>
+      </div>
+    </div>
+
+    <!-- Sub-section: Target KPIs -->
+    <div class="why-kpis" style="margin-top:72px">
+      <div class="section-head" style="margin-bottom:36px">
+        <div class="section-label">What We Measure</div>
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:var(--white);margin-bottom:10px">The KPIs every engagement is <span class="gold">designed to move.</span></h3>
+        <p class="section-intro" style="margin-bottom:0">82% of AI initiatives in FS fail because they track activity, not outcomes. We anchor every engagement to the metrics that boards, regulators and CFOs actually care about.</p>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div class="kpi-metric">50–70%</div>
+          <h4>Cost per Correct AI Decision</h4>
+          <p>Agents vary 50× in cost for similar accuracy. We architect for the Pareto-efficient frontier — maximising decision quality while driving cost per task from $5 to under $0.50.</p>
+          <div class="kpi-source">Source: Enterprise AI benchmarks, 2026</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="kpi-metric">45%</div>
+          <h4>Regulatory Risk Exposure Reduction</h4>
+          <p>Governance uplift programmes cut operational risk exposure by 45% within 90 days. EU AI Act fines reach €35M or 7% of global turnover — the cost of getting governance wrong is existential.</p>
+          <div class="kpi-source">Source: Fed AI Implementation benchmarks</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></div>
+          <div class="kpi-metric">3–10×</div>
+          <h4>Productivity per AI-Augmented FTE</h4>
+          <p>Properly deployed AI agents deliver 3–10× analyst productivity. One wealth manager cut analyst time by 66%. But only when architecture, governance and operating model work together.</p>
+          <div class="kpi-source">Source: BCG, Sardine, client outcomes</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8l-4 4-4-4"/><path d="M8 16l4-4 4 4"/></svg></div>
+          <div class="kpi-metric">350–500%</div>
+          <h4>Three-Year ROI on AI Programmes</h4>
+          <p>Fraud detection and regulatory reporting deliver 350–500% three-year ROI with 3–8 month payback. But only 38% of FS AI projects meet ROI expectations — execution is the differentiator.</p>
+          <div class="kpi-source">Source: Deloitte, industry benchmarks</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+          <div class="kpi-metric">4% ROTE</div>
+          <h4>First-Mover Profitability Advantage</h4>
+          <p>AI pioneers gain a 4% return on tangible equity advantage over slow movers — who face an uncompetitive cost base. The window to move is measured in quarters, not years.</p>
+          <div class="kpi-source">Source: McKinsey, S&amp;P Global</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg></div>
+          <div class="kpi-metric">25–30%</div>
+          <h4>Ongoing Compliance Cost Reduction</h4>
+          <p>Strong AI governance frameworks cut ongoing compliance costs by 25–30% and reduce violation incidents by 3×. With banks spending 6–10% of revenue on compliance, the savings compound fast.</p>
+          <div class="kpi-source">Source: AI compliance benchmarks, 2026</div>
+        </div>
       </div>
     </div>
 
