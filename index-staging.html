@@ -2154,95 +2154,85 @@
     --text-muted:#9db5cd;
   }
 
-  /* ========== STICKY SECTION NAVIGATOR ========== */
-  .section-nav{
+  /* ========== BOTTOM SECTION BAR ========== */
+  .section-bar{
     position:fixed;
-    right:24px;
-    top:50%;
-    transform:translateY(-50%);
+    bottom:0;left:0;right:0;
     z-index:900;
-    display:flex;
-    flex-direction:column;
-    gap:0;
-    opacity:0;
-    pointer-events:none;
-    transition:opacity 0.4s var(--ease-out);
-  }
-  .section-nav.visible{
-    opacity:1;
-    pointer-events:auto;
-  }
-  .section-nav a{
+    background:rgba(8,17,24,0.92);
+    backdrop-filter:saturate(140%) blur(14px);
+    -webkit-backdrop-filter:saturate(140%) blur(14px);
+    border-top:1px solid var(--border);
     display:flex;
     align-items:center;
-    justify-content:flex-end;
-    gap:10px;
-    padding:9px 4px 9px 14px;
+    justify-content:center;
+    gap:0;
+    padding:0;
+    opacity:0;
+    pointer-events:none;
+    transform:translateY(100%);
+    transition:opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+  }
+  .section-bar.visible{
+    opacity:1;
+    pointer-events:auto;
+    transform:translateY(0);
+  }
+  .section-bar a{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px 14px;
     text-decoration:none;
-    color:var(--text-muted);
-    transition:all 0.25s var(--ease-out);
-    cursor:pointer;
-  }
-  .section-nav a:hover{
-    color:var(--white);
-  }
-  .section-nav a.active{
-    color:var(--gold);
-  }
-  .section-nav .sn-label{
     font-family:'Space Grotesk',sans-serif;
     font-size:10px;
     font-weight:600;
     letter-spacing:0.08em;
     text-transform:uppercase;
     white-space:nowrap;
-    opacity:0;
-    transform:translateX(6px);
-    transition:all 0.25s var(--ease-out);
-    pointer-events:none;
+    color:var(--text-muted);
+    transition:color 0.25s var(--ease-out);
+    cursor:pointer;
   }
-  .section-nav a:hover .sn-label,
-  .section-nav a.active .sn-label{
-    opacity:1;
-    transform:translateX(0);
-  }
-  .section-nav .sn-dot{
-    width:10px;
-    height:10px;
-    border-radius:50%;
-    border:1.5px solid currentColor;
-    background:transparent;
-    flex-shrink:0;
-    transition:all 0.25s var(--ease-out);
-  }
-  .section-nav a.active .sn-dot{
+  .section-bar a::after{
+    content:"";
+    position:absolute;
+    bottom:0;left:50%;
+    width:0;height:2px;
     background:var(--gold);
-    border-color:var(--gold);
-    box-shadow:0 0 8px rgba(201,162,39,0.4);
+    border-radius:1px;
+    transform:translateX(-50%);
+    transition:width 0.25s var(--ease-out);
   }
-  .section-nav a:hover .sn-dot{
-    border-color:var(--white);
+  .section-bar a:hover{
+    color:var(--white);
   }
-  /* Hide on mobile / narrow screens */
-  @media(max-width:1200px){
-    .section-nav{display:none}
+  .section-bar a.active{
+    color:var(--gold);
+  }
+  .section-bar a.active::after{
+    width:70%;
+  }
+  @media(max-width:768px){
+    .section-bar{display:none}
   }
 </style>
 </head>
 <body id="top">
 
-<!-- =========== STICKY SECTION NAVIGATOR =========== -->
-<nav class="section-nav" id="sectionNav" aria-label="Section navigation">
-  <a href="#top" data-section="top"><span class="sn-label">Home</span><span class="sn-dot"></span></a>
-  <a href="#services" data-section="services"><span class="sn-label">Services</span><span class="sn-dot"></span></a>
-  <a href="#about" data-section="about"><span class="sn-label">About</span><span class="sn-dot"></span></a>
-  <a href="#why" data-section="why"><span class="sn-label">Why Us</span><span class="sn-dot"></span></a>
-  <a href="#scoreboard" data-section="scoreboard"><span class="sn-label">Scoreboard</span><span class="sn-dot"></span></a>
-  <a href="#how" data-section="how"><span class="sn-label">How I Work</span><span class="sn-dot"></span></a>
-  <a href="#outcomes" data-section="outcomes"><span class="sn-label">Evidence</span><span class="sn-dot"></span></a>
-  <a href="#case-studies" data-section="case-studies"><span class="sn-label">Case Studies</span><span class="sn-dot"></span></a>
-  <a href="#resources" data-section="resources"><span class="sn-label">Resources</span><span class="sn-dot"></span></a>
-  <a href="#start" data-section="start"><span class="sn-label">Get Started</span><span class="sn-dot"></span></a>
+<!-- =========== BOTTOM SECTION BAR =========== -->
+<nav class="section-bar" id="sectionBar" aria-label="Section navigation">
+  <a href="#top" data-section="top">Home</a>
+  <a href="#services" data-section="services">Services</a>
+  <a href="#about" data-section="about">About</a>
+  <a href="#why" data-section="why">Why Us</a>
+  <a href="#scoreboard" data-section="scoreboard">Scoreboard</a>
+  <a href="#how" data-section="how">How I Work</a>
+  <a href="#outcomes" data-section="outcomes">Evidence</a>
+  <a href="#case-studies" data-section="case-studies">Case Studies</a>
+  <a href="#resources" data-section="resources">Resources</a>
+  <a href="#start" data-section="start">Get Started</a>
 </nav>
 
 <!-- =========== NAV =========== -->
@@ -4696,29 +4686,26 @@
 })();
 </script>
 
-<!-- =========== SECTION NAVIGATOR JS =========== -->
+<!-- =========== SECTION BAR JS =========== -->
 <script>
 (function(){
-  var nav = document.getElementById('sectionNav');
-  if(!nav) return;
-  var links = nav.querySelectorAll('a[data-section]');
+  var bar = document.getElementById('sectionBar');
+  if(!bar) return;
+  var links = bar.querySelectorAll('a[data-section]');
   var sectionIds = [];
   links.forEach(function(l){ sectionIds.push(l.getAttribute('data-section')); });
 
-  // Show navigator after scrolling past hero
   var showThreshold = window.innerHeight * 0.6;
 
   function update(){
     var scrollY = window.pageYOffset || document.documentElement.scrollTop;
 
-    // Show/hide
     if(scrollY > showThreshold){
-      nav.classList.add('visible');
+      bar.classList.add('visible');
     } else {
-      nav.classList.remove('visible');
+      bar.classList.remove('visible');
     }
 
-    // Find active section
     var active = sectionIds[0];
     for(var i = 0; i < sectionIds.length; i++){
       var el = document.getElementById(sectionIds[i]);
@@ -4730,7 +4717,6 @@
       }
     }
 
-    // Update links
     links.forEach(function(l){
       if(l.getAttribute('data-section') === active){
         l.classList.add('active');
