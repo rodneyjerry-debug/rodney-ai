@@ -1756,6 +1756,92 @@
     letter-spacing:0.06em;
   }
 
+  /* ---------- ENGAGEMENT COMPARISON TABLE ---------- */
+  .engage-compare{
+    display:grid;grid-template-columns:200px 1fr 1fr;gap:0;
+    border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;
+    background:rgba(8,17,28,0.6);
+  }
+  .engage-compare-header{
+    display:contents;
+  }
+  .engage-compare-header .ec-corner{
+    background:rgba(15,29,45,0.8);padding:24px 20px;
+    border-bottom:1px solid var(--border);border-right:1px solid var(--border);
+    display:flex;align-items:center;
+  }
+  .engage-compare-header .ec-col-head{
+    padding:24px 28px;
+    border-bottom:2px solid var(--gold);
+    position:relative;
+  }
+  .engage-compare-header .ec-col-head:first-of-type{
+    border-right:1px solid var(--border);
+  }
+  .ec-col-type{
+    font-size:10px;color:var(--gold-2);letter-spacing:0.14em;
+    text-transform:uppercase;font-weight:700;margin-bottom:6px;
+  }
+  .ec-col-name{
+    font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;
+    color:var(--white);line-height:1.2;
+  }
+  .ec-col-desc{
+    font-size:12px;color:var(--text-dim);margin-top:6px;line-height:1.4;
+  }
+  .engage-compare-row{
+    display:contents;
+  }
+  .engage-compare-row .ec-label{
+    padding:16px 20px;
+    font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;
+    color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;
+    border-right:1px solid var(--border);border-bottom:1px solid var(--border);
+    background:rgba(15,29,45,0.5);
+    display:flex;align-items:flex-start;
+  }
+  .engage-compare-row .ec-cell{
+    padding:16px 28px;
+    border-bottom:1px solid var(--border);
+    font-size:13px;color:var(--text-dim);line-height:1.55;
+  }
+  .engage-compare-row .ec-cell:first-of-type{
+    border-right:1px solid var(--border);
+  }
+  .engage-compare-row:last-child .ec-label,
+  .engage-compare-row:last-child .ec-cell{border-bottom:0}
+  .ec-cell .ec-items{list-style:none;margin:0;padding:0}
+  .ec-cell .ec-items li{padding:3px 0 3px 18px;position:relative;font-size:12.5px}
+  .ec-cell .ec-items li::before{content:"→";position:absolute;left:0;color:var(--gold);font-weight:700}
+  .ec-cell .ec-highlight{
+    display:inline-block;font-size:11px;font-weight:700;
+    padding:3px 10px;border-radius:4px;letter-spacing:0.04em;
+    background:rgba(201,162,39,0.1);color:var(--gold-2);border:1px solid var(--border-gold);
+  }
+  .ec-cell .ec-meter{
+    display:flex;gap:3px;margin-top:4px;
+  }
+  .ec-cell .ec-meter span{
+    width:28px;height:5px;border-radius:2px;background:rgba(201,162,39,0.15);
+  }
+  .ec-cell .ec-meter span.filled{background:var(--gold)}
+  .ec-best{
+    font-size:12.5px;color:var(--soft);font-style:italic;line-height:1.45;
+  }
+  @media(max-width:900px){
+    .engage-compare{grid-template-columns:140px 1fr 1fr}
+    .engage-compare-header .ec-col-head{padding:18px 16px}
+    .engage-compare-row .ec-cell{padding:14px 16px}
+  }
+  @media(max-width:600px){
+    .engage-compare{grid-template-columns:1fr;gap:0}
+    .engage-compare-header .ec-corner{display:none}
+    .engage-compare-header .ec-col-head{border-right:0!important}
+    .engage-compare-row{display:grid;grid-template-columns:1fr 1fr}
+    .engage-compare-row .ec-label{grid-column:1/-1;border-right:0}
+    .engage-compare-row .ec-cell:first-of-type{border-right:1px solid var(--border)}
+  }
+
   /* ---------- DELIVERY & PARTNERS ---------- */
   .partner-layout{
     display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:start;
@@ -3228,42 +3314,105 @@
         Either way, the first 30 minutes are a free conversation — no slides, no pitch.</p>
     </div>
 
-    <div class="engage-grid engage-grid-2col">
-      <div class="engage-card">
-        <div class="engage-label">Engagement Type · A</div>
-        <h3>Advisory</h3>
-        <p>Meridian.AI advises; your teams or incumbents execute. Ideal when you have internal delivery capacity
-           and need senior judgement, independent challenge and regulator-grade governance on top.</p>
-        <div class="engage-deliverables">
-          <div class="ed-label">Typical Scope</div>
-          <span>Board strategy &amp; scoreboard</span>
-          <span>Governance uplift &amp; MRM framework</span>
-          <span>Independent assurance &amp; red-teaming</span>
-          <span>Regulator interface &amp; board reporting</span>
-          <span>Architecture review &amp; vendor challenge</span>
+    <div class="engage-compare">
+      <!-- Header row -->
+      <div class="engage-compare-header">
+        <div class="ec-corner"></div>
+        <div class="ec-col-head">
+          <div class="ec-col-type">Engagement Type · A</div>
+          <div class="ec-col-name">Advisory</div>
+          <div class="ec-col-desc">We advise; your teams execute</div>
         </div>
-        <div class="engage-duration">Half-day sessions · Sprints · Retained advisory</div>
+        <div class="ec-col-head">
+          <div class="ec-col-type">Engagement Type · B</div>
+          <div class="ec-col-name">Management</div>
+          <div class="ec-col-desc">We own delivery end-to-end</div>
+        </div>
       </div>
-      <div class="engage-card">
-        <div class="engage-label">Engagement Type · B</div>
-        <h3>Management</h3>
-        <p>Meridian.AI owns delivery end-to-end — strategy through build — with our partner network in India,
-           UAE and Saudi. The advisor who stays until the numbers move.</p>
-        <div class="engage-deliverables">
-          <div class="ed-label">Typical Scope</div>
-          <span>All of Advisory, plus:</span>
-          <span>Platform build &amp; MLOps</span>
-          <span>Agentic AI team design &amp; delivery</span>
-          <span>Data products &amp; feature stores</span>
-          <span>Programme leadership to production</span>
+
+      <!-- Best for -->
+      <div class="engage-compare-row">
+        <div class="ec-label">Best for</div>
+        <div class="ec-cell"><span class="ec-best">Institutions with internal delivery capacity that need senior judgement, independent challenge, and regulator-grade governance on top.</span></div>
+        <div class="ec-cell"><span class="ec-best">Institutions that want strategy through production without building an internal AI team from scratch.</span></div>
+      </div>
+
+      <!-- Typical client -->
+      <div class="engage-compare-row">
+        <div class="ec-label">Typical Client</div>
+        <div class="ec-cell">CIO / CDO with an existing data team needing AI strategy uplift &amp; governance</div>
+        <div class="ec-cell">CEO / Board sponsor launching a new AI capability or transformation programme</div>
+      </div>
+
+      <!-- Deliverables -->
+      <div class="engage-compare-row">
+        <div class="ec-label">Scope</div>
+        <div class="ec-cell">
+          <ul class="ec-items">
+            <li>Board AI strategy &amp; scoreboard</li>
+            <li>Governance uplift &amp; MRM framework</li>
+            <li>Independent assurance &amp; red-teaming</li>
+            <li>Regulator interface &amp; board reporting</li>
+            <li>Architecture review &amp; vendor challenge</li>
+            <li>AI Ethics &amp; responsible AI policy</li>
+          </ul>
         </div>
-        <div class="engage-duration">Programme management · Operator-in-residence</div>
+        <div class="ec-cell">
+          <ul class="ec-items">
+            <li>All Advisory scope, plus:</li>
+            <li>Platform build &amp; MLOps pipeline</li>
+            <li>Agentic AI team design &amp; delivery</li>
+            <li>Data products &amp; feature stores</li>
+            <li>Programme leadership to production</li>
+            <li>Ongoing performance &amp; ROI tracking</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Duration -->
+      <div class="engage-compare-row">
+        <div class="ec-label">Duration</div>
+        <div class="ec-cell">Half-day sessions · 2–6 week sprints · Retained quarterly</div>
+        <div class="ec-cell">3–12 month programmes · Operator-in-residence</div>
+      </div>
+
+      <!-- Team -->
+      <div class="engage-compare-row">
+        <div class="ec-label">Team</div>
+        <div class="ec-cell">Meridian.AI principal + your internal teams</div>
+        <div class="ec-cell">Meridian.AI principal + engineering partners (India, UAE, KSA)</div>
+      </div>
+
+      <!-- Involvement -->
+      <div class="engage-compare-row">
+        <div class="ec-label">Meridian Involvement</div>
+        <div class="ec-cell">
+          <div class="ec-meter"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span></span><span></span></div>
+        </div>
+        <div class="ec-cell">
+          <div class="ec-meter"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span></div>
+        </div>
+      </div>
+
+      <!-- Pricing -->
+      <div class="engage-compare-row">
+        <div class="ec-label">Commercial Model</div>
+        <div class="ec-cell"><span class="ec-highlight">Fixed-scope</span> or <span class="ec-highlight">Retainer</span></div>
+        <div class="ec-cell"><span class="ec-highlight">Programme fee</span> or <span class="ec-highlight">Outcome-linked</span></div>
+      </div>
+
+      <!-- Start -->
+      <div class="engage-compare-row">
+        <div class="ec-label">How to start</div>
+        <div class="ec-cell">Free 30-min consultation — no slides, no pitch</div>
+        <div class="ec-cell">Free 30-min consultation — no slides, no pitch</div>
       </div>
     </div>
 
-    <div class="journey-note" style="margin-top:56px">
-      <strong>End-to-end delivery accountability.</strong> Most advisors hand off after the strategy slide.
-      Meridian.AI stays through build, governance and board reporting — owning delivery through our engineering and consulting partners — because the job isn't done until the numbers move.
+    <div class="journey-note" style="margin-top:48px">
+      <strong>Most clients start in Advisory and graduate to Management</strong> once the strategy lands and
+      they see the path to production. Either way, the first conversation is free — and the advisor stays
+      until the numbers move.
     </div>
 
     <!-- Commercial Model — merged into Engagement Model -->
