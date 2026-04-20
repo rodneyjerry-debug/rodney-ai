@@ -1389,131 +1389,84 @@
     content:"→";position:absolute;left:0;color:var(--gold);font-weight:700;font-size:11px;
   }
 
-  /* ---------- ENGAGEMENT MODEL ---------- */
+  /* ---------- ENGAGEMENT MODEL — UNIFIED AGENTIC JOURNEY + ECOSYSTEM ---------- */
 
-  /* -- Horizontal-scroll journey panels -- */
-  .journey-scroll-wrap{
-    position:relative;margin-top:24px;margin-bottom:56px;
-  }
-  .journey-scroll{
-    display:flex;gap:0;overflow-x:auto;overflow-y:hidden;
-    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-    border-radius:var(--radius-lg);border:1px solid var(--border);
-  }
-  .journey-scroll::-webkit-scrollbar{display:none}
-  .journey-panel{
-    min-width:340px;flex:0 0 340px;scroll-snap-align:start;
-    position:relative;overflow:hidden;
-    padding:56px 36px 44px;
-    background:var(--surface);
-    border-right:1px solid var(--border);
-    transition:all 0.35s;
-  }
-  .journey-panel:last-child{border-right:none}
-  .journey-panel::before{
-    content:"";position:absolute;inset:0;
-    background:radial-gradient(ellipse at 50% 20%,rgba(201,162,39,0.06) 0%,transparent 70%);
-    opacity:0;transition:opacity 0.4s;pointer-events:none;
-  }
-  .journey-panel:hover::before{opacity:1}
-  .journey-panel:hover{background:rgba(17,34,54,0.95)}
-  .jp-num{
-    font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:64px;
-    color:rgba(201,162,39,0.08);line-height:1;position:absolute;top:14px;right:20px;
-  }
-  .jp-icon{
-    width:52px;height:52px;border-radius:14px;
-    background:linear-gradient(135deg,rgba(201,162,39,0.12),rgba(40,116,166,0.12));
-    border:1px solid var(--border-gold);
-    display:flex;align-items:center;justify-content:center;
-    margin-bottom:20px;transition:all 0.3s;
-  }
-  .journey-panel:hover .jp-icon{
-    background:linear-gradient(135deg,rgba(201,162,39,0.22),rgba(40,116,166,0.22));
-    box-shadow:0 0 24px -4px rgba(201,162,39,0.3);
-  }
-  .jp-icon svg{width:24px;height:24px;stroke:var(--gold-2);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-  .jp-pills{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
-  .jp-title{
-    font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;
-    color:var(--white);margin-bottom:10px;letter-spacing:-0.01em;
-  }
-  .jp-desc{font-size:14px;color:var(--text-dim);line-height:1.6;margin-bottom:18px}
-  .jp-deliverables{
-    border-top:1px solid var(--border);padding-top:14px;
-  }
-  .jp-deliverables span{
-    display:block;font-size:12px;color:var(--soft);padding:3px 0 3px 18px;position:relative;
-  }
-  .jp-deliverables span::before{content:"→";position:absolute;left:0;color:var(--gold);font-weight:700}
-
-  /* Scroll progress indicator */
-  .journey-progress{
-    display:flex;gap:8px;justify-content:center;margin-top:18px;
-  }
-  .journey-progress-dot{
-    width:8px;height:8px;border-radius:50%;
-    background:var(--border);transition:all 0.3s;
-  }
-  .journey-progress-dot.active{background:var(--gold);box-shadow:0 0 8px rgba(201,162,39,0.5)}
-  .journey-scroll-hint{
-    display:none;text-align:center;margin-top:10px;
-    font-size:12px;color:var(--text-muted);letter-spacing:0.06em;
-  }
-
-  /* Engagement legend */
   .engagement-legend{
-    display:flex;justify-content:center;gap:32px;margin-bottom:40px;
+    display:flex;justify-content:center;gap:32px;margin-bottom:32px;
     padding:18px 22px;background:rgba(201,162,39,0.05);
-    border:1px solid var(--border-gold);border-radius:var(--radius);
-    flex-wrap:wrap;
+    border:1px solid var(--border-gold);border-radius:var(--radius);flex-wrap:wrap;
   }
   .legend-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-dim)}
   .legend-item strong{color:var(--white);font-weight:700}
   .legend-swatch{width:14px;height:14px;border-radius:4px;border:1px solid var(--border-strong)}
   .swatch-advisory{background:rgba(40,116,166,0.35);border-color:rgba(40,116,166,0.7)}
   .swatch-management{background:rgba(201,162,39,0.35);border-color:var(--gold)}
-
   .je-pill{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:9.5px;font-weight:700;letter-spacing:0.1em;
-    text-transform:uppercase;padding:3px 9px;border-radius:4px;
+    font-family:'Space Grotesk',sans-serif;font-size:9.5px;font-weight:700;
+    letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
   }
-  .je-advisory{
-    background:rgba(40,116,166,0.18);color:#8fc5f0;
-    border:1px solid rgba(40,116,166,0.6);
+  .je-advisory{background:rgba(40,116,166,0.18);color:#8fc5f0;border:1px solid rgba(40,116,166,0.6)}
+  .je-management{background:rgba(201,162,39,0.14);color:var(--gold-2);border:1px solid var(--border-gold)}
+
+  /* Stage selector tabs */
+  .stage-tabs{
+    display:flex;gap:4px;margin-bottom:36px;
+    overflow-x:auto;scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
   }
-  .je-management{
-    background:rgba(201,162,39,0.14);color:var(--gold-2);
-    border:1px solid var(--border-gold);
+  .stage-tabs::-webkit-scrollbar{display:none}
+  .stage-tab{
+    flex:1;min-width:0;padding:16px 12px;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius);cursor:pointer;
+    text-align:center;transition:all 0.3s;position:relative;overflow:hidden;
+  }
+  .stage-tab::before{
+    content:"";position:absolute;bottom:0;left:0;right:0;height:3px;
+    background:var(--gradient-gold);transform:scaleX(0);
+    transform-origin:center;transition:transform 0.35s;
+  }
+  .stage-tab:hover{border-color:var(--border-gold);background:rgba(17,34,54,0.9)}
+  .stage-tab.active{border-color:var(--gold);background:rgba(201,162,39,0.06)}
+  .stage-tab.active::before{transform:scaleX(1)}
+  .stage-tab-num{
+    font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;
+    color:var(--text-muted);letter-spacing:0.1em;display:block;margin-bottom:4px;
+    transition:color 0.3s;
+  }
+  .stage-tab.active .stage-tab-num{color:var(--gold)}
+  .stage-tab-name{
+    font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;
+    color:var(--text-dim);letter-spacing:-0.01em;transition:color 0.3s;
+  }
+  .stage-tab.active .stage-tab-name{color:var(--white)}
+
+  /* Main layout: ecosystem map + detail panel */
+  .journey-eco-layout{
+    display:grid;grid-template-columns:1fr 400px;gap:48px;align-items:start;
+    min-height:580px;
   }
 
-  /* -- Ecosystem Map -- */
-  .ecosystem-section{margin-top:96px;margin-bottom:56px}
+  /* Ecosystem map */
   .ecosystem-map{
-    position:relative;width:100%;max-width:740px;margin:0 auto;
-    aspect-ratio:1/1;
+    position:relative;width:100%;aspect-ratio:1/1;max-width:600px;
+    margin:0 auto;
   }
   .eco-ring{
     position:absolute;border-radius:50%;
     border:1px solid var(--border);
-    display:flex;align-items:center;justify-content:center;
     transition:all 0.5s;
   }
   .eco-ring-outer{
-    inset:0;
-    border-color:rgba(201,162,39,0.12);
+    inset:0;border-color:rgba(201,162,39,0.12);
     background:radial-gradient(circle,transparent 60%,rgba(201,162,39,0.03) 100%);
   }
   .eco-ring-mid{
-    inset:18%;
-    border-color:rgba(40,116,166,0.25);
+    inset:18%;border-color:rgba(40,116,166,0.25);
     background:radial-gradient(circle,transparent 50%,rgba(40,116,166,0.04) 100%);
   }
   .eco-ring-inner{
-    inset:38%;
-    border-color:var(--border-gold);
+    inset:38%;border-color:var(--border-gold);
     background:radial-gradient(circle,rgba(201,162,39,0.08) 0%,rgba(201,162,39,0.02) 100%);
   }
   .eco-center{
@@ -1522,41 +1475,87 @@
     text-align:center;z-index:5;
   }
   .eco-center-brand{
-    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;
-    color:var(--gold);letter-spacing:-0.01em;line-height:1.2;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;
+    color:var(--gold);line-height:1.2;
   }
-  .eco-center-tagline{font-size:10px;color:var(--text-muted);letter-spacing:0.12em;text-transform:uppercase;margin-top:4px}
+  .eco-center-tagline{font-size:9px;color:var(--text-muted);letter-spacing:0.12em;text-transform:uppercase;margin-top:3px}
 
-  /* Orbit nodes */
+  /* Ecosystem nodes */
   .eco-node{
     position:absolute;z-index:4;
     transform:translate(-50%,-50%);
-    transition:all 0.35s;
+    transition:all 0.45s;
   }
   .eco-node-pill{
-    padding:8px 16px;border-radius:10px;
-    font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:600;
+    padding:7px 14px;border-radius:10px;
+    font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;
     white-space:nowrap;
     border:1px solid var(--border);background:var(--surface);
-    color:var(--text-dim);
-    transition:all 0.3s;cursor:default;
-  }
-  .eco-node:hover .eco-node-pill{
-    border-color:var(--border-gold);color:var(--white);
-    box-shadow:0 0 20px -4px rgba(201,162,39,0.25);
-    transform:scale(1.06);
+    color:var(--text-muted);transition:all 0.4s;cursor:default;
   }
   .eco-node-pill.node-gold{border-color:var(--border-gold);color:var(--gold-2)}
-  .eco-node-pill.node-blue{border-color:rgba(40,116,166,0.5);color:#8fc5f0}
-  .eco-node-pill.node-dim{color:var(--text-muted);font-size:10.5px;padding:6px 12px}
+  .eco-node-pill.node-blue{border-color:rgba(40,116,166,0.4);color:rgba(143,197,240,0.7)}
+  .eco-node-pill.node-dim{color:var(--text-muted);font-size:10px;padding:5px 11px;opacity:0.7}
 
-  /* Orbit ring labels */
+  /* Highlighted state for active-stage nodes */
+  .eco-node.lit .eco-node-pill{
+    border-color:var(--gold);color:var(--white);
+    box-shadow:0 0 22px -4px rgba(201,162,39,0.4);
+    background:rgba(201,162,39,0.08);
+  }
+  .eco-node.lit .eco-node-pill.node-blue{
+    border-color:#4db8db;color:#fff;
+    box-shadow:0 0 22px -4px rgba(34,211,238,0.35);
+    background:rgba(34,211,238,0.08);
+  }
+  .eco-node.lit .eco-node-pill.node-dim{
+    opacity:1;border-color:rgba(201,162,39,0.5);color:var(--text-dim);
+    box-shadow:0 0 16px -4px rgba(201,162,39,0.2);
+    background:rgba(201,162,39,0.04);
+  }
+
+  /* Ring labels */
   .eco-ring-label{
     position:absolute;z-index:3;
-    font-size:9px;color:var(--text-muted);letter-spacing:0.18em;
+    font-size:8px;color:var(--text-muted);letter-spacing:0.18em;
     text-transform:uppercase;font-weight:700;
-    background:var(--bg);padding:2px 10px;
+    background:var(--bg);padding:2px 8px;
   }
+
+  /* Stage detail panel (right side) */
+  .stage-detail{
+    padding:36px 32px;
+    background:linear-gradient(180deg,rgba(15,29,45,0.7),rgba(8,17,28,0.9));
+    border:1px solid var(--border);border-radius:var(--radius-lg);
+    position:relative;overflow:hidden;
+    transition:border-color 0.3s;
+  }
+  .stage-detail::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:var(--gradient-gold);
+  }
+  .sd-num{
+    font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:56px;
+    color:rgba(201,162,39,0.07);line-height:1;position:absolute;top:16px;right:24px;
+  }
+  .sd-pills{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+  .sd-title{
+    font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;
+    color:var(--white);margin-bottom:12px;letter-spacing:-0.02em;
+  }
+  .sd-desc{font-size:14.5px;color:var(--text-dim);line-height:1.65;margin-bottom:22px}
+  .sd-deliverables{border-top:1px solid var(--border);padding-top:16px}
+  .sd-deliverables-label{
+    font-size:10px;color:var(--text-muted);letter-spacing:0.12em;
+    text-transform:uppercase;font-weight:700;margin-bottom:10px;
+  }
+  .sd-deliverables span{
+    display:block;font-size:13px;color:var(--soft);padding:4px 0 4px 20px;position:relative;
+  }
+  .sd-deliverables span::before{content:"→";position:absolute;left:0;color:var(--gold);font-weight:700}
+
+  /* Delivery hubs strip */
+  .delivery-hubs-strip{margin-top:40px}
 
   .journey-note{
     text-align:center;margin-top:48px;padding:24px 32px;
@@ -2120,12 +2119,12 @@
     .footer-grid{grid-template-columns:1fr 1fr;gap:36px}
     .contact-cards{grid-template-columns:1fr}
     .impact-stats{grid-template-columns:repeat(2,1fr);gap:20px}
-    .journey-panel{min-width:300px;flex:0 0 300px;padding:44px 28px 36px}
-    .jp-title{font-size:17px}
-    .journey-scroll-hint{display:block}
-    .ecosystem-map{max-width:580px}
-    .eco-node-pill{font-size:10px;padding:6px 12px}
+    .journey-eco-layout{grid-template-columns:1fr;gap:32px}
+    .ecosystem-map{max-width:500px}
+    .eco-node-pill{font-size:9.5px;padding:6px 12px}
     .eco-node-pill.node-dim{font-size:9px;padding:5px 10px}
+    .stage-tab{min-width:90px;flex:0 0 auto;padding:12px 10px}
+    .stage-tab-name{font-size:12px}
     .testimonial-grid{grid-template-columns:1fr}
     .stat{padding:0 0 20px}
     .stat:not(:last-child)::after{display:none}
@@ -2153,12 +2152,14 @@
     .persona-grid,.engage-grid,.engage-grid-2col,.faq-grid,.why-grid,.commercials-grid,.outcomes-grid,.conversion-grid,.why-evidence-grid,.resources-grid,.kpi-grid{grid-template-columns:1fr}
     .testimonial-grid{grid-template-columns:1fr}
     .c-detail-row{grid-template-columns:1fr;gap:2px}
-    .journey-panel{min-width:85vw;flex:0 0 85vw;padding:40px 24px 32px}
-    .jp-num{font-size:48px}
     .partner-logos{grid-template-columns:1fr}
-    .ecosystem-map{max-width:100%;aspect-ratio:auto;height:auto;min-height:480px}
-    .eco-node-pill{font-size:9px;padding:5px 10px}
+    .ecosystem-map{max-width:100%;min-height:360px}
+    .eco-node-pill{font-size:8.5px;padding:5px 9px}
     .eco-node-pill.node-dim{font-size:8px;padding:4px 8px}
+    .stage-tab{min-width:80px;padding:10px 8px}
+    .stage-tab-num{font-size:10px}
+    .stage-tab-name{font-size:11px}
+    .sd-title{font-size:20px}
     .series-grid{grid-template-columns:1fr}
     .prize-panel{padding:36px 28px}
     .feature-article{padding:80px 0}
@@ -3414,110 +3415,93 @@
       </div>
     </div>
 
-    <!-- Agentic AI Journey — horizontal-scroll cinematic panels -->
-    <div class="journey-scroll-wrap reveal">
-      <div class="journey-scroll" id="journeyScroll">
+    <!-- Unified: Stage tabs + Ecosystem map + Detail panel -->
+    <div class="stage-tabs" id="stageTabs">
+      <div class="stage-tab active" data-stage="0"><span class="stage-tab-num">01</span><span class="stage-tab-name">Discover</span></div>
+      <div class="stage-tab" data-stage="1"><span class="stage-tab-num">02</span><span class="stage-tab-name">Foundation</span></div>
+      <div class="stage-tab" data-stage="2"><span class="stage-tab-num">03</span><span class="stage-tab-name">Architect</span></div>
+      <div class="stage-tab" data-stage="3"><span class="stage-tab-num">04</span><span class="stage-tab-name">Govern</span></div>
+      <div class="stage-tab" data-stage="4"><span class="stage-tab-num">05</span><span class="stage-tab-name">Deploy</span></div>
+      <div class="stage-tab" data-stage="5"><span class="stage-tab-num">06</span><span class="stage-tab-name">Scale</span></div>
+    </div>
 
-        <div class="journey-panel">
-          <div class="jp-num">01</div>
-          <div class="jp-icon">
-            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <div class="journey-eco-layout reveal" id="journeyEco">
+      <!-- Left: Ecosystem map -->
+      <div>
+        <div class="ecosystem-map" id="ecoMap">
+          <div class="eco-ring eco-ring-outer"></div>
+          <div class="eco-ring eco-ring-mid"></div>
+          <div class="eco-ring eco-ring-inner"></div>
+
+          <div class="eco-ring-label" style="top:-2px;left:50%;transform:translateX(-50%)">INDUSTRY DOMAINS</div>
+          <div class="eco-ring-label" style="top:17%;left:2%">PARTNERS</div>
+          <div class="eco-ring-label" style="top:37%;right:2%">PRACTICE</div>
+
+          <div class="eco-center">
+            <div class="eco-center-brand">Meridian.AI</div>
+            <div class="eco-center-tagline">Scale · Govern · Unlock</div>
           </div>
-          <div class="jp-pills"><span class="je-pill je-advisory">Advisory</span></div>
-          <div class="jp-title">Discover</div>
-          <div class="jp-desc">Agentic AI readiness assessment. Benchmark your institution against peers, map the highest-value agent use cases — compliance, fraud detection, KYC remediation, trade surveillance — and size the opportunity in P&amp;L terms.</div>
-          <div class="jp-deliverables">
-            <span>Agentic AI maturity benchmark</span>
-            <span>Use-case prioritisation &amp; value map</span>
-            <span>Board-ready opportunity brief</span>
-          </div>
+
+          <!-- Inner: Advisory practice -->
+          <div class="eco-node" data-ring="inner" data-id="strategy" style="top:34%;left:50%"><div class="eco-node-pill node-gold">Strategy</div></div>
+          <div class="eco-node" data-ring="inner" data-id="governance" style="top:58%;left:32%"><div class="eco-node-pill node-gold">Governance</div></div>
+          <div class="eco-node" data-ring="inner" data-id="execution" style="top:58%;left:68%"><div class="eco-node-pill node-gold">Execution</div></div>
+
+          <!-- Middle: Technology partners -->
+          <div class="eco-node" data-ring="mid" data-id="nvidia" style="top:14%;left:34%"><div class="eco-node-pill node-blue">NVIDIA</div></div>
+          <div class="eco-node" data-ring="mid" data-id="aws" style="top:14%;left:66%"><div class="eco-node-pill node-blue">AWS</div></div>
+          <div class="eco-node" data-ring="mid" data-id="snowflake" style="top:42%;left:12%"><div class="eco-node-pill node-blue">Snowflake</div></div>
+          <div class="eco-node" data-ring="mid" data-id="azure" style="top:42%;left:88%"><div class="eco-node-pill node-blue">Azure</div></div>
+          <div class="eco-node" data-ring="mid" data-id="cisco" style="top:72%;left:18%"><div class="eco-node-pill node-blue">Cisco</div></div>
+          <div class="eco-node" data-ring="mid" data-id="dell" style="top:72%;left:82%"><div class="eco-node-pill node-blue">Dell</div></div>
+
+          <!-- Outer: Industry domains -->
+          <div class="eco-node" data-ring="outer" data-id="banking" style="top:3%;left:50%"><div class="eco-node-pill node-dim">Banking</div></div>
+          <div class="eco-node" data-ring="outer" data-id="capital" style="top:10%;left:80%"><div class="eco-node-pill node-dim">Capital Markets</div></div>
+          <div class="eco-node" data-ring="outer" data-id="exchanges" style="top:30%;left:95%"><div class="eco-node-pill node-dim">Exchanges</div></div>
+          <div class="eco-node" data-ring="outer" data-id="sovereign" style="top:60%;left:96%"><div class="eco-node-pill node-dim">Sovereign Wealth</div></div>
+          <div class="eco-node" data-ring="outer" data-id="defense" style="top:82%;left:78%"><div class="eco-node-pill node-dim">Defense &amp; National AI</div></div>
+          <div class="eco-node" data-ring="outer" data-id="regulators" style="top:88%;left:50%"><div class="eco-node-pill node-dim">Regulators</div></div>
+          <div class="eco-node" data-ring="outer" data-id="insurance" style="top:82%;left:22%"><div class="eco-node-pill node-dim">Insurance</div></div>
+          <div class="eco-node" data-ring="outer" data-id="payments" style="top:10%;left:20%"><div class="eco-node-pill node-dim">Payments</div></div>
         </div>
-
-        <div class="journey-panel">
-          <div class="jp-num">02</div>
-          <div class="jp-icon">
-            <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-          </div>
-          <div class="jp-pills"><span class="je-pill je-advisory">Advisory</span><span class="je-pill je-management">Management</span></div>
-          <div class="jp-title">Foundation</div>
-          <div class="jp-desc">Build the data ontology — the semantic layer your agents reason over. The ontology sits at the centre, not the LLM. Semantic objects, actions, knowledge graph and the data fabric that makes agents reliable, not just clever.</div>
-          <div class="jp-deliverables">
-            <span>Enterprise data ontology design</span>
-            <span>Knowledge graph &amp; semantic layer</span>
-            <span>Data quality &amp; lineage framework</span>
-          </div>
-        </div>
-
-        <div class="journey-panel">
-          <div class="jp-num">03</div>
-          <div class="jp-icon">
-            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-          </div>
-          <div class="jp-pills"><span class="je-pill je-advisory">Advisory</span><span class="je-pill je-management">Management</span></div>
-          <div class="jp-title">Architect</div>
-          <div class="jp-desc">Design agent blueprints and orchestration topology. Define agent tiers — from ad-hoc analysis through task-specific agents to fully autonomous operations. Tool integration, memory architecture and human-in-the-loop controls.</div>
-          <div class="jp-deliverables">
-            <span>Agent blueprint &amp; orchestration design</span>
-            <span>Tool integration &amp; memory architecture</span>
-            <span>Human-in-the-loop control framework</span>
-          </div>
-        </div>
-
-        <div class="journey-panel">
-          <div class="jp-num">04</div>
-          <div class="jp-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <div class="jp-pills"><span class="je-pill je-advisory">Advisory</span></div>
-          <div class="jp-title">Govern</div>
-          <div class="jp-desc">The trust layer that separates production agents from lab experiments. Purpose-driven permissions, sandboxed execution, red-teaming for prompt injection and tool poisoning. Your governance moat — aligned to SR 11-7, EU AI Act Article 14 and NIST AI RMF.</div>
-          <div class="jp-deliverables">
-            <span>Purpose-driven permission model</span>
-            <span>Red-teaming &amp; adversarial testing</span>
-            <span>Regulatory mapping (SR 11-7, EU AI Act)</span>
-          </div>
-        </div>
-
-        <div class="journey-panel">
-          <div class="jp-num">05</div>
-          <div class="jp-icon">
-            <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          </div>
-          <div class="jp-pills"><span class="je-pill je-management">Management</span></div>
-          <div class="jp-title">Deploy</div>
-          <div class="jp-desc">From prototype to production. Multi-agent orchestration, security-by-design with sandboxed runtimes, observability stack and continuous evaluation. Delivered through our engineering network in India, UAE and Saudi.</div>
-          <div class="jp-deliverables">
-            <span>Multi-agent orchestration pipeline</span>
-            <span>Observability &amp; evaluation framework</span>
-            <span>Security-by-design runtime (sandboxed)</span>
-          </div>
-        </div>
-
-        <div class="journey-panel">
-          <div class="jp-num">06</div>
-          <div class="jp-icon">
-            <svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
-          </div>
-          <div class="jp-pills"><span class="je-pill je-advisory">Advisory</span><span class="je-pill je-management">Management</span></div>
-          <div class="jp-title">Scale</div>
-          <div class="jp-desc">Enterprise agentic capability. Agent hives operating autonomously across compliance, operations and client service. Shared infrastructure, cross-domain reuse and board-level reporting on agent ROI and risk posture.</div>
-          <div class="jp-deliverables">
-            <span>Agent portfolio &amp; hive architecture</span>
-            <span>Cross-domain reuse &amp; shared infra</span>
-            <span>Board reporting — agent ROI &amp; risk</span>
-          </div>
-        </div>
-
       </div>
-      <div class="journey-progress" id="journeyProgress">
-        <div class="journey-progress-dot active"></div>
-        <div class="journey-progress-dot"></div>
-        <div class="journey-progress-dot"></div>
-        <div class="journey-progress-dot"></div>
-        <div class="journey-progress-dot"></div>
-        <div class="journey-progress-dot"></div>
+
+      <!-- Right: Stage detail panel -->
+      <div class="stage-detail" id="stageDetail">
+        <div class="sd-num" id="sdNum">01</div>
+        <div class="sd-pills" id="sdPills"></div>
+        <div class="sd-title" id="sdTitle">Discover</div>
+        <div class="sd-desc" id="sdDesc"></div>
+        <div class="sd-deliverables">
+          <div class="sd-deliverables-label">Key Deliverables</div>
+          <div id="sdDeliverables"></div>
+        </div>
       </div>
-      <div class="journey-scroll-hint">Scroll to explore all six stages →</div>
+    </div>
+
+    <!-- Delivery hubs strip below -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px" class="delivery-hubs-strip">
+      <div class="delivery-hub">
+        <div class="dh-region">UAE</div>
+        <div class="dh-detail">Advisory hub. Board engagement, strategy, DIFC &amp; ADGM.</div>
+        <div class="dh-tag">Advisory Hub</div>
+      </div>
+      <div class="delivery-hub">
+        <div class="dh-region">Saudi Arabia</div>
+        <div class="dh-detail">Vision 2030. SAMA, CMA &amp; HUMAIN-aligned delivery.</div>
+        <div class="dh-tag">KSA Delivery</div>
+      </div>
+      <div class="delivery-hub">
+        <div class="dh-region">India</div>
+        <div class="dh-detail">Scaled engineering. 200+ engineer programmes with FS expertise.</div>
+        <div class="dh-tag">Engineering</div>
+      </div>
+      <div class="delivery-hub">
+        <div class="dh-region">UK &amp; Europe</div>
+        <div class="dh-detail">FCA, PRA, ECB alignment. Cross-border regulatory coordination.</div>
+        <div class="dh-tag">Regulatory</div>
+      </div>
     </div>
 
     <!-- Two engagement types -->
@@ -3558,83 +3542,6 @@
           <span>Programme leadership to production</span>
         </div>
         <div class="engage-duration">Programme management · Operator-in-residence</div>
-      </div>
-    </div>
-
-    <!-- Ecosystem Map — concentric rings -->
-    <div class="ecosystem-section reveal">
-      <div class="section-head" style="margin-bottom:40px">
-        <div class="section-label" style="color:var(--gold-2)">Ecosystem</div>
-        <h3 class="section-title" style="font-size:clamp(26px,3.2vw,40px)">One advisor at the centre of a <span class="gold">global delivery ecosystem.</span></h3>
-        <p class="section-intro">
-          Technology partners, regional delivery hubs and industry domains — connected through
-          a single accountable relationship. No handoff gaps. No orphaned strategies.
-        </p>
-      </div>
-
-      <div class="ecosystem-map" id="ecoMap">
-        <!-- Three concentric rings -->
-        <div class="eco-ring eco-ring-outer"></div>
-        <div class="eco-ring eco-ring-mid"></div>
-        <div class="eco-ring eco-ring-inner"></div>
-
-        <!-- Ring labels -->
-        <div class="eco-ring-label" style="top:-2px;left:50%;transform:translateX(-50%)">INDUSTRY DOMAINS</div>
-        <div class="eco-ring-label" style="top:17%;left:3%">TECHNOLOGY PARTNERS</div>
-        <div class="eco-ring-label" style="top:37%;right:3%">ADVISORY PRACTICE</div>
-
-        <!-- Center -->
-        <div class="eco-center">
-          <div class="eco-center-brand">Meridian.AI</div>
-          <div class="eco-center-tagline">Scale · Govern · Unlock</div>
-        </div>
-
-        <!-- Inner ring: Advisory practice (3 nodes) -->
-        <div class="eco-node" style="top:34%;left:50%"><div class="eco-node-pill node-gold">Strategy</div></div>
-        <div class="eco-node" style="top:58%;left:32%"><div class="eco-node-pill node-gold">Governance</div></div>
-        <div class="eco-node" style="top:58%;left:68%"><div class="eco-node-pill node-gold">Execution</div></div>
-
-        <!-- Middle ring: Technology partners (6 nodes) -->
-        <div class="eco-node" style="top:14%;left:34%"><div class="eco-node-pill node-blue">NVIDIA</div></div>
-        <div class="eco-node" style="top:14%;left:66%"><div class="eco-node-pill node-blue">AWS</div></div>
-        <div class="eco-node" style="top:42%;left:12%"><div class="eco-node-pill node-blue">Snowflake</div></div>
-        <div class="eco-node" style="top:42%;left:88%"><div class="eco-node-pill node-blue">Azure</div></div>
-        <div class="eco-node" style="top:72%;left:18%"><div class="eco-node-pill node-blue">Cisco</div></div>
-        <div class="eco-node" style="top:72%;left:82%"><div class="eco-node-pill node-blue">Dell</div></div>
-
-        <!-- Outer ring: Industry domains (8 nodes) -->
-        <div class="eco-node" style="top:3%;left:50%"><div class="eco-node-pill node-dim">Banking</div></div>
-        <div class="eco-node" style="top:10%;left:80%"><div class="eco-node-pill node-dim">Capital Markets</div></div>
-        <div class="eco-node" style="top:30%;left:95%"><div class="eco-node-pill node-dim">Exchanges</div></div>
-        <div class="eco-node" style="top:60%;left:96%"><div class="eco-node-pill node-dim">Sovereign Wealth</div></div>
-        <div class="eco-node" style="top:82%;left:78%"><div class="eco-node-pill node-dim">Defense &amp; National AI</div></div>
-        <div class="eco-node" style="top:88%;left:50%"><div class="eco-node-pill node-dim">Regulators</div></div>
-        <div class="eco-node" style="top:82%;left:22%"><div class="eco-node-pill node-dim">Insurance</div></div>
-        <div class="eco-node" style="top:10%;left:20%"><div class="eco-node-pill node-dim">Payments</div></div>
-      </div>
-
-      <!-- Delivery hubs — compact strip below the map -->
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px" class="delivery-hubs-strip">
-        <div class="delivery-hub">
-          <div class="dh-region">UAE</div>
-          <div class="dh-detail">Advisory hub. Board engagement, strategy, DIFC &amp; ADGM.</div>
-          <div class="dh-tag">Advisory Hub</div>
-        </div>
-        <div class="delivery-hub">
-          <div class="dh-region">Saudi Arabia</div>
-          <div class="dh-detail">Vision 2030. SAMA, CMA &amp; HUMAIN-aligned delivery.</div>
-          <div class="dh-tag">KSA Delivery</div>
-        </div>
-        <div class="delivery-hub">
-          <div class="dh-region">India</div>
-          <div class="dh-detail">Scaled engineering. 200+ engineer programmes with FS expertise.</div>
-          <div class="dh-tag">Engineering</div>
-        </div>
-        <div class="delivery-hub">
-          <div class="dh-region">UK &amp; Europe</div>
-          <div class="dh-detail">FCA, PRA, ECB alignment. Cross-border regulatory coordination.</div>
-          <div class="dh-tag">Regulatory</div>
-        </div>
       </div>
     </div>
 
@@ -4729,7 +4636,7 @@
     '.sgu-head, .sgu-card, .service, .question-card, .insight, .case, .acc,' +
     '.reg-card, .pool, .why-card, .why-ev-card, .engage-card, .commercial-card, .testimonial,' +
     '.faq-item, .cred, .persona, .pillar, .contact-inner > *, .about-grid > *,' +
-    '.partner-layout > *, .prize-panel, .journey-scroll-wrap, .ecosystem-section, .series-card,' +
+    '.partner-layout > *, .prize-panel, .journey-eco-layout, .stage-tabs, .series-card,' +
     '.caps-col, .about-speaking, .about-highlight, .engagement-legend,' +
     '.commercial-principles, .article-body h3, .article-body p, .article-body blockquote,' +
     '.contact-card, .delivery-hub, .partner-logo, .journey-note'
@@ -4762,31 +4669,90 @@
     }
   });
 
-  /* ===== JOURNEY SCROLL PROGRESS ===== */
+  /* ===== UNIFIED AGENTIC JOURNEY + ECOSYSTEM ===== */
   (function(){
-    var scroll = document.getElementById('journeyScroll');
-    var dots = document.querySelectorAll('#journeyProgress .journey-progress-dot');
-    if(!scroll || !dots.length) return;
-    scroll.addEventListener('scroll', function(){
-      var panels = scroll.querySelectorAll('.journey-panel');
-      var scrollLeft = scroll.scrollLeft;
-      var panelW = panels[0].offsetWidth;
-      var idx = Math.round(scrollLeft / panelW);
-      idx = Math.max(0, Math.min(idx, dots.length - 1));
-      dots.forEach(function(d,i){ d.classList.toggle('active', i === idx); });
-    }, {passive:true});
-  })();
+    var STAGES = [
+      {
+        num:'01', title:'Discover', pills:['advisory'],
+        desc:'Agentic AI readiness assessment. Benchmark your institution against peers, map the highest-value agent use cases — compliance, fraud detection, KYC remediation, trade surveillance — and size the opportunity in P&L terms.',
+        deliverables:['Agentic AI maturity benchmark','Use-case prioritisation &amp; value map','Board-ready opportunity brief'],
+        lit:['strategy','banking','capital','exchanges','payments','insurance']
+      },
+      {
+        num:'02', title:'Foundation', pills:['advisory','management'],
+        desc:'Build the data ontology — the semantic layer your agents reason over. The ontology sits at the centre, not the LLM. Semantic objects, actions, knowledge graph and the data fabric that makes agents reliable, not just clever.',
+        deliverables:['Enterprise data ontology design','Knowledge graph &amp; semantic layer','Data quality &amp; lineage framework'],
+        lit:['strategy','execution','snowflake','aws','azure']
+      },
+      {
+        num:'03', title:'Architect', pills:['advisory','management'],
+        desc:'Design agent blueprints and orchestration topology. Define agent tiers — from ad-hoc analysis through task-specific agents to fully autonomous operations. Tool integration, memory architecture and human-in-the-loop controls.',
+        deliverables:['Agent blueprint &amp; orchestration design','Tool integration &amp; memory architecture','Human-in-the-loop control framework'],
+        lit:['strategy','execution','nvidia','aws','azure','dell']
+      },
+      {
+        num:'04', title:'Govern', pills:['advisory'],
+        desc:'The trust layer that separates production agents from lab experiments. Purpose-driven permissions, sandboxed execution, red-teaming for prompt injection and tool poisoning. Your governance moat — aligned to SR 11-7, EU AI Act Article 14 and NIST AI RMF.',
+        deliverables:['Purpose-driven permission model','Red-teaming &amp; adversarial testing','Regulatory mapping (SR 11-7, EU AI Act)'],
+        lit:['governance','cisco','regulators','defense','sovereign']
+      },
+      {
+        num:'05', title:'Deploy', pills:['management'],
+        desc:'From prototype to production. Multi-agent orchestration, security-by-design with sandboxed runtimes, observability stack and continuous evaluation. Delivered through our engineering network in India, UAE and Saudi.',
+        deliverables:['Multi-agent orchestration pipeline','Observability &amp; evaluation framework','Security-by-design runtime (sandboxed)'],
+        lit:['execution','nvidia','dell','aws','azure','cisco']
+      },
+      {
+        num:'06', title:'Scale', pills:['advisory','management'],
+        desc:'Enterprise agentic capability. Agent hives operating autonomously across compliance, operations and client service. Shared infrastructure, cross-domain reuse and board-level reporting on agent ROI and risk posture.',
+        deliverables:['Agent portfolio &amp; hive architecture','Cross-domain reuse &amp; shared infra','Board reporting — agent ROI &amp; risk'],
+        lit:['strategy','governance','execution','banking','capital','exchanges','sovereign','defense','regulators','insurance','payments','nvidia','aws','snowflake','azure','cisco','dell']
+      }
+    ];
 
-  /* ===== ECOSYSTEM MAP FLOAT ANIMATION ===== */
-  (function(){
+    var tabs = document.querySelectorAll('#stageTabs .stage-tab');
     var nodes = document.querySelectorAll('#ecoMap .eco-node');
+    var sdNum = document.getElementById('sdNum');
+    var sdTitle = document.getElementById('sdTitle');
+    var sdDesc = document.getElementById('sdDesc');
+    var sdPills = document.getElementById('sdPills');
+    var sdDel = document.getElementById('sdDeliverables');
+    if(!tabs.length) return;
+
+    function activate(idx){
+      var s = STAGES[idx];
+      // Update tabs
+      tabs.forEach(function(t,i){ t.classList.toggle('active', i===idx); });
+      // Update detail panel
+      sdNum.textContent = s.num;
+      sdTitle.textContent = s.title;
+      sdDesc.innerHTML = s.desc;
+      sdPills.innerHTML = s.pills.map(function(p){
+        return '<span class="je-pill je-' + p + '">' + p.charAt(0).toUpperCase()+p.slice(1) + '</span>';
+      }).join('');
+      sdDel.innerHTML = s.deliverables.map(function(d){ return '<span>' + d + '</span>'; }).join('');
+      // Light up ecosystem nodes
+      nodes.forEach(function(n){
+        var id = n.getAttribute('data-id');
+        n.classList.toggle('lit', s.lit.indexOf(id) !== -1);
+      });
+    }
+
+    tabs.forEach(function(tab, i){
+      tab.addEventListener('click', function(){ activate(i); });
+    });
+
+    // Float animation
     nodes.forEach(function(node, i){
       var dur = 4 + (i % 3) * 0.8;
       var delay = -(i * 0.5);
-      var dist = 4 + (i % 4) * 2;
+      var dist = 3 + (i % 4) * 1.5;
       node.style.animation = 'ecoFloat ' + dur + 's ease-in-out ' + delay + 's infinite';
       node.style.setProperty('--float-dist', dist + 'px');
     });
+
+    // Initialise with stage 0
+    activate(0);
   })();
 
   /* ===== NAV SCROLL STATE ===== */
