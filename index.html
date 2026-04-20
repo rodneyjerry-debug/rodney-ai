@@ -171,9 +171,9 @@
   .nav-links{display:flex;align-items:center;gap:6px}
   .nav-links .btn{padding:8px 18px;font-size:12.5px;border-radius:5px}
   .nav-link{
-    font-size:13.5px;color:var(--text-dim);font-weight:500;
+    font-size:12.5px;color:var(--text-dim);font-weight:500;
     transition:color 0.2s;position:relative;
-    padding:8px 14px;border-radius:6px;
+    padding:8px 12px;border-radius:6px;white-space:nowrap;
     cursor:pointer;display:flex;align-items:center;gap:5px;
   }
   .nav-link:hover{color:var(--gold-2);background:rgba(201,162,39,0.06)}
@@ -573,9 +573,9 @@
     max-height:0;overflow:hidden;transition:max-height 0.4s ease,opacity 0.3s;
     opacity:0;flex-basis:100%;
   }
-  .sector-card.active .sector-detail{max-height:80px;opacity:1;margin-top:10px}
+  .sector-card.active .sector-detail{max-height:200px;opacity:1;margin-top:8px}
   .sector-detail p{
-    font-size:12px;color:var(--text-dim);line-height:1.5;margin:0;
+    font-size:12px;color:#e2edf7;line-height:1.5;margin:0;
   }
   @media(max-width:768px){
     .sector-strip{grid-template-columns:1fr 1fr;gap:1px}
@@ -587,28 +587,38 @@
   }
 
   /* ---------- MARQUEE ---------- */
-  .marquee{
-    padding:22px 0;
-    background:rgba(8,17,24,0.5);
-    overflow:hidden;
-    position:relative;
+  /* ---------- LOGO MARQUEE ---------- */
+  .logo-marquee{
+    padding:28px 0 22px;
+    background:linear-gradient(180deg,rgba(8,17,24,0.6),rgba(8,17,24,0.3));
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    overflow:hidden;position:relative;
   }
-  .marquee::before,.marquee::after{
-    content:"";position:absolute;top:0;bottom:0;width:140px;z-index:2;pointer-events:none;
+  .logo-marquee-label{
+    text-align:center;font-family:'Space Grotesk',sans-serif;
+    font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;
+    color:var(--text-muted);margin-bottom:16px;
   }
-  .marquee::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
-  .marquee::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
-  .marquee-track{
-    display:flex;gap:64px;white-space:nowrap;
-    animation:marquee 48s linear infinite;
-    font-family:'Space Grotesk',sans-serif;font-weight:600;
-    font-size:16px;color:var(--text-dim);letter-spacing:0.05em;
+  .logo-marquee-strip{position:relative;overflow:hidden}
+  .logo-marquee-strip::before,.logo-marquee-strip::after{
+    content:"";position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none;
   }
-  .marquee-track span{display:inline-flex;align-items:center;gap:64px}
-  .marquee-track span::after{
-    content:"◆";color:var(--gold);font-size:9px;
+  .logo-marquee-strip::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+  .logo-marquee-strip::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+  .logo-marquee-track{
+    display:flex;gap:40px;align-items:center;white-space:nowrap;
+    animation:logoScroll 50s linear infinite;
   }
-  @keyframes marquee{
+  .logo-item{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;
+    font-size:14px;color:var(--white);opacity:0.35;letter-spacing:0.04em;
+    padding:8px 16px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;
+    background:rgba(255,255,255,0.02);flex-shrink:0;
+    transition:opacity 0.3s;
+  }
+  .logo-item:hover{opacity:0.7}
+  @keyframes logoScroll{
     0%{transform:translateX(0)}
     100%{transform:translateX(-50%)}
   }
@@ -2516,7 +2526,7 @@
 
       <!-- Engagement Model dropdown -->
       <div class="nav-group">
-        <span class="nav-link">Engagement Model <span class="chevron">▼</span></span>
+        <span class="nav-link">Engagement <span class="chevron">▼</span></span>
         <div class="nav-dropdown">
           <a href="#how">AI@scale Journey</a>
           <a href="#engagement-types">Advisory vs Management</a>
@@ -2526,7 +2536,7 @@
 
       <!-- Why Us dropdown -->
       <div class="nav-group">
-        <span class="nav-link">Why Us <span class="chevron">▼</span></span>
+        <span class="nav-link">Evidence <span class="chevron">▼</span></span>
         <div class="nav-dropdown">
           <a href="#why">Four Pillars</a>
           <a href="#case-studies">The Evidence</a>
@@ -2567,7 +2577,7 @@
         <button data-lang="ar">عربي</button>
       </div>
 
-      <a href="#contact" class="btn btn-primary">Book a demo or consultation →</a>
+      <a href="#contact" class="btn btn-primary">Book a consultation →</a>
 
       <button class="hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -2611,7 +2621,7 @@
     <a href="#faq">FAQ</a>
   </div>
   <div class="md-group" style="padding-top:12px;border-top:1px solid var(--border)">
-    <a href="#contact" class="btn btn-primary" style="text-align:center;justify-content:center;margin-top:8px">Book a demo or consultation →</a>
+    <a href="#contact" class="btn btn-primary" style="text-align:center;justify-content:center;margin-top:8px">Book a consultation →</a>
   </div>
 </div>
 
@@ -2672,6 +2682,7 @@
           <div class="hero-eco-node" data-ring="mid" style="top:45%;left:92%;transform:translate(-50%,-50%)"><div class="hero-eco-node-pill node-blue">Azure</div></div>
           <div class="hero-eco-node" data-ring="mid" style="top:72%;left:20%;transform:translate(-50%,-50%)"><div class="hero-eco-node-pill node-blue">Cisco</div></div>
           <div class="hero-eco-node" data-ring="mid" style="top:72%;left:80%;transform:translate(-50%,-50%)"><div class="hero-eco-node-pill node-blue">Dell</div></div>
+          <div class="hero-eco-node" data-ring="mid" style="top:80%;left:50%;transform:translate(-50%,-50%)"><div class="hero-eco-node-pill node-blue">HUMAIN</div></div>
 
           <!-- Outer: Industry domains -->
           <div class="hero-eco-node" data-ring="outer" style="top:5%;left:50%;transform:translateX(-50%)"><div class="hero-eco-node-pill node-dim">Banking</div></div>
@@ -2762,61 +2773,57 @@
   </div>
 </section>
 
-<!-- =========== MARQUEE =========== -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>
-      ME's Largest Exchange <span></span>
-      Capital Market Authority KSA <span></span>
-      First Abu Dhabi Bank <span></span>
-      Saudi Central Bank (SAMA) <span></span>
-      Emirates NBD <span></span>
-      HSBC <span></span>
-      Lloyds Banking Group <span></span>
-      Fidelity Investments <span></span>
-      UBS <span></span>
-      Royal Bank of Scotland <span></span>
-      HUMAIN <span></span>
-      NVIDIA <span></span>
-      DELL <span></span>
-      NDF <span></span>
-      Social Development Bank <span></span>
-      CBUAE <span></span>
-      AXA <span></span>
-      Assurant <span></span>
-      Big 4 Advisory <span></span>
-      EY <span></span>
-      Google <span></span>
-      AWS <span></span>
-      G42 <span></span>
-      Azure <span></span>
-    </span>
-    <span>
-      ME's Largest Exchange <span></span>
-      Capital Market Authority KSA <span></span>
-      First Abu Dhabi Bank <span></span>
-      Saudi Central Bank (SAMA) <span></span>
-      Emirates NBD <span></span>
-      HSBC <span></span>
-      Lloyds Banking Group <span></span>
-      Fidelity Investments <span></span>
-      UBS <span></span>
-      Royal Bank of Scotland <span></span>
-      HUMAIN <span></span>
-      NVIDIA <span></span>
-      DELL <span></span>
-      NDF <span></span>
-      Social Development Bank <span></span>
-      CBUAE <span></span>
-      AXA <span></span>
-      Assurant <span></span>
-      Big 4 Advisory <span></span>
-      EY <span></span>
-      Google <span></span>
-      AWS <span></span>
-      G42 <span></span>
-      Azure <span></span>
-    </span>
+<!-- =========== LOGO MARQUEE =========== -->
+<div class="logo-marquee">
+  <div class="logo-marquee-label">Trusted by leaders across FS, Defense &amp; Government</div>
+  <div class="logo-marquee-strip">
+    <div class="logo-marquee-track">
+      <span class="logo-item">HSBC</span>
+      <span class="logo-item">Emirates NBD</span>
+      <span class="logo-item">First Abu Dhabi Bank</span>
+      <span class="logo-item">Saudi Central Bank</span>
+      <span class="logo-item">HUMAIN</span>
+      <span class="logo-item">NVIDIA</span>
+      <span class="logo-item">AWS</span>
+      <span class="logo-item">UBS</span>
+      <span class="logo-item">Lloyds Banking Group</span>
+      <span class="logo-item">Fidelity Investments</span>
+      <span class="logo-item">Capital Market Authority KSA</span>
+      <span class="logo-item">DELL</span>
+      <span class="logo-item">EY</span>
+      <span class="logo-item">AXA</span>
+      <span class="logo-item">Royal Bank of Scotland</span>
+      <span class="logo-item">Google</span>
+      <span class="logo-item">Azure</span>
+      <span class="logo-item">G42</span>
+      <span class="logo-item">CBUAE</span>
+      <span class="logo-item">Assurant</span>
+      <span class="logo-item">NDF</span>
+      <span class="logo-item">Social Development Bank</span>
+      <!-- duplicate for seamless loop -->
+      <span class="logo-item">HSBC</span>
+      <span class="logo-item">Emirates NBD</span>
+      <span class="logo-item">First Abu Dhabi Bank</span>
+      <span class="logo-item">Saudi Central Bank</span>
+      <span class="logo-item">HUMAIN</span>
+      <span class="logo-item">NVIDIA</span>
+      <span class="logo-item">AWS</span>
+      <span class="logo-item">UBS</span>
+      <span class="logo-item">Lloyds Banking Group</span>
+      <span class="logo-item">Fidelity Investments</span>
+      <span class="logo-item">Capital Market Authority KSA</span>
+      <span class="logo-item">DELL</span>
+      <span class="logo-item">EY</span>
+      <span class="logo-item">AXA</span>
+      <span class="logo-item">Royal Bank of Scotland</span>
+      <span class="logo-item">Google</span>
+      <span class="logo-item">Azure</span>
+      <span class="logo-item">G42</span>
+      <span class="logo-item">CBUAE</span>
+      <span class="logo-item">Assurant</span>
+      <span class="logo-item">NDF</span>
+      <span class="logo-item">Social Development Bank</span>
+    </div>
   </div>
 </div>
 
@@ -2857,7 +2864,7 @@
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:48px;padding:32px;background:rgba(201,162,39,0.04);border:1px solid var(--border-gold);border-radius:var(--radius-lg)">
       <div style="text-align:center">
         <div style="font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;color:var(--gold-2);line-height:1;margin-bottom:6px">25<span style="font-size:0.6em">+</span></div>
-        <div style="font-size:11px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase">Years FS × AI</div>
+        <div style="font-size:11px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase">Years Industry × AI</div>
       </div>
       <div style="text-align:center">
         <div style="font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;color:var(--gold-2);line-height:1;margin-bottom:6px">$500M<span style="font-size:0.6em">+</span></div>
@@ -2947,7 +2954,7 @@
       </div></div>
     <div class="advisory-cta">
       <a href="#how" class="btn btn-ghost">See how we work together →</a>
-      <a href="#contact" class="btn btn-primary">Book a demo or consultation →</a>
+      <a href="#contact" class="btn btn-primary">Book a consultation →</a>
     </div>
   </div>
 </section>
@@ -3132,6 +3139,7 @@
           <div class="eco-node" data-ring="mid" data-id="azure" style="top:42%;left:88%"><div class="eco-node-pill node-blue">Azure</div></div>
           <div class="eco-node" data-ring="mid" data-id="cisco" style="top:72%;left:18%"><div class="eco-node-pill node-blue">Cisco</div></div>
           <div class="eco-node" data-ring="mid" data-id="dell" style="top:72%;left:82%"><div class="eco-node-pill node-blue">Dell</div></div>
+          <div class="eco-node" data-ring="mid" data-id="humain" style="top:82%;left:50%"><div class="eco-node-pill node-blue">HUMAIN</div></div>
 
           <!-- Outer: Industry domains -->
           <div class="eco-node" data-ring="outer" data-id="banking" style="top:3%;left:50%"><div class="eco-node-pill node-dim">Banking</div></div>
@@ -4428,7 +4436,7 @@
 
 <!-- Sticky mobile CTA -->
 <div class="sticky-cta">
-  <a href="#contact" class="btn btn-primary">Book a demo or consultation →</a>
+  <a href="#contact" class="btn btn-primary">Book a consultation →</a>
 </div>
 
 <!-- Back to top -->
@@ -4498,7 +4506,7 @@
         num:'03', title:'Architect', pills:['advisory','management'],
         desc:'Design agent blueprints and orchestration topology. Define agent tiers — from ad-hoc analysis through task-specific agents to fully autonomous operations. Tool integration, memory architecture and human-in-the-loop controls.',
         deliverables:['Agent blueprint &amp; orchestration design','Tool integration &amp; memory architecture','Human-in-the-loop control framework'],
-        lit:['strategy','execution','nvidia','aws','azure','dell']
+        lit:['strategy','execution','nvidia','aws','azure','dell','humain']
       },
       {
         num:'04', title:'Govern', pills:['advisory'],
@@ -4510,13 +4518,13 @@
         num:'05', title:'Deploy', pills:['management'],
         desc:'From prototype to production. Multi-agent orchestration, security-by-design with sandboxed runtimes, observability stack and continuous evaluation. Delivered through our engineering network in India, UAE and Saudi.',
         deliverables:['Multi-agent orchestration pipeline','Observability &amp; evaluation framework','Security-by-design runtime (sandboxed)'],
-        lit:['execution','nvidia','dell','aws','azure','cisco']
+        lit:['execution','nvidia','dell','aws','azure','cisco','humain']
       },
       {
         num:'06', title:'Scale', pills:['advisory','management'],
         desc:'Enterprise agentic capability. Agent hives operating autonomously across compliance, operations and client service. Shared infrastructure, cross-domain reuse and board-level reporting on agent ROI and risk posture.',
         deliverables:['Agent portfolio &amp; hive architecture','Cross-domain reuse &amp; shared infra','Board reporting — agent ROI &amp; risk'],
-        lit:['strategy','governance','execution','banking','capital','exchanges','sovereign','defense','regulators','insurance','payments','nvidia','aws','snowflake','azure','cisco','dell']
+        lit:['strategy','governance','execution','banking','capital','exchanges','sovereign','defense','regulators','insurance','payments','nvidia','aws','snowflake','azure','cisco','dell','humain']
       }
     ];
 
