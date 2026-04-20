@@ -464,70 +464,49 @@
     letter-spacing:0.14em;text-transform:uppercase;font-weight:700;
   }
 
-  /* ---------- CAROUSEL ---------- */
-  .carousel-container{position:relative;width:100%;height:100%}
-  .carousel-slide{
-    position:absolute;inset:0;opacity:0;transition:opacity 1s ease-in-out;
-    overflow:hidden;
+  /* ---------- SECTOR STRIP ---------- */
+  .sector-strip{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
+    margin-top:28px;background:var(--border);
+    border-radius:var(--radius-lg);overflow:hidden;
+    border:1px solid var(--border);
   }
-  .carousel-slide.active{opacity:1}
-  .carousel-slide-content{
-    position:absolute;inset:0;animation:kenBurns 5s ease-out forwards;
+  .sector-card{
+    background:var(--surface);padding:20px 16px;cursor:pointer;
+    transition:all 0.35s;position:relative;
   }
-  .carousel-slide.active .carousel-slide-content{animation:kenBurns 5s ease-out forwards}
-  @keyframes kenBurns{
-    from{transform:scale(1)}
-    to{transform:scale(1.08)}
+  .sector-card::after{
+    content:"";position:absolute;bottom:0;left:16px;right:16px;height:2px;
+    background:var(--gold);transform:scaleX(0);transition:transform 0.3s;
   }
-  .carousel-slide-image{
-    width:100%;height:100%;object-fit:cover;object-position:center center;
-    filter:saturate(1.05) contrast(1.02);
+  .sector-card:hover,
+  .sector-card.active{background:rgba(201,162,39,0.06)}
+  .sector-card:hover::after,
+  .sector-card.active::after{transform:scaleX(1)}
+  .sector-icon{
+    color:var(--gold-2);margin-bottom:10px;opacity:0.7;
+    transition:opacity 0.3s;
   }
-  .carousel-slide-gradient{
-    position:absolute;inset:0;
-    background:linear-gradient(90deg,transparent 40%,rgba(13,27,42,0.35) 100%);
+  .sector-card:hover .sector-icon{opacity:1}
+  .sector-title{
+    font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;
+    color:var(--white);letter-spacing:0.02em;line-height:1.3;
   }
-  .carousel-slide-text{
-    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    z-index:2;color:var(--white);text-align:center;padding:40px;
+  .sector-detail{
+    max-height:0;overflow:hidden;transition:max-height 0.4s ease,opacity 0.3s;
+    opacity:0;
   }
-  .carousel-slide-heading{
-    font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,5vw,56px);
-    font-weight:700;line-height:1.1;letter-spacing:-0.02em;margin-bottom:12px;
-    color:var(--white);text-shadow:0 2px 12px rgba(0,0,0,0.7);
+  .sector-card.active .sector-detail{max-height:120px;opacity:1;margin-top:10px}
+  .sector-detail p{
+    font-size:12px;color:var(--text-dim);line-height:1.5;margin:0;
   }
-  .carousel-slide-heading.gold-accent{
-    background:linear-gradient(135deg,var(--gold-2),#e8c94a,var(--gold),#f0d060);
-    background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    background-clip:text;animation:shimmer 6s ease infinite;
+  @media(max-width:768px){
+    .sector-strip{grid-template-columns:1fr 1fr;gap:1px}
+    .sector-card:last-child{grid-column:span 2}
   }
-  .carousel-slide-subtext{
-    font-size:clamp(14px,2vw,20px);color:rgba(255,255,255,0.8);
-    font-weight:400;letter-spacing:0.05em;text-shadow:0 1px 8px rgba(0,0,0,0.6);
-    max-width:600px;line-height:1.5;
-  }
-  .carousel-slide-label{
-    position:absolute;bottom:16px;left:18px;right:18px;z-index:3;
-  }
-  .carousel-slide-label .name{
-    font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;
-    color:var(--white);margin-bottom:2px;text-shadow:0 1px 6px rgba(0,0,0,0.6);
-  }
-  .carousel-slide-label .role{
-    font-size:10px;color:var(--gold-2);letter-spacing:0.16em;text-transform:uppercase;
-    text-shadow:0 1px 4px rgba(0,0,0,0.5);
-  }
-  .carousel-indicators{
-    position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
-    display:flex;gap:8px;z-index:4;
-  }
-  .carousel-dot{
-    width:8px;height:8px;border-radius:50%;background:rgba(201,162,39,0.4);
-    border:1px solid rgba(201,162,39,0.6);cursor:pointer;
-    transition:all 0.3s;
-  }
-  .carousel-dot.active{
-    background:var(--gold-2);border-color:var(--gold);box-shadow:0 0 8px rgba(201,162,39,0.5);
+  @media(max-width:480px){
+    .sector-strip{grid-template-columns:1fr}
+    .sector-card:last-child{grid-column:span 1}
   }
 
   /* ---------- MARQUEE ---------- */
@@ -2594,65 +2573,53 @@
           </div>
         </div>
       </div>
-        <div class="carousel-container">
-          <!-- Slide 1: Rodney Photo -->
-          <div class="carousel-slide active">
-            <div class="carousel-slide-content">
-              <img src="assets/rodney-hero-cropped.jpg" alt="Rodney Coutinho" class="carousel-slide-image" onerror="this.onerror=null;this.src='assets/rodney-hero.jpg';">
-              <div class="carousel-slide-gradient"></div>
-            </div>
-            <div class="hero-visual-badge"><span class="live-dot" style="display:inline-block;width:6px;height:6px;margin-right:6px;vertical-align:middle"></span>Parts 1 &amp; 2 live</div>
-            <div class="carousel-slide-label">
-              <div class="name">Rodney Coutinho</div>
-              <div class="role">Executive Advisor</div>
-            </div>
-          </div>
-
-          <!-- Slide 2: Financial Services -->
-          <div class="carousel-slide">
-            <div class="carousel-slide-content" style="background:linear-gradient(135deg,#0a1a2e 0%,#16213e 50%,#0f3460 100%);background-attachment:fixed"></div>
-            <div class="carousel-slide-text">
-              <div class="carousel-slide-heading gold-accent">Financial Services</div>
-              <div class="carousel-slide-subtext">Banking · Capital Markets · Regulators · Sovereign</div>
-            </div>
-          </div>
-
-          <!-- Slide 3: Defense & Government -->
-          <div class="carousel-slide">
-            <div class="carousel-slide-content" style="background:linear-gradient(135deg,#0d1f2d 0%,#1a3a52 50%,#2c3e50 100%);background-attachment:fixed"></div>
-            <div class="carousel-slide-text">
-              <div class="carousel-slide-heading gold-accent">Defense &amp; Government</div>
-              <div class="carousel-slide-subtext">Sovereign AI · National Data · Defense Intelligence</div>
-            </div>
-          </div>
-
-          <!-- Slide 4: Advisory & Strategy -->
-          <div class="carousel-slide">
-            <div class="carousel-slide-content" style="background:linear-gradient(135deg,#0b1828 0%,#1a2f42 50%,#14273d 100%);background-attachment:fixed;border-left:4px solid var(--gold)"></div>
-            <div class="carousel-slide-text">
-              <div class="carousel-slide-heading gold-accent">Advisory &amp; Strategy</div>
-              <div class="carousel-slide-subtext">Board-level AI strategy · Governance · Risk</div>
-            </div>
-          </div>
-
-          <!-- Slide 5: Delivery Accountability -->
-          <div class="carousel-slide">
-            <div class="carousel-slide-content" style="background:linear-gradient(135deg,#050a12 0%,#0d1a28 50%,#152535 100%);background-attachment:fixed"></div>
-            <div class="carousel-slide-text">
-              <div class="carousel-slide-heading gold-accent">Delivery Accountability</div>
-              <div class="carousel-slide-subtext">Strategy through production · Partner network · P&amp;L measurement</div>
-            </div>
-          </div>
-
-          <!-- Carousel Indicators -->
-          <div class="carousel-indicators">
-            <div class="carousel-dot active" data-slide="0"></div>
-            <div class="carousel-dot" data-slide="1"></div>
-            <div class="carousel-dot" data-slide="2"></div>
-            <div class="carousel-dot" data-slide="3"></div>
-            <div class="carousel-dot" data-slide="4"></div>
-          </div>
+      <div class="hero-visual">
+        <img src="assets/rodney-hero-cropped.jpg" alt="Rodney Coutinho — Executive Advisor on AI" onerror="this.onerror=null;this.src='assets/rodney-hero.jpg';">
+        <div class="hero-visual-badge"><span class="live-dot" style="display:inline-block;width:6px;height:6px;margin-right:6px;vertical-align:middle"></span>Parts 1 &amp; 2 live</div>
+        <div class="hero-visual-label">
+          <div class="name">Rodney Coutinho</div>
+          <div class="role">Executive Advisor</div>
         </div>
+      </div>
+    </div>
+
+    <!-- Sector strip — 5 expandable cards -->
+    <div class="sector-strip">
+      <div class="sector-card" data-sector="fs">
+        <div class="sector-icon"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg></div>
+        <div class="sector-title">Financial Services</div>
+        <div class="sector-detail">
+          <p>Banking, capital markets, regulators and sovereign wealth. AI strategy, governance and platform delivery for Tier-1 institutions across the GCC, UK and Europe.</p>
+        </div>
+      </div>
+      <div class="sector-card" data-sector="def">
+        <div class="sector-icon"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="sector-title">Defense &amp; Government</div>
+        <div class="sector-detail">
+          <p>Sovereign AI programmes, national data platforms, defense intelligence and government digitisation. Operating at the intersection of security, scale and regulation.</p>
+        </div>
+      </div>
+      <div class="sector-card" data-sector="adv">
+        <div class="sector-icon"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+        <div class="sector-title">Advisory &amp; Strategy</div>
+        <div class="sector-detail">
+          <p>Independent, vendor-neutral advice to boards and ExCos. AI scorecards, governance frameworks, operating model design and regulator-ready risk assessments.</p>
+        </div>
+      </div>
+      <div class="sector-card" data-sector="part">
+        <div class="sector-icon"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="sector-title">Partnerships</div>
+        <div class="sector-detail">
+          <p>Delivery through engineering and consulting partners in India, UAE and Saudi Arabia. The advisory principal stays; the partner network scales.</p>
+        </div>
+      </div>
+      <div class="sector-card" data-sector="del">
+        <div class="sector-icon"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <div class="sector-title">Full Accountability</div>
+        <div class="sector-detail">
+          <p>From boardroom strategy through production delivery. Measured in P&amp;L, not slideware. The advisor who stays until the numbers move.</p>
+        </div>
+      </div>
     </div>
     <!-- Hero hooks — inline with hero -->
     <div class="hero-hooks">
@@ -4622,60 +4589,17 @@
 
 })();
 
-/* ===== CAROUSEL ===== */
-(function(){
-    var carousel = document.querySelector('.carousel-container');
-    if(!carousel) return;
-
-    var slides = carousel.querySelectorAll('.carousel-slide');
-    var dots = carousel.querySelectorAll('.carousel-dot');
-    var currentSlide = 0;
-    var slideInterval;
-    var slideDuration = 5000; // 5 seconds
-
-    function showSlide(n){
-      // Remove active class from all slides and dots
-      slides.forEach(function(slide){ slide.classList.remove('active'); });
-      dots.forEach(function(dot){ dot.classList.remove('active'); });
-
-      // Add active class to current slide and dot
-      slides[n].classList.add('active');
-      dots[n].classList.add('active');
-    }
-
-    function nextSlide(){
-      currentSlide = (currentSlide + 1) % slides.length;
-      showSlide(currentSlide);
-    }
-
-    function startAutoPlay(){
-      slideInterval = setInterval(nextSlide, slideDuration);
-    }
-
-    function stopAutoPlay(){
-      if(slideInterval) clearInterval(slideInterval);
-    }
-
-    function resetAutoPlay(){
-      stopAutoPlay();
-      startAutoPlay();
-    }
-
-    // Add click handlers to dots
-    dots.forEach(function(dot, index){
-      dot.addEventListener('click', function(){
-        currentSlide = index;
-        showSlide(currentSlide);
-        resetAutoPlay();
+/* ===== SECTOR STRIP ===== */
+  (function(){
+    var cards = document.querySelectorAll('.sector-card');
+    if(!cards.length) return;
+    cards.forEach(function(card){
+      card.addEventListener('click',function(){
+        var wasActive = card.classList.contains('active');
+        cards.forEach(function(c){ c.classList.remove('active'); });
+        if(!wasActive) card.classList.add('active');
       });
     });
-
-    // Add pause on hover
-    carousel.addEventListener('mouseenter', stopAutoPlay);
-    carousel.addEventListener('mouseleave', startAutoPlay);
-
-    // Start autoplay
-    startAutoPlay();
   })();
 
 </script>
