@@ -464,15 +464,87 @@
     letter-spacing:0.14em;text-transform:uppercase;font-weight:700;
   }
 
+  /* Hero ecosystem map styles */
+  .hero-eco-map{
+    position:relative;width:100%;height:100%;
+  }
+  .hero-eco-ring{
+    position:absolute;border-radius:50%;
+    border:1px solid var(--border);
+  }
+  .hero-eco-ring-outer{
+    inset:5%;border-color:rgba(201,162,39,0.12);
+    background:radial-gradient(ellipse,transparent 60%,rgba(201,162,39,0.03) 100%);
+  }
+  .hero-eco-ring-mid{
+    inset:32%;border-color:rgba(40,116,166,0.25);
+    background:radial-gradient(ellipse,transparent 50%,rgba(40,116,166,0.04) 100%);
+  }
+  .hero-eco-ring-inner{
+    inset:42%;border-color:var(--border-gold);
+    background:radial-gradient(ellipse,rgba(201,162,39,0.08) 0%,rgba(201,162,39,0.02) 100%);
+  }
+  .hero-eco-center{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    text-align:center;z-index:2;
+  }
+  .hero-eco-center-brand{
+    font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;
+    color:var(--white);letter-spacing:0.04em;
+  }
+  .hero-eco-center-tagline{
+    font-size:9px;color:var(--gold-2);letter-spacing:0.12em;
+    text-transform:uppercase;margin-top:2px;
+  }
+  .hero-eco-node{
+    position:absolute;display:flex;align-items:center;justify-content:center;
+    z-index:2;
+  }
+  .hero-eco-node-pill{
+    font-family:'Space Grotesk',sans-serif;font-size:8px;font-weight:700;
+    padding:4px 8px;border-radius:6px;letter-spacing:0.08em;
+    text-transform:uppercase;white-space:nowrap;
+    border:1px solid;transition:all 0.3s;
+  }
+  .hero-eco-node-pill.node-gold{
+    color:var(--gold-2);border-color:var(--border-gold);
+    background:rgba(201,162,39,0.1);
+  }
+  .hero-eco-node-pill.node-blue{
+    color:#2874a6;border-color:rgba(40,116,166,0.4);
+    background:rgba(40,116,166,0.08);
+  }
+  .hero-eco-node-pill.node-dim{
+    color:var(--text-muted);border-color:var(--border);
+    background:rgba(100,100,100,0.05);
+  }
+  .hero-eco-node:hover .hero-eco-node-pill{
+    box-shadow:0 0 12px rgba(201,162,39,0.3);transform:scale(1.05);
+  }
+  @keyframes heroPulse{
+    0%,100%{box-shadow:0 0 8px rgba(201,162,39,0.2)}
+    50%{box-shadow:0 0 16px rgba(201,162,39,0.4)}
+  }
+  .hero-eco-node[data-ring="inner"] .hero-eco-node-pill{
+    animation:heroPulse 3s ease-in-out infinite;
+  }
+  .hero-eco-outer-ring{
+    animation:spin-slow 120s linear infinite;
+  }
+  @keyframes spin-slow{
+    from{transform:rotate(0deg)}
+    to{transform:rotate(360deg)}
+  }
+
   /* ---------- SECTOR STRIP ---------- */
   .sector-strip{
     display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
-    margin-top:28px;background:var(--border);
+    margin-top:16px;background:var(--border);
     border-radius:var(--radius-lg);overflow:hidden;
     border:1px solid var(--border);
   }
   .sector-card{
-    background:var(--surface);padding:20px 16px;cursor:pointer;
+    background:var(--surface);padding:14px 12px;cursor:pointer;
     transition:all 0.35s;position:relative;
   }
   .sector-card::after{
@@ -484,19 +556,19 @@
   .sector-card:hover::after,
   .sector-card.active::after{transform:scaleX(1)}
   .sector-icon{
-    color:var(--gold-2);margin-bottom:10px;opacity:0.7;
+    color:var(--gold-2);margin-bottom:6px;opacity:0.7;
     transition:opacity 0.3s;
   }
   .sector-card:hover .sector-icon{opacity:1}
   .sector-title{
-    font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;
+    font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;
     color:var(--white);letter-spacing:0.02em;line-height:1.3;
   }
   .sector-detail{
     max-height:0;overflow:hidden;transition:max-height 0.4s ease,opacity 0.3s;
     opacity:0;
   }
-  .sector-card.active .sector-detail{max-height:120px;opacity:1;margin-top:10px}
+  .sector-card.active .sector-detail{max-height:80px;opacity:1;margin-top:10px}
   .sector-detail p{
     font-size:12px;color:var(--text-dim);line-height:1.5;margin:0;
   }
@@ -2490,7 +2562,7 @@
         <button data-lang="ar">عربي</button>
       </div>
 
-      <a href="#contact" class="btn btn-primary">Book a consultation →</a>
+      <a href="#contact" class="btn btn-primary">Book a demo or consultation →</a>
 
       <button class="hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -2534,7 +2606,7 @@
     <a href="#faq">FAQ</a>
   </div>
   <div class="md-group" style="padding-top:12px;border-top:1px solid var(--border)">
-    <a href="#contact" class="btn btn-primary" style="text-align:center;justify-content:center;margin-top:8px">Book a consultation →</a>
+    <a href="#contact" class="btn btn-primary" style="text-align:center;justify-content:center;margin-top:8px">Book a demo or consultation →</a>
   </div>
 </div>
 
@@ -2574,7 +2646,39 @@
         </div>
       </div>
       <div class="hero-visual">
-        <img src="assets/rodney-hero-cropped.jpg" alt="Rodney Coutinho — Executive Advisor on AI" onerror="this.onerror=null;this.src='assets/rodney-hero.jpg';">
+        <div class="hero-eco-map">
+          <div class="hero-eco-ring hero-eco-ring-outer hero-eco-outer-ring"></div>
+          <div class="hero-eco-ring hero-eco-ring-mid"></div>
+          <div class="hero-eco-ring hero-eco-ring-inner"></div>
+
+          <div class="hero-eco-center">
+            <div class="hero-eco-center-brand">Meridian.AI</div>
+            <div class="hero-eco-center-tagline">Scale · Govern · Unlock</div>
+          </div>
+
+          <!-- Inner: Advisory practice -->
+          <div class="hero-eco-node" data-ring="inner" style="top:33%;left:50%;transform:translateX(-50%)"><div class="hero-eco-node-pill node-gold">Strategy</div></div>
+          <div class="hero-eco-node" data-ring="inner" style="top:58%;left:30%;transform:translateX(-50%)"><div class="hero-eco-node-pill node-gold">Governance</div></div>
+          <div class="hero-eco-node" data-ring="inner" style="top:58%;left:70%;transform:translateX(-50%)"><div class="hero-eco-node-pill node-gold">Execution</div></div>
+
+          <!-- Middle: Technology partners -->
+          <div class="hero-eco-node" data-ring="mid" style="top:18%;left:20%;transform:translate(-50%,-50%)"><div class="hero-eco-node-pill node-blue">NVIDIA</div></div>
+          <div class="hero-eco-node" data-ring="mid" style="top:18%;left:80%;transform:translate(-50%,-50%)"><div class="hero-eco-node-pill node-blue">AWS</div></div>
+          <div class="hero-eco-node" data-ring="mid" style="top:45%;left:8%;transform:translate(-50%,-50%)"><div class="hero-eco-node-pill node-blue">Snowflake</div></div>
+          <div class="hero-eco-node" data-ring="mid" style="top:45%;left:92%;transform:translate(-50%,-50%)"><div class="hero-eco-node-pill node-blue">Azure</div></div>
+          <div class="hero-eco-node" data-ring="mid" style="top:72%;left:20%;transform:translate(-50%,-50%)"><div class="hero-eco-node-pill node-blue">Cisco</div></div>
+          <div class="hero-eco-node" data-ring="mid" style="top:72%;left:80%;transform:translate(-50%,-50%)"><div class="hero-eco-node-pill node-blue">Dell</div></div>
+
+          <!-- Outer: Industry domains -->
+          <div class="hero-eco-node" data-ring="outer" style="top:5%;left:50%;transform:translateX(-50%)"><div class="hero-eco-node-pill node-dim">Banking</div></div>
+          <div class="hero-eco-node" data-ring="outer" style="top:12%;left:82%;transform:translate(-50%,-50%)"><div class="hero-eco-node-pill node-dim">Capital Markets</div></div>
+          <div class="hero-eco-node" data-ring="outer" style="top:35%;left:95%;transform:translate(-50%,-50%)"><div class="hero-eco-node-pill node-dim">Exchanges</div></div>
+          <div class="hero-eco-node" data-ring="outer" style="top:65%;left:96%;transform:translate(-50%,-50%)"><div class="hero-eco-node-pill node-dim">Sovereign Wealth</div></div>
+          <div class="hero-eco-node" data-ring="outer" style="top:85%;left:80%;transform:translate(-50%,-50%)"><div class="hero-eco-node-pill node-dim">Defense &amp; National AI</div></div>
+          <div class="hero-eco-node" data-ring="outer" style="top:90%;left:50%;transform:translateX(-50%)"><div class="hero-eco-node-pill node-dim">Regulators</div></div>
+          <div class="hero-eco-node" data-ring="outer" style="top:85%;left:20%;transform:translate(-50%,-50%)"><div class="hero-eco-node-pill node-dim">Insurance</div></div>
+          <div class="hero-eco-node" data-ring="outer" style="top:12%;left:18%;transform:translate(-50%,-50%)"><div class="hero-eco-node-pill node-dim">Payments</div></div>
+        </div>
         <div class="hero-visual-badge"><span class="live-dot" style="display:inline-block;width:6px;height:6px;margin-right:6px;vertical-align:middle"></span>Parts 1 &amp; 2 live</div>
         <div class="hero-visual-label">
           <div class="name">Rodney Coutinho</div>
@@ -2586,35 +2690,35 @@
     <!-- Sector strip — 5 expandable cards -->
     <div class="sector-strip">
       <div class="sector-card" data-sector="fs">
-        <div class="sector-icon"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg></div>
+        <div class="sector-icon"><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg></div>
         <div class="sector-title">Financial Services</div>
         <div class="sector-detail">
           <p>Banking, capital markets, regulators and sovereign wealth. AI strategy, governance and platform delivery for Tier-1 institutions across the GCC, UK and Europe.</p>
         </div>
       </div>
       <div class="sector-card" data-sector="def">
-        <div class="sector-icon"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="sector-icon"><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <div class="sector-title">Defense &amp; Government</div>
         <div class="sector-detail">
           <p>Sovereign AI programmes, national data platforms, defense intelligence and government digitisation. Operating at the intersection of security, scale and regulation.</p>
         </div>
       </div>
       <div class="sector-card" data-sector="adv">
-        <div class="sector-icon"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+        <div class="sector-icon"><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
         <div class="sector-title">Advisory &amp; Strategy</div>
         <div class="sector-detail">
           <p>Independent, vendor-neutral advice to boards and ExCos. AI scorecards, governance frameworks, operating model design and regulator-ready risk assessments.</p>
         </div>
       </div>
       <div class="sector-card" data-sector="part">
-        <div class="sector-icon"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="sector-icon"><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <div class="sector-title">Partnerships</div>
         <div class="sector-detail">
           <p>Delivery through engineering and consulting partners in India, UAE and Saudi Arabia. The advisory principal stays; the partner network scales.</p>
         </div>
       </div>
       <div class="sector-card" data-sector="del">
-        <div class="sector-icon"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <div class="sector-icon"><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
         <div class="sector-title">Full Accountability</div>
         <div class="sector-detail">
           <p>From boardroom strategy through production delivery. Measured in P&amp;L, not slideware. The advisor who stays until the numbers move.</p>
@@ -2844,7 +2948,7 @@
       </div></div>
     <div class="advisory-cta">
       <a href="#how" class="btn btn-ghost">See how we work together →</a>
-      <a href="#contact" class="btn btn-primary">Book a consultation →</a>
+      <a href="#contact" class="btn btn-primary">Book a demo or consultation →</a>
     </div>
   </div>
 </section>
@@ -3412,7 +3516,11 @@
             </div>
           </div>
         </div>
-        <div class="pillar-stack">
+        <div>
+          <div style="margin-bottom:24px;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border)">
+            <img src="assets/rodney-hero-cropped.jpg" alt="Rodney Coutinho" style="width:100%;display:block" onerror="this.onerror=null;this.src='assets/rodney-hero.jpg';">
+          </div>
+          <div class="pillar-stack">
           <div class="pillar">
             <div class="pillar-icon">01</div>
             <div>
@@ -3445,6 +3553,7 @@
                  for nation-scale AI and data infrastructure.</p>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>
@@ -4320,7 +4429,7 @@
 
 <!-- Sticky mobile CTA -->
 <div class="sticky-cta">
-  <a href="#contact" class="btn btn-primary">Book a consultation →</a>
+  <a href="#contact" class="btn btn-primary">Book a demo or consultation →</a>
 </div>
 
 <!-- Back to top -->
