@@ -424,6 +424,19 @@
   .stat-label{font-size:10px;color:var(--text-muted);
     letter-spacing:0.1em;text-transform:uppercase;line-height:1.3}
 
+  .hero-accel-link{
+    display:inline-flex;align-items:center;gap:7px;
+    font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;
+    color:var(--gold-2);letter-spacing:0.06em;
+    padding:6px 14px;margin-bottom:10px;
+    background:rgba(201,162,39,0.06);border:1px solid var(--border-gold);
+    border-radius:20px;text-decoration:none;
+    transition:all 0.3s;
+  }
+  .hero-accel-link:hover{background:rgba(201,162,39,0.12);color:var(--white)}
+  .hero-accel-arrow{font-size:13px;transition:transform 0.25s}
+  .hero-accel-link:hover .hero-accel-arrow{transform:translateX(3px)}
+
   .hero-visual{
     position:relative;aspect-ratio:13/6;
     border-radius:var(--radius-lg);
@@ -2517,7 +2530,7 @@
         <span class="nav-link">Services <span class="chevron">▼</span></span>
         <div class="nav-dropdown">
           <div class="dd-label">The Offering</div>
-          <a href="#services">All seven services</a>
+          <a href="#services">Strategy to Delivery</a>
           <a href="#hired-to-answer">Client questions we solve</a>
           <div class="dd-divider"></div>
           <div class="dd-label">Framework</div>
@@ -2592,7 +2605,7 @@
 <div class="mobile-drawer" id="mobileDrawer">
   <div class="md-group">
     <div class="md-group-label">Services</div>
-    <a href="#services">All seven services</a>
+    <a href="#services">Strategy to Delivery</a>
     <a href="#hired-to-answer">Client questions we solve</a>
     <a href="#sgu">Scale · Govern · Unlock</a>
   </div>
@@ -2662,6 +2675,11 @@
         </div>
       </div>
       <div class="hero-visual">
+        <a href="#accelerators" class="hero-accel-link">
+          <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          AI Accelerators — Free tools &amp; frameworks
+          <span class="hero-accel-arrow">→</span>
+        </a>
         <div class="hero-eco-map">
           <div class="hero-eco-ring hero-eco-ring-outer hero-eco-outer-ring"></div>
           <div class="hero-eco-ring hero-eco-ring-mid"></div>
