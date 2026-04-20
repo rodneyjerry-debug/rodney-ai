@@ -425,17 +425,11 @@
     letter-spacing:0.1em;text-transform:uppercase;line-height:1.3}
 
   .hero-accel-link{
-    display:inline-flex;align-items:center;gap:7px;
     font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;
     color:var(--gold-2);letter-spacing:0.06em;
-    padding:6px 14px;margin-bottom:10px;
-    background:rgba(201,162,39,0.06);border:1px solid var(--border-gold);
-    border-radius:20px;text-decoration:none;
-    transition:all 0.3s;
+    text-decoration:none;transition:color 0.25s;
   }
-  .hero-accel-link:hover{background:rgba(201,162,39,0.12);color:var(--white)}
-  .hero-accel-arrow{font-size:13px;transition:transform 0.25s}
-  .hero-accel-link:hover .hero-accel-arrow{transform:translateX(3px)}
+  .hero-accel-link:hover{color:var(--white)}
 
   .hero-visual{
     position:relative;aspect-ratio:13/6;
@@ -2763,17 +2757,10 @@
         </div>
       </div>
       <div class="hero-visual">
-        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px">
-          <a href="#ontology-first" class="hero-accel-link" style="background:rgba(201,162,39,0.1);border-color:var(--gold)">
-            <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8" stroke-dasharray="4 3"/><circle cx="12" cy="12" r="11" opacity="0.4"/></svg>
-            Ontology-First AI™ — Our approach
-            <span class="hero-accel-arrow">→</span>
-          </a>
-          <a href="#accelerators" class="hero-accel-link">
-            <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            AI Accelerators — Free tools &amp; frameworks
-            <span class="hero-accel-arrow">→</span>
-          </a>
+        <div style="display:flex;gap:16px;margin-bottom:6px;align-items:center">
+          <a href="#ontology-first" class="hero-accel-link">Ontology-First AI™ →</a>
+          <span style="color:var(--border);font-size:10px">|</span>
+          <a href="#accelerators" class="hero-accel-link">Free AI Tools →</a>
         </div>
         <div class="hero-eco-map">
           <div class="hero-eco-ring hero-eco-ring-outer hero-eco-outer-ring"></div>
