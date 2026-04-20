@@ -10,9 +10,9 @@
   gtag('js', new Date());
   gtag('config', 'G-QZ9C4MLQS8');
 </script>
-<title>Meridian.AI — Executive Advisor on AI · Banking, Capital Markets &amp; Sovereign Institutions</title>
-<meta name="description" content="Rodney Coutinho — Executive Advisor on AI. SCALE · GOVERN · UNLOCK. Helping banks, capital markets and sovereign institutions turn AI ambition into P&amp;L, ROE and market cap.">
-<meta property="og:title" content="Meridian.AI — Executive Advisor on AI">
+<title>Meridian.AI — AI Strategy · Governance · Delivery · Banking, Capital Markets &amp; Sovereign Institutions</title>
+<meta name="description" content="Rodney Coutinho — Independent AI Advisory. SCALE · GOVERN · UNLOCK. Helping banks, capital markets and sovereign institutions turn AI ambition into P&amp;L, ROE and market cap.">
+<meta property="og:title" content="Meridian.AI — AI Strategy · Governance · Delivery">
 <meta property="og:description" content="SCALE · GOVERN · UNLOCK. Helping banks, capital markets and sovereign institutions turn AI ambition into P&amp;L, ROE and market cap.">
 <meta property="og:image" content="assets/brand/03_linkedin_banner.png">
 <link rel="icon" type="image/png" href="assets/brand/04_avatar_square.png">
@@ -544,8 +544,9 @@
     border:1px solid var(--border);
   }
   .sector-card{
-    background:var(--surface);padding:14px 12px;cursor:pointer;
+    background:var(--surface);padding:10px 12px;cursor:pointer;
     transition:all 0.35s;position:relative;
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;
   }
   .sector-card::after{
     content:"";position:absolute;bottom:0;left:16px;right:16px;height:2px;
@@ -556,7 +557,7 @@
   .sector-card:hover::after,
   .sector-card.active::after{transform:scaleX(1)}
   .sector-icon{
-    color:var(--gold-2);margin-bottom:6px;opacity:0.7;
+    color:var(--gold-2);opacity:0.7;flex-shrink:0;margin-top:1px;
     transition:opacity 0.3s;
   }
   .sector-card:hover .sector-icon{opacity:1}
@@ -566,7 +567,7 @@
   }
   .sector-detail{
     max-height:0;overflow:hidden;transition:max-height 0.4s ease,opacity 0.3s;
-    opacity:0;
+    opacity:0;flex-basis:100%;
   }
   .sector-card.active .sector-detail{max-height:80px;opacity:1;margin-top:10px}
   .sector-detail p{
@@ -1506,37 +1507,174 @@
     content:"→";position:absolute;left:0;color:var(--gold);font-weight:700;font-size:11px;
   }
 
-  /* ---------- ENGAGEMENT MODEL ---------- */
-  .journey-track{
-    display:grid;grid-template-columns:repeat(6,1fr);gap:0;
-    position:relative;margin-top:16px;
+  /* ---------- ENGAGEMENT MODEL — UNIFIED AGENTIC JOURNEY + ECOSYSTEM ---------- */
+
+  .engagement-legend{
+    display:flex;justify-content:center;gap:32px;margin-bottom:32px;
+    padding:18px 22px;background:rgba(201,162,39,0.05);
+    border:1px solid var(--border-gold);border-radius:var(--radius);flex-wrap:wrap;
   }
-  .journey-track::before{
-    content:"";position:absolute;top:38px;left:40px;right:40px;height:2px;
-    background:linear-gradient(90deg,var(--gold),var(--border-gold),var(--gold));
-    z-index:0;
+  .legend-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-dim)}
+  .legend-item strong{color:var(--white);font-weight:700}
+  .legend-swatch{width:14px;height:14px;border-radius:4px;border:1px solid var(--border-strong)}
+  .swatch-advisory{background:rgba(40,116,166,0.35);border-color:rgba(40,116,166,0.7)}
+  .swatch-management{background:rgba(201,162,39,0.35);border-color:var(--gold)}
+  .je-pill{
+    font-family:'Space Grotesk',sans-serif;font-size:9.5px;font-weight:700;
+    letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
   }
-  .journey-step{
-    display:flex;flex-direction:column;align-items:center;text-align:center;
-    position:relative;z-index:1;padding:0 8px;
+  .je-advisory{background:rgba(40,116,166,0.18);color:#8fc5f0;border:1px solid rgba(40,116,166,0.6)}
+  .je-management{background:rgba(201,162,39,0.14);color:var(--gold-2);border:1px solid var(--border-gold)}
+
+  /* Stage selector tabs */
+  .stage-tabs{
+    display:flex;gap:4px;margin-bottom:36px;
+    overflow-x:auto;scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
   }
-  .journey-num{
-    width:76px;height:76px;border-radius:50%;
-    background:var(--surface);border:2px solid var(--border-gold);
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:22px;
-    color:var(--gold-2);margin-bottom:18px;
-    transition:all 0.3s;
+  .stage-tabs::-webkit-scrollbar{display:none}
+  .stage-tab{
+    flex:1;min-width:0;padding:16px 12px;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius);cursor:pointer;
+    text-align:center;transition:all 0.3s;position:relative;overflow:hidden;
   }
-  .journey-step:hover .journey-num{
-    background:rgba(201,162,39,0.15);border-color:var(--gold);
-    box-shadow:0 0 28px -4px rgba(201,162,39,0.4);transform:scale(1.08);
+  .stage-tab::before{
+    content:"";position:absolute;bottom:0;left:0;right:0;height:3px;
+    background:var(--gradient-gold);transform:scaleX(0);
+    transform-origin:center;transition:transform 0.35s;
   }
-  .journey-step h4{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:14px;font-weight:700;color:var(--white);margin-bottom:8px;
+  .stage-tab:hover{border-color:var(--border-gold);background:rgba(17,34,54,0.9)}
+  .stage-tab.active{border-color:var(--gold);background:rgba(201,162,39,0.06)}
+  .stage-tab.active::before{transform:scaleX(1)}
+  .stage-tab-num{
+    font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;
+    color:var(--text-muted);letter-spacing:0.1em;display:block;margin-bottom:4px;
+    transition:color 0.3s;
   }
-  .journey-step p{font-size:12px;color:var(--text-dim);line-height:1.45;max-width:160px}
+  .stage-tab.active .stage-tab-num{color:var(--gold)}
+  .stage-tab-name{
+    font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;
+    color:var(--text-dim);letter-spacing:-0.01em;transition:color 0.3s;
+  }
+  .stage-tab.active .stage-tab-name{color:var(--white)}
+
+  /* Main layout: ecosystem map + detail panel */
+  .journey-eco-layout{
+    display:grid;grid-template-columns:1fr 400px;gap:48px;align-items:start;
+    min-height:580px;
+  }
+
+  /* Ecosystem map */
+  .ecosystem-map{
+    position:relative;width:100%;aspect-ratio:1/1;max-width:600px;
+    margin:0 auto;
+  }
+  .eco-ring{
+    position:absolute;border-radius:50%;
+    border:1px solid var(--border);
+    transition:all 0.5s;
+  }
+  .eco-ring-outer{
+    inset:0;border-color:rgba(201,162,39,0.12);
+    background:radial-gradient(circle,transparent 60%,rgba(201,162,39,0.03) 100%);
+  }
+  .eco-ring-mid{
+    inset:18%;border-color:rgba(40,116,166,0.25);
+    background:radial-gradient(circle,transparent 50%,rgba(40,116,166,0.04) 100%);
+  }
+  .eco-ring-inner{
+    inset:38%;border-color:var(--border-gold);
+    background:radial-gradient(circle,rgba(201,162,39,0.08) 0%,rgba(201,162,39,0.02) 100%);
+  }
+  .eco-center{
+    position:absolute;inset:43%;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;z-index:5;
+  }
+  .eco-center-brand{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;
+    color:var(--gold);line-height:1.2;
+  }
+  .eco-center-tagline{font-size:9px;color:var(--text-muted);letter-spacing:0.12em;text-transform:uppercase;margin-top:3px}
+
+  /* Ecosystem nodes */
+  .eco-node{
+    position:absolute;z-index:4;
+    transform:translate(-50%,-50%);
+    transition:all 0.45s;
+  }
+  .eco-node-pill{
+    padding:7px 14px;border-radius:10px;
+    font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;
+    white-space:nowrap;
+    border:1px solid var(--border);background:var(--surface);
+    color:var(--text-muted);transition:all 0.4s;cursor:default;
+  }
+  .eco-node-pill.node-gold{border-color:var(--border-gold);color:var(--gold-2)}
+  .eco-node-pill.node-blue{border-color:rgba(40,116,166,0.4);color:rgba(143,197,240,0.7)}
+  .eco-node-pill.node-dim{color:var(--text-muted);font-size:10px;padding:5px 11px;opacity:0.7}
+
+  /* Highlighted state for active-stage nodes */
+  .eco-node.lit .eco-node-pill{
+    border-color:var(--gold);color:var(--white);
+    box-shadow:0 0 22px -4px rgba(201,162,39,0.4);
+    background:rgba(201,162,39,0.08);
+  }
+  .eco-node.lit .eco-node-pill.node-blue{
+    border-color:#4db8db;color:#fff;
+    box-shadow:0 0 22px -4px rgba(34,211,238,0.35);
+    background:rgba(34,211,238,0.08);
+  }
+  .eco-node.lit .eco-node-pill.node-dim{
+    opacity:1;border-color:rgba(201,162,39,0.5);color:var(--text-dim);
+    box-shadow:0 0 16px -4px rgba(201,162,39,0.2);
+    background:rgba(201,162,39,0.04);
+  }
+
+  /* Ring labels */
+  .eco-ring-label{
+    position:absolute;z-index:3;
+    font-size:8px;color:var(--text-muted);letter-spacing:0.18em;
+    text-transform:uppercase;font-weight:700;
+    background:var(--bg);padding:2px 8px;
+  }
+
+  /* Stage detail panel (right side) */
+  .stage-detail{
+    padding:36px 32px;
+    background:linear-gradient(180deg,rgba(15,29,45,0.7),rgba(8,17,28,0.9));
+    border:1px solid var(--border);border-radius:var(--radius-lg);
+    position:relative;overflow:hidden;
+    transition:border-color 0.3s;
+  }
+  .stage-detail::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:var(--gradient-gold);
+  }
+  .sd-num{
+    font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:56px;
+    color:rgba(201,162,39,0.07);line-height:1;position:absolute;top:16px;right:24px;
+  }
+  .sd-pills{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+  .sd-title{
+    font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;
+    color:var(--white);margin-bottom:12px;letter-spacing:-0.02em;
+  }
+  .sd-desc{font-size:14.5px;color:var(--text-dim);line-height:1.65;margin-bottom:22px}
+  .sd-deliverables{border-top:1px solid var(--border);padding-top:16px}
+  .sd-deliverables-label{
+    font-size:10px;color:var(--text-muted);letter-spacing:0.12em;
+    text-transform:uppercase;font-weight:700;margin-bottom:10px;
+  }
+  .sd-deliverables span{
+    display:block;font-size:13px;color:var(--soft);padding:4px 0 4px 20px;position:relative;
+  }
+  .sd-deliverables span::before{content:"→";position:absolute;left:0;color:var(--gold);font-weight:700}
+
+  /* Delivery hubs strip */
+  .delivery-hubs-strip{margin-top:40px}
+
   .journey-note{
     text-align:center;margin-top:48px;padding:24px 32px;
     background:rgba(201,162,39,0.06);border:1px solid var(--border-gold);
@@ -1544,37 +1682,6 @@
     max-width:800px;margin-left:auto;margin-right:auto;
   }
   .journey-note strong{color:var(--gold-2);font-weight:700}
-
-  /* ---------- ENGAGEMENT LEGEND + JOURNEY OVERLAY ---------- */
-  .engagement-legend{
-    display:flex;justify-content:center;gap:32px;margin-bottom:40px;
-    padding:18px 22px;background:rgba(201,162,39,0.05);
-    border:1px solid var(--border-gold);border-radius:var(--radius);
-    flex-wrap:wrap;
-  }
-  .legend-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-dim)}
-  .legend-item strong{color:var(--white);font-weight:700}
-  .legend-swatch{width:14px;height:14px;border-radius:4px;border:1px solid var(--border-strong)}
-  .swatch-advisory{background:rgba(40,116,166,0.35);border-color:rgba(40,116,166,0.7)}
-  .swatch-management{background:rgba(201,162,39,0.35);border-color:var(--gold)}
-
-  .journey-track-overlay .journey-step{padding-top:0}
-  .journey-engage{
-    display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;justify-content:center;min-height:22px;
-  }
-  .je-pill{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:9.5px;font-weight:700;letter-spacing:0.1em;
-    text-transform:uppercase;padding:3px 9px;border-radius:4px;
-  }
-  .je-advisory{
-    background:rgba(40,116,166,0.18);color:#8fc5f0;
-    border:1px solid rgba(40,116,166,0.6);
-  }
-  .je-management{
-    background:rgba(201,162,39,0.14);color:var(--gold-2);
-    border:1px solid var(--border-gold);
-  }
 
   /* ---------- ENGAGEMENT MODELS ---------- */
   .engage-grid{
@@ -2130,8 +2237,12 @@
     .footer-grid{grid-template-columns:1fr 1fr;gap:36px}
     .contact-cards{grid-template-columns:1fr}
     .impact-stats{grid-template-columns:repeat(2,1fr);gap:20px}
-    .journey-track{grid-template-columns:repeat(3,1fr);gap:28px}
-    .journey-track::before{display:none}
+    .journey-eco-layout{grid-template-columns:1fr;gap:32px}
+    .ecosystem-map{max-width:500px}
+    .eco-node-pill{font-size:9.5px;padding:6px 12px}
+    .eco-node-pill.node-dim{font-size:9px;padding:5px 10px}
+    .stage-tab{min-width:90px;flex:0 0 auto;padding:12px 10px}
+    .stage-tab-name{font-size:12px}
     .testimonial-grid{grid-template-columns:1fr}
     .stat{padding:0 0 20px}
     .stat:not(:last-child)::after{display:none}
@@ -2159,8 +2270,14 @@
     .persona-grid,.engage-grid,.engage-grid-2col,.faq-grid,.why-grid,.commercials-grid,.outcomes-grid,.conversion-grid,.why-evidence-grid,.resources-grid,.kpi-grid{grid-template-columns:1fr}
     .testimonial-grid{grid-template-columns:1fr}
     .c-detail-row{grid-template-columns:1fr;gap:2px}
-    .journey-track{grid-template-columns:repeat(2,1fr);gap:24px}
     .partner-logos{grid-template-columns:1fr}
+    .ecosystem-map{max-width:100%;min-height:360px}
+    .eco-node-pill{font-size:8.5px;padding:5px 9px}
+    .eco-node-pill.node-dim{font-size:8px;padding:4px 8px}
+    .stage-tab{min-width:80px;padding:10px 8px}
+    .stage-tab-num{font-size:10px}
+    .stage-tab-name{font-size:11px}
+    .sd-title{font-size:20px}
     .series-grid{grid-template-columns:1fr}
     .prize-panel{padding:36px 28px}
     .feature-article{padding:80px 0}
@@ -2185,6 +2302,21 @@
   .reveal-delay-2{transition-delay:0.24s}
   .reveal-delay-3{transition-delay:0.36s}
   .reveal-delay-4{transition-delay:0.48s}
+
+  @keyframes ecoFloat{
+    0%,100%{transform:translate(-50%,-50%) translateY(0)}
+    50%{transform:translate(-50%,-50%) translateY(calc(var(--float-dist, 6px) * -1))}
+  }
+
+  /* Delivery hubs strip responsive */
+  .delivery-hubs-strip .delivery-hub .dh-region{font-size:14px}
+  .delivery-hubs-strip .delivery-hub .dh-detail{font-size:12px}
+  @media (max-width:1100px){
+    .delivery-hubs-strip{grid-template-columns:repeat(2,1fr) !important}
+  }
+  @media (max-width:720px){
+    .delivery-hubs-strip{grid-template-columns:1fr !important}
+  }
 
   /* ========== ANIMATED GRADIENT TEXT ON KEY HEADINGS ========== */
   .gradient-text{
@@ -2341,14 +2473,13 @@
 <!-- =========== BOTTOM SECTION BAR =========== -->
 <nav class="section-bar" id="sectionBar" aria-label="Section navigation">
   <a href="#top" data-section="top">Home</a>
-  <a href="#services" data-section="services">Services</a>
-  <a href="#about" data-section="about">About</a>
   <a href="#why" data-section="why">Why Us</a>
+  <a href="#services" data-section="services">Services</a>
+  <a href="#how" data-section="how">Engagement</a>
+  <a href="#case-studies" data-section="case-studies">Evidence</a>
+  <a href="#about" data-section="about">About</a>
   <a href="#scoreboard" data-section="scoreboard">Scoreboard</a>
-  <a href="#how" data-section="how">Engagement Model</a>
-  <a href="#outcomes" data-section="outcomes">Evidence</a>
-  <a href="#case-studies" data-section="case-studies">Case Studies</a>
-  <a href="#resources" data-section="resources">Resources</a>
+  <a href="#thought-leadership" data-section="thought-leadership">Research</a>
   <a href="#start" data-section="start">Get Started</a>
 </nav>
 
@@ -2361,7 +2492,7 @@
       </div>
       <div class="logo-text">
         <span class="wordmark">MERIDIAN<span class="dot">.AI</span></span>
-        <span class="tag">Executive Advisor</span>
+        <span class="tag">AI Strategy · Governance · Delivery</span>
       </div>
     </a>
     <div class="nav-links">
@@ -2386,7 +2517,6 @@
           <a href="#how">AI@scale Journey</a>
           <a href="#engagement-types">Advisory vs Management</a>
           <a href="#commercials">Commercial Model</a>
-          <a href="#delivery-network">Delivery Network &amp; Partners</a>
         </div>
       </div>
 
@@ -2394,14 +2524,12 @@
       <div class="nav-group">
         <span class="nav-link">Why Us <span class="chevron">▼</span></span>
         <div class="nav-dropdown">
-          <a href="#why">The Meridian.AI Edge</a>
-          <a href="#why">Target KPIs We Move</a>
-          <div class="dd-divider"></div>
-          <div class="dd-label">The Evidence</div>
-          <a href="#outcomes">Client Outcomes</a>
-          <a href="#case-studies">Case Studies &amp; Testimonials</a>
+          <a href="#why">Four Pillars</a>
+          <a href="#case-studies">The Evidence</a>
+          <a href="#about">About Meridian.AI</a>
           <div class="dd-divider"></div>
           <div class="dd-label">Resources</div>
+          <a href="#accelerators">Accelerators</a>
           <a href="#resources">Free Frameworks &amp; Tools</a>
         </div>
       </div>
@@ -2410,15 +2538,10 @@
       <div class="nav-group">
         <span class="nav-link">Research <span class="chevron">▼</span></span>
         <div class="nav-dropdown">
-          <div class="dd-label">Scoreboard Series</div>
-          <a href="#scoreboard">A Trillion-Dollar Opportunity</a>
-          <a href="#series-roadmap">All five parts</a>
-          <div class="dd-divider"></div>
-          <div class="dd-label">Market Evidence</div>
+          <a href="#scoreboard">AI Scoreboard — Trillion-Dollar Opportunity</a>
           <a href="#benchmarks">Peer Benchmarks</a>
           <a href="#regulatory">Regulatory Landscape</a>
           <a href="#thought-leadership">Thought Leadership</a>
-          <a href="#ai-news">AI News Feed</a>
         </div>
       </div>
 
@@ -2426,12 +2549,9 @@
       <div class="nav-group">
         <span class="nav-link">More <span class="chevron">▼</span></span>
         <div class="nav-dropdown">
-          <a href="#about">About Us</a>
-          <a href="#case-studies">Case Studies</a>
-          <a href="#outcomes">Client Outcomes</a>
+          <a href="#about">About Meridian.AI</a>
           <a href="#accelerators">Accelerators</a>
           <a href="#resources">Free Resources</a>
-          <a href="#video">On Stage</a>
           <div class="dd-divider"></div>
           <a href="#faq">FAQ</a>
           <a href="#contact">Contact</a>
@@ -2466,31 +2586,24 @@
     <a href="#how">AI@scale Journey</a>
     <a href="#engagement-types">Advisory vs Management</a>
     <a href="#commercials">Commercial Model</a>
-    <a href="#delivery-network">Delivery Network</a>
   </div>
   <div class="md-group">
     <div class="md-group-label">Why Us</div>
-    <a href="#why">The Meridian.AI Edge</a>
-    <a href="#outcomes">Client Outcomes</a>
-    <a href="#case-studies">Case Studies &amp; Testimonials</a>
+    <a href="#why">Four Pillars</a>
+    <a href="#case-studies">The Evidence</a>
+    <a href="#about">About Meridian.AI</a>
   </div>
   <div class="md-group">
     <div class="md-group-label">Research</div>
-    <a href="#scoreboard">A Trillion-Dollar Opportunity</a>
-    <a href="#series-roadmap">Scoreboard Series (5 parts)</a>
+    <a href="#scoreboard">AI Scoreboard</a>
     <a href="#benchmarks">Peer Benchmarks</a>
     <a href="#regulatory">Regulatory Landscape</a>
     <a href="#thought-leadership">Thought Leadership</a>
-    <a href="#ai-news">AI News Feed</a>
   </div>
   <div class="md-group">
     <div class="md-group-label">More</div>
-    <a href="#about">About Us</a>
-    <a href="#case-studies">Case Studies</a>
-    <a href="#outcomes">Client Outcomes</a>
     <a href="#accelerators">Accelerators</a>
     <a href="#resources">Free Resources</a>
-    <a href="#video">On Stage</a>
     <a href="#faq">FAQ</a>
   </div>
   <div class="md-group" style="padding-top:12px;border-top:1px solid var(--border)">
@@ -2503,11 +2616,11 @@
 <!-- =========== HERO =========== -->
 <section class="hero">
   <div class="container">
-    <h1 class="hero-title en-only">The boardroom voice <span class="thin">turning</span> <span class="gold">AI ambition</span> into ROE and market cap.</h1>
+    <h1 class="hero-title en-only">From <span class="gold">AI ambition</span> to P&amp;L — <span class="thin">strategy through delivery.</span></h1>
     <h1 class="hero-title ar-only" lang="ar" style="font-size:clamp(32px,4.5vw,56px);line-height:1.35;font-family:'Noto Sans Arabic',sans-serif">صوت مجلس الإدارة الذي يحوّل <span class="gold">طموح الذكاء الاصطناعي</span> إلى أرباح وعوائد وقيمة سوقية</h1>
     <div class="hero-grid">
       <div class="hero-copy">
-        <p class="hero-sub en-only">82% of AI initiatives in financial services fail to deliver value. Fewer than one in ten banks have a single GenAI use case in production. The gap isn't technology — it's strategy, governance and execution. Meridian.AI closes that gap for banks, regulators and sovereign institutions across the Middle East, UK and Europe.</p>
+        <p class="hero-sub en-only">82% of AI initiatives in financial services fail to deliver value. The gap isn't technology — it's strategy, governance and execution. Meridian.AI is the independent AI advisory that stays from boardroom strategy through production delivery — bridging the C-suite and the platform team, measuring everything in P&amp;L, and taking full accountability through our partner network. Banks, regulators, sovereign wealth funds, defense agencies and government institutions across the Middle East, UK and Europe.</p>
         <p class="hero-sub ar-only" lang="ar" style="font-family:'Noto Sans Arabic',sans-serif;font-size:17px;line-height:1.8">رودني كوتينيو يقدم الاستشارات لمجالس إدارة البنوك والبنية التحتية لأسواق المال والجهات التنظيمية والمؤسسات السيادية حول استراتيجية الذكاء الاصطناعي والحوكمة والمخاطر والتنفيذ — في الشرق الأوسط والمملكة المتحدة وأوروبا. أكثر من 25 عامًا من الخبرة عند تقاطع الأعمال والتكنولوجيا والامتثال.</p>
         <div class="sgu-inline">
           <span>SCALE</span><em>·</em>
@@ -2567,11 +2680,6 @@
           <div class="hero-eco-node" data-ring="outer" style="top:85%;left:20%;transform:translate(-50%,-50%)"><div class="hero-eco-node-pill node-dim">Insurance</div></div>
           <div class="hero-eco-node" data-ring="outer" style="top:12%;left:18%;transform:translate(-50%,-50%)"><div class="hero-eco-node-pill node-dim">Payments</div></div>
         </div>
-        <div class="hero-visual-badge"><span class="live-dot" style="display:inline-block;width:6px;height:6px;margin-right:6px;vertical-align:middle"></span>Parts 1 &amp; 2 live</div>
-        <div class="hero-visual-label">
-          <div class="name">Rodney Coutinho</div>
-          <div class="role">Executive Advisor</div>
-        </div>
       </div>
     </div>
 
@@ -2613,7 +2721,6 @@
         </div>
       </div>
     </div>
-
     <!-- Hero hooks — inline with hero -->
     <div class="hero-hooks">
       <a href="#scoreboard" class="hero-hook">
@@ -2710,117 +2817,56 @@
   </div>
 </div>
 
-<!-- =========== HIRED TO ANSWER — CLIENT QUESTIONS =========== -->
-<section id="hired-to-answer" class="hired">
+<!-- =========== WHY MERIDIAN.AI — 4 PILLARS =========== -->
+<section id="why">
   <div class="container">
-    <div class="section-head">
-      <div class="section-label">Hired to Answer</div>
-      <h2 class="section-title">The questions <span class="gold">bank boards, regulators</span> and sovereign institutions <span class="thin">hire us to solve.</span></h2>
-      <p class="section-intro">
-        Every engagement starts with a real question — usually one that's been sitting on a CEO's
-        whiteboard for weeks. Here are the ones we hear most often.
+    <div class="section-head" style="text-align:center">
+      <div class="section-label">Why Meridian.AI</div>
+      <h2 class="section-title" style="margin:0 auto 22px;text-align:center">Four reasons institutions <span class="gold">choose us</span> over the incumbent <span class="thin">alternatives.</span></h2>
+      <p class="section-intro" style="margin:0 auto;text-align:center">
+        Senior advisory. Full delivery accountability. P&amp;L measurement. No handoffs.
       </p>
     </div>
-    <div class="question-grid">
-      <div class="question-card">
-        <div class="q-num">Q · 01</div>
-        <h3>Who can we trust with our AI agenda?</h3>
-        <p>Vendors are loud. Consultants overpromise. Internal teams want budget. You need an
-           independent voice with no product to sell and a track record at institution scale.</p>
-        <span class="q-pill">Trust &amp; Independence</span>
+    <div class="engage-grid" style="grid-template-columns:repeat(4,1fr);margin-top:48px">
+      <div class="engage-card" style="border-top:3px solid var(--gold)">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:800;color:var(--gold);line-height:1;margin-bottom:18px">01</div>
+        <h3>Independent &amp; vendor-neutral</h3>
+        <p>No products to sell. No leverage model. The senior principal who has sat with boards, regulators and 200-engineer platform teams does the work — directly. You get unbiased architecture decisions and honest vendor evaluations, not a pitch for the next phase.</p>
       </div>
-      <div class="question-card">
-        <div class="q-num">Q · 02</div>
-        <h3>What technology and architecture will be optimal for us?</h3>
-        <p>NVIDIA or open-source GPUs? Snowflake, Databricks or lakehouse on cloud? Azure OpenAI,
-           Anthropic or sovereign LLMs? The right answer depends on your data, your regulator and your P&amp;L.</p>
-        <span class="q-pill">Tech &amp; Architecture</span>
+      <div class="engage-card" style="border-top:3px solid var(--gold)">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:800;color:var(--gold);line-height:1;margin-bottom:18px">02</div>
+        <h3>Bilingual — boardroom &amp; platform</h3>
+        <p>Fluent in ROE, cost/income and Basel IV with the CFO at 9am. Reviewing agent orchestration, tensor parallelism and MLOps with the engineering team at 2pm. That range — business and technology in one voice — is genuinely rare.</p>
       </div>
-      <div class="question-card">
-        <div class="q-num">Q · 03</div>
-        <h3>Where will the AI value actually come from?</h3>
-        <p>Cost reduction, revenue growth, capital efficiency, ROE? Your board needs the value
-           translated into numbers an equity analyst can defend — not slideware.</p>
-        <span class="q-pill">Value &amp; ROI</span>
+      <div class="engage-card" style="border-top:3px solid var(--gold)">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:800;color:var(--gold);line-height:1;margin-bottom:18px">03</div>
+        <h3>Everything measured in P&amp;L</h3>
+        <p>Every engagement is tied to a deliverable the board can act on — an approved AI scoreboard, a regulator-signed-off governance framework, a platform in production. We report in ROE, cost/income and market cap. Never slideware. Never billable days.</p>
       </div>
-      <div class="question-card">
-        <div class="q-num">Q · 04</div>
-        <h3>How do we govern AI without slowing it down?</h3>
-        <p>SR 11-7, SS1/23, NIST AI RMF, EU AI Act, NDMO. Governance designed in from day one
-           lets the board move fast — without becoming a supervisory incident.</p>
-        <span class="q-pill">Governance &amp; Risk</span>
-      </div>
-      <div class="question-card">
-        <div class="q-num">Q · 05</div>
-        <h3>How do we scale from 3 pilots to 30 in production?</h3>
-        <p>Most banks have 40+ AI use cases in PowerPoint and three running. The bottleneck is
-           operating model — platform, MLOps, talent, vendor architecture — not ideas.</p>
-        <span class="q-pill">Scale &amp; Operating Model</span>
-      </div>
-      <div class="question-card">
-        <div class="q-num">Q · 06</div>
-        <h3>How do we explain AI to our board and our regulator?</h3>
-        <p>Two different audiences. Two different vocabularies. One coherent story that holds up
-           in the boardroom and at the supervisor's office on the same week.</p>
-        <span class="q-pill">Board &amp; Regulator Story</span>
+      <div class="engage-card" style="border-top:3px solid var(--gold)">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:800;color:var(--gold);line-height:1;margin-bottom:18px">04</div>
+        <h3>Full delivery accountability</h3>
+        <p>Most advisors hand off after the strategy slide. We take ownership from strategy through production — delivering through our engineering and consulting partners in India, UAE and Saudi. The advisor who stays until the numbers move, with the delivery muscle to make them move.</p>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- =========== SCALE / GOVERN / UNLOCK =========== -->
-<section id="sgu" class="sgu">
-  <div class="container">
-    <div class="sgu-head">
-      <div class="section-label">The Three-Word Promise</div>
-      <h2>SCALE <span style="color:var(--text-muted);font-weight:300">·</span>
-          GOVERN <span style="color:var(--text-muted);font-weight:300">·</span>
-          <span style="color:var(--gold-2)">UNLOCK</span></h2>
-      <p>The framework that sits inside every Meridian.AI engagement. Three disciplines that
-         move an institution from AI pilots to a P&amp;L-grade operating model.</p>
-    </div>
-    <div class="sgu-grid">
-      <div class="sgu-card">
-        <div class="sgu-num">DISCIPLINE · 01</div>
-        <div class="sgu-word">SCALE</div>
-        <h3>From pilots to production at institution scale.</h3>
-        <p>Most banks have 40+ AI use cases in PowerPoint and three in production.
-           I build the operating model — platform, MLOps, data products, talent —
-           that takes the top ten from idea to ten-digit impact.</p>
-        <ul class="sgu-list">
-          <li>Enterprise AI/GenAI platforms on NVIDIA, Snowflake, AWS &amp; Azure</li>
-          <li>MLOps, feature stores, agentic architectures, model factories</li>
-          <li>Centre of Excellence, hub-and-spoke, product org design</li>
-          <li>Vendor architecture: Anthropic, OpenAI, NVIDIA Nemotron, Cohere</li>
-        </ul>
+    <!-- Impact stats strip -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:48px;padding:32px;background:rgba(201,162,39,0.04);border:1px solid var(--border-gold);border-radius:var(--radius-lg)">
+      <div style="text-align:center">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;color:var(--gold-2);line-height:1;margin-bottom:6px">25<span style="font-size:0.6em">+</span></div>
+        <div style="font-size:11px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase">Years FS × AI</div>
       </div>
-      <div class="sgu-card">
-        <div class="sgu-num">DISCIPLINE · 02</div>
-        <div class="sgu-word">GOVERN</div>
-        <h3>Model risk, regulation, trust — by design.</h3>
-        <p>Scale without governance is a supervisory incident waiting to happen.
-           I wire in SR 11-7, SS1/23, NIST AI RMF, EU AI Act, NDMO and PDPL from day one,
-           so the board can move fast without losing sleep.</p>
-        <ul class="sgu-list">
-          <li>AI governance frameworks, RACI, risk tiering, MRM uplift</li>
-          <li>Regulatory liaison: SAMA, CMA KSA, CBUAE, FSRA, FCA, PRA, ECB</li>
-          <li>GenAI &amp; agentic AI risk taxonomies, red-teaming, evals</li>
-          <li>Board and audit committee readiness, independent assurance</li>
-        </ul>
+      <div style="text-align:center">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;color:var(--gold-2);line-height:1;margin-bottom:6px">$500M<span style="font-size:0.6em">+</span></div>
+        <div style="font-size:11px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase">Value Delivered</div>
       </div>
-      <div class="sgu-card">
-        <div class="sgu-num">DISCIPLINE · 03</div>
-        <div class="sgu-word">UNLOCK</div>
-        <h3>The economics the board actually cares about.</h3>
-        <p>The job isn't "more AI". The job is more revenue, lower cost-to-income,
-           better ROE, higher market cap. I translate AI ambition into the three
-           numbers a bank CEO defends in front of investors.</p>
-        <ul class="sgu-list">
-          <li>Value cases tied to NIM, fee income, cost/income, RoRWA, ROE</li>
-          <li>Capital efficiency: Basel IV, IRB, RWA optimisation</li>
-          <li>Monetization: BaaS, data products, embedded finance, IaaS</li>
-          <li>Market infrastructure economics: CCP, CSD, tokenization</li>
-        </ul>
+      <div style="text-align:center">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;color:var(--gold-2);line-height:1;margin-bottom:6px">10×</div>
+        <div style="font-size:11px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase">Practice Growth at Big-4</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;color:var(--gold-2);line-height:1;margin-bottom:6px">4</div>
+        <div style="font-size:11px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase">Delivery Hubs Worldwide</div>
       </div>
     </div>
   </div>
@@ -2903,7 +2949,501 @@
   </div>
 </section>
 
-<!-- =========== ABOUT US =========== -->
+<!-- =========== SCALE / GOVERN / UNLOCK =========== -->
+<section id="sgu" class="sgu">
+  <div class="container">
+    <div class="sgu-head">
+      <div class="section-label">The Three-Word Promise</div>
+      <h2>SCALE <span style="color:var(--text-muted);font-weight:300">·</span>
+          GOVERN <span style="color:var(--text-muted);font-weight:300">·</span>
+          <span style="color:var(--gold-2)">UNLOCK</span></h2>
+      <p>The framework that sits inside every Meridian.AI engagement. Three disciplines that
+         move an institution from AI pilots to a P&amp;L-grade operating model.</p>
+    </div>
+    <div class="sgu-grid">
+      <div class="sgu-card">
+        <div class="sgu-num">DISCIPLINE · 01</div>
+        <div class="sgu-word">SCALE</div>
+        <h3>From pilots to production at institution scale.</h3>
+        <p>Most banks have 40+ AI use cases in PowerPoint and three in production.
+           I build the operating model — platform, MLOps, data products, talent —
+           that takes the top ten from idea to ten-digit impact.</p>
+        <ul class="sgu-list">
+          <li>Enterprise AI/GenAI platforms on NVIDIA, Snowflake, AWS &amp; Azure</li>
+          <li>MLOps, feature stores, agentic architectures, model factories</li>
+          <li>Centre of Excellence, hub-and-spoke, product org design</li>
+          <li>Vendor architecture: Anthropic, OpenAI, NVIDIA Nemotron, Cohere</li>
+        </ul>
+      </div>
+      <div class="sgu-card">
+        <div class="sgu-num">DISCIPLINE · 02</div>
+        <div class="sgu-word">GOVERN</div>
+        <h3>Model risk, regulation, trust — by design.</h3>
+        <p>Scale without governance is a supervisory incident waiting to happen.
+           I wire in SR 11-7, SS1/23, NIST AI RMF, EU AI Act, NDMO and PDPL from day one,
+           so the board can move fast without losing sleep.</p>
+        <ul class="sgu-list">
+          <li>AI governance frameworks, RACI, risk tiering, MRM uplift</li>
+          <li>Regulatory liaison: SAMA, CMA KSA, CBUAE, FSRA, FCA, PRA, ECB</li>
+          <li>GenAI &amp; agentic AI risk taxonomies, red-teaming, evals</li>
+          <li>Board and audit committee readiness, independent assurance</li>
+        </ul>
+      </div>
+      <div class="sgu-card">
+        <div class="sgu-num">DISCIPLINE · 03</div>
+        <div class="sgu-word">UNLOCK</div>
+        <h3>The economics the board actually cares about.</h3>
+        <p>The job isn't "more AI". The job is more revenue, lower cost-to-income,
+           better ROE, higher market cap. I translate AI ambition into the three
+           numbers a bank CEO defends in front of investors.</p>
+        <ul class="sgu-list">
+          <li>Value cases tied to NIM, fee income, cost/income, RoRWA, ROE</li>
+          <li>Capital efficiency: Basel IV, IRB, RWA optimisation</li>
+          <li>Monetization: BaaS, data products, embedded finance, IaaS</li>
+          <li>Market infrastructure economics: CCP, CSD, tokenization</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== HIRED TO ANSWER — CLIENT QUESTIONS =========== -->
+<section id="hired-to-answer" class="hired">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Hired to Answer</div>
+      <h2 class="section-title">The questions <span class="gold">bank boards, regulators</span> and sovereign institutions <span class="thin">hire us to solve.</span></h2>
+      <p class="section-intro">
+        Every engagement starts with a real question — usually one that's been sitting on a CEO's
+        whiteboard for weeks. Here are the ones we hear most often.
+      </p>
+    </div>
+    <div class="question-grid">
+      <div class="question-card">
+        <div class="q-num">Q · 01</div>
+        <h3>Who can we trust with our AI agenda?</h3>
+        <p>Vendors are loud. Consultants overpromise. Internal teams want budget. You need an
+           independent voice with no product to sell and a track record at institution scale.</p>
+        <span class="q-pill">Trust &amp; Independence</span>
+      </div>
+      <div class="question-card">
+        <div class="q-num">Q · 02</div>
+        <h3>What technology and architecture will be optimal for us?</h3>
+        <p>NVIDIA or open-source GPUs? Snowflake, Databricks or lakehouse on cloud? Azure OpenAI,
+           Anthropic or sovereign LLMs? The right answer depends on your data, your regulator and your P&amp;L.</p>
+        <span class="q-pill">Tech &amp; Architecture</span>
+      </div>
+      <div class="question-card">
+        <div class="q-num">Q · 03</div>
+        <h3>Where will the AI value actually come from?</h3>
+        <p>Cost reduction, revenue growth, capital efficiency, ROE? Your board needs the value
+           translated into numbers an equity analyst can defend — not slideware.</p>
+        <span class="q-pill">Value &amp; ROI</span>
+      </div>
+      <div class="question-card">
+        <div class="q-num">Q · 04</div>
+        <h3>How do we govern AI without slowing it down?</h3>
+        <p>SR 11-7, SS1/23, NIST AI RMF, EU AI Act, NDMO. Governance designed in from day one
+           lets the board move fast — without becoming a supervisory incident.</p>
+        <span class="q-pill">Governance &amp; Risk</span>
+      </div>
+      <div class="question-card">
+        <div class="q-num">Q · 05</div>
+        <h3>How do we scale from 3 pilots to 30 in production?</h3>
+        <p>Most banks have 40+ AI use cases in PowerPoint and three running. The bottleneck is
+           operating model — platform, MLOps, talent, vendor architecture — not ideas.</p>
+        <span class="q-pill">Scale &amp; Operating Model</span>
+      </div>
+      <div class="question-card">
+        <div class="q-num">Q · 06</div>
+        <h3>How do we explain AI to our board and our regulator?</h3>
+        <p>Two different audiences. Two different vocabularies. One coherent story that holds up
+           in the boardroom and at the supervisor's office on the same week.</p>
+        <span class="q-pill">Board &amp; Regulator Story</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== ENGAGEMENT MODEL — AI@SCALE JOURNEY + ENGAGEMENT + PARTNERS =========== -->
+<section id="how" style="background:linear-gradient(180deg,transparent,rgba(11,24,40,0.75),transparent)">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Engagement Model · The Agentic AI Journey</div>
+      <h2 class="section-title">From <span class="gold">first agent</span> to enterprise-wide <span class="thin">autonomous capability.</span></h2>
+      <p class="section-intro">
+        Six stages to take a financial institution from agentic AI ambition to production-grade autonomous operations.
+        At each stage, choose <strong style="color:var(--gold-2)">Advisory</strong> (we guide, you execute) or
+        <strong style="color:var(--gold-2)">Management</strong> (we own delivery end-to-end with our partner network).
+      </p>
+    </div>
+
+    <!-- Engagement-type legend -->
+    <div class="engagement-legend">
+      <div class="legend-item">
+        <span class="legend-swatch swatch-advisory"></span>
+        <span class="legend-text"><strong>Advisory</strong> — We guide, your teams execute</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-swatch swatch-management"></span>
+        <span class="legend-text"><strong>Management</strong> — We own delivery end-to-end</span>
+      </div>
+    </div>
+
+    <!-- Unified: Stage tabs + Ecosystem map + Detail panel -->
+    <div class="stage-tabs" id="stageTabs">
+      <div class="stage-tab active" data-stage="0"><span class="stage-tab-num">01</span><span class="stage-tab-name">Discover</span></div>
+      <div class="stage-tab" data-stage="1"><span class="stage-tab-num">02</span><span class="stage-tab-name">Foundation</span></div>
+      <div class="stage-tab" data-stage="2"><span class="stage-tab-num">03</span><span class="stage-tab-name">Architect</span></div>
+      <div class="stage-tab" data-stage="3"><span class="stage-tab-num">04</span><span class="stage-tab-name">Govern</span></div>
+      <div class="stage-tab" data-stage="4"><span class="stage-tab-num">05</span><span class="stage-tab-name">Deploy</span></div>
+      <div class="stage-tab" data-stage="5"><span class="stage-tab-num">06</span><span class="stage-tab-name">Scale</span></div>
+    </div>
+
+    <div class="journey-eco-layout reveal" id="journeyEco">
+      <!-- Left: Ecosystem map -->
+      <div>
+        <div class="ecosystem-map" id="ecoMap">
+          <div class="eco-ring eco-ring-outer"></div>
+          <div class="eco-ring eco-ring-mid"></div>
+          <div class="eco-ring eco-ring-inner"></div>
+
+          <div class="eco-ring-label" style="top:-2px;left:50%;transform:translateX(-50%)">INDUSTRY DOMAINS</div>
+          <div class="eco-ring-label" style="top:17%;left:2%">PARTNERS</div>
+          <div class="eco-ring-label" style="top:37%;right:2%">PRACTICE</div>
+
+          <div class="eco-center">
+            <div class="eco-center-brand">Meridian.AI</div>
+            <div class="eco-center-tagline">Scale · Govern · Unlock</div>
+          </div>
+
+          <!-- Inner: Advisory practice -->
+          <div class="eco-node" data-ring="inner" data-id="strategy" style="top:34%;left:50%"><div class="eco-node-pill node-gold">Strategy</div></div>
+          <div class="eco-node" data-ring="inner" data-id="governance" style="top:58%;left:32%"><div class="eco-node-pill node-gold">Governance</div></div>
+          <div class="eco-node" data-ring="inner" data-id="execution" style="top:58%;left:68%"><div class="eco-node-pill node-gold">Execution</div></div>
+
+          <!-- Middle: Technology partners -->
+          <div class="eco-node" data-ring="mid" data-id="nvidia" style="top:14%;left:34%"><div class="eco-node-pill node-blue">NVIDIA</div></div>
+          <div class="eco-node" data-ring="mid" data-id="aws" style="top:14%;left:66%"><div class="eco-node-pill node-blue">AWS</div></div>
+          <div class="eco-node" data-ring="mid" data-id="snowflake" style="top:42%;left:12%"><div class="eco-node-pill node-blue">Snowflake</div></div>
+          <div class="eco-node" data-ring="mid" data-id="azure" style="top:42%;left:88%"><div class="eco-node-pill node-blue">Azure</div></div>
+          <div class="eco-node" data-ring="mid" data-id="cisco" style="top:72%;left:18%"><div class="eco-node-pill node-blue">Cisco</div></div>
+          <div class="eco-node" data-ring="mid" data-id="dell" style="top:72%;left:82%"><div class="eco-node-pill node-blue">Dell</div></div>
+
+          <!-- Outer: Industry domains -->
+          <div class="eco-node" data-ring="outer" data-id="banking" style="top:3%;left:50%"><div class="eco-node-pill node-dim">Banking</div></div>
+          <div class="eco-node" data-ring="outer" data-id="capital" style="top:10%;left:80%"><div class="eco-node-pill node-dim">Capital Markets</div></div>
+          <div class="eco-node" data-ring="outer" data-id="exchanges" style="top:30%;left:95%"><div class="eco-node-pill node-dim">Exchanges</div></div>
+          <div class="eco-node" data-ring="outer" data-id="sovereign" style="top:60%;left:96%"><div class="eco-node-pill node-dim">Sovereign Wealth</div></div>
+          <div class="eco-node" data-ring="outer" data-id="defense" style="top:82%;left:78%"><div class="eco-node-pill node-dim">Defense &amp; National AI</div></div>
+          <div class="eco-node" data-ring="outer" data-id="regulators" style="top:88%;left:50%"><div class="eco-node-pill node-dim">Regulators</div></div>
+          <div class="eco-node" data-ring="outer" data-id="insurance" style="top:82%;left:22%"><div class="eco-node-pill node-dim">Insurance</div></div>
+          <div class="eco-node" data-ring="outer" data-id="payments" style="top:10%;left:20%"><div class="eco-node-pill node-dim">Payments</div></div>
+        </div>
+      </div>
+
+      <!-- Right: Stage detail panel -->
+      <div class="stage-detail" id="stageDetail">
+        <div class="sd-num" id="sdNum">01</div>
+        <div class="sd-pills" id="sdPills"></div>
+        <div class="sd-title" id="sdTitle">Discover</div>
+        <div class="sd-desc" id="sdDesc"></div>
+        <div class="sd-deliverables">
+          <div class="sd-deliverables-label">Key Deliverables</div>
+          <div id="sdDeliverables"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delivery hubs strip below -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px" class="delivery-hubs-strip">
+      <div class="delivery-hub">
+        <div class="dh-region">UAE</div>
+        <div class="dh-detail">Advisory hub. Board engagement, strategy, DIFC &amp; ADGM.</div>
+        <div class="dh-tag">Advisory Hub</div>
+      </div>
+      <div class="delivery-hub">
+        <div class="dh-region">Saudi Arabia</div>
+        <div class="dh-detail">Vision 2030. SAMA, CMA &amp; HUMAIN-aligned delivery.</div>
+        <div class="dh-tag">KSA Delivery</div>
+      </div>
+      <div class="delivery-hub">
+        <div class="dh-region">India</div>
+        <div class="dh-detail">Scaled engineering. 200+ engineer programmes with FS expertise.</div>
+        <div class="dh-tag">Engineering</div>
+      </div>
+      <div class="delivery-hub">
+        <div class="dh-region">UK &amp; Europe</div>
+        <div class="dh-detail">FCA, PRA, ECB alignment. Cross-border regulatory coordination.</div>
+        <div class="dh-tag">Regulatory</div>
+      </div>
+    </div>
+
+    <!-- Two engagement types -->
+    <div id="engagement-types" class="section-head" style="margin-top:96px;margin-bottom:40px">
+      <div class="section-label" style="color:var(--gold-2)">Two engagement types</div>
+      <h3 class="section-title" style="font-size:clamp(26px,3.2vw,40px)">Choose <span class="gold">Advisory</span> or <span class="gold">Management</span> — or move from one to the other.</h3>
+      <p class="section-intro">Many clients start in Advisory and graduate to Management once the strategy lands.
+        Either way, the first 30 minutes are a free conversation — no slides, no pitch.</p>
+    </div>
+
+    <div class="engage-grid engage-grid-2col">
+      <div class="engage-card">
+        <div class="engage-label">Engagement Type · A</div>
+        <h3>Advisory</h3>
+        <p>Meridian.AI advises; your teams or incumbents execute. Ideal when you have internal delivery capacity
+           and need senior judgement, independent challenge and regulator-grade governance on top.</p>
+        <div class="engage-deliverables">
+          <div class="ed-label">Typical Scope</div>
+          <span>Board strategy &amp; scoreboard</span>
+          <span>Governance uplift &amp; MRM framework</span>
+          <span>Independent assurance &amp; red-teaming</span>
+          <span>Regulator interface &amp; board reporting</span>
+          <span>Architecture review &amp; vendor challenge</span>
+        </div>
+        <div class="engage-duration">Half-day sessions · Sprints · Retained advisory</div>
+      </div>
+      <div class="engage-card">
+        <div class="engage-label">Engagement Type · B</div>
+        <h3>Management</h3>
+        <p>Meridian.AI owns delivery end-to-end — strategy through build — with our partner network in India,
+           UAE and Saudi. The advisor who stays until the numbers move.</p>
+        <div class="engage-deliverables">
+          <div class="ed-label">Typical Scope</div>
+          <span>All of Advisory, plus:</span>
+          <span>Platform build &amp; MLOps</span>
+          <span>Agentic AI team design &amp; delivery</span>
+          <span>Data products &amp; feature stores</span>
+          <span>Programme leadership to production</span>
+        </div>
+        <div class="engage-duration">Programme management · Operator-in-residence</div>
+      </div>
+    </div>
+
+    <div class="journey-note" style="margin-top:56px">
+      <strong>End-to-end delivery accountability.</strong> Most advisors hand off after the strategy slide.
+      Meridian.AI stays through build, governance and board reporting — owning delivery through our engineering and consulting partners — because the job isn't done until the numbers move.
+    </div>
+
+    <!-- Commercial Model — merged into Engagement Model -->
+    <div id="commercials" class="section-head" style="margin-top:96px;margin-bottom:40px">
+      <div class="section-label" style="color:var(--gold-2)">Commercial Model</div>
+      <h3 class="section-title" style="font-size:clamp(26px,3.2vw,40px)">Priced for <span class="gold">outcomes</span>, not for <span class="thin">billable hours.</span></h3>
+      <p class="section-intro">
+        Four commercial structures, mapped to the engagement type and the level of risk-sharing you want.
+        All fees transparent, agreed up-front, and tied to defined deliverables or outcomes.
+      </p>
+    </div>
+
+    <div class="commercials-grid">
+      <div class="commercial-card">
+        <div class="c-head">
+          <span class="c-num">C · 01</span>
+          <span class="c-tag c-tag-adv">Advisory</span>
+        </div>
+        <h3>Fixed-Scope Engagement</h3>
+        <p>A defined deliverable with a defined fee. Best for discrete pieces of work with a clear scope — a
+           board session, a governance sprint, an architecture review, an independent assurance.</p>
+        <div class="c-detail">
+          <div class="c-detail-row"><span class="c-label">Typical Use</span><span class="c-value">Board strategy · Governance sprint · Assurance</span></div>
+          <div class="c-detail-row"><span class="c-label">Duration</span><span class="c-value">Half-day to 4 weeks</span></div>
+          <div class="c-detail-row"><span class="c-label">Fee Structure</span><span class="c-value">Fixed price, milestone-paid</span></div>
+
+        </div>
+      </div>
+
+      <div class="commercial-card">
+        <div class="c-head">
+          <span class="c-num">C · 02</span>
+          <span class="c-tag c-tag-adv">Advisory</span>
+        </div>
+        <h3>Retainer Advisory</h3>
+        <p>Ongoing senior advisory access with a monthly fee. Best for institutions that need a trusted sounding
+           board through a transformation, or board / ExCo-level challenge on AI programmes already in flight.</p>
+        <div class="c-detail">
+          <div class="c-detail-row"><span class="c-label">Typical Use</span><span class="c-value">Ongoing board &amp; ExCo advisory</span></div>
+          <div class="c-detail-row"><span class="c-label">Duration</span><span class="c-value">3–12 months, renewable</span></div>
+          <div class="c-detail-row"><span class="c-label">Fee Structure</span><span class="c-value">Monthly retainer · 4–8 days / month</span></div>
+
+        </div>
+      </div>
+
+      <div class="commercial-card">
+        <div class="c-head">
+          <span class="c-num">C · 03</span>
+          <span class="c-tag c-tag-mgmt">Management</span>
+        </div>
+        <h3>Programme Fees</h3>
+        <p>Blended-rate fees for multi-workstream programmes where Meridian.AI leads delivery with partner teams in
+           India, UAE and Saudi. Capped T&amp;M with defined phase gates. Ideal for platform build or governance rollout.</p>
+        <div class="c-detail">
+          <div class="c-detail-row"><span class="c-label">Typical Use</span><span class="c-value">Platform build · Agentic AI teams · CoE stand-up</span></div>
+          <div class="c-detail-row"><span class="c-label">Duration</span><span class="c-value">3–12 months</span></div>
+          <div class="c-detail-row"><span class="c-label">Fee Structure</span><span class="c-value">Blended day rates · phase-gated · capped</span></div>
+
+        </div>
+      </div>
+
+      <div class="commercial-card">
+        <div class="c-head">
+          <span class="c-num">C · 04</span>
+          <span class="c-tag c-tag-mgmt">Management</span>
+        </div>
+        <h3>Outcome-Linked Fees</h3>
+        <p>A lower base fee plus a success fee tied to measurable outcomes — ROE uplift, cost/income delta, value
+           delivered, regulatory milestone hit. For clients who want skin in the game from their advisor.</p>
+        <div class="c-detail">
+          <div class="c-detail-row"><span class="c-label">Typical Use</span><span class="c-value">Transformation · Scoreboard execution</span></div>
+          <div class="c-detail-row"><span class="c-label">Duration</span><span class="c-value">6–24 months</span></div>
+          <div class="c-detail-row"><span class="c-label">Fee Structure</span><span class="c-value">Reduced base + success fee on KPIs</span></div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="commercial-principles">
+      <div class="cp-item">
+        <div class="cp-icon">01</div>
+        <div class="cp-content">
+          <h4>No surprise bills</h4>
+          <p>Fees agreed in writing before work starts. Every invoice tied to a defined deliverable or milestone.</p>
+        </div>
+      </div>
+      <div class="cp-item">
+        <div class="cp-icon">02</div>
+        <div class="cp-content">
+          <h4>No leverage tax</h4>
+          <p>You pay for the person doing the work. No partner mark-ups over junior analyst hours.</p>
+        </div>
+      </div>
+      <div class="cp-item">
+        <div class="cp-icon">03</div>
+        <div class="cp-content">
+          <h4>First 30 minutes free</h4>
+          <p>Always. Scope and commercial structure agreed in the second conversation — not the contract.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [CUT] Client Outcomes removed — merged into Case Studies section -->
+<!-- [CUT] Video section removed — can be restored inside About if needed -->
+
+<!-- [CUT] AI News Feed removed — static content goes stale quickly -->
+
+<!-- =========== THE EVIDENCE — CASE STUDIES, OUTCOMES & TESTIMONIALS =========== -->
+<span id="outcomes"></span>
+<span id="outcomes"></span>
+<section id="case-studies" class="cases">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">The Evidence</div>
+      <h2 class="section-title">Measured in <span class="gold">results</span>, not deliverables. <span class="thin">Trusted by boards.</span></h2>
+      <p class="section-intro">Every engagement is scoped to an outcome the board can measure. Here are the programmes
+         where the numbers moved — capital markets, global banks, regulators and sovereign institutions.</p>
+    </div>
+    <div class="cases-grid">
+      <div class="case">
+        <div class="case-meta">
+          <span class="pill">Capital Markets Infrastructure</span>
+          <span>Middle East</span>
+        </div>
+        <h3>National Exchange Group — Capital Markets Transformation &amp; Agentic AI Platform</h3>
+        <p>Served as partner on a sovereign exchange group transformation — next-generation trading,
+           post-trade, CCP and CSD platforms — and on the build-out of a flagship
+           agentic AI platform with 200+ engineers on NVIDIA Llama Nemotron.
+           Underpins a nation's equity, debt and derivatives market infrastructure.</p>
+        <div class="case-metric">
+          <div><div class="v">$100M+</div><div class="l">Revenue unlock</div></div>
+          <div><div class="v">200+</div><div class="l">Engineers led</div></div>
+          <div><div class="v">Nemotron</div><div class="l">NVIDIA foundation</div></div>
+        </div>
+      </div>
+      <div class="case">
+        <div class="case-meta">
+          <span class="pill">Financial Market Regulator</span>
+          <span>Middle East</span>
+        </div>
+        <h3>National Securities Regulator — GenAI Supervisory Programme</h3>
+        <p>Designed and delivered the GenAI and agentic AI supervisory programme for a
+           national capital market authority. Regulator-grade risk taxonomy, red-teaming
+           and a supervisory handbook aligned to the spirit of NIST AI RMF and EU AI Act.</p>
+        <div class="case-metric">
+          <div><div class="v">3–10×</div><div class="l">Productivity uplift</div></div>
+          <div><div class="v">30+</div><div class="l">Risks tiered</div></div>
+          <div><div class="v">National First</div><div class="l">GenAI handbook</div></div>
+        </div>
+      </div>
+      <div class="case">
+        <div class="case-meta">
+          <span class="pill">Global Banking</span>
+          <span>UK · Europe</span>
+        </div>
+        <h3>Two Top-5 UK Banks — AI-Led Customer &amp; Risk Transformation</h3>
+        <p>Ten+ years leading AI, data and customer transformation across two of the UK's
+           largest banking groups. Credit decisioning, fraud, customer intelligence, regulatory reporting
+           and the Basel programme work that sits underneath every major UK bank today.</p>
+        <div class="case-metric">
+          <div><div class="v">£1B+</div><div class="l">ROI delivered</div></div>
+          <div><div class="v">SR 11-7</div><div class="l">Aligned</div></div>
+          <div><div class="v">20+ countries</div><div class="l">Cross-border</div></div>
+        </div>
+      </div>
+      <div class="case">
+        <div class="case-meta">
+          <span class="pill">Asset Management</span>
+          <span>US · UK</span>
+        </div>
+        <h3>Global Top-5 Asset Manager — AI-Driven Portfolio &amp; Research</h3>
+        <p>Built the AI and data backbone behind a $750B+ asset manager's equity research and portfolio
+           management platform. Alternative data, alpha models,
+           vendor architecture and the governance wrapper around every model in production.</p>
+        <div class="case-metric">
+          <div><div class="v">$750B</div><div class="l">AUM covered</div></div>
+          <div><div class="v">60+ PMs</div><div class="l">Direct users</div></div>
+          <div><div class="v">Buy-side</div><div class="l">Scale-out</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonials (merged into Case Studies) -->
+    <div class="section-head" style="margin-top:80px;margin-bottom:40px">
+      <div class="section-label">What Clients Say</div>
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--white)">Trusted by <span class="gold">boards, regulators</span> and platform teams.</h3>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial">
+        <blockquote>Rodney is one of very few people who can walk into a board meeting and explain AI in the
+          language of ROE and capital efficiency — then walk downstairs and review the architecture
+          with the engineering team. That range is genuinely rare.</blockquote>
+        <div class="testimonial-source">
+          <div class="ts-role">Group Chief Technology Officer</div>
+          <div class="ts-org">Tier-1 GCC Bank</div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <blockquote>He didn't just give us a governance framework — he built it alongside our team, tested it
+          against our regulator's expectations, and stayed until the supervisor signed off. That
+          level of follow-through is what separates advice from delivery.</blockquote>
+        <div class="testimonial-source">
+          <div class="ts-role">Head of AI Risk &amp; Governance</div>
+          <div class="ts-org">National Securities Regulator</div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <blockquote>The Banking 2030 Scoreboard work was a turning point for how our leadership
+          thinks about AI investment. For the first time, the conversation moved from
+          'how much does AI cost' to 'how much value are we leaving on the table.'</blockquote>
+        <div class="testimonial-source">
+          <div class="ts-role">Chief Strategy Officer</div>
+          <div class="ts-org">Saudi Banking Group</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="about">
   <div class="container">
     <div class="section-head">
@@ -2977,14 +3517,14 @@
             <img src="assets/rodney-hero-cropped.jpg" alt="Rodney Coutinho" style="width:100%;display:block" onerror="this.onerror=null;this.src='assets/rodney-hero.jpg';">
           </div>
           <div class="pillar-stack">
-            <div class="pillar">
-              <div class="pillar-icon">01</div>
-              <div>
-                <h4>Bilingual — business × tech</h4>
-                <p>Equally at home in a CFO's Basel IV conversation and a platform team's
-                   Nemotron fine-tuning review.</p>
-              </div>
+          <div class="pillar">
+            <div class="pillar-icon">01</div>
+            <div>
+              <h4>Bilingual — business × tech</h4>
+              <p>Equally at home in a CFO's Basel IV conversation and a platform team's
+                 Nemotron fine-tuning review.</p>
             </div>
+          </div>
           <div class="pillar">
             <div class="pillar-icon">02</div>
             <div>
@@ -3009,7 +3549,7 @@
                  for nation-scale AI and data infrastructure.</p>
             </div>
           </div>
-          </div>
+        </div>
         </div>
       </div>
     </div>
@@ -3028,156 +3568,6 @@
           <span>Money20/20 · EMEA</span>
           <span>Gov AI Summit · Middle East</span>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- =========== WHY US =========== -->
-<section id="why">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-label">Why Meridian.AI</div>
-      <h2 class="section-title">Five reasons institutions <span class="gold">choose us</span> over the incumbent <span class="thin">alternatives.</span></h2>
-      <p class="section-intro">
-        Senior advisory. Global delivery. Outcome accountability. Without the leverage model,
-        the overhead or the handoff gaps of a traditional firm.
-      </p>
-    </div>
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-num">01</div>
-        <h3>AI-native practice — we run what we recommend</h3>
-        <p>Every engagement is augmented by our own agentic AI stack — research, modelling, governance and reporting. We measure <strong>cost per correct decision</strong>, not just accuracy. Clients get architectures that are Pareto-efficient in production, not just impressive in a demo.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-num">02</div>
-        <h3>Senior principal on every engagement</h3>
-        <p>No leverage model. The person who has sat with boards, regulators and 200-engineer platform teams does the work — directly. You are never handed off to a team that is learning on your budget.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-num">03</div>
-        <h3>25 years of pattern library in FS &amp; sovereign</h3>
-        <p>ME's largest exchange, CMA KSA, SAMA, Top-5 UK banks, $750B asset manager. $500M+ value delivered. 10× practice growth at a Big 4. The playbook for scaling AI in financial services is already built — you don't pay for us to learn your industry.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-num">04</div>
-        <h3>Scoped to board-level outcomes, not hours</h3>
-        <p>Every engagement is tied to a deliverable the board can act on: an approved AI scoreboard, a regulator-signed-off governance framework, a platform in production. We report in ROE, cost/income and market cap — not billable days.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-num">05</div>
-        <h3>Vendor-neutral clarity in a crowded market</h3>
-        <p>Too many vendors, too many consultants, too many pitches. We provide unbiased architecture decisions, honest vendor evaluations and engagement models designed to deliver outcomes — not designed to sell the next phase.</p>
-      </div>
-    </div>
-
-    <!-- Sub-section: Target KPIs -->
-    <div class="why-kpis" style="margin-top:72px">
-      <div class="section-head" style="margin-bottom:36px">
-        <div class="section-label">What We Measure</div>
-        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:var(--white);margin-bottom:10px">The KPIs every engagement is <span class="gold">designed to move.</span></h3>
-        <p class="section-intro" style="margin-bottom:0">82% of AI initiatives in FS fail because they track activity, not outcomes. We anchor every engagement to the metrics that boards, regulators and CFOs actually care about.</p>
-      </div>
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <div class="kpi-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-          <div class="kpi-metric">50–70%</div>
-          <h4>Cost per Correct AI Decision</h4>
-          <p>Agents vary 50× in cost for similar accuracy. We architect for the Pareto-efficient frontier — maximising decision quality while driving cost per task from $5 to under $0.50.</p>
-          <div class="kpi-source">Source: Enterprise AI benchmarks, 2026</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <div class="kpi-metric">45%</div>
-          <h4>Regulatory Risk Exposure Reduction</h4>
-          <p>Governance uplift programmes cut operational risk exposure by 45% within 90 days. EU AI Act fines reach €35M or 7% of global turnover — the cost of getting governance wrong is existential.</p>
-          <div class="kpi-source">Source: Fed AI Implementation benchmarks</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></div>
-          <div class="kpi-metric">3–10×</div>
-          <h4>Productivity per AI-Augmented FTE</h4>
-          <p>Properly deployed AI agents deliver 3–10× analyst productivity. One wealth manager cut analyst time by 66%. But only when architecture, governance and operating model work together.</p>
-          <div class="kpi-source">Source: BCG, Sardine, client outcomes</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8l-4 4-4-4"/><path d="M8 16l4-4 4 4"/></svg></div>
-          <div class="kpi-metric">350–500%</div>
-          <h4>Three-Year ROI on AI Programmes</h4>
-          <p>Fraud detection and regulatory reporting deliver 350–500% three-year ROI with 3–8 month payback. But only 38% of FS AI projects meet ROI expectations — execution is the differentiator.</p>
-          <div class="kpi-source">Source: Deloitte, industry benchmarks</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
-          <div class="kpi-metric">4% ROTE</div>
-          <h4>First-Mover Profitability Advantage</h4>
-          <p>AI pioneers gain a 4% return on tangible equity advantage over slow movers — who face an uncompetitive cost base. The window to move is measured in quarters, not years.</p>
-          <div class="kpi-source">Source: McKinsey, S&amp;P Global</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg></div>
-          <div class="kpi-metric">25–30%</div>
-          <h4>Ongoing Compliance Cost Reduction</h4>
-          <p>Strong AI governance frameworks cut ongoing compliance costs by 25–30% and reduce violation incidents by 3×. With banks spending 6–10% of revenue on compliance, the savings compound fast.</p>
-          <div class="kpi-source">Source: AI compliance benchmarks, 2026</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sub-section: Client Outcomes -->
-    <div class="why-evidence" style="margin-top:72px">
-      <div class="section-head" style="margin-bottom:36px">
-        <div class="section-label">The Evidence</div>
-        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:var(--white);margin-bottom:10px">Outcomes that <span class="gold">moved the numbers</span></h3>
-        <p class="section-intro" style="margin-bottom:0">The claims above aren't theoretical. Here are the programmes and client outcomes behind them.</p>
-      </div>
-
-      <div class="why-evidence-grid">
-        <!-- Outcome highlight cards -->
-        <a href="#outcomes" class="why-ev-card">
-          <div class="why-ev-label">Client Outcomes</div>
-          <h4>DataHub — First Cloud Data Platform in KSA Capital Markets</h4>
-          <div class="why-ev-stats">
-            <span>Board mandate delivered</span>
-            <span>Data monetisation at scale</span>
-            <span>Regional first</span>
-          </div>
-          <span class="why-ev-link">See full outcomes →</span>
-        </a>
-
-        <a href="#outcomes" class="why-ev-card">
-          <div class="why-ev-label">Client Outcomes</div>
-          <h4>Top-5 UK Bank — Enterprise AI Platform &amp; 200+ Engineer Programme</h4>
-          <div class="why-ev-stats">
-            <span>$500M+ value delivered</span>
-            <span>10× practice growth</span>
-            <span>Platform in production</span>
-          </div>
-          <span class="why-ev-link">See full outcomes →</span>
-        </a>
-
-        <a href="#case-studies" class="why-ev-card">
-          <div class="why-ev-label">Case Study</div>
-          <h4>National Securities Regulator — GenAI Supervisory Programme</h4>
-          <div class="why-ev-stats">
-            <span>3–10× productivity</span>
-            <span>30+ risks tiered</span>
-            <span>National first</span>
-          </div>
-          <span class="why-ev-link">See full case study →</span>
-        </a>
-
-        <a href="#case-studies" class="why-ev-card">
-          <div class="why-ev-label">Case Study</div>
-          <h4>Global Top-5 Asset Manager — AI-Driven Portfolio &amp; Research</h4>
-          <div class="why-ev-stats">
-            <span>$750B AUM</span>
-            <span>60+ PMs</span>
-            <span>Buy-side scale</span>
-          </div>
-          <span class="why-ev-link">See full case study →</span>
-        </a>
       </div>
     </div>
   </div>
@@ -3399,353 +3789,8 @@
   </div>
 </section>
 
-<!-- =========== SERIES ROADMAP =========== -->
-<section id="series-roadmap" class="series">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-label">The Writing · 5-Part Series</div>
-      <h2 class="section-title">Banking 2030 Scoreboard — <span class="gold">the full roadmap</span></h2>
-      <p class="section-intro">
-        A five-part published body of work on the economics of Saudi banking between now and 2030.
-        Each part is a LinkedIn document carousel backed by an open Excel model.
-      </p>
-    </div>
-    <div class="series-grid">
-      <div class="series-card live">
-        <div class="series-num">PART · 01</div>
-        <h4>Monetization</h4>
-        <p>The $295B fee-income unlock. Non-interest income, BaaS, data, APIs, IaaS.</p>
-        <div class="series-status">Live · 12 April 2026</div>
-      </div>
-      <div class="series-card live">
-        <div class="series-num">PART · 02</div>
-        <h4>Tokenization</h4>
-        <p>Which Saudi bank puts the first sukuk on-chain? Market infrastructure + DLT economics.</p>
-        <div class="series-status">Live · April 2026</div>
-      </div>
-      <div class="series-card">
-        <div class="series-num">PART · 03</div>
-        <h4>Capital Efficiency</h4>
-        <p>RWA optimisation, Basel IV bite, IRB pathway, SAR 2.5–5.3B annual unlock.</p>
-        <div class="series-status">Queued</div>
-      </div>
-      <div class="series-card">
-        <div class="series-num">PART · 04</div>
-        <h4>AI-Led Sovereign Ecosystem</h4>
-        <p>PIF, HUMAIN, Vision Realisation Programs, banks as national AI infrastructure.</p>
-        <div class="series-status">Queued</div>
-      </div>
-      <div class="series-card">
-        <div class="series-num">PART · 05</div>
-        <h4>The Scoreboard</h4>
-        <p>ROE, market cap, and the one question every bank CEO takes to the board.</p>
-        <div class="series-status">Queued</div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- [CUT] Series Roadmap removed — 3 of 5 parts say "Queued", weakens credibility -->
 
-<!-- =========== ENGAGEMENT MODEL — AI@SCALE JOURNEY + ENGAGEMENT + PARTNERS =========== -->
-<section id="how" style="background:linear-gradient(180deg,transparent,rgba(11,24,40,0.75),transparent)">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-label">Engagement Model · The AI@scale Journey</div>
-      <h2 class="section-title">From <span class="gold">boardroom ambition</span> to production AI — and <span class="thin">back to the board with results.</span></h2>
-      <p class="section-intro">
-        Every engagement follows the same six-stage AI@scale journey. You choose the level of
-        ownership at each stage — <strong style="color:var(--gold-2)">Advisory</strong> (we guide, you execute) or
-        <strong style="color:var(--gold-2)">Management</strong> (we own delivery end-to-end with our partner network).
-      </p>
-    </div>
-
-    <!-- Engagement-type legend -->
-    <div class="engagement-legend">
-      <div class="legend-item">
-        <span class="legend-swatch swatch-advisory"></span>
-        <span class="legend-text"><strong>Advisory</strong> — We guide, your teams execute</span>
-      </div>
-      <div class="legend-item">
-        <span class="legend-swatch swatch-management"></span>
-        <span class="legend-text"><strong>Management</strong> — We own delivery end-to-end</span>
-      </div>
-    </div>
-
-    <!-- AI@scale Journey with engagement overlay -->
-    <div class="journey-track journey-track-overlay">
-      <div class="journey-step">
-        <div class="journey-num">01</div>
-        <div class="journey-engage">
-          <span class="je-pill je-advisory">Advisory</span>
-        </div>
-        <h4>Discover</h4>
-        <p>Pressure-test the opportunity. Size the prize in P&amp;L terms. Answer the board's first question.</p>
-      </div>
-      <div class="journey-step">
-        <div class="journey-num">02</div>
-        <div class="journey-engage">
-          <span class="je-pill je-advisory">Advisory</span>
-        </div>
-        <h4>Strategise</h4>
-        <p>Board-grade AI strategy tied to ROE, cost/income, market cap. Named owners and dates.</p>
-      </div>
-      <div class="journey-step">
-        <div class="journey-num">03</div>
-        <div class="journey-engage">
-          <span class="je-pill je-advisory">Advisory</span>
-          <span class="je-pill je-management">Management</span>
-        </div>
-        <h4>Design</h4>
-        <p>Architecture, operating model, governance framework, vendor selection. Regulator-ready by design.</p>
-      </div>
-      <div class="journey-step">
-        <div class="journey-num">04</div>
-        <div class="journey-engage">
-          <span class="je-pill je-management">Management</span>
-        </div>
-        <h4>Build</h4>
-        <p>Execution through partners in India, UAE and Saudi. Platform, MLOps, data products — at scale.</p>
-      </div>
-      <div class="journey-step">
-        <div class="journey-num">05</div>
-        <div class="journey-engage">
-          <span class="je-pill je-advisory">Advisory</span>
-          <span class="je-pill je-management">Management</span>
-        </div>
-        <h4>Govern</h4>
-        <p>MRM, risk tiering, red-teaming, independent assurance. SR 11-7, SS1/23, NIST, EU AI Act aligned.</p>
-      </div>
-      <div class="journey-step">
-        <div class="journey-num">06</div>
-        <div class="journey-engage">
-          <span class="je-pill je-advisory">Advisory</span>
-          <span class="je-pill je-management">Management</span>
-        </div>
-        <h4>Report</h4>
-        <p>Results in the language the board cares about: revenue, cost/income, RoRWA, ROE, market cap.</p>
-      </div>
-    </div>
-
-    <!-- Two engagement types -->
-    <div id="engagement-types" class="section-head" style="margin-top:96px;margin-bottom:40px">
-      <div class="section-label" style="color:var(--gold-2)">Two engagement types</div>
-      <h3 class="section-title" style="font-size:clamp(26px,3.2vw,40px)">Choose <span class="gold">Advisory</span> or <span class="gold">Management</span> — or move from one to the other.</h3>
-      <p class="section-intro">Many clients start in Advisory and graduate to Management once the strategy lands.
-        Either way, the first 30 minutes are a free conversation — no slides, no pitch.</p>
-    </div>
-
-    <div class="engage-grid engage-grid-2col">
-      <div class="engage-card">
-        <div class="engage-label">Engagement Type · A</div>
-        <h3>Advisory</h3>
-        <p>Meridian.AI advises; your teams or incumbents execute. Ideal when you have internal delivery capacity
-           and need senior judgement, independent challenge and regulator-grade governance on top.</p>
-        <div class="engage-deliverables">
-          <div class="ed-label">Typical Scope</div>
-          <span>Board strategy &amp; scoreboard</span>
-          <span>Governance uplift &amp; MRM framework</span>
-          <span>Independent assurance &amp; red-teaming</span>
-          <span>Regulator interface &amp; board reporting</span>
-          <span>Architecture review &amp; vendor challenge</span>
-        </div>
-        <div class="engage-duration">Half-day sessions · Sprints · Retained advisory</div>
-      </div>
-      <div class="engage-card">
-        <div class="engage-label">Engagement Type · B</div>
-        <h3>Management</h3>
-        <p>Meridian.AI owns delivery end-to-end — strategy through build — with our partner network in India,
-           UAE and Saudi. The advisor who stays until the numbers move.</p>
-        <div class="engage-deliverables">
-          <div class="ed-label">Typical Scope</div>
-          <span>All of Advisory, plus:</span>
-          <span>Platform build &amp; MLOps</span>
-          <span>Agentic AI team design &amp; delivery</span>
-          <span>Data products &amp; feature stores</span>
-          <span>Programme leadership to production</span>
-        </div>
-        <div class="engage-duration">Programme management · Operator-in-residence</div>
-      </div>
-    </div>
-
-    <!-- Partners as the delivery mechanism -->
-    <div id="delivery-network" class="section-head" style="margin-top:96px;margin-bottom:40px">
-      <div class="section-label" style="color:var(--gold-2)">Delivery Network</div>
-      <h3 class="section-title" style="font-size:clamp(26px,3.2vw,40px)">Execution through a <span class="gold">global delivery network</span> — built on regional tech partnerships.</h3>
-      <p class="section-intro">
-        The architecture we design and the governance we build can be implemented without a handoff gap.
-        Three delivery hubs. Six anchor technology partners. One accountable advisor.
-      </p>
-    </div>
-
-    <div class="partner-layout">
-      <div class="delivery-map">
-        <div class="delivery-hub">
-          <div class="dh-region">UAE · Dubai &amp; Abu Dhabi</div>
-          <div class="dh-detail">Primary advisory base. Board engagement, strategy and governance.
-            Direct access to DIFC, ADGM and sovereign institutions.</div>
-          <div class="dh-tag">Advisory Hub</div>
-        </div>
-        <div class="delivery-hub">
-          <div class="dh-region">Saudi Arabia · Riyadh</div>
-          <div class="dh-detail">Vision 2030 execution. SAMA, CMA KSA and HUMAIN-aligned
-            programmes. On-the-ground delivery for KSA-first mandates.</div>
-          <div class="dh-tag">KSA Delivery</div>
-        </div>
-        <div class="delivery-hub">
-          <div class="dh-region">India · Mumbai &amp; Bengaluru</div>
-          <div class="dh-detail">Scaled engineering and platform delivery. 200+ engineer programmes
-            with deep FS domain expertise. Enterprise quality at global-delivery economics.</div>
-          <div class="dh-tag">Engineering &amp; Scale</div>
-        </div>
-        <div class="delivery-hub">
-          <div class="dh-region">UK &amp; Europe</div>
-          <div class="dh-detail">Supporting advisory for UK and EU-regulated clients.
-            FCA, PRA, ECB alignment and cross-border coordination.</div>
-          <div class="dh-tag">Regulatory</div>
-        </div>
-      </div>
-      <div class="partner-content">
-        <p>
-          <strong>Delivered with, not just listed.</strong> Every partner logo represents programmes we have
-          co-delivered, jointly architected or taken to regulators alongside. The technology ecosystem that
-          powers Meridian.AI's execution arm is the same one building the region's AI infrastructure.
-        </p>
-        <div class="partner-logos">
-          <div class="partner-logo">
-            <div class="pl-name">NVIDIA</div>
-            <div class="pl-type">AI Infrastructure &amp; Foundation Models</div>
-          </div>
-          <div class="partner-logo">
-            <div class="pl-name">Cisco</div>
-            <div class="pl-type">Cybersecurity &amp; AI Red-Teaming</div>
-          </div>
-          <div class="partner-logo">
-            <div class="pl-name">Snowflake</div>
-            <div class="pl-type">Data Platform &amp; Analytics</div>
-          </div>
-          <div class="partner-logo">
-            <div class="pl-name">Dell Technologies</div>
-            <div class="pl-type">Enterprise AI Infrastructure</div>
-          </div>
-          <div class="partner-logo">
-            <div class="pl-name">AWS</div>
-            <div class="pl-type">Cloud &amp; FS-Grade Landing Zones</div>
-          </div>
-          <div class="partner-logo">
-            <div class="pl-name">Microsoft Azure</div>
-            <div class="pl-type">Cloud &amp; OpenAI Integration</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="journey-note" style="margin-top:56px">
-      <strong>End-to-end accountability.</strong> Most advisors hand off after the strategy slide.
-      Meridian.AI stays through build, governance and board reporting — because the job isn't done until the numbers move.
-    </div>
-
-    <!-- Commercial Model — merged into Engagement Model -->
-    <div id="commercials" class="section-head" style="margin-top:96px;margin-bottom:40px">
-      <div class="section-label" style="color:var(--gold-2)">Commercial Model</div>
-      <h3 class="section-title" style="font-size:clamp(26px,3.2vw,40px)">Priced for <span class="gold">outcomes</span>, not for <span class="thin">billable hours.</span></h3>
-      <p class="section-intro">
-        Four commercial structures, mapped to the engagement type and the level of risk-sharing you want.
-        All fees transparent, agreed up-front, and tied to defined deliverables or outcomes.
-      </p>
-    </div>
-
-    <div class="commercials-grid">
-      <div class="commercial-card">
-        <div class="c-head">
-          <span class="c-num">C · 01</span>
-          <span class="c-tag c-tag-adv">Advisory</span>
-        </div>
-        <h3>Fixed-Scope Engagement</h3>
-        <p>A defined deliverable with a defined fee. Best for discrete pieces of work with a clear scope — a
-           board session, a governance sprint, an architecture review, an independent assurance.</p>
-        <div class="c-detail">
-          <div class="c-detail-row"><span class="c-label">Typical Use</span><span class="c-value">Board strategy · Governance sprint · Assurance</span></div>
-          <div class="c-detail-row"><span class="c-label">Duration</span><span class="c-value">Half-day to 4 weeks</span></div>
-          <div class="c-detail-row"><span class="c-label">Fee Structure</span><span class="c-value">Fixed price, milestone-paid</span></div>
-          <div class="c-detail-row"><span class="c-label">Directional Range</span><span class="c-value">USD 15K — 150K</span></div>
-        </div>
-      </div>
-
-      <div class="commercial-card">
-        <div class="c-head">
-          <span class="c-num">C · 02</span>
-          <span class="c-tag c-tag-adv">Advisory</span>
-        </div>
-        <h3>Retainer Advisory</h3>
-        <p>Ongoing senior advisory access with a monthly fee. Best for institutions that need a trusted sounding
-           board through a transformation, or board / ExCo-level challenge on AI programmes already in flight.</p>
-        <div class="c-detail">
-          <div class="c-detail-row"><span class="c-label">Typical Use</span><span class="c-value">Ongoing board &amp; ExCo advisory</span></div>
-          <div class="c-detail-row"><span class="c-label">Duration</span><span class="c-value">3–12 months, renewable</span></div>
-          <div class="c-detail-row"><span class="c-label">Fee Structure</span><span class="c-value">Monthly retainer · 4–8 days / month</span></div>
-          <div class="c-detail-row"><span class="c-label">Directional Range</span><span class="c-value">USD 20K — 60K / month</span></div>
-        </div>
-      </div>
-
-      <div class="commercial-card">
-        <div class="c-head">
-          <span class="c-num">C · 03</span>
-          <span class="c-tag c-tag-mgmt">Management</span>
-        </div>
-        <h3>Programme Fees</h3>
-        <p>Blended-rate fees for multi-workstream programmes where Meridian.AI leads delivery with partner teams in
-           India, UAE and Saudi. Capped T&amp;M with defined phase gates. Ideal for platform build or governance rollout.</p>
-        <div class="c-detail">
-          <div class="c-detail-row"><span class="c-label">Typical Use</span><span class="c-value">Platform build · Agentic AI teams · CoE stand-up</span></div>
-          <div class="c-detail-row"><span class="c-label">Duration</span><span class="c-value">3–12 months</span></div>
-          <div class="c-detail-row"><span class="c-label">Fee Structure</span><span class="c-value">Blended day rates · phase-gated · capped</span></div>
-          <div class="c-detail-row"><span class="c-label">Directional Range</span><span class="c-value">USD 300K — 3M / programme</span></div>
-        </div>
-      </div>
-
-      <div class="commercial-card">
-        <div class="c-head">
-          <span class="c-num">C · 04</span>
-          <span class="c-tag c-tag-mgmt">Management</span>
-        </div>
-        <h3>Outcome-Linked Fees</h3>
-        <p>A lower base fee plus a success fee tied to measurable outcomes — ROE uplift, cost/income delta, value
-           delivered, regulatory milestone hit. For clients who want skin in the game from their advisor.</p>
-        <div class="c-detail">
-          <div class="c-detail-row"><span class="c-label">Typical Use</span><span class="c-value">Transformation · Scoreboard execution</span></div>
-          <div class="c-detail-row"><span class="c-label">Duration</span><span class="c-value">6–24 months</span></div>
-          <div class="c-detail-row"><span class="c-label">Fee Structure</span><span class="c-value">Reduced base + success fee on KPIs</span></div>
-          <div class="c-detail-row"><span class="c-label">Directional Range</span><span class="c-value">Base USD 150K — 500K + success %</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="commercial-principles">
-      <div class="cp-item">
-        <div class="cp-icon">01</div>
-        <div class="cp-content">
-          <h4>No surprise bills</h4>
-          <p>Fees agreed in writing before work starts. Every invoice tied to a defined deliverable or milestone.</p>
-        </div>
-      </div>
-      <div class="cp-item">
-        <div class="cp-icon">02</div>
-        <div class="cp-content">
-          <h4>No leverage tax</h4>
-          <p>You pay for the person doing the work. No partner mark-ups over junior analyst hours.</p>
-        </div>
-      </div>
-      <div class="cp-item">
-        <div class="cp-icon">03</div>
-        <div class="cp-content">
-          <h4>First 30 minutes free</h4>
-          <p>Always. Scope and commercial structure agreed in the second conversation — not the contract.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- =========== PEER BENCHMARKS =========== -->
 <section id="benchmarks" class="benchmarks">
   <div class="container">
     <div class="section-head">
@@ -3820,7 +3865,6 @@
   </div>
 </section>
 
-<!-- =========== REGULATORY LANDSCAPE =========== -->
 <section id="regulatory" class="regulatory">
   <div class="container">
     <div class="section-head">
@@ -3882,234 +3926,6 @@
            fairness and non-discrimination, transparency and explainability, effective human
            oversight, and data management and privacy.</p>
         <div class="reg-applies">Applies: All licensed financial institutions in the UAE</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- =========== CLIENT OUTCOMES =========== -->
-<section id="outcomes">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-label">Client Outcomes</div>
-      <h2 class="section-title">Measured in <span class="gold">results</span>, not <span class="thin">deliverables.</span></h2>
-      <p class="section-intro">
-        Every engagement is scoped to an outcome the board can measure. Here are programmes
-        where the numbers moved.
-      </p>
-    </div>
-    <div class="outcomes-grid">
-
-      <div class="outcome-card">
-        <div class="outcome-meta">
-          <span class="om-client">ME's Largest Exchange</span>
-          <span class="om-sector">Capital Markets</span>
-          <span class="om-sector">Vision 2030</span>
-        </div>
-        <h3>DataHub &amp; Wamid — Saudi Capital Market Data Platform</h3>
-        <p>Led the design and delivery of DataHub, the centralised data access platform
-           for the Saudi capital market — enabling trusted data distribution to market participants,
-           regulators and innovators. A cornerstone of the exchange's digital transformation and
-           Vision 2030 market development.</p>
-        <div class="outcome-achievements">
-          <div class="outcome-ach"><strong>First capital markets data platform on cloud</strong> in KSA — a regional milestone for market infrastructure modernisation</div>
-          <div class="outcome-ach"><strong>First markets-related data monetisation business at scale</strong> — creating a new commercial revenue stream for the exchange group</div>
-          <div class="outcome-ach"><strong>Board mandate delivered</strong> — from strategy approval through platform launch, on scope, on time, with regulator alignment</div>
-        </div>
-      </div>
-
-      <div class="outcome-card">
-        <div class="outcome-meta">
-          <span class="om-client">Top-5 UK Bank</span>
-          <span class="om-sector">Retail &amp; Commercial Banking</span>
-        </div>
-        <h3>Enterprise AI Platform &amp; 200+ Engineer Programme</h3>
-        <p>Architected and led a 200+ engineer AI/ML platform programme across retail banking,
-           commercial lending and fraud operations. End-to-end: from board strategy through
-           platform build, MLOps, feature stores, and production deployment at scale.</p>
-        <div class="outcome-achievements">
-          <div class="outcome-ach"><strong>$500M+ business value delivered</strong> across revenue uplift, cost reduction, and capital efficiency</div>
-          <div class="outcome-ach"><strong>10× practice growth</strong> at a Big 4 — built from founding team to scaled delivery capability</div>
-          <div class="outcome-ach"><strong>Platform in production</strong> — not a PoC, not a pilot, but enterprise-grade infrastructure serving the bank</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- =========== VIDEO — RODNEY ON STAGE =========== -->
-<section id="video" style="background:linear-gradient(180deg,transparent,rgba(11,24,40,0.5),transparent)">
-  <div class="container" style="text-align:center">
-    <div class="section-head" style="text-align:center;margin-bottom:48px">
-      <div class="section-label" style="margin:0 auto 20px">On Stage</div>
-      <h2 class="section-title" style="margin:0 auto 22px;text-align:center">Hear the thinking <span class="gold">first-hand.</span></h2>
-      <p class="section-intro" style="margin:0 auto;text-align:center">
-        Rodney on AI strategy, governance and the opportunity in financial services — live.
-      </p>
-    </div>
-    <div class="video-wrap">
-      <iframe src="https://www.youtube.com/embed/H06SeQ80zzE?start=90&end=330&rel=0" title="Rodney Coutinho — AI in Financial Services"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen loading="lazy"></iframe>
-    </div>
-  </div>
-</section>
-
-<!-- =========== AI NEWS FEED — MIDDLE EAST =========== -->
-<section id="ai-news">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-label">AI Intelligence · Middle East</div>
-      <h2 class="section-title">What's moving in <span class="gold">Saudi &amp; Gulf AI</span> — right now.</h2>
-      <p class="section-intro">
-        Curated stories that matter for bank boards, regulators and sovereign institutions
-        across the region. Updated regularly.
-      </p>
-    </div>
-    <div class="news-grid" id="newsGrid">
-      <a href="https://www.arabnews.com/node/2521746/business-economy" target="_blank" rel="noopener" class="news-card">
-        <div class="news-source">
-          <span class="ns-dot"></span>
-          <span class="ns-name">Arab News</span>
-          <span class="ns-date">2026</span>
-        </div>
-        <h4>Saudi Arabia launches HUMAIN — the national AI company with $100B+ ambition</h4>
-        <p>The Kingdom's new AI champion, backed by PIF, is set to build sovereign AI infrastructure,
-           data centres and foundation models. Banks and regulators are first-wave partners.</p>
-        <span class="news-link">Read story</span>
-      </a>
-      <a href="https://www.sama.gov.sa" target="_blank" rel="noopener" class="news-card">
-        <div class="news-source">
-          <span class="ns-dot"></span>
-          <span class="ns-name">SAMA</span>
-          <span class="ns-date">2026</span>
-        </div>
-        <h4>SAMA accelerates AI supervisory framework for Saudi banks</h4>
-        <p>The Saudi Central Bank is building AI-specific supervisory tooling, model risk management
-           guidelines and thematic review capability — setting the pace for GCC regulators.</p>
-        <span class="news-link">Read story</span>
-      </a>
-      <a href="https://u.ae/en/about-the-uae/strategies-initiatives-and-awards/strategies-plans-and-visions/innovation-and-future-shaping/uae-national-strategy-for-artificial-intelligence-2031" target="_blank" rel="noopener" class="news-card">
-        <div class="news-source">
-          <span class="ns-dot"></span>
-          <span class="ns-name">UAE Gov</span>
-          <span class="ns-date">2026</span>
-        </div>
-        <h4>UAE AI Strategy 2031 — the regulatory and infrastructure roadmap</h4>
-        <p>The UAE's national AI strategy positions the country as a global AI hub. CBUAE, ADGM and DIFC
-           are building FS-specific AI governance aligned with international standards.</p>
-        <span class="news-link">Read story</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- =========== CASE STUDIES & TESTIMONIALS =========== -->
-<section id="case-studies" class="cases">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-label">Case Studies &amp; Testimonials</div>
-      <h2 class="section-title">Four programmes. <span class="gold">Ten-digit impact.</span> Trusted by boards.</h2>
-      <p class="section-intro">Selected engagements at institution scale — capital markets, global banks and
-         regulators where the work had to hold up in front of a board and a supervisor.</p>
-    </div>
-    <div class="cases-grid">
-      <div class="case">
-        <div class="case-meta">
-          <span class="pill">Capital Markets Infrastructure</span>
-          <span>Middle East</span>
-        </div>
-        <h3>National Exchange Group — Capital Markets Transformation &amp; Agentic AI Platform</h3>
-        <p>Served as partner on a sovereign exchange group transformation — next-generation trading,
-           post-trade, CCP and CSD platforms — and on the build-out of a flagship
-           agentic AI platform with 200+ engineers on NVIDIA Llama Nemotron.
-           Underpins a nation's equity, debt and derivatives market infrastructure.</p>
-        <div class="case-metric">
-          <div><div class="v">$100M+</div><div class="l">Revenue unlock</div></div>
-          <div><div class="v">200+</div><div class="l">Engineers led</div></div>
-          <div><div class="v">Nemotron</div><div class="l">NVIDIA foundation</div></div>
-        </div>
-      </div>
-      <div class="case">
-        <div class="case-meta">
-          <span class="pill">Financial Market Regulator</span>
-          <span>Middle East</span>
-        </div>
-        <h3>National Securities Regulator — GenAI Supervisory Programme</h3>
-        <p>Designed and delivered the GenAI and agentic AI supervisory programme for a
-           national capital market authority. Regulator-grade risk taxonomy, red-teaming
-           and a supervisory handbook aligned to the spirit of NIST AI RMF and EU AI Act.</p>
-        <div class="case-metric">
-          <div><div class="v">3–10×</div><div class="l">Productivity uplift</div></div>
-          <div><div class="v">30+</div><div class="l">Risks tiered</div></div>
-          <div><div class="v">National First</div><div class="l">GenAI handbook</div></div>
-        </div>
-      </div>
-      <div class="case">
-        <div class="case-meta">
-          <span class="pill">Global Banking</span>
-          <span>UK · Europe</span>
-        </div>
-        <h3>Two Top-5 UK Banks — AI-Led Customer &amp; Risk Transformation</h3>
-        <p>Ten+ years leading AI, data and customer transformation across two of the UK's
-           largest banking groups. Credit decisioning, fraud, customer intelligence, regulatory reporting
-           and the Basel programme work that sits underneath every major UK bank today.</p>
-        <div class="case-metric">
-          <div><div class="v">£1B+</div><div class="l">ROI delivered</div></div>
-          <div><div class="v">SR 11-7</div><div class="l">Aligned</div></div>
-          <div><div class="v">20+ countries</div><div class="l">Cross-border</div></div>
-        </div>
-      </div>
-      <div class="case">
-        <div class="case-meta">
-          <span class="pill">Asset Management</span>
-          <span>US · UK</span>
-        </div>
-        <h3>Global Top-5 Asset Manager — AI-Driven Portfolio &amp; Research</h3>
-        <p>Built the AI and data backbone behind a $750B+ asset manager's equity research and portfolio
-           management platform. Alternative data, alpha models,
-           vendor architecture and the governance wrapper around every model in production.</p>
-        <div class="case-metric">
-          <div><div class="v">$750B</div><div class="l">AUM covered</div></div>
-          <div><div class="v">60+ PMs</div><div class="l">Direct users</div></div>
-          <div><div class="v">Buy-side</div><div class="l">Scale-out</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Testimonials (merged into Case Studies) -->
-    <div class="section-head" style="margin-top:80px;margin-bottom:40px">
-      <div class="section-label">What Clients Say</div>
-      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--white)">Trusted by <span class="gold">boards, regulators</span> and platform teams.</h3>
-    </div>
-    <div class="testimonial-grid">
-      <div class="testimonial">
-        <blockquote>Rodney is one of very few people who can walk into a board meeting and explain AI in the
-          language of ROE and capital efficiency — then walk downstairs and review the architecture
-          with the engineering team. That range is genuinely rare.</blockquote>
-        <div class="testimonial-source">
-          <div class="ts-role">Group Chief Technology Officer</div>
-          <div class="ts-org">Tier-1 GCC Bank</div>
-        </div>
-      </div>
-      <div class="testimonial">
-        <blockquote>He didn't just give us a governance framework — he built it alongside our team, tested it
-          against our regulator's expectations, and stayed until the supervisor signed off. That
-          level of follow-through is what separates advice from delivery.</blockquote>
-        <div class="testimonial-source">
-          <div class="ts-role">Head of AI Risk &amp; Governance</div>
-          <div class="ts-org">National Securities Regulator</div>
-        </div>
-      </div>
-      <div class="testimonial">
-        <blockquote>The Banking 2030 Scoreboard work was a turning point for how our leadership
-          thinks about AI investment. For the first time, the conversation moved from
-          'how much does AI cost' to 'how much value are we leaving on the table.'</blockquote>
-        <div class="testimonial-source">
-          <div class="ts-role">Chief Strategy Officer</div>
-          <div class="ts-org">Saudi Banking Group</div>
-        </div>
       </div>
     </div>
   </div>
@@ -4272,51 +4088,7 @@
   </div>
 </section>
 
-<!-- =========== DUAL CAPABILITIES — BUSINESS + TECH =========== -->
-<section id="capabilities" class="caps">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-label">Depth · Bilingual Capabilities</div>
-      <h2 class="section-title">Bilingual by design — <span class="gold">business and technology</span> in one conversation.</h2>
-      <p class="section-intro">
-        The point of Meridian.AI is to be useful on both sides of the room. Most advisors
-        pick one. These are the two stacks I carry into every engagement.
-      </p>
-    </div>
-    <div class="caps-grid">
-      <div class="caps-col">
-        <h3>Business <span class="gold">·</span> the boardroom stack</h3>
-        <p>Spoken in the language a CFO, Chief Risk Officer and audit committee can underwrite.
-           What the board gets delivered — not the platform team's reading list.</p>
-        <div class="caps-list">
-          <div>P&amp;L, cost/income, ROE, RoRWA framing</div>
-          <div>Basel IV, IRB, capital efficiency, RWA optimisation</div>
-          <div>Non-interest income strategy, fee pools, BaaS economics</div>
-          <div>Model risk (SR 11-7, SS1/23) &amp; board-ready MRM</div>
-          <div>Regulatory strategy · SAMA, CMA KSA, CBUAE, FCA, ECB</div>
-          <div>Target operating models, CoE design, product-org shifts</div>
-          <div>Vendor strategy, build-vs-buy, platform economics</div>
-          <div>Market cap and equity story — the investor-grade narrative</div>
-        </div>
-      </div>
-      <div class="caps-col">
-        <h3>Technology <span class="gold">·</span> the platform stack</h3>
-        <p>Deep enough to sit in an architecture review and be useful. The vocabulary
-           that earns trust from the people actually building the systems.</p>
-        <div class="caps-list">
-          <div>Agentic AI · multi-agent orchestration, planner/executor patterns</div>
-          <div>Foundation models · Anthropic, OpenAI, NVIDIA Llama Nemotron, Cohere</div>
-          <div>GenAI platforms · RAG, fine-tuning, evals, guardrails, red-teaming</div>
-          <div>Data platforms · Snowflake, Databricks, lakehouse, feature stores</div>
-          <div>Cloud · AWS, Azure, GCP — FS-grade landing zones</div>
-          <div>MLOps · CI/CD for models, monitoring, drift, observability</div>
-          <div>Market infrastructure · CCP, CSD, trading, post-trade, DLT</div>
-          <div>Cybersecurity &amp; AI red-teaming · Cisco (2024–present)</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- [CUT] Capabilities section removed — duplicated by Services and About -->
 
 <!-- =========== ACCELERATORS =========== -->
 <section id="accelerators">
@@ -4408,54 +4180,45 @@
   </div>
 </section>
 
-<!-- =========== CREDENTIALS STRIP =========== -->
-<section id="credentials" class="creds">
+<!-- [CUT] Credentials strip removed — weakened premium positioning -->
+
+<!-- =========== RESOURCES =========== -->
+<section id="resources">
   <div class="container">
-    <div class="creds-head">
-      <div class="section-label">Credentials &amp; Background</div>
-      <h2>20+ years innovating, evangelising, strategising &amp; <span class="gold">shipping.</span></h2>
+    <div class="section-head" style="text-align:center;margin-bottom:48px">
+      <div class="section-label" style="margin:0 auto 20px">Free Resources</div>
+      <h2 class="section-title" style="margin:0 auto 16px;text-align:center">Frameworks and tools you can <span class="gold">use today.</span></h2>
+      <p class="section-intro" style="text-align:center">Practical downloads built from real engagements — not whitepapers written to sell. Each one is ready to deploy inside your organisation.</p>
     </div>
-    <div class="creds-grid">
-      <div class="cred">
-        <div class="cred-label">Current · Partner</div>
-        <div class="cred-value">Big 4 · Middle East</div>
-        <div class="cred-sub">Partner · AI &amp; Data · Financial Services Leader · Dubai</div>
-      </div>
-      <div class="cred">
-        <div class="cred-label">LinkedIn Reach</div>
-        <div class="cred-value">4,000+ followers</div>
-        <div class="cred-sub">Meridian.AI — writing on bank ROE, AI governance and Vision 2030</div>
-      </div>
-      <div class="cred">
-        <div class="cred-label">Languages</div>
-        <div class="cred-value">English · Indian Languages</div>
-        <div class="cred-sub">Native / bilingual proficiency</div>
-      </div>
-      <div class="cred">
-        <div class="cred-label">Formal Education</div>
-        <div class="cred-value">Institute of Software Engineering</div>
-        <div class="cred-sub">Distinction · Software Design &amp; Development · 2000–2001</div>
-      </div>
-      <div class="cred">
-        <div class="cred-label">Certification</div>
-        <div class="cred-value">Certified Data Integrator</div>
-        <div class="cred-sub">Ab Initio · Aug 2004 — foundational data-platform credential</div>
-      </div>
-      <div class="cred">
-        <div class="cred-label">Recognition</div>
-        <div class="cred-value">Outstanding Performer of the Year</div>
-        <div class="cred-sub">Tech Mahindra · 2003</div>
-      </div>
-      <div class="cred">
-        <div class="cred-label">Academic</div>
-        <div class="cred-value">Graduation Merit Rank</div>
-        <div class="cred-sub">Mumbai University · 1996</div>
-      </div>
-      <div class="cred">
-        <div class="cred-label">Geography</div>
-        <div class="cred-value">Middle East primary</div>
-        <div class="cred-sub">UK &amp; EU supporting · KSA · UAE · Bahrain · Qatar</div>
-      </div>
+    <div class="resources-grid">
+      <a href="resources/ai-governance-readiness-checklist.pdf" download class="resource-card">
+        <div class="res-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="res-type">CHECKLIST · PDF</div>
+        <h4>AI Governance Readiness Checklist</h4>
+        <p>40-point assessment against SR 11-7, SS1/23, NIST AI RMF and EU AI Act. Score your institution's governance maturity in under an hour.</p>
+        <span class="res-dl"><svg viewBox="0 0 24 24" class="dl-arrow"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download free</span>
+      </a>
+      <a href="resources/banking-ai-readiness-scorecard.xlsx" download class="resource-card">
+        <div class="res-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></div>
+        <div class="res-type">SCORECARD · EXCEL</div>
+        <h4>Banking AI Readiness Scorecard</h4>
+        <p>Benchmark your bank across 6 AI capability dimensions — data, talent, governance, technology, use cases and operating model. Peer comparison built in.</p>
+        <span class="res-dl"><svg viewBox="0 0 24 24" class="dl-arrow"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download free</span>
+      </a>
+      <a href="resources/genai-risk-red-teaming-framework.pdf" download class="resource-card">
+        <div class="res-icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <div class="res-type">FRAMEWORK · PDF</div>
+        <h4>GenAI Risk &amp; Red-Teaming Framework</h4>
+        <p>30+ risk categories tiered by severity. Includes prompt injection, hallucination, data leakage, bias, and model drift — with testing protocols for each.</p>
+        <span class="res-dl"><svg viewBox="0 0 24 24" class="dl-arrow"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download free</span>
+      </a>
+      <a href="resources/board-ai-briefing-pack-template.pptx" download class="resource-card">
+        <div class="res-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+        <div class="res-type">TEMPLATE · PPTX</div>
+        <h4>Board AI Briefing Pack Template</h4>
+        <p>The 12-slide structure used in real board presentations. Covers AI opportunity sizing, risk appetite, governance gaps, and the recommended action plan.</p>
+        <span class="res-dl"><svg viewBox="0 0 24 24" class="dl-arrow"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download free</span>
+      </a>
     </div>
   </div>
 </section>
@@ -4517,47 +4280,6 @@
   </div>
 </section>
 
-<!-- =========== FREE RESOURCES =========== -->
-<section id="resources">
-  <div class="container">
-    <div class="section-head" style="text-align:center;margin-bottom:48px">
-      <div class="section-label" style="margin:0 auto 20px">Free Resources</div>
-      <h2 class="section-title" style="margin:0 auto 16px;text-align:center">Frameworks and tools you can <span class="gold">use today.</span></h2>
-      <p class="section-intro" style="text-align:center">Practical downloads built from real engagements — not whitepapers written to sell. Each one is ready to deploy inside your organisation.</p>
-    </div>
-    <div class="resources-grid">
-      <a href="resources/ai-governance-readiness-checklist.pdf" download class="resource-card">
-        <div class="res-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <div class="res-type">CHECKLIST · PDF</div>
-        <h4>AI Governance Readiness Checklist</h4>
-        <p>40-point assessment against SR 11-7, SS1/23, NIST AI RMF and EU AI Act. Score your institution's governance maturity in under an hour.</p>
-        <span class="res-dl"><svg viewBox="0 0 24 24" class="dl-arrow"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download free</span>
-      </a>
-      <a href="resources/banking-ai-readiness-scorecard.xlsx" download class="resource-card">
-        <div class="res-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></div>
-        <div class="res-type">SCORECARD · EXCEL</div>
-        <h4>Banking AI Readiness Scorecard</h4>
-        <p>Benchmark your bank across 6 AI capability dimensions — data, talent, governance, technology, use cases and operating model. Peer comparison built in.</p>
-        <span class="res-dl"><svg viewBox="0 0 24 24" class="dl-arrow"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download free</span>
-      </a>
-      <a href="resources/genai-risk-red-teaming-framework.pdf" download class="resource-card">
-        <div class="res-icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
-        <div class="res-type">FRAMEWORK · PDF</div>
-        <h4>GenAI Risk &amp; Red-Teaming Framework</h4>
-        <p>30+ risk categories tiered by severity. Includes prompt injection, hallucination, data leakage, bias, and model drift — with testing protocols for each.</p>
-        <span class="res-dl"><svg viewBox="0 0 24 24" class="dl-arrow"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download free</span>
-      </a>
-      <a href="resources/board-ai-briefing-pack-template.pptx" download class="resource-card">
-        <div class="res-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
-        <div class="res-type">TEMPLATE · PPTX</div>
-        <h4>Board AI Briefing Pack Template</h4>
-        <p>The 12-slide structure used in real board presentations. Covers AI opportunity sizing, risk appetite, governance gaps, and the recommended action plan.</p>
-        <span class="res-dl"><svg viewBox="0 0 24 24" class="dl-arrow"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download free</span>
-      </a>
-    </div>
-  </div>
-</section>
-
 <!-- =========== CONVERSION PATHS =========== -->
 <section id="start" class="conversion-strip">
   <div class="container">
@@ -4608,6 +4330,7 @@
         <p>Loading calendar...</p>
       </div>
     </div>
+    <!-- SETUP: Replace YOUR_USERNAME below with your Cal.com username after creating your account at cal.com -->
     <script>
     (function(){
       var CAL_USERNAME = 'rodney.ai';
@@ -4645,6 +4368,7 @@
   </div>
 </section>
 
+
 </main>
 
 <!-- =========== FOOTER =========== -->
@@ -4658,19 +4382,18 @@
           </div>
           <div class="logo-text">
             <span class="wordmark">MERIDIAN<span class="dot">.AI</span></span>
-            <span class="tag">Executive Advisor</span>
+            <span class="tag">AI Strategy · Governance · Delivery</span>
           </div>
         </a>
-        <p>Helping banks, capital markets and sovereign institutions turn AI ambition into
-           P&amp;L, ROE and market cap. Middle East · UK · Europe.</p>
+        <p>The independent AI advisory that stays from strategy through delivery — bridging the boardroom and the platform team, measuring everything in P&amp;L, and owning outcomes through our partner network. Middle East · UK · Europe.</p>
       </div>
       <div class="footer-col">
         <h4>Navigate</h4>
         <ul>
           <li><a href="#services">Services</a></li>
           <li><a href="#how">Engagement Model</a></li>
-          <li><a href="#commercials">Commercials</a></li>
           <li><a href="#why">Why Us</a></li>
+          <li><a href="#case-studies">The Evidence</a></li>
           <li><a href="#accelerators">Accelerators</a></li>
           <li><a href="#resources">Free Resources</a></li>
         </ul>
@@ -4720,7 +4443,7 @@
     '.sgu-head, .sgu-card, .service, .question-card, .insight, .case, .acc,' +
     '.reg-card, .pool, .why-card, .why-ev-card, .engage-card, .commercial-card, .testimonial,' +
     '.faq-item, .cred, .persona, .pillar, .contact-inner > *, .about-grid > *,' +
-    '.partner-layout > *, .prize-panel, .journey-track, .series-card,' +
+    '.partner-layout > *, .prize-panel, .journey-eco-layout, .stage-tabs, .series-card,' +
     '.caps-col, .about-speaking, .about-highlight, .engagement-legend,' +
     '.commercial-principles, .article-body h3, .article-body p, .article-body blockquote,' +
     '.contact-card, .delivery-hub, .partner-logo, .journey-note'
@@ -4752,6 +4475,92 @@
       children[i].classList.add(delayClass);
     }
   });
+
+  /* ===== UNIFIED AGENTIC JOURNEY + ECOSYSTEM ===== */
+  (function(){
+    var STAGES = [
+      {
+        num:'01', title:'Discover', pills:['advisory'],
+        desc:'Agentic AI readiness assessment. Benchmark your institution against peers, map the highest-value agent use cases — compliance, fraud detection, KYC remediation, trade surveillance — and size the opportunity in P&L terms.',
+        deliverables:['Agentic AI maturity benchmark','Use-case prioritisation &amp; value map','Board-ready opportunity brief'],
+        lit:['strategy','banking','capital','exchanges','payments','insurance']
+      },
+      {
+        num:'02', title:'Foundation', pills:['advisory','management'],
+        desc:'Build the data ontology — the semantic layer your agents reason over. The ontology sits at the centre, not the LLM. Semantic objects, actions, knowledge graph and the data fabric that makes agents reliable, not just clever.',
+        deliverables:['Enterprise data ontology design','Knowledge graph &amp; semantic layer','Data quality &amp; lineage framework'],
+        lit:['strategy','execution','snowflake','aws','azure']
+      },
+      {
+        num:'03', title:'Architect', pills:['advisory','management'],
+        desc:'Design agent blueprints and orchestration topology. Define agent tiers — from ad-hoc analysis through task-specific agents to fully autonomous operations. Tool integration, memory architecture and human-in-the-loop controls.',
+        deliverables:['Agent blueprint &amp; orchestration design','Tool integration &amp; memory architecture','Human-in-the-loop control framework'],
+        lit:['strategy','execution','nvidia','aws','azure','dell']
+      },
+      {
+        num:'04', title:'Govern', pills:['advisory'],
+        desc:'The trust layer that separates production agents from lab experiments. Purpose-driven permissions, sandboxed execution, red-teaming for prompt injection and tool poisoning. Your governance moat — aligned to NDMO/SDAIA AI Ethics Principles, SAMA CSF, EU AI Act Article 14, DIFC Regulation 10 and NIST AI RMF.',
+        deliverables:['Purpose-driven permission model','Red-teaming &amp; adversarial testing','Regulatory mapping (NDMO, SDAIA, SAMA, EU AI Act, DIFC)'],
+        lit:['governance','cisco','regulators','defense','sovereign']
+      },
+      {
+        num:'05', title:'Deploy', pills:['management'],
+        desc:'From prototype to production. Multi-agent orchestration, security-by-design with sandboxed runtimes, observability stack and continuous evaluation. Delivered through our engineering network in India, UAE and Saudi.',
+        deliverables:['Multi-agent orchestration pipeline','Observability &amp; evaluation framework','Security-by-design runtime (sandboxed)'],
+        lit:['execution','nvidia','dell','aws','azure','cisco']
+      },
+      {
+        num:'06', title:'Scale', pills:['advisory','management'],
+        desc:'Enterprise agentic capability. Agent hives operating autonomously across compliance, operations and client service. Shared infrastructure, cross-domain reuse and board-level reporting on agent ROI and risk posture.',
+        deliverables:['Agent portfolio &amp; hive architecture','Cross-domain reuse &amp; shared infra','Board reporting — agent ROI &amp; risk'],
+        lit:['strategy','governance','execution','banking','capital','exchanges','sovereign','defense','regulators','insurance','payments','nvidia','aws','snowflake','azure','cisco','dell']
+      }
+    ];
+
+    var tabs = document.querySelectorAll('#stageTabs .stage-tab');
+    var nodes = document.querySelectorAll('#ecoMap .eco-node');
+    var sdNum = document.getElementById('sdNum');
+    var sdTitle = document.getElementById('sdTitle');
+    var sdDesc = document.getElementById('sdDesc');
+    var sdPills = document.getElementById('sdPills');
+    var sdDel = document.getElementById('sdDeliverables');
+    if(!tabs.length) return;
+
+    function activate(idx){
+      var s = STAGES[idx];
+      // Update tabs
+      tabs.forEach(function(t,i){ t.classList.toggle('active', i===idx); });
+      // Update detail panel
+      sdNum.textContent = s.num;
+      sdTitle.textContent = s.title;
+      sdDesc.innerHTML = s.desc;
+      sdPills.innerHTML = s.pills.map(function(p){
+        return '<span class="je-pill je-' + p + '">' + p.charAt(0).toUpperCase()+p.slice(1) + '</span>';
+      }).join('');
+      sdDel.innerHTML = s.deliverables.map(function(d){ return '<span>' + d + '</span>'; }).join('');
+      // Light up ecosystem nodes
+      nodes.forEach(function(n){
+        var id = n.getAttribute('data-id');
+        n.classList.toggle('lit', s.lit.indexOf(id) !== -1);
+      });
+    }
+
+    tabs.forEach(function(tab, i){
+      tab.addEventListener('click', function(){ activate(i); });
+    });
+
+    // Float animation
+    nodes.forEach(function(node, i){
+      var dur = 4 + (i % 3) * 0.8;
+      var delay = -(i * 0.5);
+      var dist = 3 + (i % 4) * 1.5;
+      node.style.animation = 'ecoFloat ' + dur + 's ease-in-out ' + delay + 's infinite';
+      node.style.setProperty('--float-dist', dist + 'px');
+    });
+
+    // Initialise with stage 0
+    activate(0);
+  })();
 
   /* ===== NAV SCROLL STATE ===== */
   var nav = document.querySelector('.nav');
@@ -4883,7 +4692,9 @@
     });
   });
 
-  /* ===== SECTOR STRIP ===== */
+})();
+
+/* ===== SECTOR STRIP ===== */
   (function(){
     var cards = document.querySelectorAll('.sector-card');
     if(!cards.length) return;
@@ -4896,7 +4707,6 @@
     });
   })();
 
-})();
 </script>
 
 <!-- =========== SECTION BAR JS =========== -->
