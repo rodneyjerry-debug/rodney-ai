@@ -26,98 +26,180 @@
 
   <div class="card">
     <h2>1 · Data risk</h2>
+    <p>Data is the foundation of all AI models. Weakness here propagates through the entire system. Eight distinct risks:</p>
     <table>
-      <thead><tr><th>Risk</th><th>Description</th><th>Primary control</th></tr></thead>
+      <thead><tr><th>Risk</th><th>Description</th><th>Severity</th><th>Control recommendation</th><th>Regulatory ref</th></tr></thead>
       <tbody>
-        <tr><td>Data quality &amp; lineage</td><td>Models trained on stale, incomplete or unrepresentative data.</td><td>Data quality SLAs, lineage tooling</td></tr>
-        <tr><td>Sensitive data exposure</td><td>PII, PCI or material non-public information leaking into training sets or prompts.</td><td>Data classification, DLP, prompt scanning</td></tr>
-        <tr><td>Bias in training data</td><td>Historical bias encoded into model behavior.</td><td>Fairness testing, representative sampling</td></tr>
-        <tr><td>Concept &amp; data drift</td><td>Real-world data diverges from training distribution.</td><td>Drift monitoring, retraining triggers</td></tr>
-        <tr><td>Synthetic / poisoned data</td><td>Adversarial or fabricated data corrupting models.</td><td>Provenance, anomaly detection</td></tr>
+        <tr><td><strong>Data quality &amp; lineage</strong></td><td>Models trained on stale, incomplete, unrepresentative or undocumented data. Lineage unclear makes root-cause analysis impossible.</td><td>High</td><td>Data quality SLAs; automated lineage tracking; golden dataset versioning; DQ dashboards by data source</td><td>SR 11-7 model documentation</td></tr>
+        <tr><td><strong>Sensitive data exposure</strong></td><td>PII, PCI, material non-public information, trade secrets leaking into training sets or GenAI prompts.</td><td>Critical</td><td>Data classification framework; DLP rules pre-training; prompt scanning &amp; redaction; data masking; PII detection in model inputs</td><td>GDPR, PCI-DSS, GLBA</td></tr>
+        <tr><td><strong>Bias in training data</strong></td><td>Historical bias (e.g., past lending discrimination) encoded into model behavior; disparate impact on protected groups.</td><td>High</td><td>Fairness testing (disparate impact analysis); demographic parity &amp; equalized odds checks; representative sampling; stratified evaluation sets; bias documentation in model card</td><td>Fair Lending regs, EU AI Act Annex III</td></tr>
+        <tr><td><strong>Data drift &amp; staleness</strong></td><td>Training data becomes unrepresentative of real-world distribution. Model accuracy degrades silently.</td><td>High</td><td>Automated drift detection; retraining triggers; holdout test set monitoring; concept drift detection; version control on retraining data</td><td>SR 11-7 monitoring requirements</td></tr>
+        <tr><td><strong>Synthetic / poisoned data</strong></td><td>Adversarial actors inject or poison training data to corrupt model behavior; synthetic data with incorrect labels.</td><td>Medium</td><td>Data provenance tracking; anomaly detection on input distributions; red-team synthetic data; version control &amp; approval gates for training data changes</td><td>NIST AI RMF</td></tr>
+        <tr><td><strong>Privacy leakage in training</strong></td><td>Model may memorize &amp; regurgitate training examples (especially GenAI); privacy attacks can extract personal data from models.</td><td>High</td><td>Differential privacy in training; membership inference testing; differential privacy audits for LLMs; data minimisation in prompts</td><td>GDPR, CCPA</td></tr>
+        <tr><td><strong>Cross-border data transfer</strong></td><td>Training data flows to non-compliant jurisdictions; GDPR Adequacy Decision not met.</td><td>Medium</td><td>Regional data residency enforced; Standard Contractual Clauses; data transfer impact assessments; contractual restrictions on sub-processors</td><td>GDPR Articles 44–50</td></tr>
+        <tr><td><strong>Unlicensed or copyrighted training data</strong></td><td>Training data includes copyrighted content, news articles or proprietary datasets without license or consent.</td><td>Medium</td><td>Training data audit &amp; licensing review; indemnification agreements with data providers; content filter exclusions; opt-out mechanisms for rightsholders</td><td>Copyright law, EU AI Act Annex III</td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="card">
     <h2>2 · Model risk</h2>
+    <p>The model itself — its logic, accuracy, fairness and robustness — is the second critical risk layer. Seven distinct risks:</p>
     <table>
-      <thead><tr><th>Risk</th><th>Description</th><th>Primary control</th></tr></thead>
+      <thead><tr><th>Risk</th><th>Description</th><th>Severity</th><th>Control recommendation</th><th>Regulatory ref</th></tr></thead>
       <tbody>
-        <tr><td>Model error / inaccuracy</td><td>Predictions outside acceptable error bounds.</td><td>Validation, challenger models</td></tr>
-        <tr><td>Hallucination (GenAI)</td><td>LLMs producing confident but false outputs.</td><td>Grounding, retrieval, human review</td></tr>
-        <tr><td>Explainability gap</td><td>Inability to explain a model decision to a customer or regulator.</td><td>Interpretability tooling, simpler challengers</td></tr>
-        <tr><td>Model bias / unfair outcomes</td><td>Disparate impact across protected groups.</td><td>Fairness metrics, post-hoc adjustments</td></tr>
-        <tr><td>Robustness &amp; adversarial</td><td>Sensitivity to adversarial inputs or prompt injection.</td><td>Red-teaming, input filtering</td></tr>
+        <tr><td><strong>Model error &amp; inaccuracy</strong></td><td>Predictions fall outside acceptable error bounds in validation, test or production. Precision, recall or AUC degradation.</td><td>High</td><td>Rigorous validation with independent test set; challenger model approach; performance SLOs by business segment; monitoring &amp; retraining triggers</td><td>SR 11-7 validation</td></tr>
+        <tr><td><strong>Hallucination (GenAI)</strong></td><td>LLMs confidently generate false, nonsensical or off-topic outputs. Especially risky for financial advice, documentation, or customer-facing use.</td><td>Critical</td><td>Grounding to trusted knowledge bases; RAG (Retrieval Augmented Generation) architecture; human-in-the-loop for high-stakes outputs; hallucination detection tooling; guardrails on output format &amp; content</td><td>EU AI Act Annex III, FCA guidance</td></tr>
+        <tr><td><strong>Explainability gap</strong></td><td>Inability to explain a model's decision to a customer, regulator or the decision-maker. Black-box model in high-stakes use.</td><td>High</td><td>Explainability tooling (SHAP, LIME, attention visualization); challenger models that are inherently interpretable; model cards documenting global &amp; local explanations; decision rationale logging</td><td>GDPR right to explanation, EU AI Act Annex III</td></tr>
+        <tr><td><strong>Model bias &amp; fairness</strong></td><td>Disparate impact across protected groups (race, gender, age, etc.). Model systematically disadvantages a customer segment.</td><td>Critical</td><td>Fairness testing pre-launch &amp; ongoing (disparate impact ratio, equalized odds, calibration); stratified performance evaluation; bias documentation; mitigation strategies (thresholding, fairness constraints in training)</td><td>Fair Lending regs, ECOA, FCA guidance, EU AI Act</td></tr>
+        <tr><td><strong>Robustness &amp; adversarial attacks</strong></td><td>Model sensitive to small input perturbations or adversarial attacks; prompt injection can manipulate LLM outputs.</td><td>Medium</td><td>Adversarial testing &amp; red-teaming; input filtering &amp; validation; prompt injection detection; robustness metrics (perturbation tolerance); guardrails on model outputs</td><td>NIST AI RMF</td></tr>
+        <tr><td><strong>Model staleness &amp; concept drift</strong></td><td>Model performance degrades because the real world has changed; concept drift is not detected or remediated.</td><td>High</td><td>Automated performance monitoring; drift detection algorithms; retraining triggers &amp; schedules; periodic model challenger evaluations; version control on all model artifacts</td><td>SR 11-7 monitoring</td></tr>
+        <tr><td><strong>Overfitting &amp; poor generalization</strong></td><td>Model fits training data too closely; poor performance on new, unseen data. Cross-validation gaps.</td><td>Medium</td><td>Proper train/validation/test splits; cross-validation; regularization tuning; holdout test set evaluation; performance parity across cohorts &amp; time periods</td><td>SR 11-7 validation</td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="card">
     <h2>3 · Deployment &amp; operational risk</h2>
+    <p>Operational risk materializes after deployment. Models that looked good in validation can fail in production if not properly deployed and monitored. Eight distinct risks:</p>
     <table>
-      <thead><tr><th>Risk</th><th>Description</th><th>Primary control</th></tr></thead>
+      <thead><tr><th>Risk</th><th>Description</th><th>Severity</th><th>Control recommendation</th><th>Regulatory ref</th></tr></thead>
       <tbody>
-        <tr><td>Shadow AI</td><td>Business teams using AI tools outside IT/risk visibility.</td><td>AI inventory, gateway, allowlists</td></tr>
-        <tr><td>Deployment failure</td><td>Production model performs differently to validation.</td><td>Canary, A/B, shadow deployment</td></tr>
-        <tr><td>Inadequate monitoring</td><td>Risks materialising undetected post-deployment.</td><td>SLOs, metric monitoring, alerting</td></tr>
-        <tr><td>Cost &amp; compute concentration</td><td>Runaway inference cost; reliance on a single GPU vendor.</td><td>FinOps, multi-vendor strategy</td></tr>
+        <tr><td><strong>Shadow AI &amp; rogue deployments</strong></td><td>Business teams using external AI tools (ChatGPT, Copilot, bespoke SaaS) outside IT/risk visibility; unvetted models in production.</td><td>High</td><td>AI inventory audit with deep packet inspection; enterprise GenAI gateway &amp; allowlist; SaaS application controls; user education &amp; amnesty; regular audits of what tools are actually in use</td><td>SR 11-7, SS1/23</td></tr>
+        <tr><td><strong>Deployment-validation gap</strong></td><td>Model performs well in validation but fails in production due to different data, latency, or infrastructure issues.</td><td>High</td><td>Canary deployment (10% traffic); A/B testing pre-full rollout; shadow mode deployment (parallel to incumbent); production performance monitoring pre/post rollout; rollback procedures</td><td>SR 11-7</td></tr>
+        <tr><td><strong>Inadequate monitoring &amp; alerting</strong></td><td>Model degradation, drift, bias or failures not detected; risk materialises silently until customer complaint or regulatory exam.</td><td>Critical</td><td>Real-time SLO monitoring (latency, accuracy, fairness); automated alerting with escalation; model performance dashboard; data quality monitoring; drift detection; alert response SLAs</td><td>SR 11-7, SS1/23</td></tr>
+        <tr><td><strong>Cost &amp; compute concentration</strong></td><td>Runaway inference cost from large-scale GenAI use; heavy reliance on single GPU vendor (e.g., NVIDIA) creating supply chain risk.</td><td>Medium</td><td>FinOps discipline (tagging, budgets, alerts); multi-model strategy reducing vendor lock-in; cost optimization (model quantization, caching, batch processing); compute capacity planning</td><td>Operational resilience</td></tr>
+        <tr><td><strong>Model versioning &amp; rollback failure</strong></td><td>Inability to revert to prior model version; unclear which version is in production; audit trail lost.</td><td>Medium</td><td>Model registry with version control; immutable artifacts; automated version promotion gates; rollback procedures &amp; testing; audit logs of all version changes</td><td>SR 11-7 model documentation</td></tr>
+        <tr><td><strong>Latency &amp; performance SLA breach</strong></td><td>Model takes too long to score; inference latency causes downstream system timeouts or poor user experience.</td><td>Medium</td><td>Latency SLOs by use case; performance profiling pre-deployment; auto-scaling &amp; load balancing; caching strategies; model compression for inference speed</td><td>Operational resilience</td></tr>
+        <tr><td><strong>Data pipeline failures</strong></td><td>Data quality issues, stale data or missing features in the production data pipeline feeding the model.</td><td>High</td><td>Data pipeline monitoring &amp; alerting; schema validation; feature freshness checks; data quality dashboards; fallback / degraded mode if data unavailable</td><td>SR 11-7 monitoring</td></tr>
+        <tr><td><strong>Undocumented or missing model lineage</strong></td><td>Cannot trace a production model back to training data, validation report, or deployment approval; audit trail incomplete.</td><td>High</td><td>Model registry with full lineage tracking; automated model card generation; deployment approval workflow &amp; audit logs; Git version control on model code &amp; training specs</td><td>SR 11-7, Audit requirements</td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="card">
     <h2>4 · Third-party &amp; supply chain risk</h2>
+    <p>Most financial institutions now depend on external AI providers, open-source models, and cloud infrastructure. Supplier risk is material. Seven distinct risks:</p>
     <table>
-      <thead><tr><th>Risk</th><th>Description</th><th>Primary control</th></tr></thead>
+      <thead><tr><th>Risk</th><th>Description</th><th>Severity</th><th>Control recommendation</th><th>Regulatory ref</th></tr></thead>
       <tbody>
-        <tr><td>Foundation model dependency</td><td>Material dependence on a single LLM provider.</td><td>Multi-model architecture, abstraction layer</td></tr>
-        <tr><td>Vendor opacity</td><td>Inability to assess training data, fine-tuning, evals.</td><td>Vendor questionnaires, contractual rights</td></tr>
-        <tr><td>Data residency &amp; cross-border</td><td>Sensitive data routed to non-compliant jurisdictions.</td><td>Regional endpoints, contractual controls</td></tr>
-        <tr><td>Open-source license risk</td><td>OSS models with restrictive or unclear licenses.</td><td>SBOM, license review</td></tr>
+        <tr><td><strong>Foundation model dependency</strong></td><td>Heavy reliance on a single LLM provider (e.g., OpenAI) for GenAI use cases; lock-in risk; single point of failure.</td><td>Medium</td><td>Multi-model architecture with model abstraction layer; evaluate alternatives (Anthropic, Meta, open-source); contractual commitments from vendor; cost diversification strategy</td><td>SS1/23 third-party risk</td></tr>
+        <tr><td><strong>Vendor opacity &amp; auditing gaps</strong></td><td>Unable to assess foundation model training data, fine-tuning approach, safety evaluations, or control testing. Vendor documentation is sparse.</td><td>High</td><td>Standardized vendor questionnaires (AI Act Annex III requirements); on-site vendor audits; contractual audit rights; third-party assessment reports; SLAs on model performance &amp; safety</td><td>EU AI Act Annex III, SS1/23</td></tr>
+        <tr><td><strong>Data residency &amp; jurisdictional risk</strong></td><td>Sensitive customer data or training data flows to non-compliant jurisdictions; cloud provider processes data outside agreed regions.</td><td>Critical</td><td>Regional endpoint enforcement in contracts; data residency SLAs with penalties; technical controls (encryption in transit, VPN, regional gateways); GDPR Adequacy Assessment mapping</td><td>GDPR, GLBA, CCPA</td></tr>
+        <tr><td><strong>Open-source license &amp; compliance risk</strong></td><td>OSS models with restrictive licenses (e.g., GPL); viral IP obligations; commercial use restrictions; unclear licensing terms.</td><td>Medium</td><td>License audit of all OSS components; SBOM (Software Bill of Materials) for models; legal review before deployment; usage guidelines &amp; restrictions in contracts; indemnification from partners</td><td>Copyright law</td></tr>
+        <tr><td><strong>Vendor service interruption</strong></td><td>Provider outage, discontinuation of service, or capacity constraints disrupt business-critical AI systems.</td><td>High</td><td>Multi-vendor redundancy where feasible; contractual SLAs with financial penalties; backup models &amp; fallback processes; disaster recovery testing; scenario analysis of vendor failure</td><td>SS1/23, Operational resilience</td></tr>
+        <tr><td><strong>Vendor training data leakage</strong></td><td>Third-party provider uses customer data in training their foundation model; confidential information or customer PII exposed.</td><td>Critical</td><td>Explicit opt-out clauses in contracts; no data retention beyond contract term; audit rights for training data use; indemnification provisions; DPIA for data sharing</td><td>GDPR, confidentiality obligations</td></tr>
+        <tr><td><strong>Model poisoning via supply chain</strong></td><td>Provider intentionally or negligently deploys a model with embedded malicious behavior, backdoors or undetected bias.</td><td>Medium</td><td>Vendor security assessments; red-team evaluation of provided models; behavioral testing before deployment; vendor incident response SLAs; contractual liability provisions</td><td>NIST AI RMF, Cyber risk frameworks</td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="card">
     <h2>5 · Conduct, ethical &amp; reputational risk</h2>
+    <p>How AI is used matters as much as how well it works. Ethical lapses damage brand, invite regulation, and harm customers. Eight distinct risks:</p>
     <table>
-      <thead><tr><th>Risk</th><th>Description</th><th>Primary control</th></tr></thead>
+      <thead><tr><th>Risk</th><th>Description</th><th>Severity</th><th>Control recommendation</th><th>Regulatory ref</th></tr></thead>
       <tbody>
-        <tr><td>Customer harm / mis-selling</td><td>AI driving unsuitable advice or offers.</td><td>Suitability checks, human-in-the-loop</td></tr>
-        <tr><td>Discrimination</td><td>Disparate outcomes by protected attribute.</td><td>Fair lending tests, monitoring</td></tr>
-        <tr><td>Consent &amp; transparency</td><td>Customers unaware of AI in decision flow.</td><td>Disclosure standards, opt-outs</td></tr>
-        <tr><td>Reputational fallout</td><td>Public AI failure damaging brand.</td><td>Crisis playbooks, comms readiness</td></tr>
-        <tr><td>Workforce displacement risk</td><td>Poorly managed automation harming staff &amp; trust.</td><td>Reskilling, transition planning</td></tr>
+        <tr><td><strong>Customer harm &amp; mis-selling</strong></td><td>AI recommends unsuitable products, pricing or services; customer not informed AI made the decision; suitability not assessed.</td><td>Critical</td><td>Suitability checks before AI recommendations; human-in-the-loop for high-stakes advice; explainability to customer; complaint handling &amp; escalation; documented due diligence</td><td>FCA ICOBS, FINRA, SEC, GDPR</td></tr>
+        <tr><td><strong>Discrimination &amp; disparate treatment</strong></td><td>AI systematically disadvantages protected groups (race, gender, age, disability, religion); disparate impact in lending, pricing or hiring.</td><td>Critical</td><td>Fairness testing across protected attributes; disparate impact monitoring; adjustment mechanisms (thresholding, fairness-aware training); diversity in training data; audit trails &amp; documentation</td><td>Fair Lending regs, ECOA, FCA guidance, Employment law</td></tr>
+        <tr><td><strong>Consent &amp; transparency failures</strong></td><td>Customers unaware of AI involvement in decisions affecting them; insufficient disclosure; no right to opt-out.</td><td>High</td><td>Clear, upfront disclosure that AI is used; explain what AI assessed; offer human alternative; publish AI governance commitments; GDPR-compliant automated decision-making notices</td><td>GDPR Art. 22, FCA guidance, GLBA</td></tr>
+        <tr><td><strong>Reputational damage</strong></td><td>Public failure of AI system (bias scandal, hallucinated financial advice, security breach) damaging brand and customer trust.</td><td>High</td><td>Crisis playbook &amp; incident response team; communication templates; media monitoring; executive training; customer remediation program; independent review of failures</td><td>Regulatory guidance</td></tr>
+        <tr><td><strong>Workforce displacement &amp; morale</strong></td><td>Poorly managed AI automation displaces staff without reskilling; low staff morale; litigation risk; union pushback.</td><td>Medium</td><td>Staff communication &amp; change management; reskilling programs; transition support; redeployment opportunities; staff representatives on AI governance committees</td><td>Labor law, Internal governance</td></tr>
+        <tr><td><strong>Conflicts of interest in AI decisions</strong></td><td>AI used to maximize bank profit at expense of customer interest (e.g., predatory pricing, inattention to suitability).</td><td>High</td><td>Suitability assessments required before AI recommendations; conflicts of interest disclosure; customer interest over bank profit policy; auditable decision logic; human override capability</td><td>ICOBS, MiFID, fiduciary duty</td></tr>
+        <tr><td><strong>Unequal access to AI benefits</strong></td><td>AI benefits go to affluent customers while AI-driven cost-cutting or denial affects vulnerable populations; widening digital divide.</td><td>Medium</td><td>Equitable access policy; responsible AI principles; impact assessments for vulnerable populations; affordability &amp; inclusion in AI use case design</td><td>Regulatory guidance, Social responsibility</td></tr>
+        <tr><td><strong>Environmental &amp; social impact</strong></td><td>Large language models consume enormous energy; training data sourcing involves labor exploitation or environmental harm.</td><td>Low–Medium</td><td>Carbon footprint assessment of AI models; vendor sustainability questionnaire; consideration of more efficient model alternatives; ESG reporting on AI impact</td><td>TCFD, ESG frameworks</td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="card">
     <h2>6 · Regulatory &amp; legal risk</h2>
+    <p>The regulatory landscape for AI is fragmenting. Overlapping regimes create compliance burden. Eight distinct risks:</p>
     <table>
-      <thead><tr><th>Risk</th><th>Description</th><th>Primary control</th></tr></thead>
+      <thead><tr><th>Risk</th><th>Description</th><th>Severity</th><th>Control recommendation</th><th>Regulatory ref</th></tr></thead>
       <tbody>
-        <tr><td>EU AI Act non-compliance</td><td>Failure to meet obligations for high-risk / GPAI systems.</td><td>Inventory, classification, conformity</td></tr>
-        <tr><td>SR 11-7 / SS1/23 gaps</td><td>AI models outside model risk management scope.</td><td>MRM extension to AI/GenAI</td></tr>
-        <tr><td>IP infringement</td><td>Training data or outputs infringing copyright.</td><td>Indemnities, content filters</td></tr>
-        <tr><td>Privacy / GDPR</td><td>Lawful basis, automated decision rights.</td><td>DPIAs, opt-out, human review</td></tr>
-        <tr><td>Cross-border supervisory divergence</td><td>Conflicting expectations across jurisdictions.</td><td>Most-restrictive baseline approach</td></tr>
+        <tr><td><strong>EU AI Act non-compliance</strong></td><td>Failure to classify systems, document training data, implement human oversight, or complete conformity assessment for high-risk systems.</td><td>Critical</td><td>AI inventory with EU AI Act classification; training data governance &amp; documentation; risk management system per Annex III; human oversight audit trails; conformity assessment &amp; technical documentation; regulatory monitoring for changes</td><td>EU AI Act Articles 4–37</td></tr>
+        <tr><td><strong>SR 11-7 &amp; SS1/23 gaps</strong></td><td>AI and GenAI models not properly classified under model risk management; validation, monitoring, documentation requirements not met.</td><td>High</td><td>Extend existing MRM policy to cover all models including ML &amp; GenAI; independent validation gate; ongoing monitoring &amp; revalidation; model inventory &amp; risk tiering; documentation &amp; audit trails</td><td>SR 11-7, SS1/23</td></tr>
+        <tr><td><strong>Intellectual property infringement</strong></td><td>Training data includes copyrighted content, code or proprietary databases without license; model outputs reproduce training data; copyright litigation.</td><td>Medium</td><td>Training data audit &amp; licensing review; copyright clearance for all data sources; indemnification agreements with data vendors &amp; model providers; output filtering; rightholder opt-out mechanisms</td><td>Copyright law, DMCA</td></tr>
+        <tr><td><strong>Privacy &amp; GDPR violations</strong></td><td>Lawful basis for processing personal data in training unclear; automated decision-making without human review; data subject rights (access, deletion, portability) not honored.</td><td>High</td><td>DPIAs for all high-risk AI uses; transparent lawful basis documentation; human review for decisions impacting rights; rights fulfillment processes; GDPR training for teams; data minimisation in model inputs</td><td>GDPR Articles 1–99</td></tr>
+        <tr><td><strong>Fair lending &amp; discrimination law violations</strong></td><td>Credit models with disparate impact; insurance pricing with age discrimination; hiring AI with gender bias; regulatory enforcement action.</td><td>Critical</td><td>Disparate impact testing &amp; monitoring; fair lending audits; protected attribute exclusion (or justified use cases); monitoring &amp; remediation of adverse action; customer notification if AI critical to denial</td><td>FCRA, ECOA, Fair Credit Reporting Act, GDPR</td></tr>
+        <tr><td><strong>Consumer protection &amp; disclosure gaps</strong></td><td>Failure to disclose AI use in financial advice; inadequate explanation of AI decisions; no human escalation path available.</td><td>High</td><td>Clear disclosure of AI involvement; explainability in plain language; right to human review; complaint handling procedures; training on disclosure requirements</td><td>FCA ICOBS, FINRA, SEC</td></tr>
+        <tr><td><strong>Cross-border supervisory divergence</strong></td><td>Conflicting expectations across EU, UK, US, SAMA, other regimes; compliance with one regime creates non-compliance with another.</td><td>Medium</td><td>Legal &amp; regulatory mapping across all jurisdictions where institution operates; apply most-restrictive interpretation; document compliance choices; engage regulators proactively; adjust governance by jurisdiction if needed</td><td>Multiple, overlapping frameworks</td></tr>
+        <tr><td><strong>Contractual liability &amp; indemnification gaps</strong></td><td>Contracts with AI vendors lack adequate indemnification for IP infringement, data breaches, or model failures; liability allocation unclear.</td><td>Medium</td><td>Vendor contract review &amp; amendment; ensure indemnification for IP, data protection, model performance; audit rights &amp; SLAs; insurance coverage assessment; liability caps &amp; dispute resolution processes</td><td>Contract law, Risk management</td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="card">
+    <h2>Risk appetite statement template</h2>
+    <p>A board-approved risk appetite statement for AI should define tolerance by tier and risk category. Here is a template:</p>
+    <ul style="margin-left:20px">
+      <li><strong>Tier 1 (Critical systems):</strong> We will accept only residual risk in the 'low' range. All critical controls must be independent and operational before deployment. Annual revalidation required. Zero tolerance for undetected biases or regulatory violations.</li>
+      <li><strong>Tier 2 (High systems):</strong> We will accept residual risk in the 'low to moderate' range. Primary controls must be operational; secondary controls can be phased in post-deployment. Semi-annual revalidation. Biases monitored and remediated within 30 days.</li>
+      <li><strong>Tier 3 (Moderate systems):</strong> We will accept residual risk in the 'moderate' range. Self-assessment controls acceptable; escalation if material exceptions found. Annual review. Fairness audits on sampling basis.</li>
+      <li><strong>Tier 4 (Low systems):</strong> We will accept residual risk in the 'moderate to higher' range. Self-attestation sufficient; no specific oversight required unless concerns raised.</li>
+      <li><strong>Data risk:</strong> We will not accept residual risk of PII/sensitive data exposure beyond 'low'. We will not accept residual bias in lending, pricing or hiring models beyond 'low'. Drift in critical models must be detected within one business day.</li>
+      <li><strong>Operational risk:</strong> We will not accept more than 10% of our AI portfolio in 'shadow' (unregistered) mode at any time. GenAI usage must flow through our enterprise gateway. Critical system downtime beyond 4 hours triggers incident escalation.</li>
+      <li><strong>Third-party risk:</strong> We will not depend on a single foundation model provider for more than 30% of our GenAI workload. All Tier 1 vendors must have current SOC 2 Type II attestation.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Heat map: Risk by category &amp; likelihood</h2>
+    <p>This simplified heat map ranks the 40+ risks by typical severity and likelihood in a FS institution. Position indicates relative priority for governance investment.</p>
+    <div style="position:relative;width:100%;padding-top:100%;margin-top:18px">
+      <svg viewBox="0 0 600 600" style="position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(167,243,208,0.1) 0%,rgba(191,213,255,0.1) 50%,rgba(255,122,192,0.1) 100%)" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="heatGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#a7f3d0;stop-opacity:0.5" /><stop offset="33%" style="stop-color:#bfb5ff;stop-opacity:0.5" /><stop offset="66%" style="stop-color:#ff7ac0;stop-opacity:0.5" /><stop offset="100%" style="stop-color:#ff4757;stop-opacity:0.7" /></linearGradient></defs>
+        <rect x="50" y="50" width="500" height="500" fill="url(#heatGrad)" opacity="0.3"/>
+        <line x1="50" y1="300" x2="550" y2="300" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <line x1="300" y1="50" x2="300" y2="550" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <text x="30" y="560" font-size="12" fill="rgba(255,255,255,0.6)">Low</text>
+        <text x="520" y="560" font-size="12" fill="rgba(255,255,255,0.6)">High</text>
+        <text x="10" y="55" font-size="12" fill="rgba(255,255,255,0.6)">High</text>
+        <text x="10" y="305" font-size="12" fill="rgba(255,255,255,0.6)">Medium</text>
+        <text x="20" y="550" font-size="12" fill="rgba(255,255,255,0.6)">Low</text>
+        <text x="265" y="30" font-size="14" font-weight="600" fill="rgba(255,255,255,0.8)">Likelihood →</text>
+        <text x="20" y="280" font-size="14" font-weight="600" fill="rgba(255,255,255,0.8)" transform="rotate(-90 20 280)">Severity →</text>
+        <!-- Risk bubbles (simplified; actual positions would vary) -->
+        <circle cx="480" cy="100" r="20" fill="#ff4757" opacity="0.7"/><text x="465" y="108" font-size="11" fill="#fff" font-weight="600">PII exp</text>
+        <circle cx="450" cy="130" r="18" fill="#ff7ac0" opacity="0.7"/><text x="435" y="137" font-size="10" fill="#fff">Hallucin</text>
+        <circle cx="420" cy="150" r="16" fill="#ff7ac0" opacity="0.6"/><text x="410" y="155" font-size="10" fill="#fff">Bias</text>
+        <circle cx="320" cy="200" r="15" fill="#bfb5ff" opacity="0.6"/><text x="310" y="207" font-size="10" fill="#fff">Drift</text>
+        <circle cx="280" cy="250" r="12" fill="#bfd5ff" opacity="0.5"/><text x="270" y="256" font-size="9" fill="#fff">Cost</text>
+        <circle cx="150" cy="420" r="10" fill="#a7f3d0" opacity="0.5"/><text x="142" y="426" font-size="9" fill="#000">OSS</text>
+      </svg>
+    </div>
+    <p style="margin-top:18px;font-size:13px;color:var(--text-dim)">Top-right quadrant = highest priority. Bubble size = relative number of controls available. This is illustrative; actual risk positioning varies by institution and use case.</p>
+  </div>
+
+  <div class="card">
     <h2>How to use this taxonomy</h2>
     <ol>
-      <li>Map each row to your existing operational, model and conduct risk frameworks. Avoid creating a parallel risk universe.</li>
-      <li>Score each risk for inherent and residual impact at the institution level.</li>
-      <li>For each AI use case, identify which subset applies and confirm controls in place.</li>
-      <li>Aggregate at portfolio level for the AI Risk Committee dashboard.</li>
-      <li>Refresh annually — and after every material AI incident or regulatory change.</li>
+      <li><strong>Map to existing frameworks.</strong> Don't create a parallel risk universe. Map each risk category to your operational, model and conduct risk classifications in your existing risk register.</li>
+      <li><strong>Score inherent &amp; residual risk.</strong> For each risk category, estimate inherent (no controls) and residual (with controls in place) impact &amp; likelihood. Use a 5x5 matrix (impact: low–critical; likelihood: rare–almost certain).</li>
+      <li><strong>Identify controls.</strong> For each identified risk, confirm which primary and secondary controls are in place. Track exceptions and remediation.</li>
+      <li><strong>Use case risk assessment.</strong> For each AI use case intake, identify which subset of the taxonomy applies. Confirm controls are in scope for that use case's risk tier.</li>
+      <li><strong>Portfolio aggregation.</strong> Aggregate risk scores to portfolio level. Feed into AI Risk Committee dashboard and board reporting.</li>
+      <li><strong>Refresh &amp; improve.</strong> Update the taxonomy annually, and after every material AI incident or major regulatory change. Include lessons from near-misses.</li>
     </ol>
   </div>
 
-  <div class="footer-note">© 2026 Rodney.AI · Use this taxonomy as a baseline. Real-world risk registers should be tailored to your business model, regulatory footprint and AI portfolio.</div>
+  <div class="card">
+    <h2>Control reference: Top controls by risk category</h2>
+    <table>
+      <thead><tr><th>Risk Category</th><th>Top 3 Controls</th><th>Secondary Controls</th></tr></thead>
+      <tbody>
+        <tr><td>Data risk</td><td>Data quality SLAs, PII classification &amp; DLP, fairness testing</td><td>Lineage tracking, drift monitoring, synthetic data testing</td></tr>
+        <tr><td>Model risk</td><td>Independent validation, fairness monitoring, hallucination detection</td><td>Explainability tooling, adversarial testing, version control</td></tr>
+        <tr><td>Operational risk</td><td>AI inventory &amp; classification, real-time monitoring, production SLOs</td><td>Canary deployment, automated alerting, data pipeline monitoring</td></tr>
+        <tr><td>Third-party risk</td><td>Vendor assessment questionnaire, contractual controls, data residency enforcement</td><td>Multi-vendor redundancy, audit rights, SLAs &amp; indemnification</td></tr>
+        <tr><td>Conduct risk</td><td>Suitability checks, fairness testing, customer disclosure &amp; transparency</td><td>Human-in-the-loop escalation, conflict of interest monitoring, complaint handling</td></tr>
+        <tr><td>Regulatory risk</td><td>AI governance policy, regulatory mapping, compliance documentation</td><td>Legal contract review, DPIA templates, incident response playbooks</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer-note">© 2026 Rodney.AI · Use this taxonomy as a baseline. Real-world risk registers should be tailored to your business model, regulatory footprint and AI portfolio. Contact advisor@rodney-ai.com to map this to your specific institution.</div>
 </div>
 <script src="_gate.js"></script>
 </body>

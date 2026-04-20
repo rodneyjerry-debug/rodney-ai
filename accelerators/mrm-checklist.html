@@ -63,50 +63,145 @@
     <p class="progress" id="msg">Tick items as you confirm them with your model risk team.</p>
   </div>
 
-  <div class="footer-note">© 2026 Rodney.AI · This checklist complements — it does not replace — your institution's model risk management policy.</div>
+  <div class="card">
+    <h2>SR 11-7 &amp; SS1/23 section references</h2>
+    <p>This checklist is aligned with the Federal Reserve's SR 11-7 and Bank of England's SS1/23 for model risk management. Below are key cross-references:</p>
+    <table>
+      <thead><tr><th>SR 11-7 / SS1/23 Principle</th><th>Checklist Sections Addressing</th><th>Key Requirements</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Governance</strong></td><td>g1: Risk tier, owner, approval</td><td>Board &amp; executive accountability; independent oversight; risk appetite defined</td></tr>
+        <tr><td><strong>Model Development</strong></td><td>g3: Methodology, testing, explainability</td><td>Documented process; rigorous testing; version control; reproducibility</td></tr>
+        <tr><td><strong>Model Validation</strong></td><td>g4: Independent validation, sign-off</td><td>Pre-deployment validation; conceptual, data, performance soundness; exception tracking</td></tr>
+        <tr><td><strong>Data Governance</strong></td><td>g2: Data quality, PII, lineage, bias</td><td>Data quality standards; PII protection; representativeness; fairness testing</td></tr>
+        <tr><td><strong>Monitoring &amp; Reporting</strong></td><td>g5: SLOs, drift detection, alerting, revalidation</td><td>Real-time monitoring; performance tracking; drift detection; escalation procedures; periodic revalidation</td></tr>
+        <tr><td><strong>Documentation</strong></td><td>All sections; esp. g1, g3, g5</td><td>Model inventory, purpose, methodology, testing results, deployment plan, monitoring metrics</td></tr>
+        <tr><td><strong>GenAI-specific (SS1/23)</strong></td><td>g6: Foundation model, prompts, hallucination, human-in-the-loop</td><td>Model &amp; vendor assessment; prompt governance; grounding; hallucination controls; human oversight</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Validation scope template (for Level 1 &amp; 2 models)</h2>
+    <p>For Tier 1 &amp; 2 models, use this template to scope independent validation before deployment:</p>
+    <table>
+      <thead><tr><th>Validation Area</th><th>Scope for Tier 1</th><th>Scope for Tier 2</th><th>Owner / Timeline</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Conceptual Soundness</strong></td><td>Full review of business case, model choice, design</td><td>Review of model design &amp; business rationale</td><td>Model Risk / 2–3 weeks</td></tr>
+        <tr><td><strong>Data Review</strong></td><td>Full data audit: sources, quality, bias, representativeness</td><td>Sampling of data quality &amp; bias testing</td><td>Model Risk / 1–2 weeks</td></tr>
+        <tr><td><strong>Performance Testing</strong></td><td>Backtesting on holdout set; stress testing; fairness testing all cohorts</td><td>Backtesting; fairness testing on main cohorts</td><td>Model Risk / 1–2 weeks</td></tr>
+        <tr><td><strong>Robustness &amp; Stress</strong></td><td>Adversarial testing, edge cases, degraded data scenarios</td><td>Key edge case testing</td><td>Model Risk / 1 week</td></tr>
+        <tr><td><strong>Implementation</strong></td><td>Code review, integration testing, production readiness</td><td>Code review, basic integration testing</td><td>Tech Risk / 1 week</td></tr>
+        <tr><td><strong>Explainability</strong></td><td>Full explainability testing; SHAP/LIME plots; comparison models</td><td>Explainability for top features; simpler challenger</td><td>Model Risk / 1 week</td></tr>
+        <tr><td><strong>Governance</strong></td><td>Full validation report; sign-off; condition documentation</td><td>Validation report; sign-off</td><td>Model Risk / 1 week</td></tr>
+        <tr><td><strong>Timeline Total</strong></td><td><strong>6–8 weeks</strong> (typical for Tier 1)</td><td><strong>3–4 weeks</strong> (typical for Tier 2)</td><td>Plan accordingly in roadmap</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Model inventory template (minimum fields)</h2>
+    <p>Your central AI/ML inventory should track at minimum these fields for each model:</p>
+    <table>
+      <thead><tr><th>Field</th><th>Description</th><th>Example</th><th>Owner</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Model ID</strong></td><td>Unique identifier for the model</td><td>LOAN_SCORING_V2.1</td><td>Tech/Data</td></tr>
+        <tr><td><strong>Business Name</strong></td><td>Non-technical name for the model</td><td>Mortgage Pre-Approval Scorer</td><td>Business</td></tr>
+        <tr><td><strong>Business Owner</strong></td><td>Executive accountable for the model</td><td>Head of Retail Lending</td><td>Business</td></tr>
+        <tr><td><strong>Model Owner (Tech)</strong></td><td>Person responsible for day-to-day operation</td><td>data-science-team@bank.com</td><td>Data Science</td></tr>
+        <tr><td><strong>Risk Owner</strong></td><td>Executive accountable for risk management</td><td>Chief Risk Officer / Head of Model Risk</td><td>Risk</td></tr>
+        <tr><td><strong>Risk Tier</strong></td><td>1 (Critical), 2 (High), 3 (Moderate), or 4 (Low)</td><td>1</td><td>Risk</td></tr>
+        <tr><td><strong>Regulatory Classification</strong></td><td>EU AI Act (prohibited/high-risk/limited/minimal), SR 11-7, GDPR ADM, Fair Lending</td><td>High-risk (EU AI Act), SR 11-7, GDPR ADM</td><td>Compliance</td></tr>
+        <tr><td><strong>Model Type</strong></td><td>Traditional ML, DL, GenAI, ensemble, prompt engineering</td><td>Logistic Regression + XGBoost ensemble</td><td>Data Science</td></tr>
+        <tr><td><strong>Status</strong></td><td>Development, Validation, Production, Retired</td><td>Production</td><td>Data Science</td></tr>
+        <tr><td><strong>Production Date</strong></td><td>When model went live</td><td>2025-06-15</td><td>Data Science</td></tr>
+        <tr><td><strong>Last Revalidation Date</strong></td><td>Most recent validation/revalidation completed</td><td>2026-03-20</td><td>Risk</td></tr>
+        <tr><td><strong>Next Revalidation Due</strong></td><td>Scheduled revalidation date by risk tier</td><td>2026-06-20 (quarterly for Tier 1)</td><td>Risk</td></tr>
+        <tr><td><strong>Monitoring Status</strong></td><td>Active, Alert, Suspended, Decommissioning</td><td>Active</td><td>Data Science</td></tr>
+        <tr><td><strong>Fairness Testing Completed</strong></td><td>Y/N and date of last fairness audit</td><td>Y (2026-03-15)</td><td>Risk</td></tr>
+        <tr><td><strong>Explainability Available</strong></td><td>Y/N; explanation method</td><td>Y (SHAP, LIME)</td><td>Data Science</td></tr>
+        <tr><td><strong>Data Governance Owner</strong></td><td>Team responsible for training data quality</td><td>Data Platform team</td><td>Data</td></tr>
+        <tr><td><strong>Foundation Model (if GenAI)</strong></td><td>OpenAI GPT-4, Anthropic Claude, etc.</td><td>OpenAI GPT-4 Turbo</td><td>Data Science</td></tr>
+        <tr><td><strong>Vendor/Third-party</strong></td><td>If model or foundation model from external vendor</td><td>OpenAI / NA</td><td>Vendor Risk</td></tr>
+        <tr><td><strong>Audit Trail / Documentation</strong></td><td>Link to model card, validation report, incident log</td><td>SharePoint link to MRM documentation folder</td><td>Risk</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Common Model Risk Management gaps</h2>
+    <p>Watch out for these common failures in AI/ML model risk:</p>
+    <ul style="margin-left:20px">
+      <li><strong>Validation bottleneck.</strong> Independent validation understaffed; model backlog grows; reviews become superficial. Fix: Risk-tier to avoid over-validating low-risk models; outsource to consulting firms if needed.</li>
+      <li><strong>Stale inventory.</strong> Model inventory built once but never updated; shadow AI untracked. Fix: Automate discovery; quarterly inventory audits; reconcile to monitoring &amp; spending data.</li>
+      <li><strong>Silent failures.</strong> Models degrade in production but no one notices; fairness test failures go unaddressed. Fix: Real-time monitoring; SLOs &amp; automatic alerting; escalation SLAs enforced.</li>
+      <li><strong>Documentation debt.</strong> Models in production with no validation reports, testing results or explainability documentation. Fix: Templates &amp; automation; gating on documentation quality before deployment approval.</li>
+      <li><strong>Unfair outcomes ignored.</strong> Fairness testing shows disparate impact but model stays in production unchanged. Fix: Make fairness outcomes a go/no-go gate; tie business incentives to fairness SLOs.</li>
+      <li><strong>No GenAI governance.</strong> LLMs and prompt engineering running wild outside MRM scope. Fix: Extend MRM policy to cover all generative AI; deploy enterprise GenAI gateway.</li>
+      <li><strong>Revalidation never happens.</strong> Models deployed once and never reassessed; risk profile drifts silently. Fix: Automate revalidation triggers; schedule cadence in inventory; track compliance monthly.</li>
+    </ul>
+  </div>
+
+  <div class="footer-note">© 2026 Rodney.AI · This checklist complements — it does not replace — your institution's model risk management policy. For integration with your MRM framework or to discuss validation approaches, contact advisor@rodney-ai.com.</div>
 </div>
 
 <script>
 const ITEMS={
   g1:[
-    ["Model registered in central inventory","With unique ID, owner and risk tier."],
-    ["Risk tier assigned (1-4)","Aligned with enterprise AI risk tiering."],
-    ["Business purpose documented","Including expected value and decisions impacted."],
-    ["Regulatory classification","EU AI Act category, SR 11-7 applicability, GDPR ADM."],
+    ["Model registered in central inventory","With unique ID, owner and risk tier assigned."],
+    ["Risk tier (1-4) assigned","Aligned with enterprise AI risk tiering framework."],
+    ["Business purpose &amp; use case documented","What decision(s) does it support; expected value; customer impact."],
+    ["Regulatory classification completed","EU AI Act category (prohibited/high-risk/limited/minimal), SR 11-7 scope, GDPR ADM applicability."],
+    ["Model type &amp; approach documented","Traditional ML, deep learning, GenAI, ensemble, or hybrid; key algorithms listed."],
+    ["Risk owner assigned","Executive accountable for ongoing risk management and escalation."],
+    ["Approval for model development given","By business lead (L3 &amp; below) or steering committee (L1-2); documented sign-off."],
   ],
   g2:[
-    ["Data sources identified &amp; lineage captured","From source system to training set."],
-    ["Data quality assessed","Completeness, accuracy, timeliness, representativeness."],
-    ["PII / sensitive data handled appropriately","Minimisation, masking, lawful basis."],
-    ["Model documentation complete","Aligned with MRM template (purpose, design, limitations)."],
+    ["Data sources identified &amp; lineage captured","From source system through ETL to training set; data owners &amp; refresh cycles documented."],
+    ["Data quality baseline assessed","Completeness, accuracy, timeliness, representativeness across cohorts measured."],
+    ["Training data governance documented","Data sourcing, licensing, consent, lawful basis for GDPR; approved by compliance/legal."],
+    ["PII &amp; sensitive data handling documented","Minimisation approach, masking/anonymization, retention limits, access controls."],
+    ["Bias &amp; representativeness check completed","Demographic parity assessed; underrepresented groups identified; sampling ratios documented."],
+    ["Model documentation complete","Model card including: purpose, algorithm, training data, performance, limitations, known biases."],
+    ["Data retention &amp; deletion plan documented","How long training data retained; deletion triggers; audit trail of deletions."],
   ],
   g3:[
-    ["Development methodology documented","Train/test/validation splits, feature selection."],
-    ["Performance metrics defined &amp; measured","Including business and statistical metrics."],
-    ["Fairness &amp; bias testing performed","Disparate impact across protected attributes."],
-    ["Robustness testing performed","Adversarial, drift, edge cases."],
-    ["Explainability artefacts produced","Global &amp; local explanations where needed."],
+    ["Development methodology documented","Train/validation/test splits clearly defined; feature engineering process documented; reproducibility steps recorded."],
+    ["Performance metrics defined for all cohorts","Business metrics (revenue, approval rate) &amp; statistical (AUC, precision, recall, RMSE) by segment."],
+    ["Fairness &amp; bias testing performed","Disparate impact analysis across protected attributes; thresholding &amp; fairness constraints tested."],
+    ["Robustness testing completed","Adversarial input testing, drift simulation, edge case identification, out-of-distribution detection."],
+    ["Explainability artefacts produced","SHAP/LIME plots, decision trees for comparison, feature importance rankings, local explanations."],
+    ["Model versioning &amp; artifact management","All code, hyperparameters, training data versions tracked in Git/model registry with immutable snapshots."],
+    ["Hyperparameter tuning documented","Search space, optimization method, validation approach, final hyperparameters recorded."],
+    ["Model complexity justification","Why complex model chosen over simpler alternative; interpretability/accuracy tradeoff documented."],
   ],
   g4:[
-    ["Independent validator assigned","Outside the development chain of command."],
-    ["Validation report completed","Conceptual soundness, data, performance, implementation."],
-    ["Validation findings tracked","With owners and remediation deadlines."],
-    ["Validator approves for production","Or conditional approval with controls."],
+    ["Independent validator assigned","Outside development chain of command; no conflicts of interest; validator authorized for tier level."],
+    ["Validation plan scoped","Validation scope per SR 11-7: conceptual soundness, data, performance, implementation; timeline &amp; resources."],
+    ["Validation testing executed","Conceptual soundness review, data quality check, backtesting against holdout set, robustness testing."],
+    ["Validation report completed &amp; signed","Findings documented per MRM template; any exceptions &amp; mitigations noted; validator conclusion stated."],
+    ["Validation findings tracked to closure","All model findings &amp; exceptions documented in tracker; owners &amp; remediation deadlines assigned."],
+    ["Validator sign-off obtained","Approved, approved with conditions, or not approved decision made; conditions documented if conditional approval."],
   ],
   g5:[
-    ["Production deployment plan","Including rollback &amp; canary."],
-    ["Monitoring metrics in place","Performance, drift, fairness, business impact."],
-    ["Alerting &amp; escalation defined","Who gets paged, and when."],
-    ["Periodic revalidation scheduled","Frequency by risk tier."],
-    ["Decommissioning criteria documented","When and how to retire the model."],
+    ["Production deployment plan documented","Rollout approach (canary, shadow, A/B), rollback procedures, success criteria defined."],
+    ["Performance SLOs &amp; monitoring defined","Latency, availability, accuracy SLOs by tier; metric collection &amp; alerting thresholds specified."],
+    ["Drift detection rules configured","Monitoring triggers for data drift, concept drift, performance degradation; retraining frequency documented."],
+    ["Fairness monitoring activated","Ongoing disparate impact monitoring; alert thresholds for fairness metrics; remediation procedures."],
+    ["Alerting &amp; escalation playbook","Who gets alerted on what failure; escalation matrix; incident response runbook documented."],
+    ["Model deployment &amp; rollback tested","Pre-production test of full deployment and rollback; latency &amp; resource consumption validated."],
+    ["Periodic revalidation scheduled","Cadence documented by risk tier (Tier 1-2: quarterly; Tier 3: semi-annually; Tier 4: annually)."],
+    ["Decommissioning criteria &amp; plan documented","When model will be retired (accuracy fall-off, business case change); plan for transition to replacement."],
   ],
   g6:[
-    ["Foundation model selection rationale","Including alternatives considered and lock-in risk."],
-    ["Prompt &amp; system instruction governance","Versioned, reviewed, change-controlled."],
-    ["Grounding / RAG architecture documented","Sources, refresh, citations."],
-    ["Hallucination &amp; safety eval suite","Run pre-launch and on every change."],
-    ["Human-in-the-loop checkpoints","For high-stakes outputs."],
-    ["Usage logging &amp; review","For audit and continuous improvement."],
+    ["GenAI use case properly classified","Determine if foundation model, fine-tuned model, or prompt engineering; high-risk status clarified."],
+    ["Foundation model selection &amp; lock-in risk documented","Alternatives evaluated (OpenAI, Anthropic, Meta, local); dependency &amp; exit risk assessed."],
+    ["Prompt engineering &amp; governance in place","Prompts versioned &amp; reviewed; system instructions documented; change control process defined."],
+    ["Grounding &amp; RAG architecture documented","Source documents specified; refresh frequency &amp; staleness detection; citation methodology; hallucination prevention."],
+    ["Hallucination &amp; safety eval suite executed","Evals run pre-launch &amp; on every prompt/model change; failure modes documented; guardrails tested."],
+    ["Human-in-the-loop approval process defined","For high-stakes use cases (advice, lending decisions); human review triggers &amp; SLAs documented."],
+    ["Usage logging &amp; audit trail enabled","All prompts, responses, user actions logged; retention period &amp; access controls specified; GDPR compliant."],
+    ["Guardrails &amp; content filtering configured","Input validation (jailbreak detection); output filtering (PII redaction, tone); edge case handling documented."],
+    ["Third-party model/API terms reviewed","Check license, data retention, training on user data, liability &amp; indemnification terms; escalate to legal if high-risk."],
   ],
 };
 let total=0,done=0;

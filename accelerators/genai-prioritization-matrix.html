@@ -40,14 +40,73 @@
   </div>
 
   <div class="card">
-    <h2>The four scoring dimensions</h2>
+    <h2>The four scoring dimensions — detailed rubric</h2>
     <div class="grid-2">
-      <div><h3>Value (1-5)</h3><p>Material P&amp;L or risk-reduction impact at the enterprise level. Score 5 only for use cases with direct, measurable, line-of-business value.</p></div>
-      <div><h3>Feasibility (1-5)</h3><p>Data readiness, technical maturity and organisational capability. Score 5 only when you could ship in this quarter with existing capability.</p></div>
-      <div><h3>Risk (1-5, inverse)</h3><p>Inherent regulatory, conduct and reputational exposure. Score 5 = low risk, 1 = high risk. The matrix favours lower-risk use cases at parity.</p></div>
-      <div><h3>Time-to-Impact (1-5)</h3><p>How quickly value materialises. Score 5 = within 90 days, 1 = 18+ months.</p></div>
+      <div>
+        <h3>Value (1-5)</h3>
+        <p>Material P&L or risk-reduction impact at the enterprise level. Score 5 only for use cases with direct, measurable, line-of-business value.</p>
+        <p style="font-size:12.5px;color:var(--text-muted);margin-top:8px"><strong>Rubric:</strong> 5 = $10M+ impact or eliminates critical risk; 4 = $5–10M; 3 = $1–5M; 2 = &lt;$1M or mostly speculative; 1 = no clear value.</p>
+      </div>
+      <div>
+        <h3>Feasibility (1-5)</h3>
+        <p>Data readiness, technical maturity and organisational capability. Score 5 only when you could ship in this quarter with existing capability.</p>
+        <p style="font-size:12.5px;color:var(--text-muted);margin-top:8px"><strong>Rubric:</strong> 5 = all data ready + existing tech + team available now; 4 = data exists but needs cleaning; 3 = data exists but architecture needed; 2 = significant data work required; 1 = foundational work needed.</p>
+      </div>
+      <div>
+        <h3>Risk (1-5, inverse)</h3>
+        <p>Inherent regulatory, conduct and reputational exposure. Score 5 = low risk, 1 = high risk. The matrix favours lower-risk use cases at parity.</p>
+        <p style="font-size:12.5px;color:var(--text-muted);margin-top:8px"><strong>Rubric:</strong> 5 = no regulatory ambiguity; 4 = minor compliance work; 3 = some governance questions; 2 = significant regulatory uncertainty; 1 = regulator has said no or unsettled.</p>
+      </div>
+      <div>
+        <h3>Time-to-Impact (1-5)</h3>
+        <p>How quickly value materialises. Score 5 = within 90 days, 1 = 18+ months.</p>
+        <p style="font-size:12.5px;color:var(--text-muted);margin-top:8px"><strong>Rubric:</strong> 5 = 90 days; 4 = 4–6 months; 3 = 6–9 months; 2 = 9–15 months; 1 = 18+ months.</p>
+      </div>
     </div>
-    <p style="margin-top:14px"><strong style="color:var(--text)">Composite score</strong> = (Value × 2) + Feasibility + Risk + Time. Cases above 18 are <strong style="color:var(--text)">Do Now</strong>, 14–18 are <strong style="color:var(--text)">Plan</strong>, 10–14 are <strong style="color:var(--text)">Watch</strong>, below 10 are <strong style="color:var(--text)">Park</strong>.</p>
+    <p style="margin-top:18px;font-size:14.5px"><strong style="color:var(--text)">Composite score formula:</strong> (Value × 2) + Feasibility + Risk + Time-to-Impact</p>
+    <p style="margin-top:8px;color:var(--text-dim);font-size:13.5px">
+      <strong style="color:var(--text)">Do Now (Score ≥ 18):</strong> Start immediately, clear ROI, achievable. Typically 2–3 per year.
+      <br/><strong style="color:var(--text)">Plan (Score 14–18):</strong> Queue for next 6 months. Needs some work but high probability of success.
+      <br/><strong style="color:var(--text)">Watch (Score 10–14):</strong> Monitor. Revisit quarterly. May become viable as data or capability improves.
+      <br/><strong style="color:var(--text)">Park (Score &lt; 10):</strong> Defer explicitly. Prevents endless re-pitching of bad ideas.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Scoring methodology — how to run this accurately</h2>
+    <p>Scoring is collaborative. Do it wrong (in a spreadsheet alone) and you'll get gaming and politics.
+       Done right (in a room with business + technology + risk), it forces clarity and builds consensus.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:18px 0">
+      <div class="module">
+        <h4>Before the session (1 week prior)</h4>
+        <ul>
+          <li>Collect all use case submissions in a standard template</li>
+          <li>Screen for obvious blockers (regulation explicitly forbids, no business sponsor, zero data)</li>
+          <li>Pre-score rough value (should be roughly correct from business case)</li>
+          <li>Identify data and technical gaps for each use case</li>
+          <li>Draft questions for the scoring session</li>
+        </ul>
+      </div>
+      <div class="module">
+        <h4>During the session (90 minutes)</h4>
+        <ul>
+          <li>Walk through each use case: brief (~2 min), then score</li>
+          <li>For each dimension, someone from business/tech/risk speaks first</li>
+          <li>Debate only when scores disagree by 2+ points</li>
+          <li>Aim for consensus, not unanimity. Recorded disagreement is OK.</li>
+          <li>Lock scores. Rescore only if material new info emerges.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="margin-top:18px;font-size:13.5px;color:var(--text-dim)"><strong style="color:var(--text)">Common scoring mistakes to avoid:</strong></p>
+    <ul style="font-size:13.5px;color:var(--text-dim);margin:8px 0 0 18px">
+      <li><strong>Overscoring value.</strong> Be conservative. If you don't have a business sponsor with a signed business case, score it 2–3 max.</li>
+      <li><strong>Underscoring risk.</strong> Regulatory ambiguity is a risk. If you're unsure, ask your CRO — don't guess.</li>
+      <li><strong>Gaming feasibility.</strong> If the data exists but is in 5 different systems and terrible quality, that's not feasibility 5. Be honest.</li>
+      <li><strong>Conflating time-to-impact with implementation time.</strong> A 12-month project that delivers value in week 1 of production should score Time-to-Impact 4–5.</li>
+    </ul>
   </div>
 
   <div class="card">
@@ -61,17 +120,134 @@
   </div>
 
   <div class="card">
+    <h2>Implementation guide — how to run this in your institution</h2>
+    <p>This isn't a one-off exercise. Treat it as a living portfolio that guides your AI roadmap quarterly.</p>
+
+    <h3 style="margin:20px 0 12px;font-size:16px">Phase 1: Intake (Week 1)</h3>
+    <p style="color:var(--text-dim);font-size:14px;margin-bottom:12px">Every business unit and technology team submits GenAI ideas using a standardised template.
+       No idea too small or too big. Cast a wide net.</p>
+    <ul style="font-size:13.5px;color:var(--text-dim);margin:0 0 18px 18px">
+      <li><strong>Template should require:</strong> Use case title, business problem, proposed solution, estimated impact (revenue/cost/risk),
+          data sources needed, regulatory considerations, estimated timeline, business owner, technology owner.</li>
+      <li><strong>Target:</strong> 15–30 ideas from a mid-to-large institution. More is noise, fewer means you're missing opportunities.</li>
+      <li><strong>Expect:</strong> 30% will be duplicate ideas. Consolidate them. 20% will be regulation-blocked. Screen those out.</li>
+    </ul>
+
+    <h3 style="margin:20px 0 12px;font-size:16px">Phase 2: Pre-screening (Week 2)</h3>
+    <p style="color:var(--text-dim);font-size:14px;margin-bottom:12px">Technical and compliance pre-screening. Eliminate obvious blockers without the full room.</p>
+    <ul style="font-size:13.5px;color:var(--text-dim);margin:0 0 18px 18px">
+      <li><strong>Hard blockers:</strong> Regulator has said "no" → kill it. Data doesn't exist and can't be acquired → kill it. Violates vendor ToS → kill it.</li>
+      <li><strong>Fixable gaps:</strong> Data exists but in poor quality → move forward. Regulation is unsettled → move forward, flag for discussion.</li>
+      <li><strong>Output:</strong> Curated list of 10–20 ideas ready for scoring.</li>
+    </ul>
+
+    <h3 style="margin:20px 0 12px;font-size:16px">Phase 3: Scoring session (Week 3, 90 minutes)</h3>
+    <p style="color:var(--text-dim);font-size:14px;margin-bottom:12px">The room: CFO/CRO, CTO/CDO, head of AI/CoE, business heads for major lines.
+       Walk through each use case and score on the four dimensions.</p>
+    <ul style="font-size:13.5px;color:var(--text-dim);margin:0 0 18px 18px">
+      <li><strong>Format:</strong> 2-min pitch per use case, 3–5 min discussion, lock scores. Don't belabor.</li>
+      <li><strong>Facilitator:</strong> Someone neutral (often external advisor) keeps pace and prevents rabbit holes.</li>
+      <li><strong>Output:</strong> Ranked portfolio with clear "Do Now," "Plan," "Watch," "Park" buckets.</li>
+    </ul>
+
+    <h3 style="margin:20px 0 12px;font-size:16px">Phase 4: Decision & communication (Week 4)</h3>
+    <p style="color:var(--text-dim);font-size:14px;margin-bottom:12px">Lock the top 5–7 "Do Now" and "Plan" initiatives for the next 6 months. Explicitly defer the rest.</p>
+    <ul style="font-size:13.5px;color:var(--text-dim);margin:0 0 18px 18px">
+      <li><strong>Why explicitly defer?</strong> Prevents "why isn't my idea getting funded?" conversations every week. You have a framework, you applied it, here's the result.</li>
+      <li><strong>Create a portfolio charter:</strong> One page showing the 5–7 selected use cases, owners, timelines, expected outcomes.</li>
+      <li><strong>Publish the deferred list:</strong> "Park" ideas for 6–12 months. Conditions for re-evaluation (e.g. if data quality improves, or regulation clarifies).</li>
+      <li><strong>Board communication:</strong> CEO/board should know top 3 initiatives and why.</li>
+    </ul>
+
+    <h3 style="margin:20px 0 12px;font-size:16px">Phase 5: Quarterly review (Ongoing)</h3>
+    <p style="color:var(--text-dim);font-size:14px;margin-bottom:12px">Every quarter, re-score in a 60-minute session. Usually scores don't change much,
+       but new info (better data, regulatory clarity, competitive moves) does emerge.</p>
+    <ul style="font-size:13.5px;color:var(--text-dim);margin:0 0 18px 18px">
+      <li><strong>Also track:</strong> Have your "Do Now" initiatives actually delivered? If not, why? Kill underperformers ruthlessly.</li>
+      <li><strong>Portfolio health check:</strong> Do you have a good balance across value/risk/time-to-impact? Or are you chasing only quick wins?</li>
+      <li><strong>Output:</strong> Quarterly portfolio update to AI Steering Committee, board reporting if needed.</li>
+    </ul>
+  </div>
+
+  <!-- QUICK WIN IDENTIFICATION -->
+  <div class="card">
+    <h2>Identifying quick wins — where to find early momentum</h2>
+    <p>Organizations often struggle to build credibility on AI. Quick wins (6-month projects with clear ROI)
+       are how you build the credibility to attempt harder things.</p>
+
+    <h3 style="margin:18px 0 12px;font-size:15px">Three types of quick wins</h3>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px">
+      <div class="module" style="background:rgba(34,211,238,0.08);border-color:rgba(34,211,238,0.25)">
+        <h4 style="color:#22d3ee">Type 1: Low-hanging fruit in existing workflows</h4>
+        <p style="margin-bottom:10px;font-size:14px">Find the repetitive, manual, high-volume part of a workflow where GenAI can plug in immediately.
+           Example: contract review, customer enquiry triage, regulatory report summarization.</p>
+        <p style="font-size:13px;color:var(--text-dim)"><strong>Why it works:</strong> Data already exists. Outcome is easy to measure. Risk is low (AI assists, human decides).
+           <strong>Timeline:</strong> 2–4 months. <strong>Value:</strong> $500K–2M depending on volume and labor cost.</p>
+      </div>
+      <div class="module" style="background:rgba(124,92,255,0.08);border-color:rgba(124,92,255,0.25)">
+        <h4 style="color:#bfb5ff">Type 2: Analytics & reporting acceleration</h4>
+        <p style="margin-bottom:10px;font-size:14px">GenAI writing summaries, insights, or reports from structured data. Example: daily market briefs,
+           weekly compliance reports, quarterly business performance summaries.</p>
+        <p style="font-size:13px;color:var(--text-dim)"><strong>Why it works:</strong> Output is easy to quality-check (humans read the report anyway).
+           Cost savings are dramatic (reduce analyst time by 60–80%). <strong>Timeline:</strong> 2–3 months. <strong>Value:</strong> $300K–1M labor displacement.</p>
+      </div>
+      <div class="module" style="background:rgba(255,122,192,0.08);border-color:rgba(255,122,192,0.25)">
+        <h4 style="color:#ff7ac0">Type 3: Retrieval-augmented Q&A (internal knowledge bots)</h4>
+        <p style="margin-bottom:10px;font-size:14px">GenAI-powered search over company docs, policies, or regulatory rules. Example: policy query chatbot,
+           regulatory guidance Q&A, internal knowledge base.</p>
+        <p style="font-size:13px;color:var(--text-dim)"><strong>Why it works:</strong> No sensitive data generation. Dramatically improves employee productivity.
+           Easy to measure (reduction in support tickets). <strong>Timeline:</strong> 4–8 weeks. <strong>Value:</strong> 20–30% reduction in support volume.</p>
+      </div>
+    </div>
+
+    <p style="margin-top:18px;font-size:13.5px;color:var(--text-dim)"><strong style="color:var(--text)">Pro tip:</strong> Run 2–3 quick wins in parallel, not sequentially.
+       You want early proof points across different problem types. Pick one each from Type 1, 2, and 3.
+       By month 6, you'll have built organizational confidence to tackle harder, higher-impact initiatives.</p>
+  </div>
+
+  <!-- PORTFOLIO OPTIMIZATION VIEW -->
+  <div class="card">
+    <h2>Portfolio optimization — thinking beyond individual use cases</h2>
+    <p>Once you have 10+ use cases scored, optimize the portfolio as a whole, not just individual ROI.</p>
+
+    <h3 style="margin:18px 0 12px;font-size:15px">Five portfolio health checks</h3>
+
+    <ol style="font-size:13.5px;color:var(--text-dim);line-height:1.8;margin:0 0 18px 18px">
+      <li><strong style="color:var(--text)">Balance across value drivers.</strong>
+          Do you have use cases across all four value dimensions (revenue, cost, risk, capital)?
+          If you're only doing cost-reduction, you'll miss revenue opportunities. If you're only doing revenue, you'll ignore critical risk.</li>
+
+      <li><strong style="color:var(--text)">Sequence by dependency.</strong>
+          Some use cases enable others. (E.g. customer intelligence enables cross-sell. Surveillance enables market data product.)
+          Build your roadmap to execute dependencies first.</li>
+
+      <li><strong style="color:var(--text)">Spread risk across time.</strong>
+          If all your initiatives are 12-month slogs with uncertain outcomes, you're building fragility.
+          Portfolio should be: 40% quick wins (3–6 months), 40% medium-term (6–12 months), 20% strategic (12+ months).</li>
+
+      <li><strong style="color:var(--text)">Check for vendor concentration.</strong>
+          If all your use cases depend on a single vendor (e.g. Salesforce Einstein, OpenAI), you're creating risk.
+          Aim for 2–3 vendor options. Specifically, don't put all eggs in frontier model APIs.</li>
+
+      <li><strong style="color:var(--text)">Reality-check capacity.</strong>
+          Can your team realistically execute 5–7 initiatives in parallel? If your AI CoE is 2 people, the answer is no.
+          Be conservative on sequencing. Better to do fewer things really well than many things poorly.</li>
+    </ol>
+  </div>
+
+  <div class="card">
     <h2>How to run this in your institution</h2>
-    <ol>
+    <ol style="font-size:13.5px;color:var(--text-dim);line-height:1.8;margin:0 0 18px 18px">
       <li>Run a one-week intake: every business head submits 3-5 GenAI ideas in a single template.</li>
       <li>Pre-screen for hard blockers (regulation, data residency, vendor policy).</li>
       <li>Score in a single 90-minute session with business + technology + risk in the room.</li>
       <li>Lock the top 5-7 for the next 6 months. Defer the rest publicly so they don't keep coming back.</li>
-      <li>Publish a one-page portfolio view to the AI Steering Committee monthly.</li>
+      <li>Publish a quarterly portfolio update showing which initiatives are delivering, which are slipping, and what's next.</li>
     </ol>
   </div>
 
-  <div class="footer-note">© 2026 Rodney.AI · A scoring matrix is only as good as the conversation it enables. The real value is the trade-offs the room agrees to.</div>
+  <div class="footer-note">© 2026 Rodney.AI · A scoring matrix is only as good as the conversation it enables. The real value is the trade-offs the room agrees to. Run it quarterly, not as a one-off.</div>
 </div>
 
 <script>

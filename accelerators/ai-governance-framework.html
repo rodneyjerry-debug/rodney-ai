@@ -57,18 +57,28 @@
 
   <div class="card">
     <h2>Roles and accountability (RACI)</h2>
+    <p>Effective AI governance requires clear decision rights. The RACI matrix below defines accountability across the three lines of defense, extended for AI and GenAI decisions.</p>
     <table>
       <thead><tr><th>Activity</th><th>Board / Risk Cmte</th><th>AI Steering</th><th>1st Line</th><th>2nd Line</th><th>3rd Line</th></tr></thead>
       <tbody>
         <tr><td>Approve AI strategy &amp; risk appetite</td><td><strong style="color:var(--text)">A</strong></td><td>R</td><td>C</td><td>C</td><td>I</td></tr>
         <tr><td>Approve high-risk AI use cases</td><td>I</td><td><strong style="color:var(--text)">A</strong></td><td>R</td><td>C</td><td>I</td></tr>
+        <tr><td>AI risk appetite &amp; limits framework</td><td><strong style="color:var(--text)">A</strong></td><td>R</td><td>I</td><td>C</td><td>I</td></tr>
         <tr><td>Develop &amp; deploy models</td><td>I</td><td>I</td><td><strong style="color:var(--text)">A/R</strong></td><td>C</td><td>I</td></tr>
+        <tr><td>GenAI usage policy &amp; gateway</td><td>I</td><td><strong style="color:var(--text)">A</strong></td><td>R</td><td>C</td><td>I</td></tr>
         <tr><td>Independent model validation</td><td>I</td><td>I</td><td>C</td><td><strong style="color:var(--text)">A/R</strong></td><td>I</td></tr>
-        <tr><td>Audit of AI controls</td><td>I</td><td>I</td><td>C</td><td>C</td><td><strong style="color:var(--text)">A/R</strong></td></tr>
+        <tr><td>AI inventory &amp; classification</td><td>I</td><td>I</td><td>R</td><td><strong style="color:var(--text)">A</strong></td><td>I</td></tr>
+        <tr><td>Fairness &amp; bias testing</td><td>I</td><td>I</td><td>R</td><td><strong style="color:var(--text)">A/C</strong></td><td>I</td></tr>
+        <tr><td>Monitoring &amp; drift detection</td><td>I</td><td>I</td><td><strong style="color:var(--text)">R</strong></td><td>C</td><td>I</td></tr>
+        <tr><td>Incident escalation &amp; response</td><td>C</td><td><strong style="color:var(--text)">R</strong></td><td>C</td><td><strong style="color:var(--text)">R</strong></td><td>I</td></tr>
+        <tr><td>Third-party AI vendor risk</td><td>I</td><td>C</td><td>R</td><td><strong style="color:var(--text)">A</strong></td><td>I</td></tr>
         <tr><td>Regulatory reporting on AI</td><td>I</td><td>R</td><td>C</td><td><strong style="color:var(--text)">A</strong></td><td>I</td></tr>
+        <tr><td>Audit of AI controls</td><td>I</td><td>I</td><td>C</td><td>C</td><td><strong style="color:var(--text)">A/R</strong></td></tr>
+        <tr><td>Data governance for AI training</td><td>I</td><td>I</td><td>R</td><td><strong style="color:var(--text)">A</strong></td><td>I</td></tr>
+        <tr><td>EU AI Act &amp; regulatory compliance</td><td>I</td><td>C</td><td>C</td><td><strong style="color:var(--text)">A/R</strong></td><td>I</td></tr>
       </tbody>
     </table>
-    <p style="font-size:13px;margin-top:10px"><em>R = Responsible · A = Accountable · C = Consulted · I = Informed</em></p>
+    <p style="font-size:13px;margin-top:10px"><em>R = Responsible (does the work) · A = Accountable (final authority) · C = Consulted (provides input) · I = Informed (kept updated)</em></p>
   </div>
 
   <div class="card">
@@ -86,20 +96,147 @@
   </div>
 
   <div class="card">
-    <h2>What "good" looks like in 12 months</h2>
+    <h2>Risk tiering: Full governance model</h2>
+    <p>Risk tiers determine the intensity of governance, validation, and ongoing oversight. This four-tier model aligns governance investment with downside risk.</p>
+    <table>
+      <thead><tr><th>Tier</th><th>Examples</th><th>Board/Regulatory Exposure</th><th>Approval Gate</th><th>Validation</th><th>Monitoring Cadence</th><th>Revalidation</th></tr></thead>
+      <tbody>
+        <tr><td><strong style="color:#ff7ac0">1 — Critical</strong></td><td>Credit decisioning, AML/CFT, customer-facing GenAI generating advice, fraud detection impacting customer outcomes</td><td>Material revenue/loss impact; regulatory criticism; potential enforcement action</td><td>AI Steering + Risk Committee + sign-off by LOB head</td><td>Independent, pre-launch, comprehensive</td><td>Real-time alerting + daily metrics review</td><td>Quarterly or on material change</td></tr>
+        <tr><td><strong style="color:#bfb5ff">2 — High</strong></td><td>Underwriting support, KYC enrichment, advisor copilots, premium modelling, customer segmentation</td><td>Moderate revenue impact; regulatory interest; reputational risk possible</td><td>AI Steering Committee approval</td><td>Independent, pre-launch, focused on top 3 risks</td><td>Weekly metrics + monthly risk review</td><td>Semi-annually or on change</td></tr>
+        <tr><td><strong style="color:#bfd5ff">3 — Moderate</strong></td><td>Operational automation, marketing personalization, process optimisation, internal productivity GenAI</td><td>Low direct customer impact; operational efficiency focus</td><td>Business head + 2nd line sign-off</td><td>Peer/self review against checklist</td><td>Monthly metrics sampling</td><td>Annually</td></tr>
+        <tr><td><strong style="color:#a7f3d0">4 — Low</strong></td><td>Document summarisation, internal FAQ chatbot, data exploration, non-client-facing experimentation</td><td>Negligible external impact; learning/efficiency only</td><td>Business head approval</td><td>Self-attestation to MRM checklist</td><td>Quarterly or sample-based</td><td>On request only</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Policy template outline</h2>
+    <p>A board-approved AI policy should cover these elements. Use this outline as a template for your own enterprise policy.</p>
     <ol>
-      <li>Board-approved AI policy and risk appetite statement.</li>
-      <li>Single, complete AI/ML inventory with risk tiers and owners.</li>
-      <li>AI Steering Committee meeting monthly with real decisions.</li>
-      <li>Independent AI validation function inside 2nd line.</li>
-      <li>GenAI usage policy and a controlled enterprise GenAI gateway.</li>
-      <li>EU AI Act / NIST AI RMF mapping completed and tracked.</li>
-      <li>Quarterly AI risk dashboard reaching the board.</li>
-      <li>AI literacy training completed by 100% of executives and risk staff.</li>
+      <li><strong>Purpose &amp; scope.</strong> States the institution's commitment to responsible AI, and defines which systems are in and out of scope (e.g., GenAI, third-party, traditional ML).</li>
+      <li><strong>Principles.</strong> Five to seven core principles (e.g., fairness, explainability, human oversight, compliance, accountability) with concise definitions.</li>
+      <li><strong>Governance structure.</strong> Roles, committees, escalation paths. Define AI Steering Committee (executive decision-making) and AI Risk Committee (independent oversight) charters.</li>
+      <li><strong>Risk management.</strong> Reference to risk appetite statement, risk tiering model, and core controls (intake gate, validation, monitoring, decommissioning).</li>
+      <li><strong>Model lifecycle.</strong> Intake through development, validation, deployment, monitoring and decommissioning. Point to the MRM checklist.</li>
+      <li><strong>GenAI-specific obligations.</strong> Foundation model selection, prompt governance, grounding/RAG architecture, hallucination controls, usage logging.</li>
+      <li><strong>Data governance.</strong> Data sourcing, quality requirements, PII/sensitive data handling, bias testing, representativeness.</li>
+      <li><strong>Third-party &amp; vendor risk.</strong> Vendor assessment criteria, contractual controls (data residency, audit rights, liability), indemnity requirements.</li>
+      <li><strong>Regulatory compliance.</strong> Mapping to SR 11-7, SS1/23, EU AI Act, NIST AI RMF, GDPR, fair lending regs. Quarterly reporting cadence to 2nd line and board.</li>
+      <li><strong>Escalation &amp; incident response.</strong> When and how to report AI failures, bias findings, compliance gaps. Who owns incident response.</li>
+      <li><strong>Training &amp; literacy.</strong> Mandatory training for executives, tech leads, risk staff. Annual refresher cadence.</li>
+      <li><strong>Review &amp; approval.</strong> Board sign-off, 2nd line ownership, annual refresh cycle.</li>
     </ol>
   </div>
 
-  <div class="footer-note">© 2026 Rodney.AI · This framework is a starting point. Tailoring it to your institution's specific regulatory footprint and risk profile is what advisory engagements are for.</div>
+  <div class="card">
+    <h2>Regulatory mapping table</h2>
+    <p>AI governance across FS jurisdictions requires navigating multiple, overlapping frameworks. This table maps common regulatory requirements to governance components.</p>
+    <table>
+      <thead><tr><th>Regulation</th><th>Key Requirement</th><th>FS Relevance</th><th>Governance Response</th></tr></thead>
+      <tbody>
+        <tr><td><strong>SR 11-7 (Federal Reserve)</strong></td><td>Extend model risk management to all "models" including AI/ML and some GenAI</td><td>Applies if you operate in US; overseas banks with US subsidiaries must comply</td><td>Extend existing MRM policy to AI models; independent validation gate; ongoing monitoring</td></tr>
+        <tr><td><strong>SS1/23 (Bank of England)</strong></td><td>AI risk management within operational resilience framework; third-party AI dependencies</td><td>Applies to UK-regulated entities and global banks with UK operations</td><td>Map AI risks to operational resilience categories; vendor risk framework; testing &amp; assurance</td></tr>
+        <tr><td><strong>EU AI Act</strong></td><td>Classification, conformity assessment, training data governance, human oversight for high-risk systems</td><td>Applies to EU-facing institutions; extraterritorial reach to non-EU banks</td><td>Risk classification inventory; conformity documentation; data lineage tracking; human-in-the-loop audit trails</td></tr>
+        <tr><td><strong>NIST AI RMF</strong></td><td>Six functions (Govern, Map, Measure, Manage) and four pillars (safety, security, resilience, accountability)</td><td>Industry standard; increasingly expected by regulators; useful alignment tool</td><td>Map internal governance to NIST framework; document risk profiles; annual self-assessment</td></tr>
+        <tr><td><strong>SAMA Guidelines (Saudi Arabia)</strong></td><td>AI governance for Saudi-regulated banks; AI policy, oversight committee, risk assessment</td><td>Applies to Saudi banks and foreign subsidiaries; covers all material AI use</td><td>Board AI policy; oversight committee; risk register; annual reporting to SAMA</td></tr>
+        <tr><td><strong>GDPR (EU/UK)</strong></td><td>Lawful basis for training data; DPIA for automated decision-making; right to explanation</td><td>Applies whenever personal data is processed in EU/UK training or inference</td><td>Data governance module in AI policy; DPIA template for high-risk models; transparency documentation</td></tr>
+        <tr><td><strong>Fair Lending / Consumer Protection</strong></td><td>Non-discriminatory credit decisions; adverse action notices; explainability on demand</td><td>Applies to credit, lending, insurance pricing; varies by jurisdiction (FCRA, ECOA, FCA)</td><td>Fairness testing framework; protected attribute monitoring; model explainability tooling</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Committee terms of reference (ToR) template</h2>
+    <p>Two key committees manage AI governance. Here is a template structure for each.</p>
+    <h3>AI Steering Committee</h3>
+    <ul style="margin-left:20px">
+      <li><strong>Purpose:</strong> Executive-level decision-making on AI strategy, portfolio prioritization, use case approvals (Tier 1 &amp; 2), and major policy changes.</li>
+      <li><strong>Membership:</strong> CIO/CTO, Chief Risk Officer, Chief Compliance Officer, Head of Model Risk Management, LOB heads (Investment Banking, Retail, Wealth, Ops), Chief Data Officer. Optional: Chief Innovation Officer, General Counsel.</li>
+      <li><strong>Frequency:</strong> Monthly (minimum); more often if incidents or major regulatory changes.</li>
+      <li><strong>Accountability:</strong> Accountable to the Board Risk Committee for AI strategy execution and risk appetite compliance.</li>
+      <li><strong>Key decisions:</strong> Approve Tier 1 use cases; approve new GenAI pilots; review AI incident reports; approve AI vendor contracts above threshold; review regulatory feedback.</li>
+      <li><strong>Escalation:</strong> Material breaches of risk appetite, regulatory criticism, or major incidents escalate to Board Risk Committee within 48 hours.</li>
+    </ul>
+    <h3>AI Risk Committee (Independent Oversight)</h3>
+    <ul style="margin-left:20px">
+      <li><strong>Purpose:</strong> Independent review of AI risk register, control effectiveness, regulatory alignment, and validation outcomes. Reports to the Board Audit &amp; Risk Committees.</li>
+      <li><strong>Membership:</strong> Chief Risk Officer (chair), independent 2nd line model risk head, external AI risk advisor (optional), Chief Compliance Officer, Head of Internal Audit (observer).</li>
+      <li><strong>Frequency:</strong> Quarterly minimum; monthly if under active regulatory scrutiny.</li>
+      <li><strong>Accountability:</strong> Reports findings and recommendations to the Board Risk Committee and Audit Committee.</li>
+      <li><strong>Key reviews:</strong> Validation exception tracking; fairness testing results; monitoring alert trends; third-party vendor assessments; regulatory gap closure status.</li>
+      <li><strong>Escalation:</strong> Unresolved control gaps, validation failures, or fairness breaches are escalated to the Board within 10 business days.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Reporting dashboard requirements</h2>
+    <p>Board and executive dashboards should track real-time AI governance health. Minimum recommended metrics:</p>
+    <table>
+      <thead><tr><th>Metric</th><th>Frequency</th><th>Target/Threshold</th><th>Owner</th></tr></thead>
+      <tbody>
+        <tr><td>AI inventory completeness</td><td>Monthly</td><td>100% of models registered and classified</td><td>2nd Line</td></tr>
+        <tr><td>Tier 1 &amp; 2 validation coverage</td><td>Monthly</td><td>100% independent validated pre-launch</td><td>Model Risk</td></tr>
+        <tr><td>Model monitoring active coverage</td><td>Weekly</td><td>100% of Tier 1–2 models, ≥80% Tier 3</td><td>1st Line + Model Risk</td></tr>
+        <tr><td>Performance drift alerts</td><td>Daily</td><td>Zero unresolved alerts >3 days</td><td>1st Line</td></tr>
+        <tr><td>Fairness test exceptions</td><td>Quarterly</td><td>All disparate impact ≥2% sigma documented and remediated</td><td>Model Risk</td></tr>
+        <tr><td>GenAI prompt governance</td><td>Monthly</td><td>100% production prompts versioned, reviewed, audit-logged</td><td>AI Steering</td></tr>
+        <tr><td>Third-party vendor audit status</td><td>Quarterly</td><td>All Tier 1–2 vendors SOC 2 / annual attestation current</td><td>Vendor Risk</td></tr>
+        <tr><td>Regulatory compliance gap closure</td><td>Quarterly</td><td>100% of findings from prior quarter closed on schedule</td><td>Compliance / 2nd Line</td></tr>
+        <tr><td>AI-related incidents reported</td><td>Monthly</td><td>Root cause analysis within 5 days of discovery</td><td>Compliance / Risk</td></tr>
+        <tr><td>AI policy &amp; control training completion</td><td>Quarterly</td><td>100% of tech leads &amp; risk staff trained annually</td><td>Learning &amp; Development</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Implementation roadmap</h2>
+    <p>Rolling out a governance framework is a 9–18 month program. This roadmap is a typical delivery sequence:</p>
+    <h3>Phase 1: Foundation (Months 1–3)</h3>
+    <ul style="margin-left:20px">
+      <li>Board workshop: AI strategy &amp; risk appetite session. Agree on scope, risk tiers, committee structure.</li>
+      <li>Draft enterprise AI policy aligned to SR 11-7, EU AI Act, NIST RMF. Regulatory mapping workshop with compliance &amp; risk teams.</li>
+      <li>Establish AI Steering &amp; Risk Committees. Publish ToRs. Schedule first meetings.</li>
+      <li>Build AI inventory intake template. Begin data collection from all LOBs and tech teams.</li>
+    </ul>
+    <h3>Phase 2: Inventory &amp; Classification (Months 3–6)</h3>
+    <ul style="margin-left:20px">
+      <li>Complete AI inventory. Risk tier all models. Identify Tier 1 &amp; 2 gaps in validation, monitoring.</li>
+      <li>Classify under EU AI Act, GDPR, fair lending regs. Identify high-risk systems requiring conformity.</li>
+      <li>Launch independent model risk function if not in place. Define validation scope &amp; exception tracking.</li>
+      <li>Board presentation: Summary of AI portfolio, top risks, near-term remediation plan.</li>
+    </ul>
+    <h3>Phase 3: Controls &amp; Validation (Months 6–12)</h3>
+    <ul style="margin-left:20px">
+      <li>Deploy monitoring infrastructure for Tier 1 &amp; 2 models. Define SLOs, alerting thresholds, escalation paths.</li>
+      <li>Fairness testing framework &amp; tooling. Begin testing backlog of existing models.</li>
+      <li>GenAI governance: Establish usage policy, foundation model selection framework, prompt governance process. Deploy enterprise GenAI gateway if not existing.</li>
+      <li>Third-party vendor assessment. Build questionnaires, audit schedules, contract amendments.</li>
+      <li>AI literacy training for executives, tech leads, risk staff. Board &amp; Risk Committee certification.</li>
+    </ul>
+    <h3>Phase 4: Assurance &amp; Regulatory Readiness (Months 12–18)</h3>
+    <ul style="margin-left:20px">
+      <li>Regulatory compliance gap closure. EU AI Act conformity documentation for high-risk systems.</li>
+      <li>Board dashboard launch. Quarterly AI risk reporting to the board begins.</li>
+      <li>External audit of AI governance. SOC 2 / Type II assessment if third-party AI dependencies material.</li>
+      <li>Regulator readiness. Prepare documentation for SR 11-7 exams, EU AI Act enforcement, SAMA inspections.</li>
+      <li>Establish AI incident &amp; response playbook. Run tabletop exercises with crisis comms.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Quick reference: Common failure modes</h2>
+    <p>Watch out for these patterns in AI governance programs:</p>
+    <ul style="margin-left:20px">
+      <li><strong>Governance without teeth.</strong> Policies and committees that exist on paper but don't actually block bad models or slow down deployment. Fix: Tie governance decisions to promotion gates &amp; budget allocation.</li>
+      <li><strong>Shadow AI running rampant.</strong> Business teams using GenAI and external AI tools outside central visibility. Fix: Enforce firewall rules, deploy gateway, monitor SaaS app spending, offer approved alternatives.</li>
+      <li><strong>Validation bottleneck.</strong> Independent validation function is undersourced and creates 6-month backlogs. Fix: Hire or contract validation expertise; deploy self-service validation tooling; risk-tier to avoid over-validating low-risk experiments.</li>
+      <li><strong>Fairness testing theater.</strong> Fairness tests run but findings are not acted on; disparate impact is documented but unresolved. Fix: Make fairness test outcome a go/no-go gate; tie LOB incentives to fairness SLOs.</li>
+      <li><strong>Stale inventory.</strong> AI inventory is built once and never maintained. Models drop off; new uses aren't registered. Fix: Make inventory a live operational system with quarterly audits; incentivize LOBs to keep it current.</li>
+      <li><strong>Committee theater.</strong> Committees meet but don't make decisions; escalations are vague; accountability is diffuse. Fix: Publish meeting minutes with explicit decisions &amp; owners; track action items with deadlines.</li>
+    </ul>
+  </div>
+
+  <div class="footer-note">© 2026 Rodney.AI · This framework is a starting point. Tailoring it to your institution's specific regulatory footprint and risk profile is what advisory engagements are for. Contact advisor@rodney-ai.com for a governance diagnostic.</div>
 </div>
 <script src="_gate.js"></script>
 </body>

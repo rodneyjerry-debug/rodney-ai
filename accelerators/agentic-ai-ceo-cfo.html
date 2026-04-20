@@ -243,6 +243,178 @@
     </div>
   </div>
 
+  <!-- BUILD VS BUY DECISION MATRIX -->
+  <div class="card">
+    <h2>Build vs Buy — the framework</h2>
+    <p>The most costly mistake in agentic AI is building when you should buy, or vice versa.
+       This matrix helps make the decision rational, not political.</p>
+    <table class="maturity-table">
+      <thead>
+        <tr>
+          <th>Factor</th>
+          <th>Build (custom agent)</th>
+          <th>Buy (platform)</th>
+          <th>Build-on-buy (hybrid)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Time-to-value</td>
+          <td>12–24 months</td>
+          <td>3–6 months</td>
+          <td>6–12 months</td>
+        </tr>
+        <tr>
+          <td>Capital requirement</td>
+          <td>$3–8M first 2 years</td>
+          <td>$500K–2M first 2 years</td>
+          <td>$1.5–4M first 2 years</td>
+        </tr>
+        <tr>
+          <td>Vendor lock-in risk</td>
+          <td>Low</td>
+          <td>High</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td>Competitive moat</td>
+          <td>High (bespoke IP)</td>
+          <td>None (everyone uses same platform)</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td>Internal capability required</td>
+          <td>High (ML engineers, prompts specialists, DevOps)</td>
+          <td>Medium (business users, some engineering)</td>
+          <td>Medium-high</td>
+        </tr>
+        <tr>
+          <td>Scalability ceiling</td>
+          <td>Bounded by your infrastructure budget</td>
+          <td>Elastic (vendor's problem)</td>
+          <td>Your infrastructure + vendor's</td>
+        </tr>
+        <tr>
+          <td>Use-case flexibility</td>
+          <td>Extreme (build anything)</td>
+          <td>Constrained (only what platform supports)</td>
+          <td>High (extend the platform)</td>
+        </tr>
+        <tr>
+          <td>Best for</td>
+          <td>Mission-critical, high-frequency workloads with deep domain specificity</td>
+          <td>Rapid experimentation, broad use-case portfolio, cost-sensitive</td>
+          <td>Strategic workloads that need customisation + speed to market</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- IMPLEMENTATION TIMELINE TEMPLATE -->
+  <div class="card">
+    <h2>Implementation timeline template — 18-month roadmap</h2>
+    <p>A realistic phasing for moving from pilot to production-scale agentic AI with governance:</p>
+    <div class="agent-card">
+      <h3>Months 1–3: Foundation & Governance Design</h3>
+      <p><strong>Activities:</strong> Board alignment on agent use cases and risk appetite; governance framework design (RACI, escalation rules, kill switches); agent architecture decision (build vs buy); vendor evaluation if applicable; risk taxonomy definition; compliance review with legal and risk teams; identification of 2–3 pilot agents.</p>
+      <p><strong>Deliverables:</strong> Signed-off governance charter; 3-5 use cases with business cases; architecture decision; vendor shortlist; risk register.</p>
+    </div>
+    <div class="agent-card">
+      <h3>Months 4–6: Pilot Phase (Agents that advise)</h3>
+      <p><strong>Activities:</strong> Build or deploy first 2 low-autonomy agents (document summarisation, regulatory monitoring); integrate with enterprise systems; establish feedback loop with users; build monitoring and audit trail; run initial red team on agent outputs; compliance check.</p>
+      <p><strong>Deliverables:</strong> 2 agents in pilot; production infrastructure; monitoring dashboard; audit trails; initial performance metrics.</p>
+    </div>
+    <div class="agent-card">
+      <h3>Months 7–9: Pilot Hardening & Governance Validation</h3>
+      <p><strong>Activities:</strong> Run pilot agents through 10,000+ interactions; measure output quality and user satisfaction; refine guardrails based on pilot data; test escalation and kill switches under load; audit trail review; prepare for production deployment; start building second-wave use case.</p>
+      <p><strong>Deliverables:</strong> Pilot completion report; tuned governance rules; production readiness checklist signed off by CRO; second-wave backlog.</p>
+    </div>
+    <div class="agent-card">
+      <h3>Months 10–12: Production Deployment & Multi-Agent Planning</h3>
+      <p><strong>Activities:</strong> Deploy first agents to production; ramp user base; establish SLAs and escalation paths; deploy second-wave agents (still advisory); expand monitoring to detect edge cases; prepare for higher-autonomy agents; train business and risk teams on governance in practice.</p>
+      <p><strong>Deliverables:</strong> 4–6 agents in production; escalation and incident management playbooks; governance KPI dashboard; training completion for 100+ staff.</p>
+    </div>
+    <div class="agent-card">
+      <h3>Months 13–15: Higher-Autonomy Agents & Multi-Agent Orchestration</h3>
+      <p><strong>Activities:</strong> Design and deploy first higher-autonomy agents (credit decisioning, procurement, capital optimisation) with reinforced checkpoints; build multi-agent orchestration layer; implement circuit breakers between agents; stress-test governance under load; prepare for regulatory examination.</p>
+      <p><strong>Deliverables:</strong> First autonomous agents with documented guardrails; multi-agent platform; circuit breaker framework; examination-ready documentation.</p>
+    </div>
+    <div class="agent-card">
+      <h3>Months 16–18: Scale & Optimisation</h3>
+      <p><strong>Activities:</strong> Expand agent portfolio to 15+ agents; optimise cost and latency; measure P&L impact against business cases; run full risk review; prepare next-phase roadmap; begin board reporting on AI autonomy metrics.</p>
+      <p><strong>Deliverables:</strong> 15+ agents in production; P&L impact report; next-phase roadmap; board reporting templates.</p>
+    </div>
+  </div>
+
+  <!-- VENDOR LANDSCAPE -->
+  <div class="card">
+    <h2>The agent platform landscape — 2026</h2>
+    <p>A snapshot of vendors and approaches for deploying agentic AI in financial services. No perfect choice — all involve trade-offs.</p>
+    <table class="maturity-table">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Players</th>
+          <th>Strengths</th>
+          <th>Weaknesses for FS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Frontier LLM providers (agent-native)</strong></td>
+          <td>OpenAI (Swarm), Anthropic (Claude with tool use), Google (Agentic framework)</td>
+          <td>Bleeding-edge reasoning; multi-step task handling; tool use; enterprise support</td>
+          <td>No regulatory pre-cleared framework; data sovereignty questions; vendor concentration risk</td>
+        </tr>
+        <tr>
+          <td><strong>Agent platforms (generic)</strong></td>
+          <td>LangChain, LlamaIndex, AutoGen, Crew AI</td>
+          <td>Open-source flexibility; vendor-agnostic; rapid iteration; strong community</td>
+          <td>Require deep ML engineering to operationalise; limited governance tooling; responsibility for production readiness</td>
+        </tr>
+        <tr>
+          <td><strong>Enterprise AI platforms (with agents)</strong></td>
+          <td>Salesforce Einstein, SAP AI Core, Microsoft CoPilot Studio</td>
+          <td>Embedded in existing workflows; business user-friendly; integrated governance; vendor support</td>
+          <td>Constrained to vendor's ecosystem; agent design limited; expensive at scale</td>
+        </tr>
+        <tr>
+          <td><strong>FinTech-specific agent platforms</strong></td>
+          <td>Temptation, Agent Labs, Claude (API), custom builders</td>
+          <td>Domain expertise in compliance, surveillance, settlement; pre-built industry patterns</td>
+          <td>Emerging / unproven at scale; limited market share; vendor sustainability risk</td>
+        </tr>
+        <tr>
+          <td><strong>Internal custom build</strong></td>
+          <td>Self-built on LLM APIs and frameworks</td>
+          <td>Full control; competitive advantage if well-executed; aligns to exact architecture needs</td>
+          <td>Expensive; slow; requires world-class ML engineering; ongoing maintenance burden</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- COST-PER-CORRECT-DECISION FRAMEWORK -->
+  <div class="card">
+    <h2>Cost-per-correct-decision — the CFO's measurement framework</h2>
+    <p>Agents should be evaluated on economics, not just automation. This framework translates agent cost into decision economics.</p>
+    <div class="formula" style="margin:18px 0">
+      <div class="expr" style="font-size:18px">Cost per Correct Decision = Total Agent Cost ÷ Correct Decisions Made</div>
+      <div class="explain" style="margin-top:8px">Where Total Agent Cost = LLM inference + infrastructure + human supervision + remediation</div>
+    </div>
+    <div class="risk-grid" style="grid-template-columns:1fr 1fr">
+      <div class="risk-item">
+        <h4>For advisory agents</h4>
+        <p>Compare to the cost of a human analyst doing research or generating a report. Most credit memo agents achieve cost-per-decision of $1–3 per memo vs $50–200 for a human analyst.</p>
+      </div>
+      <div class="risk-item">
+        <h4>For autonomous agents</h4>
+        <p>Account for error cost. A capital optimisation agent that makes a wrong call 1% of the time must factor in the cost of that 1% into the ROI. A $50K decision made wrong is expensive.</p>
+      </div>
+    </div>
+    <p><strong>Rule of thumb:</strong> An agent is worth deploying if its cost-per-correct-decision is less than 10% of the cost of the human equivalent, OR if it enables something humans couldn't do at all (e.g. real-time market surveillance).</p>
+  </div>
+
   <!-- HOW TO START -->
   <div class="card">
     <h2>How to start — without losing control</h2>
@@ -274,6 +446,24 @@
        to remove it.</p>
   </div>
 
+  <!-- RISK ASSESSMENT CHECKLIST -->
+  <div class="card">
+    <h2>Pre-deployment risk checklist for every agent</h2>
+    <p>Before any agent goes to production, walk through these 10 critical questions:</p>
+    <ol style="font-size:14.5px;line-height:1.8;color:var(--text-dim)">
+      <li><strong style="color:var(--text)">Autonomy scope:</strong> What is the agent legally and operationally authorized to do? Are those bounds clearly defined in code and monitored in real-time?</li>
+      <li><strong style="color:var(--text)">Escalation triggers:</strong> At what thresholds does the agent escalate to a human? Are those thresholds backed by data or just guesses?</li>
+      <li><strong style="color:var(--text)">Kill switch:</strong> Can a human stop the agent instantly if it starts behaving unexpectedly? Is the kill switch tested weekly?</li>
+      <li><strong style="color:var(--text)">Audit trail:</strong> Is every decision, data input, tool call, and reasoning step logged and queryable? Can compliance audit all interactions within 24 hours?</li>
+      <li><strong style="color:var(--text)">Hallucination risk:</strong> In what scenarios does the agent generate false information, and what is the downside? Is there a verification step before acting?</li>
+      <li><strong style="color:var(--text)">Tool permissions:</strong> Does the agent have the minimum necessary permissions to do its job? Are those permissions time-bounded and revocable?</li>
+      <li><strong style="color:var(--text)">Failure modes:</strong> What happens if the agent makes a decision and the underlying data is wrong? Is there a reconciliation and reversal process?</li>
+      <li><strong style="color:var(--text)">Bias and fairness:</strong> Are you testing for discriminatory outcomes? (Especially critical for agents affecting customer credit, pricing, or service).</li>
+      <li><strong style="color:var(--text)">Regulatory readiness:</strong> Can you explain to a regulator exactly how the agent makes decisions? Is the explanation honest and complete?</li>
+      <li><strong style="color:var(--text)">Business continuity:</strong> If the agent fails, does the system fall back to human handling gracefully, or does it break the workflow entirely?</li>
+    </ol>
+  </div>
+
   <!-- BOARD QUESTIONS -->
   <div class="card">
     <h2>Questions for the board</h2>
@@ -281,9 +471,11 @@
       <li>Which 3–5 enterprise workflows would benefit most from agentic automation — and what's the annual cost of those workflows today?</li>
       <li>Do we have the governance framework to manage autonomous AI systems, or are we still governing copilots?</li>
       <li>What is our risk appetite for AI autonomy — and have we defined escalation thresholds and kill switches?</li>
-      <li>How do we measure the ROI of an agent vs a human doing the same workflow?</li>
+      <li>How do we measure the ROI of an agent vs a human doing the same workflow? What is our target cost-per-decision?</li>
       <li>Are our data systems, APIs, and permissions structured for agent access — or will we need infrastructure work first?</li>
       <li>Who on the executive committee owns the agentic AI roadmap and its governance?</li>
+      <li>Have we stress-tested our agents under adversarial conditions and documented the failure modes?</li>
+      <li>Do we have a regulatory pre-clearance strategy, or are we building first and asking permission after?</li>
     </ol>
   </div>
 

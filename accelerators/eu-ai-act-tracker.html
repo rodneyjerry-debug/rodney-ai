@@ -67,22 +67,138 @@
   </div>
 
   <div class="card">
-    <h2>The 10-step readiness checklist</h2>
-    <ol>
-      <li>Stand up an EU AI Act program owner (typically 2nd line, jointly with legal).</li>
-      <li>Build a complete AI inventory with EU touchpoints flagged.</li>
-      <li>Classify each system: prohibited, high-risk, limited, minimal, or GPAI.</li>
-      <li>Run a gap assessment against Annex III obligations for high-risk systems.</li>
-      <li>Establish data governance evidencing for high-risk training datasets.</li>
-      <li>Document risk management system and post-market monitoring plan.</li>
-      <li>Implement human oversight mechanisms for in-scope systems.</li>
-      <li>Update vendor &amp; foundation-model contracts with deployer-side rights.</li>
-      <li>Prepare conformity assessment and EU technical documentation.</li>
-      <li>Train executives and the board on obligations, and rehearse incident response.</li>
+    <h2>EU AI Act compliance timeline (detailed)</h2>
+    <table>
+      <thead><tr><th>Milestone</th><th>Date</th><th>What applies</th><th>Implication for FS</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Transparency &amp; Disclosure Phase 1</strong></td><td>Feb 2025</td><td>Prohibited AI practices (Articles 5–6) in force: social scoring, untargeted biometric scrapin, manipulative AI, certain biometric categorisation</td><td>Audit GenAI use to exclude prohibited practices. Retract any social scoring models.</td></tr>
+        <tr><td><strong>GPAI Model Provider Obligations</strong></td><td>Aug 2025</td><td>General-Purpose AI model providers must comply with Articles 53–57: transparency, data governance, compliance with EU law</td><td>Check if your institution is a GPAI provider (unlikely unless you publish foundation models). If using GPAI (e.g., OpenAI), confirm vendor compliance.</td></tr>
+        <tr><td><strong>AI Office &amp; Notified Bodies Operational</strong></td><td>Aug 2025</td><td>EU AI Office operational; national AI offices in member states; notified bodies for conformity assessment ready</td><td>Monitor EU AI Office guidance releases. Identify notified body for your jurisdiction if needed (typically for high-risk FS systems).</td></tr>
+        <tr><td><strong>High-Risk AI Rules Apply</strong></td><td>Aug 2026</td><td><strong>Articles 1–52 in full effect:</strong> Classification, QMRA, training data governance, human oversight, conformity assessment, post-market surveillance, technical documentation for ALL high-risk systems</td><td><strong>KEY DATE FOR FS:</strong> All high-risk FS AI (credit scoring, insurance pricing, HR) must be fully compliant. This is the hard deadline for your program.</td></tr>
+        <tr><td><strong>Post-Market Surveillance Begins</strong></td><td>Aug 2026</td><td>EU authorities begin monitoring high-risk AI systems; institutions must report incidents &amp; serious failures</td><td>Establish incident reporting procedures. Set up EU Authority notification process. Document all model incidents.</td></tr>
+        <tr><td><strong>Extension to Product-Embedded High-Risk AI</strong></td><td>Aug 2027</td><td>High-risk AI embedded in products governed by Annex I regulations (machinery, civil aviation, etc.) must comply</td><td>Less direct impact on banking/insurance, but review if you embed AI in regulated products.</td></tr>
+        <tr><td><strong>Risk-Based Code of Practice (Ongoing)</strong></td><td>Ongoing from Q4 2025</td><td>EU AI Office will publish risk-based codes of practice for providers &amp; deployers in different sectors (e.g., financial services code by end 2025)</td><td>Monitor releases. Align governance to FS-specific code when published.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Prohibited AI practices (must stop now)</h2>
+    <p>These AI practices are <strong>prohibited</strong> under Article 5 of the EU AI Act. Any institution with these in place must discontinue immediately:</p>
+    <table>
+      <thead><tr><th>Prohibited Practice</th><th>Example in FS</th><th>Article</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Social scoring</strong></td><td>AI that assigns a social/credit score based on social behavior, personal characteristics, or 'reputation' in the community.</td><td>Article 5(1)(a)</td><td>Audit all scoring models. Confirm none assign scores based on general social behavior. If found, retract immediately.</td></tr>
+        <tr><td><strong>Manipulation through subliminal/unfathomable techniques</strong></td><td>GenAI advisor using psychological manipulation techniques beyond user's ability to understand (e.g., subliminal messaging).</td><td>Article 5(1)(b)</td><td>Review advisor copilots &amp; GenAI interactions. Remove any techniques designed to manipulate beyond transparency.</td></tr>
+        <tr><td><strong>Biometric categorisation (certain forms)</strong></td><td>AI that assigns person to category based on sensitive personal characteristics (race, ethnicity, sexual orientation) for financial purposes.</td><td>Article 5(1)(c)</td><td>Review all models that process biometric or sensitive personal data. Ensure none categorise based on protected characteristics.</td></tr>
+        <tr><td><strong>Real-time remote biometric identification (FS context)</strong></td><td>AI that identifies individuals in real-time without their explicit consent in public spaces (e.g., at branch ATMs).</td><td>Article 5(1)(d)</td><td>If using facial recognition for customer identification, ensure informed consent &amp; explicit opt-in (not surveillance).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Annex III high-risk requirements for FS (detailed)</h2>
+    <p>For systems classified as high-risk under Annex III, Articles 8–30 require the following obligations:</p>
+    <ol style="margin-left:20px">
+      <li><strong>Risk management system (Article 9):</strong> Establish, document and implement a continuous QMRA process. Identify, analyze and evaluate AI-specific risks. Implement mitigation strategies. Monitor risk evolution.</li>
+      <li><strong>Data &amp; data governance (Articles 10–11):</strong> Training data must be relevant, representative, and free of errors. Document data sources, collection methods, &amp; labeling. Prohibit prohibited categories of data. Establish data governance processes for quality &amp; bias.</li>
+      <li><strong>Documentation &amp; record-keeping (Article 11(5)):</strong> Create &amp; maintain EU technical documentation including: training/test/validation data description, model architecture, performance metrics, data governance processes, risk assessment, human oversight implementation, instructions for deployment &amp; use.</li>
+      <li><strong>Transparency &amp; information to users (Article 13):</strong> Inform users that they are interacting with an AI system. Explain the AI's capabilities &amp; limitations. Provide information sufficient for them to exercise rights (e.g., right to explanation under GDPR).</li>
+      <li><strong>Human oversight (Article 14):</strong> Implement human oversight mechanisms so that humans can understand AI outputs and override them. Oversight must be meaningful, not rubber-stamp.</li>
+      <li><strong>Accuracy, robustness &amp; cybersecurity (Article 15):</strong> Ensure high level of accuracy, robustness &amp; cybersecurity in design &amp; development. Test against adversarial inputs. Establish performance standards &amp; monitor against them.</li>
+      <li><strong>Post-market monitoring (Article 27):</strong> Establish system to monitor AI performance post-deployment. Collect &amp; analyze data on incidents, complaints, near-misses. Implement mechanism to report serious incidents to competent authorities.</li>
+      <li><strong>Incident reporting (Article 73):</strong> Report &quot;serious incidents&quot; and &quot;substantial violations&quot; to competent authorities. Definition of serious incident: system causes injury, health damage, property damage &gt;1,000 EUR, or serious damage to rights &amp; freedoms.</li>
     </ol>
   </div>
 
-  <div class="footer-note">© 2026 Rodney.AI · This tracker is intended to support executive conversations and program planning. It is not legal advice.</div>
+  <div class="card">
+    <h2>Conformity assessment checklist for high-risk systems</h2>
+    <p>Before placing a high-risk AI system on the EU market, you must complete a conformity assessment. Here is the checklist:</p>
+    <table>
+      <thead><tr><th>Conformity Area</th><th>Documentation Required</th><th>Evidence</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Risk Management System</strong></td><td>QMRA process documented; risks identified &amp; mitigated</td><td>Risk register, mitigation plans, testing results, post-market monitoring plan</td></tr>
+        <tr><td><strong>Data Governance</strong></td><td>Training data is representative, documented, free of errors</td><td>Data quality report, data sources, bias testing results, representativeness analysis</td></tr>
+        <tr><td><strong>Accuracy &amp; Performance</strong></td><td>Model meets documented performance requirements</td><td>Validation report, performance metrics on test set, comparison to baselines</td></tr>
+        <tr><td><strong>Explainability</strong></td><td>Model decisions can be explained to users &amp; regulators</td><td>Explainability documentation (SHAP/LIME plots, decision logic), user-facing explanations</td></tr>
+        <tr><td><strong>Fairness &amp; Non-Discrimination</strong></td><td>No disparate impact across protected groups</td><td>Fairness testing report, demographic parity analysis, mitigation of identified biases</td></tr>
+        <tr><td><strong>Human Oversight</strong></td><td>Humans can understand, monitor &amp; override AI decisions</td><td>Audit logs of human decisions, override rate &gt; 0 documented, training materials for operators</td></tr>
+        <tr><td><strong>Cybersecurity &amp; Robustness</strong></td><td>System resistant to adversarial attacks &amp; data poisoning</td><td>Adversarial testing report, penetration testing results, security architecture diagram</td></tr>
+        <tr><td><strong>Post-Market Monitoring</strong></td><td>Mechanism to track performance &amp; incidents post-deployment</td><td>Monitoring dashboard, incident log template, escalation procedures</td></tr>
+        <tr><td><strong>Documentation</strong></td><td>EU Technical Documentation complete per Article 11</td><td>Comprehensive model card, risk assessment, data sources, performance metrics, limitations</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Risk classification decision tree for FS</h2>
+    <p>Use this decision tree to classify your AI systems under the EU AI Act:</p>
+    <ol style="margin-left:20px">
+      <li><strong>Is the AI practice prohibited under Article 5?</strong> (social scoring, manipulation, biometric categorization, real-time remote ID)<br>→ <strong>YES:</strong> PROHIBITED. Stop use immediately. Retract from market.<br>→ <strong>NO:</strong> Continue to step 2.</li>
+      <li><strong>Is the AI a general-purpose AI (GPAI) or foundation model?</strong> (e.g., you publish a large language model)<br>→ <strong>YES:</strong> Subject to GPAI obligations (Articles 53–57). You are a provider; document training data, test for dangerous capabilities.<br>→ <strong>NO:</strong> Continue to step 3.</li>
+      <li><strong>Is the AI used to evaluate creditworthiness of natural persons?</strong> (credit scoring, mortgage pre-approval)<br>→ <strong>YES:</strong> HIGH-RISK (Annex III(a)). Proceed to Annex III obligations.<br>→ <strong>NO:</strong> Continue to step 4.</li>
+      <li><strong>Is the AI used in insurance pricing or acceptance of claims?</strong> (life insurance premiums, health insurance, claims assessment)<br>→ <strong>YES:</strong> HIGH-RISK (Annex III(b) / (f)). Proceed to Annex III obligations.<br>→ <strong>NO:</strong> Continue to step 5.</li>
+      <li><strong>Is the AI used in recruitment, employment, or worker monitoring?</strong> (resume screening, promotion decisions, performance monitoring)<br>→ <strong>YES:</strong> HIGH-RISK (Annex III(c)). Proceed to Annex III obligations.<br>→ <strong>NO:</strong> Continue to step 6.</li>
+      <li><strong>Is the AI used in critical infrastructure / essential public services?</strong> (payment systems, critical utilities)<br>→ <strong>YES:</strong> HIGH-RISK (Annex III(e)). Proceed to Annex III obligations.<br>→ <strong>NO:</strong> Continue to step 7.</li>
+      <li><strong>Is the AI used for law enforcement purposes?</strong> (AML/CFT, fraud investigation)<br>→ <strong>YES:</strong> Likely HIGH-RISK or LIMITED-RISK. Check Article 30 (law enforcement derogations). Consult legal.<br>→ <strong>NO:</strong> Continue to step 8.</li>
+      <li><strong>Is the AI biometric identification or emotion/intention detection?</strong><br>→ <strong>YES:</strong> Possible HIGH-RISK. Check context &amp; Article 5 restrictions. Consult legal.<br>→ <strong>NO:</strong> Continue to step 9.</li>
+      <li><strong>Does the AI have the potential to significantly impact rights &amp; freedoms?</strong> (e.g., customer advice, product recommendations that affect financial decision)<br>→ <strong>YES:</strong> LIMITED-RISK or HIGH-RISK. Assess context. Transparency &amp; user information required (Article 13).<br>→ <strong>NO:</strong> Likely MINIMAL-RISK or outside scope. Document classification rationale.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>Documentation requirements per Article 11 (EU Technical Documentation)</h2>
+    <p>For high-risk AI systems, Article 11 requires comprehensive technical documentation. Minimum contents:</p>
+    <ul style="margin-left:20px">
+      <li><strong>AI system summary:</strong> Name, version, provider, purpose, risk classification, deployment date.</li>
+      <li><strong>Training &amp; validation data description:</strong> Sources, collection methods, size, representativeness, labeling methodology, data governance process.</li>
+      <li><strong>Model architecture &amp; design:</strong> Algorithm, hyperparameters, key design decisions, rationale for model choice vs. alternatives.</li>
+      <li><strong>Performance metrics:</strong> Accuracy, precision, recall, AUC, fairness metrics (disparate impact ratio, equalized odds), performance by demographic group.</li>
+      <li><strong>Human oversight design:</strong> How humans understand outputs, mechanisms for human intervention, audit trails of human decisions.</li>
+      <li><strong>Risk assessment:</strong> Risk management system, identified risks, mitigation measures, residual risks, post-market monitoring plan.</li>
+      <li><strong>Robustness &amp; security testing:</strong> Adversarial testing results, security assessment, failure modes, edge cases identified.</li>
+      <li><strong>Instructions for use:</strong> Deployment guidance, intended use &amp; limitations, user training requirements, escalation procedures.</li>
+      <li><strong>Known limitations:</strong> Accuracy thresholds below which system should not be used, data distribution requirements, known biases, failure modes.</li>
+      <li><strong>Compliance with EU law:</strong> GDPR compliance (lawful basis, data subject rights), fair lending compliance, consumer protection alignment.</li>
+      <li><strong>Maintenance &amp; retraining:</strong> Retraining frequency, performance monitoring cadence, process for updating model based on feedback.</li>
+      <li><strong>Version history:</strong> All model versions, when deployed, changes from prior versions, retirement dates.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Gap analysis template</h2>
+    <p>Use this template to assess your compliance gaps for each high-risk AI system:</p>
+    <table>
+      <thead><tr><th>Requirement</th><th>Current State</th><th>Target State</th><th>Gap</th><th>Remediation Plan</th><th>Owner</th><th>Timeline</th></tr></thead>
+      <tbody>
+        <tr><td>QMRA process documented</td><td>Ad-hoc risk review</td><td>Formal QMRA per Article 9</td><td>Missing documented process</td><td>Develop risk management template &amp; train team</td><td>Model Risk</td><td>Q2 2026</td></tr>
+        <tr><td>Training data governance</td><td>Data tracked in Excel</td><td>Documented lineage &amp; governance per Article 10-11</td><td>No formal data governance</td><td>Implement data catalog &amp; governance framework</td><td>Data Office</td><td>Q3 2026</td></tr>
+        <tr><td>Fairness testing</td><td>Tested manually, not documented</td><td>Automated fairness testing &amp; reporting per Article 15</td><td>No continuous fairness monitoring</td><td>Deploy fairness tooling; establish monitoring SLAs</td><td>Data Science</td><td>Q2 2026</td></tr>
+        <tr><td>Human oversight audit trail</td><td>No logging of human decisions</td><td>Audit logs of human overrides &amp; decisions per Article 14</td><td>Missing logging mechanism</td><td>Implement audit logging in production system</td><td>Tech / Ops</td><td>Q1 2026</td></tr>
+        <tr><td>Post-market monitoring</td><td>No formal process</td><td>Documented monitoring plan &amp; incident reporting per Article 27</td><td>No incident tracking or reporting</td><td>Establish incident registry &amp; authority notification process</td><td>Compliance</td><td>Q2 2026</td></tr>
+        <tr><td>EU Technical Documentation</td><td>Model card incomplete</td><td>Comprehensive documentation per Article 11</td><td>Missing sections (data sources, risk assessment, limitations)</td><td>Assign owner; build doc template; complete for all high-risk models</td><td>Model Risk</td><td>Q1 2026</td></tr>
+        <tr><td>Conformity assessment</td><td>Not started</td><td>Formal conformity assessment &amp; declaration per Article 19</td><td>No assessment completed</td><td>Engage notified body or internal assessment; document declaration</td><td>Compliance</td><td>Q2 2026</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>The 10-step readiness program</h2>
+    <ol style="margin-left:20px">
+      <li><strong>Stand up EU AI Act program owner.</strong> Typically in 2nd line (Compliance/Legal) joint with 2nd line risk. Define governance, budget, timeline.</li>
+      <li><strong>Build a complete AI inventory with EU scope flagged.</strong> Identify all AI systems used by the institution. Flag those with EU market access or EU customer impact.</li>
+      <li><strong>Classify each system: prohibited, high-risk, limited, minimal, or GPAI.</strong> Use the decision tree above. Document classification rationale. For high-risk systems, confirm Annex III applicability.</li>
+      <li><strong>Run gap assessment against Annex III for high-risk systems.</strong> Use the gap analysis template. Identify missing documentation, monitoring, fairness testing, human oversight.</li>
+      <li><strong>Establish data governance evidencing for training datasets.</strong> Document data sources, representativeness, labeling methodology, quality checks. Establish data quality SLAs.</li>
+      <li><strong>Document risk management system and post-market monitoring plan.</strong> Develop QMRA process, risk register, mitigation strategies. Define monitoring KPIs, incident reporting, escalation.</li>
+      <li><strong>Implement human oversight mechanisms for in-scope systems.</strong> Audit logs of human decisions, override mechanisms, training for operators. Ensure meaningful oversight (not theater).</li>
+      <li><strong>Update vendor &amp; foundation-model contracts with deployer-side rights.</strong> Ensure contracts include: audit rights, data governance terms, incident notification, liability allocation, data residency.</li>
+      <li><strong>Prepare conformity assessment and EU technical documentation.</strong> Complete documentation per Article 11. Engage notified body if required. Document declaration of conformity.</li>
+      <li><strong>Train board &amp; executives, and rehearse incident response.</strong> Board briefing on obligations &amp; timelines. Incident response playbook &amp; tabletop exercise. Staff training on transparency &amp; human oversight.</li>
+    </ol>
+  </div>
+
+  <div class="footer-note">© 2026 Rodney.AI · This tracker is intended to support executive conversations and program planning. It is not legal advice. For EU AI Act compliance assistance or detailed gap assessments, contact advisor@rodney-ai.com.</div>
 </div>
 <script src="_gate.js"></script>
 </body>

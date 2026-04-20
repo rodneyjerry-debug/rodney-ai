@@ -280,6 +280,185 @@
     </div>
   </div>
 
+  <!-- DEEP DIVE: BUSINESS CASE TEMPLATE -->
+  <div class="card">
+    <h2>Deep dive — business case template for prioritisation</h2>
+    <p>For each use case, assess using this framework to build your execution roadmap.</p>
+
+    <table class="maturity-table">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Assessment criteria</th>
+          <th>FS exchange considerations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Business impact</strong></td>
+          <td>Revenue uplift, cost savings, risk reduction, or customer experience (quantified)</td>
+          <td>Exchange-specific: transaction fees (surveillance → fee capture), member retention (data quality), competitive positioning (market intelligence products)</td>
+        </tr>
+        <tr>
+          <td><strong>Data readiness</strong></td>
+          <td>Is production data available, clean, and of sufficient volume to train/evaluate models?</td>
+          <td>Most exchanges have excellent trade and order data. Biggest gap is external data (news, social, alternative data) integration.</td>
+        </tr>
+        <tr>
+          <td><strong>Technical complexity</strong></td>
+          <td>Can existing skills and tools deliver this, or is it greenfield?</td>
+          <td>Real-time workloads (surveillance, matching) are harder than batch (reporting). Multi-venue correlated analysis is significantly harder than single-venue.</td>
+        </tr>
+        <tr>
+          <td><strong>Regulatory clearance</strong></td>
+          <td>Do regulators have established guidance on this use case? Are there known approval paths?</td>
+          <td>Market surveillance: CMA/FCA/ESMA have detailed expectations. Data products: less clear. Autonomous matching/routing: unsettled.</td>
+        </tr>
+        <tr>
+          <td><strong>Time-to-value</strong></td>
+          <td>Weeks to deploy (weeks)? Months? 12+ months?</td>
+          <td>Use cases using exchange-internal data: 3–6 months. Multi-venue or external data: 6–12 months. Autonomous trading decisions: 12–24 months.</td>
+        </tr>
+        <tr>
+          <td><strong>Competitive sensitivity</strong></td>
+          <td>How proprietary is this to your exchange? Can competitors copy it?</td>
+          <td>Market intelligence products: defensible if built on unique data. Surveillance: table stakes, limited defensibility. Smart order routing: high defensibility if tuned to your flow.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- IMPLEMENTATION MATURITY LEVELS -->
+  <div class="card">
+    <h2>Exchange AI maturity levels — roadmap planning framework</h2>
+    <p>Where is your exchange today? This map helps you sequence investments rationally.</p>
+
+    <div class="agent-card" style="margin-bottom:16px">
+      <h3>Level 0: AI-curious (no active programmes)</h3>
+      <p><strong>Characteristics:</strong> Exploring use cases, running pilots, no production systems.
+         <strong>Typical focus:</strong> Market surveillance enhancement, data product exploration.
+         <strong>Timeline to next level:</strong> 6–12 months with focused sponsorship.</p>
+    </div>
+    <div class="agent-card" style="margin-bottom:16px">
+      <h3>Level 1: Single-domain AI (1–3 production use cases)</h3>
+      <p><strong>Characteristics:</strong> One or two AI systems in production (typically surveillance or clearing analytics).
+         Siloed teams, limited reuse across domains.
+         <strong>Common uses:</strong> Market abuse detection, trade reconciliation, settlement prediction.
+         <strong>Cost/benefit:</strong> $2–5M investment, $5–15M annual cost savings or value creation.
+         <strong>Timeline to next level:</strong> 12–18 months.</p>
+    </div>
+    <div class="agent-card" style="margin-bottom:16px">
+      <h3>Level 2: Multi-domain AI (5–10 use cases across 3+ domains)</h3>
+      <p><strong>Characteristics:</strong> Coordinated AI strategy. Shared data and ML infrastructure. Centre of excellence established.
+         Cross-functional governance (trading, risk, compliance, technology).
+         <strong>Typical adds:</strong> Issuer intelligence, member risk scoring, revenue forecasting, content generation.
+         <strong>Cost/benefit:</strong> $5–10M investment, $20–40M annual impact.
+         <strong>Timeline to next level:</strong> 18–24 months.</p>
+    </div>
+    <div class="agent-card" style="margin-bottom:16px">
+      <h3>Level 3: AI-native exchange (15+ use cases, integrated AI across value chain)</h3>
+      <p><strong>Characteristics:</strong> AI is embedded in core workflows, not an add-on. Members experience AI-enhanced matching, clearing, and reporting.
+         Advanced capabilities: autonomous order routing, dynamic circuit breakers, predictive margin management.
+         <strong>Competitive position:</strong> Market-leading on efficiency, integrity, and innovation.
+         <strong>Cost/benefit:</strong> $10–20M investment, $50M+ annual impact, defensible competitive advantage.
+         <strong>Timeline:</strong> 3–4 years from current state (for most exchanges).</p>
+    </div>
+  </div>
+
+  <!-- ME-SPECIFIC CONSIDERATIONS -->
+  <div class="card">
+    <h2>Middle East regulatory landscape — what matters for your roadmap</h2>
+    <p>Each regulator has specific AI expectations and governance frameworks that influence what
+       use cases you can deploy and when.</p>
+
+    <table class="maturity-table">
+      <thead>
+        <tr>
+          <th>Regulator</th>
+          <th>Key expectations on AI</th>
+          <th>Implication for exchange AI roadmap</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>CMA (Saudi Arabia)</strong></td>
+          <td>Detailed market surveillance requirements (MAUS). AI-assisted detection OK if human-reviewed. Data sovereignty requirements. Board-level AI governance.</td>
+          <td>Surveillance AI is approved path. Build surveillance first, it's regulatory greenfield. Data must stay in KSA. Can use AI for pattern detection but CMA retains final authority over enforcement action.</td>
+        </tr>
+        <tr>
+          <td><strong>CBUAE (UAE)</strong></td>
+          <td>AI risk management framework (2023 guidance). Requirements for explainability and human oversight. Bias testing mandatory. Model risk framework (SR 11-7 equivalent).</td>
+          <td>CBUAE is sophisticated on AI governance. Pre-clearance path exists for most exchange use cases. Board governance and risk oversight is expected. Internal audit must have AI literacy.</td>
+        </tr>
+        <tr>
+          <td><strong>SAMA (Saudi Arabia)</strong></td>
+          <td>Sound governance, human oversight of autonomous systems. Prudential frameworks for AI risk. Concentration risk (vendor, model, data).</td>
+          <td>SAMA is conservative on autonomous agents. Advisory AI (surveillance, analytics) preferred over autonomous decisions (auto-matching, autonomous circuit breakers). Get pre-clearance before building.</td>
+        </tr>
+        <tr>
+          <td><strong>QFC / QFCRA (Qatar)</strong></td>
+          <td>Aligned with IFSB guidance on AI governance. Model risk management framework. Fairness and bias testing.</td>
+          <td>QFCRA has clear AI governance expectations. Model documentation and testing must be thorough. Human oversight requirements are clear.</td>
+        </tr>
+        <tr>
+          <td><strong>DFSA (DIFC, Dubai)</strong></td>
+          <td>Proportionate approach. Risk-based governance. Transparency in algorithmic decision-making.</td>
+          <td>DFSA is pragmatic. Focus on outcomes (market integrity, fair pricing) not prescriptive rules. Documentation and risk management matter more than specific techniques.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Cross-cutting themes:</strong> All ME regulators expect board-level AI governance, human oversight, bias/fairness testing, model documentation, and audit trails. None explicitly allow fully autonomous trading or clearing decisions. All want data sovereignty for sensitive data. Consortium coordination (DXC, regional standards) is emerging.</p>
+  </div>
+
+  <!-- 20+ EXTENDED USE CASES WITH BUSINESS CASES -->
+  <div class="card">
+    <h2>Extended use case library (20+ cases with economics)</h2>
+    <p>Beyond the 8 domains above, here are additional use cases mapped with business case summary.
+       Use this to identify gaps in your roadmap or emerging opportunities.</p>
+
+    <h3 style="margin-top:20px;margin-bottom:12px">Pricing, connectivity & participation</h3>
+    <div class="uc-grid" style="grid-template-columns:1fr">
+      <div class="uc" style="border-left:4px solid var(--accent-2)">
+        <h4>Dynamic pricing optimisation</h4>
+        <p>ML models optimising listing fees, trading fees, and connectivity costs based on demand elasticity, member profitability, and competitive positioning. Use case: Saudi Tadawul pricing to defend against regional competition.</p>
+        <p><strong style="color:var(--accent-2)">Impact:</strong> 2–5% revenue uplift. Value: $20–50M annually for large exchange. Feasibility: medium (requires pricing data and member behaviour modelling). Timeline: 6–9 months.</p>
+      </div>
+      <div class="uc" style="border-left:4px solid var(--accent-2)">
+        <h4>Member engagement intelligence</h4>
+        <p>AI scoring of member engagement trends (trading volume, data product adoption, venue preference). Triggers outbound engagement and retention interventions. Use case: identifying members at risk of migrating to competitor venues.</p>
+        <p><strong style="color:var(--accent-2)">Impact:</strong> 5–10% reduction in member churn. Value: $5–15M for mid-tier exchange. Feasibility: high. Timeline: 3–4 months.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:20px;margin-bottom:12px">Product innovation & client services</h3>
+    <div class="uc-grid" style="grid-template-columns:1fr">
+      <div class="uc" style="border-left:4px solid var(--accent-3)">
+        <h4>Thematic index construction</h4>
+        <p>AI-assisted design of thematic indices (ESG, renewable energy, healthcare tech, etc.) enabling rapid launch of smart-beta products. Use case: rapid SDG-aligned index creation to capture ESG fund flows.</p>
+        <p><strong style="color:var(--accent-3)">Impact:</strong> Launch new index products in weeks vs months. Revenue per new index: $1–5M annually. Feasibility: medium-high. Timeline: 4–6 months.</p>
+      </div>
+      <div class="uc" style="border-left:4px solid var(--accent-3)">
+        <h4>Mobile-first investor experience</h4>
+        <p>GenAI-powered mobile app that acts as research assistant and portfolio advisor for retail investors. Sentiment scoring, earnings analysis, watchlist recommendations. Monetised via premium subscription or ads.</p>
+        <p><strong style="color:var(--accent-3)">Impact:</strong> New revenue stream: $5–20M potential for large exchange. Retail engagement driver. Feasibility: medium. Timeline: 8–12 months.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:20px;margin-bottom:12px">Operational excellence</h3>
+    <div class="uc-grid" style="grid-template-columns:1fr">
+      <div class="uc" style="border-left:4px solid var(--accent)">
+        <h4>Real-time infrastructure capacity prediction</h4>
+        <p>ML models predicting server load, storage bottlenecks, and network congestion 24–48 hours ahead, enabling proactive scaling and infrastructure optimisation.</p>
+        <p><strong style="color:var(--accent)">Impact:</strong> 15–20% reduction in infrastructure cost. Prevention of performance outages. Value: $3–10M for large exchange. Feasibility: medium. Timeline: 4–6 months.</p>
+      </div>
+      <div class="uc" style="border-left:4px solid var(--accent)">
+        <h4>Operational resilience & disaster recovery testing</h4>
+        <p>AI-orchestrated chaos engineering and disaster recovery testing. Models simulate thousands of failure scenarios and optimise recovery playbooks automatically.</p>
+        <p><strong style="color:var(--accent)">Impact:</strong> Improved RTO/RPO, reduced outage duration, proactive bug detection. Compliance benefit (regulatory expectations). Value: $2–5M. Feasibility: medium. Timeline: 6–9 months.</p>
+      </div>
+    </div>
+  </div>
+
   <div class="card">
     <h2>How to use this accelerator</h2>
     <p>This map is designed to be used in three ways:</p>
@@ -287,8 +466,10 @@
       <li><strong>Strategy workshops</strong> — walk the board through each domain to identify where AI creates the most value for your specific exchange.</li>
       <li><strong>Prioritisation</strong> — score each use case on feasibility, impact, and data readiness to build a sequenced roadmap.</li>
       <li><strong>Vendor evaluation</strong> — use the use case taxonomy to structure RFPs and assess platform capabilities against real business needs.</li>
+      <li><strong>Regulatory pre-clearance</strong> — use this map when engaging with your regulator to define which use cases are greenfield, approved, or unsettled.</li>
     </ol>
   </div>
+
 <p class="footer-note">Rodney.AI · Executive Advisor on AI · rodney-ai.com</p>
 </div>
 <script src="_gate.js"></script>
