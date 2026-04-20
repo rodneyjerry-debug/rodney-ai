@@ -275,12 +275,12 @@
   .hero-hook{
     display:flex;align-items:center;gap:12px;
     padding:9px 16px;
-    background:rgba(17,34,54,0.65);
+    background:rgba(10,22,38,0.88);
     border:1px solid var(--border-strong);
     border-radius:var(--radius);
     transition:all 0.3s var(--ease-out);
     cursor:pointer;text-decoration:none;
-    backdrop-filter:blur(8px);
+    backdrop-filter:blur(12px);
   }
   .hero-hook:hover{
     border-color:var(--gold);
@@ -307,7 +307,7 @@
     font-weight:700;color:var(--white);line-height:1.3;margin-bottom:1px;
   }
   .hero-hook-text .hh-sub{
-    font-size:11.5px;color:var(--text-dim);line-height:1.4;
+    font-size:12.5px;color:#d6e6f5;line-height:1.5;font-weight:400;
   }
   .hero-hook-arrow{
     color:var(--gold-2);font-size:16px;font-weight:700;
@@ -520,6 +520,10 @@
   }
   .hero-eco-node:hover .hero-eco-node-pill{
     box-shadow:0 0 12px rgba(201,162,39,0.3);transform:scale(1.05);
+  }
+  @keyframes heroFloat{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(calc(var(--float-dist, 5px) * -1))}
   }
   @keyframes heroPulse{
     0%,100%{box-shadow:0 0 8px rgba(201,162,39,0.2)}
@@ -2654,7 +2658,6 @@
 
           <div class="hero-eco-center">
             <div class="hero-eco-center-brand">Meridian.AI</div>
-            <div class="hero-eco-center-tagline">Scale · Govern · Unlock</div>
           </div>
 
           <!-- Inner: Advisory practice -->
@@ -4704,6 +4707,20 @@
         cards.forEach(function(c){ c.classList.remove('active'); });
         if(!wasActive) card.classList.add('active');
       });
+    });
+  })();
+
+  /* Hero ecosystem float animation — match the bottom ecosystem */
+  (function(){
+    var nodes = document.querySelectorAll('.hero-eco-node');
+    if(!nodes.length) return;
+    nodes.forEach(function(node, i){
+      var dur = 4 + (i % 3) * 0.8;
+      var delay = -(i * 0.6);
+      var dist = 3 + (i % 4) * 1.2;
+      node.style.setProperty('--float-dist', dist + 'px');
+      node.querySelector('.hero-eco-node-pill').style.animation =
+        'heroFloat ' + dur + 's ease-in-out ' + delay + 's infinite';
     });
   })();
 
