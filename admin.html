@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Rodney.AI — Admin</title>
+<title>Meridian.AI — Admin</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -144,7 +144,7 @@ a:hover{color:var(--gold-2)}
 <!-- LOGIN -->
 <div class="login-overlay" id="loginOverlay">
   <div class="login-box">
-    <h1>RODNEY<span style="color:var(--gold)">.AI</span></h1>
+    <h1>MERIDIAN<span style="color:var(--gold)">.AI</span></h1>
     <div class="sub">Admin Dashboard</div>
     <input type="password" id="loginPass" placeholder="Enter admin password" autofocus>
     <button onclick="doLogin()">Sign In</button>
@@ -158,7 +158,7 @@ a:hover{color:var(--gold-2)}
 <!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-left">
-    <h1>RODNEY<span class="dot">.AI</span> Admin</h1>
+    <h1>MERIDIAN<span class="dot">.AI</span> Admin</h1>
     <span class="status-dot live" id="statusDot" title="Site is live"></span>
     <span style="font-size:12px;color:var(--text-muted)" id="statusText">Live</span>
   </div>
@@ -225,7 +225,7 @@ a:hover{color:var(--gold-2)}
 <!-- DASHBOARD -->
 <div class="page active" id="page-dashboard">
   <h2 class="page-title">Dashboard</h2>
-  <p class="page-sub">Overview of your Rodney.AI website</p>
+  <p class="page-sub">Overview of your Meridian.AI website</p>
 
   <div class="stat-grid">
     <div class="stat-card">
@@ -567,7 +567,7 @@ a:hover{color:var(--gold-2)}
     <h3>Site Metadata</h3>
     <div class="form-group">
       <label>Page Title</label>
-      <input type="text" id="metaTitle" placeholder="Rodney.AI — Executive Advisor on AI">
+      <input type="text" id="metaTitle" placeholder="Meridian.AI — Executive Advisor on AI">
     </div>
     <div class="form-group">
       <label>Meta Description</label>
@@ -659,7 +659,7 @@ a:hover{color:var(--gold-2)}
 
 <script>
 /* ================================================================
-   RODNEY.AI ADMIN — Client-side CMS with GitHub API integration
+   MERIDIAN.AI ADMIN — Client-side CMS with GitHub API integration
    ================================================================ */
 
 // ── State ──
@@ -1416,7 +1416,7 @@ function buildUpdatedHtml() {
 }
 
 function buildUpdatedGateJs() {
-  return `/* Rodney.AI — Accelerator content gate
+  return `/* Meridian.AI — Accelerator content gate
    Shows the header + first 2 cards, then fades out with a CTA overlay. */
 document.addEventListener('DOMContentLoaded', function () {
   // Bypass gate with ?key=${STATE.gateKey}
@@ -1445,7 +1445,7 @@ document.addEventListener('DOMContentLoaded', function () {
   cta.innerHTML =
     '<h3>Want the full accelerator?</h3>' +
     '<p>This is a preview. To access the complete tool with all frameworks, models, and board-ready materials — get in touch.</p>' +
-    '<a href="mailto:' + email + '?subject=Rodney.AI%20Accelerator%20Access" class="btn">Request full access →</a>' +
+    '<a href="mailto:' + email + '?subject=Meridian.AI%20Accelerator%20Access" class="btn">Request full access →</a>' +
     '  <a href="../index.html#contact" class="btn btn-ghost">Contact Rodney</a>';
   wrapper.parentNode.insertBefore(cta, wrapper.nextSibling);
 });`;

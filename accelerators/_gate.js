@@ -1,4 +1,4 @@
-/* Rodney.AI — Accelerator content gate + password-protected downloads
+/* Meridian.AI — Accelerator content gate + password-protected downloads
    Shows header + first 2 cards, fades rest with CTA overlay.
    Download button requires SHA-256 password check.
    Default password: RodneyAI2026 — change the hash below to update. */
@@ -56,7 +56,7 @@
           '<path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
         '</div>' +
         '<h3>Enter access password</h3>' +
-        '<p>This accelerator PDF is available to Rodney.AI clients.<br>' +
+        '<p>This accelerator PDF is available to Meridian.AI clients.<br>' +
         'Don\'t have a password? <a href="mailto:' + CONTACT_EMAIL + '?subject=Accelerator%20PDF%20Access%20Request">Request access →</a></p>' +
         '<div class="dl-modal-form">' +
           '<input type="password" class="dl-pwd-input" placeholder="Password" autocomplete="off" />' +
@@ -143,7 +143,7 @@
     cta.innerHTML =
       '<h3>Want the full accelerator?</h3>' +
       '<p>This is a preview. To access the complete tool with all frameworks, models, and board-ready materials — get in touch.</p>' +
-      '<a href="mailto:' + CONTACT_EMAIL + '?subject=Rodney.AI%20Accelerator%20Access" class="btn">Request full access →</a>' +
+      '<a href="mailto:' + CONTACT_EMAIL + '?subject=Meridian.AI%20Accelerator%20Access" class="btn">Request full access →</a>' +
       '  <a href="../index.html#start" class="btn btn-ghost">Contact Rodney</a>';
     wrapper.parentNode.insertBefore(cta, wrapper.nextSibling);
   }
