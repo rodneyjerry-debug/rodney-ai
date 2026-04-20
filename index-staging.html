@@ -1390,45 +1390,79 @@
   }
 
   /* ---------- ENGAGEMENT MODEL ---------- */
-  .journey-track{
-    display:grid;grid-template-columns:repeat(6,1fr);gap:0;
-    position:relative;margin-top:16px;
-  }
-  .journey-track::before{
-    content:"";position:absolute;top:38px;left:40px;right:40px;height:2px;
-    background:linear-gradient(90deg,var(--gold),var(--border-gold),var(--gold));
-    z-index:0;
-  }
-  .journey-step{
-    display:flex;flex-direction:column;align-items:center;text-align:center;
-    position:relative;z-index:1;padding:0 8px;
-  }
-  .journey-num{
-    width:76px;height:76px;border-radius:50%;
-    background:var(--surface);border:2px solid var(--border-gold);
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:22px;
-    color:var(--gold-2);margin-bottom:18px;
-    transition:all 0.3s;
-  }
-  .journey-step:hover .journey-num{
-    background:rgba(201,162,39,0.15);border-color:var(--gold);
-    box-shadow:0 0 28px -4px rgba(201,162,39,0.4);transform:scale(1.08);
-  }
-  .journey-step h4{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:14px;font-weight:700;color:var(--white);margin-bottom:8px;
-  }
-  .journey-step p{font-size:12px;color:var(--text-dim);line-height:1.45;max-width:160px}
-  .journey-note{
-    text-align:center;margin-top:48px;padding:24px 32px;
-    background:rgba(201,162,39,0.06);border:1px solid var(--border-gold);
-    border-radius:var(--radius);font-size:15px;color:var(--text-dim);
-    max-width:800px;margin-left:auto;margin-right:auto;
-  }
-  .journey-note strong{color:var(--gold-2);font-weight:700}
 
-  /* ---------- ENGAGEMENT LEGEND + JOURNEY OVERLAY ---------- */
+  /* -- Horizontal-scroll journey panels -- */
+  .journey-scroll-wrap{
+    position:relative;margin-top:24px;margin-bottom:56px;
+  }
+  .journey-scroll{
+    display:flex;gap:0;overflow-x:auto;overflow-y:hidden;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    border-radius:var(--radius-lg);border:1px solid var(--border);
+  }
+  .journey-scroll::-webkit-scrollbar{display:none}
+  .journey-panel{
+    min-width:340px;flex:0 0 340px;scroll-snap-align:start;
+    position:relative;overflow:hidden;
+    padding:56px 36px 44px;
+    background:var(--surface);
+    border-right:1px solid var(--border);
+    transition:all 0.35s;
+  }
+  .journey-panel:last-child{border-right:none}
+  .journey-panel::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse at 50% 20%,rgba(201,162,39,0.06) 0%,transparent 70%);
+    opacity:0;transition:opacity 0.4s;pointer-events:none;
+  }
+  .journey-panel:hover::before{opacity:1}
+  .journey-panel:hover{background:rgba(17,34,54,0.95)}
+  .jp-num{
+    font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:64px;
+    color:rgba(201,162,39,0.08);line-height:1;position:absolute;top:14px;right:20px;
+  }
+  .jp-icon{
+    width:52px;height:52px;border-radius:14px;
+    background:linear-gradient(135deg,rgba(201,162,39,0.12),rgba(40,116,166,0.12));
+    border:1px solid var(--border-gold);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:20px;transition:all 0.3s;
+  }
+  .journey-panel:hover .jp-icon{
+    background:linear-gradient(135deg,rgba(201,162,39,0.22),rgba(40,116,166,0.22));
+    box-shadow:0 0 24px -4px rgba(201,162,39,0.3);
+  }
+  .jp-icon svg{width:24px;height:24px;stroke:var(--gold-2);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .jp-pills{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+  .jp-title{
+    font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;
+    color:var(--white);margin-bottom:10px;letter-spacing:-0.01em;
+  }
+  .jp-desc{font-size:14px;color:var(--text-dim);line-height:1.6;margin-bottom:18px}
+  .jp-deliverables{
+    border-top:1px solid var(--border);padding-top:14px;
+  }
+  .jp-deliverables span{
+    display:block;font-size:12px;color:var(--soft);padding:3px 0 3px 18px;position:relative;
+  }
+  .jp-deliverables span::before{content:"→";position:absolute;left:0;color:var(--gold);font-weight:700}
+
+  /* Scroll progress indicator */
+  .journey-progress{
+    display:flex;gap:8px;justify-content:center;margin-top:18px;
+  }
+  .journey-progress-dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--border);transition:all 0.3s;
+  }
+  .journey-progress-dot.active{background:var(--gold);box-shadow:0 0 8px rgba(201,162,39,0.5)}
+  .journey-scroll-hint{
+    display:none;text-align:center;margin-top:10px;
+    font-size:12px;color:var(--text-muted);letter-spacing:0.06em;
+  }
+
+  /* Engagement legend */
   .engagement-legend{
     display:flex;justify-content:center;gap:32px;margin-bottom:40px;
     padding:18px 22px;background:rgba(201,162,39,0.05);
@@ -1441,10 +1475,6 @@
   .swatch-advisory{background:rgba(40,116,166,0.35);border-color:rgba(40,116,166,0.7)}
   .swatch-management{background:rgba(201,162,39,0.35);border-color:var(--gold)}
 
-  .journey-track-overlay .journey-step{padding-top:0}
-  .journey-engage{
-    display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;justify-content:center;min-height:22px;
-  }
   .je-pill{
     font-family:'Space Grotesk',sans-serif;
     font-size:9.5px;font-weight:700;letter-spacing:0.1em;
@@ -1458,6 +1488,83 @@
     background:rgba(201,162,39,0.14);color:var(--gold-2);
     border:1px solid var(--border-gold);
   }
+
+  /* -- Ecosystem Map -- */
+  .ecosystem-section{margin-top:96px;margin-bottom:56px}
+  .ecosystem-map{
+    position:relative;width:100%;max-width:740px;margin:0 auto;
+    aspect-ratio:1/1;
+  }
+  .eco-ring{
+    position:absolute;border-radius:50%;
+    border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    transition:all 0.5s;
+  }
+  .eco-ring-outer{
+    inset:0;
+    border-color:rgba(201,162,39,0.12);
+    background:radial-gradient(circle,transparent 60%,rgba(201,162,39,0.03) 100%);
+  }
+  .eco-ring-mid{
+    inset:18%;
+    border-color:rgba(40,116,166,0.25);
+    background:radial-gradient(circle,transparent 50%,rgba(40,116,166,0.04) 100%);
+  }
+  .eco-ring-inner{
+    inset:38%;
+    border-color:var(--border-gold);
+    background:radial-gradient(circle,rgba(201,162,39,0.08) 0%,rgba(201,162,39,0.02) 100%);
+  }
+  .eco-center{
+    position:absolute;inset:43%;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;z-index:5;
+  }
+  .eco-center-brand{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;
+    color:var(--gold);letter-spacing:-0.01em;line-height:1.2;
+  }
+  .eco-center-tagline{font-size:10px;color:var(--text-muted);letter-spacing:0.12em;text-transform:uppercase;margin-top:4px}
+
+  /* Orbit nodes */
+  .eco-node{
+    position:absolute;z-index:4;
+    transform:translate(-50%,-50%);
+    transition:all 0.35s;
+  }
+  .eco-node-pill{
+    padding:8px 16px;border-radius:10px;
+    font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:600;
+    white-space:nowrap;
+    border:1px solid var(--border);background:var(--surface);
+    color:var(--text-dim);
+    transition:all 0.3s;cursor:default;
+  }
+  .eco-node:hover .eco-node-pill{
+    border-color:var(--border-gold);color:var(--white);
+    box-shadow:0 0 20px -4px rgba(201,162,39,0.25);
+    transform:scale(1.06);
+  }
+  .eco-node-pill.node-gold{border-color:var(--border-gold);color:var(--gold-2)}
+  .eco-node-pill.node-blue{border-color:rgba(40,116,166,0.5);color:#8fc5f0}
+  .eco-node-pill.node-dim{color:var(--text-muted);font-size:10.5px;padding:6px 12px}
+
+  /* Orbit ring labels */
+  .eco-ring-label{
+    position:absolute;z-index:3;
+    font-size:9px;color:var(--text-muted);letter-spacing:0.18em;
+    text-transform:uppercase;font-weight:700;
+    background:var(--bg);padding:2px 10px;
+  }
+
+  .journey-note{
+    text-align:center;margin-top:48px;padding:24px 32px;
+    background:rgba(201,162,39,0.06);border:1px solid var(--border-gold);
+    border-radius:var(--radius);font-size:15px;color:var(--text-dim);
+    max-width:800px;margin-left:auto;margin-right:auto;
+  }
+  .journey-note strong{color:var(--gold-2);font-weight:700}
 
   /* ---------- ENGAGEMENT MODELS ---------- */
   .engage-grid{
@@ -2013,8 +2120,12 @@
     .footer-grid{grid-template-columns:1fr 1fr;gap:36px}
     .contact-cards{grid-template-columns:1fr}
     .impact-stats{grid-template-columns:repeat(2,1fr);gap:20px}
-    .journey-track{grid-template-columns:repeat(3,1fr);gap:28px}
-    .journey-track::before{display:none}
+    .journey-panel{min-width:300px;flex:0 0 300px;padding:44px 28px 36px}
+    .jp-title{font-size:17px}
+    .journey-scroll-hint{display:block}
+    .ecosystem-map{max-width:580px}
+    .eco-node-pill{font-size:10px;padding:6px 12px}
+    .eco-node-pill.node-dim{font-size:9px;padding:5px 10px}
     .testimonial-grid{grid-template-columns:1fr}
     .stat{padding:0 0 20px}
     .stat:not(:last-child)::after{display:none}
@@ -2042,8 +2153,12 @@
     .persona-grid,.engage-grid,.engage-grid-2col,.faq-grid,.why-grid,.commercials-grid,.outcomes-grid,.conversion-grid,.why-evidence-grid,.resources-grid,.kpi-grid{grid-template-columns:1fr}
     .testimonial-grid{grid-template-columns:1fr}
     .c-detail-row{grid-template-columns:1fr;gap:2px}
-    .journey-track{grid-template-columns:repeat(2,1fr);gap:24px}
+    .journey-panel{min-width:85vw;flex:0 0 85vw;padding:40px 24px 32px}
+    .jp-num{font-size:48px}
     .partner-logos{grid-template-columns:1fr}
+    .ecosystem-map{max-width:100%;aspect-ratio:auto;height:auto;min-height:480px}
+    .eco-node-pill{font-size:9px;padding:5px 10px}
+    .eco-node-pill.node-dim{font-size:8px;padding:4px 8px}
     .series-grid{grid-template-columns:1fr}
     .prize-panel{padding:36px 28px}
     .feature-article{padding:80px 0}
@@ -2068,6 +2183,21 @@
   .reveal-delay-2{transition-delay:0.24s}
   .reveal-delay-3{transition-delay:0.36s}
   .reveal-delay-4{transition-delay:0.48s}
+
+  @keyframes ecoFloat{
+    0%,100%{transform:translate(-50%,-50%) translateY(0)}
+    50%{transform:translate(-50%,-50%) translateY(calc(var(--float-dist, 6px) * -1))}
+  }
+
+  /* Delivery hubs strip responsive */
+  .delivery-hubs-strip .delivery-hub .dh-region{font-size:14px}
+  .delivery-hubs-strip .delivery-hub .dh-detail{font-size:12px}
+  @media (max-width:1100px){
+    .delivery-hubs-strip{grid-template-columns:repeat(2,1fr) !important}
+  }
+  @media (max-width:720px){
+    .delivery-hubs-strip{grid-template-columns:1fr !important}
+  }
 
   /* ========== ANIMATED GRADIENT TEXT ON KEY HEADINGS ========== */
   .gradient-text{
@@ -3284,59 +3414,110 @@
       </div>
     </div>
 
-    <!-- AI@scale Journey with engagement overlay -->
-    <div class="journey-track journey-track-overlay">
-      <div class="journey-step">
-        <div class="journey-num">01</div>
-        <div class="journey-engage">
-          <span class="je-pill je-advisory">Advisory</span>
+    <!-- AI@scale Journey — horizontal-scroll cinematic panels -->
+    <div class="journey-scroll-wrap reveal">
+      <div class="journey-scroll" id="journeyScroll">
+
+        <div class="journey-panel">
+          <div class="jp-num">01</div>
+          <div class="jp-icon">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div class="jp-pills"><span class="je-pill je-advisory">Advisory</span></div>
+          <div class="jp-title">Discover</div>
+          <div class="jp-desc">Pressure-test the opportunity. Size the prize in P&amp;L terms. Answer the board's first question: <em>"What is AI actually worth to us?"</em></div>
+          <div class="jp-deliverables">
+            <span>Opportunity sizing &amp; P&amp;L impact</span>
+            <span>Executive interviews &amp; readiness scan</span>
+            <span>Competitive intelligence brief</span>
+          </div>
         </div>
-        <h4>Discover</h4>
-        <p>Pressure-test the opportunity. Size the prize in P&amp;L terms. Answer the board's first question.</p>
-      </div>
-      <div class="journey-step">
-        <div class="journey-num">02</div>
-        <div class="journey-engage">
-          <span class="je-pill je-advisory">Advisory</span>
+
+        <div class="journey-panel">
+          <div class="jp-num">02</div>
+          <div class="jp-icon">
+            <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <div class="jp-pills"><span class="je-pill je-advisory">Advisory</span></div>
+          <div class="jp-title">Strategise</div>
+          <div class="jp-desc">Board-grade AI strategy tied to ROE, cost/income and market cap. Named owners, milestone dates and a scoreboard the board can track quarterly.</div>
+          <div class="jp-deliverables">
+            <span>AI strategy document (board-ready)</span>
+            <span>Value scoreboard &amp; KPI framework</span>
+            <span>Roadmap with phase gates</span>
+          </div>
         </div>
-        <h4>Strategise</h4>
-        <p>Board-grade AI strategy tied to ROE, cost/income, market cap. Named owners and dates.</p>
-      </div>
-      <div class="journey-step">
-        <div class="journey-num">03</div>
-        <div class="journey-engage">
-          <span class="je-pill je-advisory">Advisory</span>
-          <span class="je-pill je-management">Management</span>
+
+        <div class="journey-panel">
+          <div class="jp-num">03</div>
+          <div class="jp-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+          <div class="jp-pills"><span class="je-pill je-advisory">Advisory</span><span class="je-pill je-management">Management</span></div>
+          <div class="jp-title">Design</div>
+          <div class="jp-desc">Architecture, operating model, governance framework, vendor selection. Regulator-ready by design — not retrofitted after the build.</div>
+          <div class="jp-deliverables">
+            <span>Target architecture &amp; platform design</span>
+            <span>AI operating model &amp; RACI</span>
+            <span>Governance framework &amp; risk taxonomy</span>
+          </div>
         </div>
-        <h4>Design</h4>
-        <p>Architecture, operating model, governance framework, vendor selection. Regulator-ready by design.</p>
-      </div>
-      <div class="journey-step">
-        <div class="journey-num">04</div>
-        <div class="journey-engage">
-          <span class="je-pill je-management">Management</span>
+
+        <div class="journey-panel">
+          <div class="jp-num">04</div>
+          <div class="jp-icon">
+            <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="jp-pills"><span class="je-pill je-management">Management</span></div>
+          <div class="jp-title">Build</div>
+          <div class="jp-desc">Execution through partners in India, UAE and Saudi. Platform, MLOps, agentic AI teams and data products — at scale and at pace.</div>
+          <div class="jp-deliverables">
+            <span>Platform build &amp; MLOps pipeline</span>
+            <span>Agentic AI team &amp; delivery</span>
+            <span>Data products &amp; feature stores</span>
+          </div>
         </div>
-        <h4>Build</h4>
-        <p>Execution through partners in India, UAE and Saudi. Platform, MLOps, data products — at scale.</p>
-      </div>
-      <div class="journey-step">
-        <div class="journey-num">05</div>
-        <div class="journey-engage">
-          <span class="je-pill je-advisory">Advisory</span>
-          <span class="je-pill je-management">Management</span>
+
+        <div class="journey-panel">
+          <div class="jp-num">05</div>
+          <div class="jp-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="jp-pills"><span class="je-pill je-advisory">Advisory</span><span class="je-pill je-management">Management</span></div>
+          <div class="jp-title">Govern</div>
+          <div class="jp-desc">MRM, risk tiering, red-teaming, independent assurance. Aligned to SR 11-7, SS1/23, NIST AI RMF and the EU AI Act.</div>
+          <div class="jp-deliverables">
+            <span>Model risk management framework</span>
+            <span>Bias testing &amp; red-teaming protocols</span>
+            <span>Regulatory mapping &amp; compliance pack</span>
+          </div>
         </div>
-        <h4>Govern</h4>
-        <p>MRM, risk tiering, red-teaming, independent assurance. SR 11-7, SS1/23, NIST, EU AI Act aligned.</p>
-      </div>
-      <div class="journey-step">
-        <div class="journey-num">06</div>
-        <div class="journey-engage">
-          <span class="je-pill je-advisory">Advisory</span>
-          <span class="je-pill je-management">Management</span>
+
+        <div class="journey-panel">
+          <div class="jp-num">06</div>
+          <div class="jp-icon">
+            <svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+          </div>
+          <div class="jp-pills"><span class="je-pill je-advisory">Advisory</span><span class="je-pill je-management">Management</span></div>
+          <div class="jp-title">Report</div>
+          <div class="jp-desc">Results in the language the board cares about: revenue impact, cost/income delta, RoRWA, ROE and market cap contribution.</div>
+          <div class="jp-deliverables">
+            <span>Board reporting pack</span>
+            <span>Scoreboard refresh &amp; value realisation</span>
+            <span>Regulator-ready documentation</span>
+          </div>
         </div>
-        <h4>Report</h4>
-        <p>Results in the language the board cares about: revenue, cost/income, RoRWA, ROE, market cap.</p>
+
       </div>
+      <div class="journey-progress" id="journeyProgress">
+        <div class="journey-progress-dot active"></div>
+        <div class="journey-progress-dot"></div>
+        <div class="journey-progress-dot"></div>
+        <div class="journey-progress-dot"></div>
+        <div class="journey-progress-dot"></div>
+        <div class="journey-progress-dot"></div>
+      </div>
+      <div class="journey-scroll-hint">Scroll to explore all six stages →</div>
     </div>
 
     <!-- Two engagement types -->
@@ -3380,74 +3561,79 @@
       </div>
     </div>
 
-    <!-- Partners as the delivery mechanism -->
-    <div id="delivery-network" class="section-head" style="margin-top:96px;margin-bottom:40px">
-      <div class="section-label" style="color:var(--gold-2)">Delivery Network</div>
-      <h3 class="section-title" style="font-size:clamp(26px,3.2vw,40px)">Execution through a <span class="gold">global delivery network</span> — built on regional tech partnerships.</h3>
-      <p class="section-intro">
-        The architecture we design and the governance we build can be implemented without a handoff gap.
-        Three delivery hubs. Six anchor technology partners. One accountable advisor.
-      </p>
-    </div>
+    <!-- Ecosystem Map — concentric rings -->
+    <div class="ecosystem-section reveal">
+      <div class="section-head" style="margin-bottom:40px">
+        <div class="section-label" style="color:var(--gold-2)">Ecosystem</div>
+        <h3 class="section-title" style="font-size:clamp(26px,3.2vw,40px)">One advisor at the centre of a <span class="gold">global delivery ecosystem.</span></h3>
+        <p class="section-intro">
+          Technology partners, regional delivery hubs and industry domains — connected through
+          a single accountable relationship. No handoff gaps. No orphaned strategies.
+        </p>
+      </div>
 
-    <div class="partner-layout">
-      <div class="delivery-map">
+      <div class="ecosystem-map" id="ecoMap">
+        <!-- Three concentric rings -->
+        <div class="eco-ring eco-ring-outer"></div>
+        <div class="eco-ring eco-ring-mid"></div>
+        <div class="eco-ring eco-ring-inner"></div>
+
+        <!-- Ring labels -->
+        <div class="eco-ring-label" style="top:-2px;left:50%;transform:translateX(-50%)">INDUSTRY DOMAINS</div>
+        <div class="eco-ring-label" style="top:17%;left:3%">TECHNOLOGY PARTNERS</div>
+        <div class="eco-ring-label" style="top:37%;right:3%">ADVISORY PRACTICE</div>
+
+        <!-- Center -->
+        <div class="eco-center">
+          <div class="eco-center-brand">Meridian.AI</div>
+          <div class="eco-center-tagline">Scale · Govern · Unlock</div>
+        </div>
+
+        <!-- Inner ring: Advisory practice (3 nodes) -->
+        <div class="eco-node" style="top:34%;left:50%"><div class="eco-node-pill node-gold">Strategy</div></div>
+        <div class="eco-node" style="top:58%;left:32%"><div class="eco-node-pill node-gold">Governance</div></div>
+        <div class="eco-node" style="top:58%;left:68%"><div class="eco-node-pill node-gold">Execution</div></div>
+
+        <!-- Middle ring: Technology partners (6 nodes) -->
+        <div class="eco-node" style="top:14%;left:34%"><div class="eco-node-pill node-blue">NVIDIA</div></div>
+        <div class="eco-node" style="top:14%;left:66%"><div class="eco-node-pill node-blue">AWS</div></div>
+        <div class="eco-node" style="top:42%;left:12%"><div class="eco-node-pill node-blue">Snowflake</div></div>
+        <div class="eco-node" style="top:42%;left:88%"><div class="eco-node-pill node-blue">Azure</div></div>
+        <div class="eco-node" style="top:72%;left:18%"><div class="eco-node-pill node-blue">Cisco</div></div>
+        <div class="eco-node" style="top:72%;left:82%"><div class="eco-node-pill node-blue">Dell</div></div>
+
+        <!-- Outer ring: Industry domains (8 nodes) -->
+        <div class="eco-node" style="top:3%;left:50%"><div class="eco-node-pill node-dim">Banking</div></div>
+        <div class="eco-node" style="top:10%;left:80%"><div class="eco-node-pill node-dim">Capital Markets</div></div>
+        <div class="eco-node" style="top:30%;left:95%"><div class="eco-node-pill node-dim">Exchanges</div></div>
+        <div class="eco-node" style="top:60%;left:96%"><div class="eco-node-pill node-dim">Sovereign Wealth</div></div>
+        <div class="eco-node" style="top:82%;left:78%"><div class="eco-node-pill node-dim">Defense &amp; National AI</div></div>
+        <div class="eco-node" style="top:88%;left:50%"><div class="eco-node-pill node-dim">Regulators</div></div>
+        <div class="eco-node" style="top:82%;left:22%"><div class="eco-node-pill node-dim">Insurance</div></div>
+        <div class="eco-node" style="top:10%;left:20%"><div class="eco-node-pill node-dim">Payments</div></div>
+      </div>
+
+      <!-- Delivery hubs — compact strip below the map -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px" class="delivery-hubs-strip">
         <div class="delivery-hub">
-          <div class="dh-region">UAE · Dubai &amp; Abu Dhabi</div>
-          <div class="dh-detail">Primary advisory base. Board engagement, strategy and governance.
-            Direct access to DIFC, ADGM and sovereign institutions.</div>
+          <div class="dh-region">UAE</div>
+          <div class="dh-detail">Advisory hub. Board engagement, strategy, DIFC &amp; ADGM.</div>
           <div class="dh-tag">Advisory Hub</div>
         </div>
         <div class="delivery-hub">
-          <div class="dh-region">Saudi Arabia · Riyadh</div>
-          <div class="dh-detail">Vision 2030 execution. SAMA, CMA KSA and HUMAIN-aligned
-            programmes. On-the-ground delivery for KSA-first mandates.</div>
+          <div class="dh-region">Saudi Arabia</div>
+          <div class="dh-detail">Vision 2030. SAMA, CMA &amp; HUMAIN-aligned delivery.</div>
           <div class="dh-tag">KSA Delivery</div>
         </div>
         <div class="delivery-hub">
-          <div class="dh-region">India · Mumbai &amp; Bengaluru</div>
-          <div class="dh-detail">Scaled engineering and platform delivery. 200+ engineer programmes
-            with deep FS domain expertise. Enterprise quality at global-delivery economics.</div>
-          <div class="dh-tag">Engineering &amp; Scale</div>
+          <div class="dh-region">India</div>
+          <div class="dh-detail">Scaled engineering. 200+ engineer programmes with FS expertise.</div>
+          <div class="dh-tag">Engineering</div>
         </div>
         <div class="delivery-hub">
           <div class="dh-region">UK &amp; Europe</div>
-          <div class="dh-detail">Supporting advisory for UK and EU-regulated clients.
-            FCA, PRA, ECB alignment and cross-border coordination.</div>
+          <div class="dh-detail">FCA, PRA, ECB alignment. Cross-border regulatory coordination.</div>
           <div class="dh-tag">Regulatory</div>
-        </div>
-      </div>
-      <div class="partner-content">
-        <p>
-          <strong>Delivered with, not just listed.</strong> Every partner logo represents programmes we have
-          co-delivered, jointly architected or taken to regulators alongside. The technology ecosystem that
-          powers Meridian.AI's execution arm is the same one building the region's AI infrastructure.
-        </p>
-        <div class="partner-logos">
-          <div class="partner-logo">
-            <div class="pl-name">NVIDIA</div>
-            <div class="pl-type">AI Infrastructure &amp; Foundation Models</div>
-          </div>
-          <div class="partner-logo">
-            <div class="pl-name">Cisco</div>
-            <div class="pl-type">Cybersecurity &amp; AI Red-Teaming</div>
-          </div>
-          <div class="partner-logo">
-            <div class="pl-name">Snowflake</div>
-            <div class="pl-type">Data Platform &amp; Analytics</div>
-          </div>
-          <div class="partner-logo">
-            <div class="pl-name">Dell Technologies</div>
-            <div class="pl-type">Enterprise AI Infrastructure</div>
-          </div>
-          <div class="partner-logo">
-            <div class="pl-name">AWS</div>
-            <div class="pl-type">Cloud &amp; FS-Grade Landing Zones</div>
-          </div>
-          <div class="partner-logo">
-            <div class="pl-name">Microsoft Azure</div>
-            <div class="pl-type">Cloud &amp; OpenAI Integration</div>
-          </div>
         </div>
       </div>
     </div>
@@ -4543,7 +4729,7 @@
     '.sgu-head, .sgu-card, .service, .question-card, .insight, .case, .acc,' +
     '.reg-card, .pool, .why-card, .why-ev-card, .engage-card, .commercial-card, .testimonial,' +
     '.faq-item, .cred, .persona, .pillar, .contact-inner > *, .about-grid > *,' +
-    '.partner-layout > *, .prize-panel, .journey-track, .series-card,' +
+    '.partner-layout > *, .prize-panel, .journey-scroll-wrap, .ecosystem-section, .series-card,' +
     '.caps-col, .about-speaking, .about-highlight, .engagement-legend,' +
     '.commercial-principles, .article-body h3, .article-body p, .article-body blockquote,' +
     '.contact-card, .delivery-hub, .partner-logo, .journey-note'
@@ -4575,6 +4761,33 @@
       children[i].classList.add(delayClass);
     }
   });
+
+  /* ===== JOURNEY SCROLL PROGRESS ===== */
+  (function(){
+    var scroll = document.getElementById('journeyScroll');
+    var dots = document.querySelectorAll('#journeyProgress .journey-progress-dot');
+    if(!scroll || !dots.length) return;
+    scroll.addEventListener('scroll', function(){
+      var panels = scroll.querySelectorAll('.journey-panel');
+      var scrollLeft = scroll.scrollLeft;
+      var panelW = panels[0].offsetWidth;
+      var idx = Math.round(scrollLeft / panelW);
+      idx = Math.max(0, Math.min(idx, dots.length - 1));
+      dots.forEach(function(d,i){ d.classList.toggle('active', i === idx); });
+    }, {passive:true});
+  })();
+
+  /* ===== ECOSYSTEM MAP FLOAT ANIMATION ===== */
+  (function(){
+    var nodes = document.querySelectorAll('#ecoMap .eco-node');
+    nodes.forEach(function(node, i){
+      var dur = 4 + (i % 3) * 0.8;
+      var delay = -(i * 0.5);
+      var dist = 4 + (i % 4) * 2;
+      node.style.animation = 'ecoFloat ' + dur + 's ease-in-out ' + delay + 's infinite';
+      node.style.setProperty('--float-dist', dist + 'px');
+    });
+  })();
 
   /* ===== NAV SCROLL STATE ===== */
   var nav = document.querySelector('.nav');
