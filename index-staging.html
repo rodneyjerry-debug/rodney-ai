@@ -4152,20 +4152,12 @@
     <!-- SETUP: Replace YOUR_USERNAME below with your Cal.com username after creating your account at cal.com -->
     <script>
     (function(){
-      var CAL_USERNAME = 'rodney.ai'; // Cal.com username
-      var CAL_EVENT = '30min';            // ← Replace with your event slug if different
-      if(CAL_USERNAME === 'YOUR_USERNAME'){
-        // Show placeholder until Cal.com is configured
-        document.getElementById('cal-embed').innerHTML =
-          '<div style="text-align:center;padding:48px 24px;color:var(--text-muted);font-size:14px">' +
-          '<p style="margin-bottom:12px;color:var(--gold-2);font-family:Space Grotesk,sans-serif;font-weight:700;font-size:16px">Schedule your free 30-minute consultation</p>' +
-          '<p style="margin-bottom:16px">Calendar booking will appear here once Cal.com is connected.</p>' +
-          '<a href="mailto:advisor@rodney-ai.com?subject=Meridian.AI%20%E2%80%94%20Consultation%20Request" class="btn btn-primary" style="display:inline-flex">Book via email instead →</a>' +
-          '</div>';
-      } else {
-        // Load Cal.com embed
+      var CAL_USERNAME = 'rodney.ai';
+      var CAL_EVENT = '30min';
+      {
+        // Load Cal.eu embed
         var iframe = document.createElement('iframe');
-        iframe.src = 'https://cal.com/' + CAL_USERNAME + '/' + CAL_EVENT + '?embed=true&theme=dark';
+        iframe.src = 'https://cal.eu/' + CAL_USERNAME + '/' + CAL_EVENT + '?embed=true&theme=dark';
         iframe.style.cssText = 'width:100%;height:500px;border:none;border-radius:inherit';
         iframe.loading = 'lazy';
         iframe.title = 'Book a consultation with Rodney Coutinho';
