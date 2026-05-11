@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-QZ9C4MLQS8");
+</script>
+<title>Capital Efficiency / RWA Optimisation — Enterprise.AI Accelerator</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="_shared.css"/>
+<style>
+  /* Dashboard metrics */
+  .dash-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:22px 0}
+  .dash-metric{text-align:center;padding:22px 16px;background:var(--bg-2);border-radius:14px;border:1px solid var(--border);position:relative;overflow:hidden}
+  .dash-metric::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient);border-radius:14px 14px 0 0}
+  .dash-metric .val{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;margin-bottom:4px}
+  .dash-metric .val.primary{background:var(--gradient);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .dash-metric .val.cyan{color:var(--accent-2)}
+  .dash-metric .val.purple{color:var(--accent)}
+  .dash-metric .lbl{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em}
+
+  /* Pathway cards */
+  .pathway{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:28px 32px;margin-bottom:18px;transition:border-color 0.25s}
+  .pathway:hover{border-color:rgba(124,92,255,0.35)}
+  .pathway-header{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+  .pathway-num{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:#fff;background:var(--gradient);flex-shrink:0}
+  .pathway h3{font-family:'Space Grotesk',sans-serif;font-size:18px;margin:0;letter-spacing:-0.01em}
+  .pathway p.desc{color:var(--text-dim);font-size:14px;margin-bottom:16px}
+
+  /* Input groups */
+  .input-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px}
+  .input-group{display:flex;flex-direction:column;gap:6px}
+  .input-group label{font-size:12px;font-weight:500;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em}
+  .input-group input[type="number"],
+  .input-group select{
+    padding:12px 14px;border-radius:10px;
+    background:var(--bg);border:1px solid var(--border-strong);
+    color:var(--text);font-size:15px;font-family:'Inter',sans-serif;
+    outline:none;transition:border-color 0.2s;width:100%
+  }
+  .input-group input[type="number"]:focus,
+  .input-group select:focus{border-color:var(--accent)}
+  .input-group select option{background:var(--bg);color:var(--text)}
+
+  /* Slider */
+  .slider-group{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+  .slider-group label{font-size:12px;font-weight:500;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em}
+  .slider-row{display:flex;align-items:center;gap:14px}
+  .slider-row input[type="range"]{flex:1;-webkit-appearance:none;appearance:none;height:6px;border-radius:3px;background:var(--border-strong);outline:none}
+  .slider-row input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid var(--bg);box-shadow:0 0 10px rgba(124,92,255,0.4)}
+  .slider-row input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid var(--bg)}
+  .slider-val{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:var(--accent-2);min-width:50px;text-align:right}
+
+  /* Pathway result */
+  .pathway-result{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(124,92,255,0.08);border:1px solid rgba(124,92,255,0.2);border-radius:12px;margin-top:10px}
+  .pathway-result .result-label{font-size:13px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em}
+  .pathway-result .result-val{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--accent-2)}
+
+  /* Scoreboard */
+  .scoreboard{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:32px;margin-top:28px}
+  .scoreboard h2{font-family:'Space Grotesk',sans-serif;font-size:22px;margin-bottom:6px;letter-spacing:-0.01em}
+  .scoreboard p.sub{color:var(--text-dim);font-size:14px;margin-bottom:22px}
+  .scenario-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+  .scenario{background:var(--bg-2);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:border-color 0.3s}
+  .scenario.active{border-color:var(--accent)}
+  .scenario h4{font-family:'Space Grotesk',sans-serif;font-size:14px;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.08em}
+  .scenario .big{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;margin:6px 0}
+  .scenario .big.low{color:var(--accent-2)}
+  .scenario .big.mid{color:var(--accent)}
+  .scenario .big.high{color:var(--accent-3)}
+  .scenario .sub-text{font-size:12px;color:var(--text-muted)}
+
+  /* Scale bar */
+  .scale-bar-wrap{margin:8px 0 0}
+  .scale-bar-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em}
+  .scale-bar{position:relative;height:12px;border-radius:6px;background:linear-gradient(90deg,#22d3ee 0%,#7c5cff 50%,#ff7ac0 100%);overflow:visible}
+  .scale-marker{position:absolute;top:-6px;width:24px;height:24px;border-radius:50%;background:#fff;border:3px solid var(--accent);transform:translateX(-50%);transition:left 0.5s cubic-bezier(0.25,0.8,0.25,1);box-shadow:0 0 16px rgba(124,92,255,0.5);z-index:2}
+  .scale-marker-label{position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:var(--text);white-space:nowrap}
+  .scale-ticks{position:relative;height:20px;margin-top:4px}
+  .scale-tick{position:absolute;top:0;transform:translateX(-50%);text-align:center}
+  .scale-tick::before{content:"";display:block;width:1px;height:8px;background:var(--text-muted);margin:0 auto 3px}
+  .scale-tick span{font-size:10px;color:var(--text-muted)}
+
+  /* Responsive */
+  @media(max-width:760px){
+    .dash-row{grid-template-columns:1fr}
+    .input-grid{grid-template-columns:1fr}
+    .scenario-row{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="../index.html#accelerators" class="back">← Back to Enterprise.AI</a>
+  <div class="header">
+    <div class="eyebrow"><span class="dot"></span>Accelerator · Capital Efficiency</div>
+    <h1 class="display">RWA <span class="gradient-text">Optimisation</span></h1>
+    <p class="lead">Model capital released through IRB migration, collateral optimisation,
+       securitisation, and portfolio density improvement. Built for bank CFOs,
+       CROs, and treasury heads navigating Basel III endgame in the GCC.</p>
+  </div>
+
+  <!-- SUMMARY DASHBOARD -->
+  <div class="card" id="dashboard">
+    <h2>Capital Release Dashboard</h2>
+    <p>Real-time aggregate across all four optimisation pathways.</p>
+    <div class="dash-row">
+      <div class="dash-metric">
+        <div class="val primary" id="totalReleased">0.00</div>
+        <div class="lbl">Total Released Capital (SAR B)</div>
+      </div>
+      <div class="dash-metric">
+        <div class="val cyan" id="roeImpact">+0.00%</div>
+        <div class="lbl">Estimated ROE Uplift</div>
+      </div>
+      <div class="dash-metric">
+        <div class="val purple" id="at1Saved">0.00</div>
+        <div class="lbl">AT1 Sukuk Equivalent Saved (SAR B)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PATHWAY 1: IRB Migration -->
+  <div class="pathway">
+    <div class="pathway-header">
+      <div class="pathway-num">1</div>
+      <div>
+        <h3>IRB Migration &amp; Model Sophistication</h3>
+      </div>
+    </div>
+    <p class="desc">Moving from standardised to foundation or advanced IRB typically reduces credit-risk RWA by 15-35%. Estimate your reduction based on current and target approach.</p>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Current Total RWA (SAR B)</label>
+        <input type="number" id="irb_rwa" value="120" min="0" step="1" oninput="calc()"/>
+      </div>
+      <div class="input-group">
+        <label>Current Approach</label>
+        <select id="irb_from" onchange="calc()">
+          <option value="sa">Standardised</option>
+          <option value="firb">Foundation IRB</option>
+          <option value="airb">Advanced IRB</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Target Approach</label>
+        <select id="irb_to" onchange="calc()">
+          <option value="sa">Standardised</option>
+          <option value="firb" selected>Foundation IRB</option>
+          <option value="airb">Advanced IRB</option>
+        </select>
+      </div>
+    </div>
+    <div class="pathway-result">
+      <span class="result-label">Estimated RWA Reduction</span>
+      <span class="result-val" id="irb_result">0.00 SAR B</span>
+    </div>
+  </div>
+
+  <!-- PATHWAY 2: Collateral Optimisation -->
+  <div class="pathway">
+    <div class="pathway-header">
+      <div class="pathway-num">2</div>
+      <div>
+        <h3>Collateral Optimisation</h3>
+      </div>
+    </div>
+    <p class="desc">Recognise eligible collateral currently unrecognised under regulatory frameworks. Close the coverage gap between economic and regulatory collateral values.</p>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Eligible but Unrecognised Collateral (SAR B)</label>
+        <input type="number" id="coll_unrec" value="8" min="0" step="0.5" oninput="calc()"/>
+      </div>
+      <div class="input-group">
+        <label>Collateral Coverage Gap (%)</label>
+        <input type="number" id="coll_gap" value="25" min="0" max="100" step="1" oninput="calc()"/>
+      </div>
+    </div>
+    <div class="slider-group">
+      <label>Risk-Weight Haircut Assumption (%)</label>
+      <div class="slider-row">
+        <input type="range" id="coll_haircut" min="20" max="80" value="50" oninput="calc()"/>
+        <span class="slider-val" id="coll_haircut_val">50%</span>
+      </div>
+    </div>
+    <div class="pathway-result">
+      <span class="result-label">Estimated RWA Reduction</span>
+      <span class="result-val" id="coll_result">0.00 SAR B</span>
+    </div>
+  </div>
+
+  <!-- PATHWAY 3: Securitisation & Balance Sheet Recycling -->
+  <div class="pathway">
+    <div class="pathway-header">
+      <div class="pathway-num">3</div>
+      <div>
+        <h3>Securitisation &amp; Balance Sheet Recycling</h3>
+      </div>
+    </div>
+    <p class="desc">Significant risk transfer (SRT) via securitisation of mortgage or loan books can dramatically reduce on-balance-sheet RWA while retaining servicing economics.</p>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Loan Book Eligible for SRT (SAR B)</label>
+        <input type="number" id="sec_book" value="30" min="0" step="1" oninput="calc()"/>
+      </div>
+      <div class="input-group">
+        <label>Current Risk Weight (%)</label>
+        <input type="number" id="sec_rw_current" value="75" min="0" max="150" step="5" oninput="calc()"/>
+      </div>
+    </div>
+    <div class="slider-group">
+      <label>Target Post-Securitisation Risk Weight (%)</label>
+      <div class="slider-row">
+        <input type="range" id="sec_rw_target" min="5" max="75" value="20" oninput="calc()"/>
+        <span class="slider-val" id="sec_rw_target_val">20%</span>
+      </div>
+    </div>
+    <div class="pathway-result">
+      <span class="result-label">Estimated RWA Reduction</span>
+      <span class="result-val" id="sec_result">0.00 SAR B</span>
+    </div>
+  </div>
+
+  <!-- PATHWAY 4: Portfolio Risk-Weight Optimisation -->
+  <div class="pathway">
+    <div class="pathway-header">
+      <div class="pathway-num">4</div>
+      <div>
+        <h3>Portfolio Risk-Weight Optimisation</h3>
+      </div>
+    </div>
+    <p class="desc">Systematic portfolio rebalancing, exposure netting, and guarantee restructuring to reduce average risk-weight density across the book.</p>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Total RWA for Density Improvement (SAR B)</label>
+        <input type="number" id="port_rwa" value="120" min="0" step="1" oninput="calc()"/>
+      </div>
+    </div>
+    <div class="slider-group">
+      <label>Estimated Density Improvement (%)</label>
+      <div class="slider-row">
+        <input type="range" id="port_density" min="1" max="5" value="3" step="0.1" oninput="calc()"/>
+        <span class="slider-val" id="port_density_val">3.0%</span>
+      </div>
+    </div>
+    <div class="pathway-result">
+      <span class="result-label">Estimated RWA Reduction</span>
+      <span class="result-val" id="port_result">0.00 SAR B</span>
+    </div>
+  </div>
+
+  <!-- SCOREBOARD COMPARISON -->
+  <div class="scoreboard">
+    <h2>Scoreboard Comparison</h2>
+    <p class="sub">Where does your estimated capital release sit relative to GCC banking benchmarks?</p>
+    <div class="scenario-row">
+      <div class="scenario" id="sc_low">
+        <h4>Low</h4>
+        <div class="big low">0.5</div>
+        <div class="sub-text">SAR B released</div>
+      </div>
+      <div class="scenario" id="sc_base">
+        <h4>Base</h4>
+        <div class="big mid">2.5</div>
+        <div class="sub-text">SAR B released</div>
+      </div>
+      <div class="scenario" id="sc_high">
+        <h4>High</h4>
+        <div class="big high">5.3</div>
+        <div class="sub-text">SAR B released</div>
+      </div>
+    </div>
+
+    <div class="scale-bar-wrap">
+      <div class="scale-bar-labels">
+        <span>Conservative</span>
+        <span>Aggressive</span>
+      </div>
+      <div class="scale-bar" id="scaleBar">
+        <div class="scale-marker" id="scaleMarker">
+          <div class="scale-marker-label" id="scaleMarkerLabel">0.00</div>
+        </div>
+      </div>
+      <div class="scale-ticks">
+        <div class="scale-tick" style="left:0%"><span>0</span></div>
+        <div class="scale-tick" style="left:7.7%"><span>0.5</span></div>
+        <div class="scale-tick" style="left:38.5%"><span>2.5</span></div>
+        <div class="scale-tick" style="left:81.5%"><span>5.3</span></div>
+        <div class="scale-tick" style="left:100%"><span>6.5</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Part of the Banking 2030 Scoreboard series. Contact <a href="mailto:meridian@rodney-ai.com">meridian@rodney-ai.com</a> for the full model.
+  </div>
+</div>
+
+<script>
+(function(){
+  // IRB migration reduction factors (cumulative from SA baseline)
+  const irbFactors = { sa: 0, firb: 0.18, airb: 0.32 };
+
+  function fmt(n){ return n.toFixed(2); }
+
+  function calc(){
+    // 1. IRB Migration
+    const irbRwa = parseFloat(document.getElementById('irb_rwa').value) || 0;
+    const fromApproach = document.getElementById('irb_from').value;
+    const toApproach = document.getElementById('irb_to').value;
+    const fromFactor = irbFactors[fromApproach];
+    const toFactor = irbFactors[toApproach];
+    const irbReduction = Math.max(0, (toFactor - fromFactor) * irbRwa);
+    document.getElementById('irb_result').textContent = fmt(irbReduction) + ' SAR B';
+
+    // 2. Collateral Optimisation
+    const collUnrec = parseFloat(document.getElementById('coll_unrec').value) || 0;
+    const collGap = (parseFloat(document.getElementById('coll_gap').value) || 0) / 100;
+    const collHaircut = parseFloat(document.getElementById('coll_haircut').value) / 100;
+    document.getElementById('coll_haircut_val').textContent = Math.round(collHaircut * 100) + '%';
+    const collReduction = collUnrec * collGap * collHaircut;
+    document.getElementById('coll_result').textContent = fmt(collReduction) + ' SAR B';
+
+    // 3. Securitisation
+    const secBook = parseFloat(document.getElementById('sec_book').value) || 0;
+    const secRwCurrent = (parseFloat(document.getElementById('sec_rw_current').value) || 0) / 100;
+    const secRwTarget = parseFloat(document.getElementById('sec_rw_target').value) / 100;
+    document.getElementById('sec_rw_target_val').textContent = Math.round(secRwTarget * 100) + '%';
+    const secReduction = Math.max(0, secBook * (secRwCurrent - secRwTarget));
+    document.getElementById('sec_result').textContent = fmt(secReduction) + ' SAR B';
+
+    // 4. Portfolio Density
+    const portRwa = parseFloat(document.getElementById('port_rwa').value) || 0;
+    const portDensity = parseFloat(document.getElementById('port_density').value) / 100;
+    document.getElementById('port_density_val').textContent = (portDensity * 100).toFixed(1) + '%';
+    const portReduction = portRwa * portDensity;
+    document.getElementById('port_result').textContent = fmt(portReduction) + ' SAR B';
+
+    // Total
+    const total = irbReduction + collReduction + secReduction + portReduction;
+    document.getElementById('totalReleased').textContent = fmt(total);
+
+    // ROE uplift estimate: assume 12.5% CAR, so released capital = total / 12.5%
+    // ROE uplift ~ released capital * net income margin / equity base
+    // Simplified: ~0.8% ROE per 1B released capital (industry heuristic)
+    const roeUplift = total * 0.8;
+    document.getElementById('roeImpact').textContent = '+' + roeUplift.toFixed(2) + '%';
+
+    // AT1 sukuk equivalent: assume AT1 at 1.5% of RWA, cost ~6%
+    // Capital saved from AT1 perspective ~ total * 0.15 (rough)
+    const at1Saved = total * 0.15;
+    document.getElementById('at1Saved').textContent = fmt(at1Saved);
+
+    // Scoreboard
+    updateScoreboard(total);
+  }
+
+  function updateScoreboard(total){
+    const maxScale = 6.5;
+    const pct = Math.min(100, Math.max(0, (total / maxScale) * 100));
+    const marker = document.getElementById('scaleMarker');
+    const label = document.getElementById('scaleMarkerLabel');
+    marker.style.left = pct + '%';
+    label.textContent = fmt(total) + ' SAR B';
+
+    // Highlight nearest scenario
+    const scenarios = [
+      { el: document.getElementById('sc_low'), val: 0.5 },
+      { el: document.getElementById('sc_base'), val: 2.5 },
+      { el: document.getElementById('sc_high'), val: 5.3 }
+    ];
+    scenarios.forEach(s => {
+      s.el.classList.remove('active');
+    });
+    let closest = scenarios[0];
+    let closestDist = Math.abs(total - closest.val);
+    scenarios.forEach(s => {
+      const d = Math.abs(total - s.val);
+      if(d < closestDist){ closest = s; closestDist = d; }
+    });
+    closest.el.classList.add('active');
+  }
+
+  // Expose calc globally for inline oninput handlers
+  window.calc = calc;
+
+  // Initial calculation
+  calc();
+})();
+</script>
+</body>
+</html>
