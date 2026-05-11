@@ -271,6 +271,58 @@ img { max-width: 100%; display: block; }
   50% { transform: translateY(4px); }
 }
 
+/* Data Foundation strip */
+.data-foundation {
+  background: linear-gradient(180deg, #0D1B2A 0%, #122435 100%);
+  border-top: 1px solid rgba(0,107,94,0.2);
+  padding: 28px 0;
+  position: relative;
+}
+.df-inner {
+  display: flex; align-items: center; gap: 32px;
+  flex-wrap: wrap; justify-content: center;
+}
+.df-label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+  display: flex; align-items: center; gap: 8px;
+}
+.df-label::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold); display: inline-block;
+}
+.df-pills {
+  display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+}
+.df-pill {
+  font-size: 11px; font-weight: 500;
+  color: rgba(245,237,224,0.65);
+  background: rgba(245,237,224,0.06);
+  border: 1px solid rgba(245,237,224,0.1);
+  padding: 6px 16px;
+  border-radius: 20px;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+.df-pill:hover {
+  color: #F5EDE0;
+  background: rgba(0,107,94,0.15);
+  border-color: rgba(0,107,94,0.35);
+}
+.df-note {
+  font-size: 12px; color: rgba(245,237,224,0.35);
+  font-style: italic;
+  text-align: center; width: 100%;
+  margin-top: 4px;
+}
+@media (max-width: 768px) {
+  .df-inner { flex-direction: column; gap: 16px; }
+  .df-pills { gap: 6px; }
+  .df-pill { font-size: 10px; padding: 5px 12px; }
+}
+
 /* ========== HERO ========== */
 .hero {
   padding: 0 0 0;
@@ -945,7 +997,7 @@ img { max-width: 100%; display: block; }
   color: var(--navy); letter-spacing: -0.015em;
 }
 .services-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
   background: var(--border-light); border: 1px solid var(--border-light);
   border-radius: var(--radius-lg); overflow: hidden;
 }
@@ -960,6 +1012,7 @@ img { max-width: 100%; display: block; }
 .service-icon.si-strategy { background: rgba(27,79,114,0.06); color: var(--accent); border: 1px solid rgba(27,79,114,0.12); }
 .service-icon.si-govern { background: rgba(0,107,94,0.06); color: var(--gold); border: 1px solid var(--gold-border); }
 .service-icon.si-oversight { background: rgba(40,116,166,0.06); color: var(--blue); border: 1px solid rgba(40,116,166,0.1); }
+.service-icon.si-data { background: rgba(245,237,224,0.08); color: #8B6914; border: 1px solid rgba(201,162,39,0.2); }
 .service-highlight {
   display: inline-block; font-size: 11px; font-weight: 600; color: var(--navy);
   background: linear-gradient(135deg, var(--gold-bg), rgba(0,107,94,0.14));
@@ -1871,6 +1924,7 @@ footer {
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 1024px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
   .hero-questions { grid-template-columns: 1fr; }
   .fr-inner { grid-template-columns: 1fr; }
   .about-grid { grid-template-columns: 1fr; }
@@ -1979,6 +2033,24 @@ footer {
   </a>
   <div class="hk-scroll-hint"><span>&#x25BE;</span> Explore</div>
 </section>
+
+<!-- ========== DATA FOUNDATION STRIP ========== -->
+<div class="data-foundation">
+  <div class="container">
+    <div class="df-inner">
+      <div class="df-label">Data is the Foundation</div>
+      <div class="df-pills">
+        <span class="df-pill">Data Classification</span>
+        <span class="df-pill">Data Quality</span>
+        <span class="df-pill">Data Lineage</span>
+        <span class="df-pill">NDMO Compliance</span>
+        <span class="df-pill">PDPL Readiness</span>
+        <span class="df-pill">Data Cataloguing</span>
+      </div>
+    </div>
+    <div class="df-note">Every AI programme starts with data. We build the foundation before the first model runs.</div>
+  </div>
+</div>
 
 <!-- ========== HERO ========== -->
 <section class="hero" id="hero">
@@ -2246,10 +2318,26 @@ footer {
   <div class="container">
     <div class="services-header">
       <div class="section-tag">How We Work</div>
-      <h2 class="section-title">Strategy. Governance. Execution.</h2>
-      <div class="section-title-ar">الاستراتيجية · الحوكمة · التنفيذ</div>
+      <h2 class="section-title">Data. Strategy. Governance. Execution.</h2>
+      <div class="section-title-ar">البيانات · الاستراتيجية · الحوكمة · التنفيذ</div>
     </div>
     <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon si-data">◈</div>
+        <div class="service-num">The foundation · <span class="arabic-hint">البيانات</span></div>
+        <h3 class="service-title">Data</h3>
+        <div class="service-highlight">AI without data governance is risk without reward</div>
+        <p class="service-desc">Every AI programme fails or succeeds on data quality. We assess, classify, and govern your data estate before a single model is deployed — so your AI delivers trustworthy, auditable outcomes from day one.</p>
+        <ul class="service-points">
+          <li>Data classification frameworks aligned to NDMO and SDAIA standards</li>
+          <li>PDPL (Personal Data Protection Law) readiness assessment and remediation</li>
+          <li>Data quality assessment — profiling, completeness, accuracy, consistency</li>
+          <li>Data cataloguing and metadata management strategy</li>
+          <li>Data lineage mapping — source-to-model traceability for AI audit</li>
+          <li>Data governance operating model — roles, stewards, councils, escalation</li>
+        </ul>
+      </div>
 
       <div class="service-card">
         <div class="service-icon si-strategy">▸</div>
@@ -2697,6 +2785,12 @@ footer {
       <p class="acc-desc">Interactive tools used in real client engagements. Single-file HTML apps — open on any device, use as diagnostics with your board or platform team.</p>
     </div>
     <div class="acc-grid">
+
+      <a href="accelerators/ndmo-data-readiness.html" class="acc-card">
+        <h3>NDMO Data Readiness</h3>
+        <p>Assess data classification, quality, lineage, and NDMO/PDPL compliance — the foundation for enterprise AI.</p>
+        <span class="acc-link">Open tool →</span>
+      </a>
 
       <a href="accelerators/fs-ai-maturity-assessment.html" class="acc-card">
         <h3>FS AI Maturity Assessment</h3>
