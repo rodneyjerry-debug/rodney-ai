@@ -271,6 +271,111 @@ img { max-width: 100%; display: block; }
   50% { transform: translateY(4px); }
 }
 
+/* ========== STOREFRONT ========== */
+.storefront {
+  background: var(--bg);
+  padding: 72px 0 64px;
+  border-bottom: 1px solid var(--border-light);
+}
+.sf-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.sf-header .section-tag { margin-bottom: 12px; }
+.sf-header h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(26px, 3.5vw, 36px);
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.sf-header p {
+  color: var(--text-secondary);
+  font-size: 16px;
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.sf-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.sf-card {
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s var(--ease);
+  position: relative;
+}
+.sf-card:hover {
+  border-color: var(--gold-border);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  transform: translateY(-3px);
+}
+.sf-card-icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+}
+.sf-card-icon svg {
+  width: 22px; height: 22px;
+  fill: none; stroke-width: 1.5;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.sf-card-icon.sf-strategy { background: rgba(0,107,94,0.08); border: 1px solid rgba(0,107,94,0.15); }
+.sf-card-icon.sf-strategy svg { stroke: var(--teal); }
+.sf-card-icon.sf-govern { background: rgba(201,162,39,0.08); border: 1px solid rgba(201,162,39,0.18); }
+.sf-card-icon.sf-govern svg { stroke: var(--gold); }
+.sf-card-icon.sf-data { background: rgba(13,27,42,0.06); border: 1px solid rgba(13,27,42,0.12); }
+.sf-card-icon.sf-data svg { stroke: var(--navy); }
+.sf-card-icon.sf-execute { background: rgba(0,107,94,0.08); border: 1px solid rgba(0,107,94,0.15); }
+.sf-card-icon.sf-execute svg { stroke: var(--teal); }
+.sf-problem {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  line-height: 1.5;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-light);
+}
+.sf-card h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.sf-card p.sf-desc {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  flex: 1;
+  margin-bottom: 16px;
+}
+.sf-outcome {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--teal);
+  letter-spacing: 0.02em;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-light);
+}
+.sf-outcome span { font-weight: 400; color: var(--text-muted); }
+@media (max-width: 960px) {
+  .sf-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .sf-grid { grid-template-columns: 1fr; }
+}
+
 /* Data Foundation strip */
 .data-foundation {
   background: linear-gradient(180deg, #0D1B2A 0%, #122435 100%);
@@ -2104,6 +2209,60 @@ footer {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
   </a>
   <div class="hk-scroll-hint"><span>&#x25BE;</span> Explore</div>
+</section>
+
+<!-- ========== STOREFRONT ========== -->
+<section class="storefront">
+  <div class="container">
+    <div class="sf-header">
+      <div class="section-tag">How We Help</div>
+      <h2>Four problems we solve for financial institutions</h2>
+      <p>Each starts with a conversation. No slides, no proposal — just a clear read on where you are and what moves next.</p>
+    </div>
+    <div class="sf-grid">
+
+      <div class="sf-card">
+        <div class="sf-card-icon sf-strategy">
+          <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <div class="sf-problem">"We approved the AI budget but have no roadmap."</div>
+        <h3>AI Strategy</h3>
+        <p class="sf-desc">Board-ready AI roadmap, use-case prioritisation, investment case, and operating model — designed for your regulatory environment.</p>
+        <div class="sf-outcome">You get <span>→ A signed-off strategy with KPIs, timelines, and board accountability</span></div>
+      </div>
+
+      <div class="sf-card">
+        <div class="sf-card-icon sf-govern">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="sf-problem">"The regulator wants our AI risk framework by Q3."</div>
+        <h3>AI Governance</h3>
+        <p class="sf-desc">Governance framework, risk taxonomy, model risk management, and regulatory alignment — built on SAMA, NDMO, and EU AI Act requirements.</p>
+        <div class="sf-outcome">You get <span>→ A regulator-ready governance framework with clear ownership</span></div>
+      </div>
+
+      <div class="sf-card">
+        <div class="sf-card-icon sf-data">
+          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <div class="sf-problem">"Our data isn't AI-ready and everyone knows it."</div>
+        <h3>Data Foundation</h3>
+        <p class="sf-desc">Data classification, quality, lineage, and NDMO compliance — turning fragmented data estates into enterprise-grade, AI-ready platforms.</p>
+        <div class="sf-outcome">You get <span>→ An AI-ready data architecture with measurable quality baselines</span></div>
+      </div>
+
+      <div class="sf-card">
+        <div class="sf-card-icon sf-execute">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="sf-problem">"We have the strategy deck. Nothing is getting built."</div>
+        <h3>Execution</h3>
+        <p class="sf-desc">Platform builds, MLOps pipelines, data products, and delivery assurance — through trusted partners in Saudi Arabia, UAE, and India.</p>
+        <div class="sf-outcome">You get <span>→ Production AI systems, not slide-ware</span></div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
 <!-- ========== DATA FOUNDATION STRIP ========== -->
