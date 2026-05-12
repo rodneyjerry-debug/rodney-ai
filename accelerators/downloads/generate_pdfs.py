@@ -187,9 +187,45 @@ class PDFGenerator:
         """Add body text"""
         self.story.append(Paragraph(text, self.styles[style]))
 
+    def _wrap_cell(self, text, style_name='CellText', is_header=False):
+        """Wrap cell text in a Paragraph for proper text wrapping"""
+        if is_header:
+            sname = 'CellHeader'
+            if sname not in self.styles:
+                self.styles.add(ParagraphStyle(
+                    name=sname,
+                    parent=self.styles['Normal'],
+                    fontSize=9,
+                    textColor=colors.whitesmoke,
+                    fontName='Helvetica-Bold',
+                    leading=12,
+                    spaceBefore=0,
+                    spaceAfter=0
+                ))
+            return Paragraph(str(text), self.styles[sname])
+        else:
+            if style_name not in self.styles:
+                self.styles.add(ParagraphStyle(
+                    name=style_name,
+                    parent=self.styles['Normal'],
+                    fontSize=8,
+                    textColor=DARK_GRAY,
+                    fontName='Helvetica',
+                    leading=11,
+                    spaceBefore=0,
+                    spaceAfter=0
+                ))
+            return Paragraph(str(text), self.styles[style_name])
+
     def add_template_table(self, headers, rows, col_widths=None):
-        """Add a professional template table"""
-        all_rows = [headers] + rows
+        """Add a professional template table with proper text wrapping"""
+        # Wrap all cells in Paragraph objects for proper wrapping
+        wrapped_headers = [self._wrap_cell(h, is_header=True) for h in headers]
+        wrapped_rows = []
+        for row in rows:
+            wrapped_rows.append([self._wrap_cell(cell) for cell in row])
+
+        all_rows = [wrapped_headers] + wrapped_rows
 
         if col_widths is None:
             col_widths = [2*inch] * len(headers)
@@ -197,18 +233,16 @@ class PDFGenerator:
         table = Table(all_rows, colWidths=col_widths)
         table.setStyle(TableStyle([
             ('BACKGROUND', (0, 0), (-1, 0), NAVY),
-            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
             ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
             ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-            ('FONTSIZE', (0, 0), (-1, 0), 11),
-            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
+            ('TOPPADDING', (0, 0), (-1, 0), 8),
+            ('LEFTPADDING', (0, 0), (-1, -1), 6),
+            ('RIGHTPADDING', (0, 0), (-1, -1), 6),
             ('BACKGROUND', (0, 1), (-1, -1), LIGHT_GRAY),
-            ('GRID', (0, 0), (-1, -1), 1, colors.HexColor("#CCCCCC")),
-            ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
-            ('FONTSIZE', (0, 1), (-1, -1), 9),
-            ('TOPPADDING', (0, 1), (-1, -1), 8),
-            ('BOTTOMPADDING', (0, 1), (-1, -1), 8),
+            ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor("#CCCCCC")),
+            ('TOPPADDING', (0, 1), (-1, -1), 6),
+            ('BOTTOMPADDING', (0, 1), (-1, -1), 6),
             ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, LIGHT_GRAY]),
         ]))
 
@@ -1959,27 +1993,39 @@ def create_ndmo_data_readiness():
         ["4", "Managed", "Processes measured and controlled. Regular reviews. Automation in place. Proactive monitoring."],
         ["5", "Optimised", "Continuous improvement. Industry-leading practices. Full automation. Real-time governance."],
     ]
-    pdf.add_template_table(score_headers, score_rows, [0.6*inch, 1.2*inch, 3.5*inch])
+    pdf.add_template_table(score_headers, score_rows, [0.7*inch, 1.3*inch, 5*inch])
 
     pdf.add_section("4. Assessment Matrix")
     pdf.add_text("For each dimension, assess your current state against the key indicators below. A score of 3 or above across all dimensions is the minimum threshold for enterprise AI deployment.")
 
-    matrix_headers = ["Dimension", "Key Indicators", "NDMO/Regulatory Link", "AI Prerequisite"]
+    matrix_headers = ["Dimension", "Key Indicators", "NDMO / Regulatory Link", "AI Prerequisite"]
     matrix_rows = [
-        ["Classification", "Taxonomy defined; All datasets tagged; Access controls enforced; Cross-border rules applied",
-         "NDMO Data Classification Policy; PDPL Art. 29", "Model risk tiering; Data access for training"],
-        ["Quality", "Profiling complete; Quality rules automated; Monitoring dashboards live; Remediation SLAs defined",
-         "SAMA Operational Risk; NDMO Data Quality Standards", "Model accuracy; Bias detection; Output reliability"],
-        ["Governance", "CDO appointed; Stewards active; Councils meeting; Policies enforced; Escalation paths clear",
-         "NDMO National Data Governance Regulations", "AI governance integration; Decision rights for AI data use"],
-        ["NDMO/PDPL", "Consent management; Data subject rights; Breach procedures; Transfer controls; DPO appointed",
-         "PDPL; NDMO Open Data; Data Sharing Regulations", "Lawful AI training data; Customer data in models"],
-        ["Lineage", "Source-to-report tracing; Transformation documented; Impact analysis capability; Audit trail complete",
-         "SAMA Model Risk; NDMO Data Lifecycle", "Model explainability; Regulatory audit; Bias tracing"],
-        ["Catalogue", "Business glossary; Technical metadata; Ownership mapped; Sensitivity labels; Search enabled",
-         "NDMO Metadata Standards; Data Inventory", "Feature store readiness; Data discovery for AI teams"],
+        ["<b>Classification</b>",
+         "Taxonomy defined<br/>All datasets tagged<br/>Access controls enforced<br/>Cross-border rules applied",
+         "NDMO Data Classification Policy<br/>PDPL Art. 29",
+         "Model risk tiering<br/>Data access for training"],
+        ["<b>Quality</b>",
+         "Profiling complete<br/>Quality rules automated<br/>Monitoring dashboards live<br/>Remediation SLAs defined",
+         "SAMA Operational Risk<br/>NDMO Data Quality Standards",
+         "Model accuracy<br/>Bias detection<br/>Output reliability"],
+        ["<b>Governance</b>",
+         "CDO appointed<br/>Stewards active<br/>Councils meeting<br/>Policies enforced<br/>Escalation paths clear",
+         "NDMO National Data Governance Regulations",
+         "AI governance integration<br/>Decision rights for AI data use"],
+        ["<b>NDMO / PDPL</b>",
+         "Consent management<br/>Data subject rights<br/>Breach procedures<br/>Transfer controls<br/>DPO appointed",
+         "PDPL<br/>NDMO Open Data<br/>Data Sharing Regulations",
+         "Lawful AI training data<br/>Customer data in models"],
+        ["<b>Lineage</b>",
+         "Source-to-report tracing<br/>Transformation documented<br/>Impact analysis capability<br/>Audit trail complete",
+         "SAMA Model Risk<br/>NDMO Data Lifecycle",
+         "Model explainability<br/>Regulatory audit<br/>Bias tracing"],
+        ["<b>Catalogue</b>",
+         "Business glossary<br/>Technical metadata<br/>Ownership mapped<br/>Sensitivity labels<br/>Search enabled",
+         "NDMO Metadata Standards<br/>Data Inventory",
+         "Feature store readiness<br/>Data discovery for AI teams"],
     ]
-    pdf.add_template_table(matrix_headers, matrix_rows, [1*inch, 1.5*inch, 1.3*inch, 1.5*inch])
+    pdf.add_template_table(matrix_headers, matrix_rows, [1*inch, 2.2*inch, 1.8*inch, 2*inch])
 
     pdf.add_section("5. Remediation Priorities by AI Maturity Stage")
 
@@ -2012,23 +2058,23 @@ def create_ndmo_data_readiness():
 
     reg_headers = ["NDMO Regulation", "Core Requirements", "AI Impact"]
     reg_rows = [
-        ["National Data Governance Interim Regulations",
-         "Data governance framework; CDO appointment; Data management standards; Annual compliance reporting",
+        ["<b>National Data Governance Interim Regulations</b>",
+         "Data governance framework<br/>CDO appointment<br/>Data management standards<br/>Annual compliance reporting",
          "Mandatory foundation for any AI programme -- no governance, no AI deployment"],
-        ["Data Classification Policy",
-         "Four-tier classification; Labelling standards; Handling procedures; Access controls per tier",
+        ["<b>Data Classification Policy</b>",
+         "Four-tier classification<br/>Labelling standards<br/>Handling procedures<br/>Access controls per tier",
          "Determines which data can be used for AI training, which models need additional controls"],
-        ["Data Sharing Regulations",
-         "Sharing agreements; Purpose limitation; Security requirements; Cross-entity sharing controls",
+        ["<b>Data Sharing Regulations</b>",
+         "Sharing agreements<br/>Purpose limitation<br/>Security requirements<br/>Cross-entity sharing controls",
          "Critical for federated AI, multi-entity models, and third-party AI platform data flows"],
-        ["Open Data Policy",
-         "Public dataset publication; Format standards; API requirements; Update schedules",
-         "Opportunity: enrichment data for AI models. Obligation: ensure AI outputs using open data are attributed"],
-        ["Personal Data Protection Law (PDPL)",
-         "Consent; Data subject rights; Cross-border transfer; Breach notification; DPO appointment",
+        ["<b>Open Data Policy</b>",
+         "Public dataset publication<br/>Format standards<br/>API requirements<br/>Update schedules",
+         "Enrichment data for AI models. Obligation: ensure AI outputs using open data are attributed"],
+        ["<b>Personal Data Protection Law (PDPL)</b>",
+         "Consent<br/>Data subject rights<br/>Cross-border transfer<br/>Breach notification<br/>DPO appointment",
          "Governs all AI models using customer data -- consent for profiling, right to explanation, automated decision safeguards"],
     ]
-    pdf.add_template_table(reg_headers, reg_rows, [1.5*inch, 1.8*inch, 2*inch])
+    pdf.add_template_table(reg_headers, reg_rows, [1.8*inch, 2.5*inch, 2.7*inch])
 
     pdf.add_section("7. Next Steps")
 
