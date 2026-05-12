@@ -445,7 +445,7 @@ Access notes in PowerPoint by clicking "Notes" view at bottom of editor.
 ## Support & Next Steps
 
 **Questions about content:**
-- Contact Rodney.AI advisory team at advisor@rodney-ai.com
+- Contact Enterprise.AI advisory team at advisor@rodney-ai.com
 - Request regulatory guidance for specific geographies
 - Discuss use case customization or financial modeling
 

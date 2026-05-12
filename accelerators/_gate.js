@@ -1,13 +1,13 @@
 /* Enterprise.AI — Accelerator content gate + password-protected downloads
    Shows header + first 2 cards, fades rest with CTA overlay.
    Download button requires SHA-256 password check.
-   Default password: RodneyAI2026 — change the hash below to update. */
+   Default password: EnterpriseAI — change the hash below to update. */
 
 (function () {
   'use strict';
 
   /* ── CONFIG ─────────────────────────────────────────────── */
-  var PASSWORD_HASH = '4f0eb8d9e5f785163c6d1bce5964e15a2a683772c26e3e962295633e49472afc';
+  var PASSWORD_HASH = '57f9ff1d28a75d789a4c91829f2b8284e66a510d6b9f37b85fee2c6167a6df48';
   var CONTACT_EMAIL = 'advisor@rodney-ai.com';
   var SHOW_CARDS    = 2;   // cards visible before gate
 
@@ -116,7 +116,7 @@
   function applyContentGate() {
     // Bypass gate with ?key=rodney
     var params = new URLSearchParams(window.location.search);
-    if (params.get('key') === 'rodney') return;
+    if (params.get('key') === 'EnterpriseAI') return;
 
     var cards = document.querySelectorAll('.card, .domain-section, .agent-card');
     if (cards.length < SHOW_CARDS + 1) return;
@@ -144,7 +144,7 @@
       '<h3>Want the full accelerator?</h3>' +
       '<p>This is a preview. To access the complete tool with all frameworks, models, and board-ready materials — get in touch.</p>' +
       '<a href="mailto:' + CONTACT_EMAIL + '?subject=Enterprise.AI%20Accelerator%20Access" class="btn">Request full access →</a>' +
-      '  <a href="../index.html#start" class="btn btn-ghost">Contact Rodney</a>';
+      '  <a href="../index.html#start" class="btn btn-ghost">Contact Admin</a>';
     wrapper.parentNode.insertBefore(cta, wrapper.nextSibling);
   }
 
