@@ -34,14 +34,24 @@
 <body>
 <div class="container">
   <a class="back" href="../index.html">← Back to Enterprise.AI</a>
-  <div class="header">
+  <div class="hero-banner">
     <span class="eyebrow"><span class="dot"></span> Accelerator · Self-assessment</span>
     <h1 class="display">FS AI Maturity Assessment</h1>
     <p class="lead">A six-dimension diagnostic to benchmark your bank, insurer or asset manager's AI maturity. Answer each question honestly — most institutions discover they are 12–18 months behind where they think they are.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">6</div><div class="hero-stat-label">Dimensions assessed</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">30</div><div class="hero-stat-label">Diagnostic questions</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">2.8</div><div class="hero-stat-label">Median FS score</div></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+    <div class="callout-body">Most FS institutions score themselves 1.5 levels higher than independent assessment reveals. The median composite score across 20+ engagements is just 2.8 out of 5.</div>
   </div>
 
   <div class="card">
-    <h2>The six dimensions</h2>
+    <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>The six dimensions</h2>
     <p>Enterprise.AI's FS AI maturity model evaluates your organisation across six dimensions, each scored 1 (Initial) to 5 (Leading). The composite score reveals whether you are an AI laggard, follower, fast-follower, leader or differentiator.</p>
     <div class="grid-3" style="margin-top:18px">
       <div><span class="tag">1</span><strong style="color:var(--text)">Strategy &amp; Vision</strong><p style="font-size:13px;margin-top:4px">Board-endorsed AI ambition and value pools.</p></div>
@@ -54,7 +64,7 @@
   </div>
 
   <div class="card">
-    <h2>Quick assessment</h2>
+    <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>Quick assessment</h2>
     <p>Pick the statement that best describes your institution today. Your score updates live below.</p>
     <div id="questions"></div>
   </div>
@@ -163,7 +173,12 @@
     </table>
   </div>
 
-  <div class="card">
+  <div class="callout">
+    <div class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+    <div class="callout-body">Only 3% of FS institutions reach Level 5 (Leading). The jump from Level 2 to Level 3 is where most institutions stall — it requires a shift from project-based to platform-based AI delivery.</div>
+  </div>
+
+  <div class="card card-gradient">
     <h2>Peer benchmark data (confidential aggregate)</h2>
     <p>Based on Enterprise.AI engagements with 20+ FS institutions (banks, insurers, asset managers), here is the distribution of current maturity:</p>
     <ul style="margin-left:20px">
@@ -176,7 +191,11 @@
     <p><strong>Median composite score for FS:</strong> 2.8 (Developing to Defined). Most FS institutions are 12–18 months behind where they perceive themselves.</p>
   </div>
 
-  <div class="footer-note">© 2026 Enterprise.AI · This assessment is provided as a starting point for executive conversations and benchmarking. It is not a substitute for a full advisory engagement. For a confidential peer benchmark comparison or to discuss your roadmap, contact advisor@rodney-ai.com.</div>
+  <div class="cta-section">
+    <h3>Ready to implement this in your organisation?</h3>
+    <p>Get in touch to discuss how this accelerator fits your institution.</p>
+    <a href="mailto:rodneyjerry@yahoo.com?subject=Enterprise.AI Enquiry" class="btn-cta">Book a Consultation →</a>
+  </div>
 </div>
 
 <script>

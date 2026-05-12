@@ -18,14 +18,24 @@
 <body>
 <div class="container">
   <a class="back" href="../index.html">← Back to Enterprise.AI</a>
-  <div class="header">
+  <div class="hero-banner">
     <span class="eyebrow"><span class="dot"></span> Accelerator · Reference</span>
     <h1 class="display">AI Risk Taxonomy for Banking</h1>
     <p class="lead">A categorisation of 30+ AI risks across six dimensions, mapped to existing risk frameworks and to the controls that address them. Use this as a starting point for your own AI risk register.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">46</div><div class="hero-stat-label">Risks Catalogued</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">6</div><div class="hero-stat-label">Risk Dimensions</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">4</div><div class="hero-stat-label">Severity Levels</div></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+    <div class="callout-body">Don't build a parallel risk universe. Map each AI risk category to your existing operational, model and conduct risk classifications. The goal is to extend your risk register, not replace it.</div>
   </div>
 
   <div class="card">
-    <h2>1 · Data risk</h2>
+    <h2><span class="section-icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></span>1 · Data risk</h2>
     <p>Data is the foundation of all AI models. Weakness here propagates through the entire system. Eight distinct risks:</p>
     <table>
       <thead><tr><th>Risk</th><th>Description</th><th>Severity</th><th>Control recommendation</th><th>Regulatory ref</th></tr></thead>
@@ -43,7 +53,7 @@
   </div>
 
   <div class="card">
-    <h2>2 · Model risk</h2>
+    <h2><span class="section-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68 1.65 1.65 0 0 0 10 3.17V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>2 · Model risk</h2>
     <p>The model itself — its logic, accuracy, fairness and robustness — is the second critical risk layer. Seven distinct risks:</p>
     <table>
       <thead><tr><th>Risk</th><th>Description</th><th>Severity</th><th>Control recommendation</th><th>Regulatory ref</th></tr></thead>
@@ -144,6 +154,11 @@
     </ul>
   </div>
 
+  <div class="callout">
+    <div class="callout-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+    <div class="callout-body">The top-right quadrant of any AI risk heat map is dominated by data risks — PII exposure, bias in training data, and hallucination. These are the risks that regulators ask about first and where control gaps are most visible.</div>
+  </div>
+
   <div class="card">
     <h2>Heat map: Risk by category &amp; likelihood</h2>
     <p>This simplified heat map ranks the 40+ risks by typical severity and likelihood in a FS institution. Position indicates relative priority for governance investment.</p>
@@ -184,7 +199,7 @@
     </ol>
   </div>
 
-  <div class="card">
+  <div class="card card-gradient">
     <h2>Control reference: Top controls by risk category</h2>
     <table>
       <thead><tr><th>Risk Category</th><th>Top 3 Controls</th><th>Secondary Controls</th></tr></thead>
@@ -199,7 +214,11 @@
     </table>
   </div>
 
-  <div class="footer-note">© 2026 Enterprise.AI · Use this taxonomy as a baseline. Real-world risk registers should be tailored to your business model, regulatory footprint and AI portfolio. Contact advisor@rodney-ai.com to map this to your specific institution.</div>
+  <div class="cta-section">
+    <h3>Ready to implement this in your organisation?</h3>
+    <p>Get in touch to discuss how this accelerator fits your institution.</p>
+    <a href="mailto:rodneyjerry@yahoo.com?subject=Enterprise.AI Enquiry" class="btn-cta">Book a Consultation →</a>
+  </div>
 </div>
 <script src="_gate.js"></script>
 </body>

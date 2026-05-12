@@ -14,86 +14,408 @@
 <title>NDMO Data Readiness Assessment · Enterprise.AI</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="_shared.css">
+<style>
+/* ── HERO BANNER ─────────────────────────────── */
+.hero-banner{
+  position:relative;overflow:hidden;border-radius:22px;
+  background:linear-gradient(135deg,#0D1B2A 0%,#0a2e26 50%,#0D1B2A 100%);
+  padding:56px 48px 48px;margin-bottom:32px;
+  border:1px solid rgba(0,107,94,0.3);
+}
+.hero-banner::before{
+  content:"";position:absolute;top:-50%;right:-20%;width:600px;height:600px;
+  background:radial-gradient(circle,rgba(0,107,94,0.18) 0%,transparent 70%);
+  animation:pulse-glow 6s ease-in-out infinite;pointer-events:none;
+}
+.hero-banner::after{
+  content:"";position:absolute;bottom:-30%;left:-10%;width:400px;height:400px;
+  background:radial-gradient(circle,rgba(34,211,238,0.1) 0%,transparent 70%);
+  animation:pulse-glow 8s ease-in-out 2s infinite;pointer-events:none;
+}
+@keyframes pulse-glow{0%,100%{opacity:0.5;transform:scale(1)}50%{opacity:1;transform:scale(1.15)}}
+
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;position:relative;z-index:1}
+.hero-content .eyebrow{margin-bottom:20px}
+.hero-content h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4vw,46px);font-weight:700;line-height:1.1;letter-spacing:-0.02em;margin-bottom:16px}
+.hero-content h1 .teal{color:#22d3ee}
+.hero-content .lead{color:var(--text-dim);font-size:16px;line-height:1.6;max-width:480px}
+
+/* Hero stats */
+.hero-stats{display:flex;flex-direction:column;gap:20px}
+.hero-stat{
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+  border-radius:16px;padding:24px 28px;position:relative;overflow:hidden;
+  transition:border-color 0.3s;
+}
+.hero-stat:hover{border-color:rgba(0,107,94,0.4)}
+.hero-stat::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  border-radius:16px 16px 0 0;
+}
+.hero-stat:first-child::before{background:linear-gradient(90deg,#006B5E,#22d3ee)}
+.hero-stat:last-child::before{background:linear-gradient(90deg,#ff7ac0,#7c5cff)}
+.hero-stat .val{font-family:'Space Grotesk',sans-serif;font-size:48px;font-weight:700;line-height:1}
+.hero-stat:first-child .val{background:linear-gradient(135deg,#006B5E,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-stat:last-child .val{background:linear-gradient(135deg,#ff7ac0,#7c5cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-stat .lbl{color:var(--text-dim);font-size:14px;margin-top:6px}
+.hero-stat .sub{color:var(--text-muted);font-size:12px;margin-top:2px}
+
+@media(max-width:760px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-banner{padding:36px 24px 32px}
+  .hero-stats{flex-direction:row}
+  .hero-stat{flex:1}
+  .hero-stat .val{font-size:36px}
+}
+
+/* ── DIMENSION ICONS ─────────────────────────── */
+.dim-icon{
+  width:52px;height:52px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--gradient-soft);border:1px solid rgba(124,92,255,0.2);
+  flex-shrink:0;margin-bottom:14px;
+}
+.dim-icon svg{width:26px;height:26px;stroke:var(--accent-2);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+.dim-card{
+  background:var(--bg-2);border:1px solid var(--border);border-radius:14px;
+  padding:24px;transition:border-color 0.3s,transform 0.2s;
+}
+.dim-card:hover{border-color:rgba(34,211,238,0.3);transform:translateY(-2px)}
+.dim-card h3{font-family:'Space Grotesk',sans-serif;font-size:16px;margin:0 0 8px;letter-spacing:-0.01em;color:var(--text)}
+.dim-card p{color:var(--text-dim);font-size:14px;margin:0;line-height:1.55}
+
+.dim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.dim-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.dim-grid{grid-template-columns:1fr}}
+
+/* ── INTERACTIVE RADAR CHART ─────────────────── */
+.radar-section{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+@media(max-width:860px){.radar-section{grid-template-columns:1fr}}
+
+.radar-container{position:relative;width:100%;max-width:420px;margin:0 auto}
+.radar-container svg{width:100%;height:auto}
+
+.slider-panel{display:flex;flex-direction:column;gap:14px}
+.slider-item{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 18px;border-radius:12px;
+  background:var(--bg-2);border:1px solid var(--border);
+  transition:border-color 0.2s;
+}
+.slider-item:hover{border-color:rgba(34,211,238,0.25)}
+.slider-label{flex:1;font-size:13px;font-weight:500;color:var(--text);min-width:100px}
+.slider-input{
+  flex:2;-webkit-appearance:none;appearance:none;
+  height:6px;border-radius:3px;background:var(--border-strong);outline:none;
+}
+.slider-input::-webkit-slider-thumb{
+  -webkit-appearance:none;width:20px;height:20px;border-radius:50%;
+  background:var(--accent-2);cursor:pointer;border:2px solid var(--bg);
+  box-shadow:0 0 10px rgba(34,211,238,0.4);
+}
+.slider-input::-moz-range-thumb{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--accent-2);cursor:pointer;border:2px solid var(--bg);
+}
+.slider-val{
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;
+  color:var(--accent-2);min-width:32px;text-align:center;
+}
+
+.overall-score{
+  margin-top:18px;padding:20px 24px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(0,107,94,0.15),rgba(34,211,238,0.1));
+  border:1px solid rgba(0,107,94,0.3);text-align:center;
+}
+.overall-score .big{font-family:'Space Grotesk',sans-serif;font-size:48px;font-weight:700;color:#22d3ee}
+.overall-score .lbl{color:var(--text-dim);font-size:13px;text-transform:uppercase;letter-spacing:0.08em;margin-top:2px}
+.overall-score .verdict{margin-top:8px;font-size:14px;font-weight:500}
+
+/* ── MATURITY JOURNEY ────────────────────────── */
+.journey-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+@media(max-width:760px){.journey-grid{grid-template-columns:1fr;gap:12px}}
+
+.journey-step{position:relative;padding:24px 18px 24px 18px;text-align:center}
+.journey-step::before{
+  content:"";position:absolute;top:42px;left:50%;right:-50%;height:2px;
+  background:linear-gradient(90deg,var(--accent-2),rgba(34,211,238,0.2));z-index:0;
+}
+.journey-step:last-child::before{display:none}
+@media(max-width:760px){.journey-step::before{display:none}}
+
+.journey-num{
+  position:relative;z-index:1;
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;
+  margin:0 auto 14px;color:#fff;
+}
+.journey-step:nth-child(1) .journey-num{background:linear-gradient(135deg,#006B5E,#22d3ee)}
+.journey-step:nth-child(2) .journey-num{background:linear-gradient(135deg,#7c5cff,#22d3ee)}
+.journey-step:nth-child(3) .journey-num{background:linear-gradient(135deg,#7c5cff,#ff7ac0)}
+.journey-step:nth-child(4) .journey-num{background:linear-gradient(135deg,#ff7ac0,#f59e0b)}
+
+.journey-step h4{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px}
+.journey-step .stage-time{font-size:11px;color:var(--accent-2);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px}
+.journey-step .priorities{font-size:12.5px;color:var(--text-dim);line-height:1.5}
+.journey-step .priorities strong{color:var(--text);font-weight:600}
+
+/* ── CALLOUT BOXES ───────────────────────────── */
+.callout{
+  display:flex;gap:16px;padding:20px 24px;border-radius:14px;
+  background:var(--bg-2);border:1px solid var(--border);margin:16px 0;
+}
+.callout-icon{
+  width:44px;height:44px;border-radius:12px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.callout-icon.teal{background:rgba(0,107,94,0.15);border:1px solid rgba(0,107,94,0.3)}
+.callout-icon.purple{background:rgba(124,92,255,0.12);border:1px solid rgba(124,92,255,0.25)}
+.callout-icon.pink{background:rgba(255,122,192,0.1);border:1px solid rgba(255,122,192,0.2)}
+.callout-icon svg{width:22px;height:22px;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.callout-icon.teal svg{stroke:#22d3ee}
+.callout-icon.purple svg{stroke:#bfb5ff}
+.callout-icon.pink svg{stroke:#ff7ac0}
+.callout-body h4{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
+.callout-body p{color:var(--text-dim);font-size:14px;margin:0;line-height:1.55}
+
+/* ── REGULATION CARDS ────────────────────────── */
+.reg-card{
+  display:flex;gap:16px;padding:20px;border-radius:14px;
+  background:var(--bg-2);border:1px solid var(--border);
+  margin-bottom:12px;transition:border-color 0.3s;
+}
+.reg-card:hover{border-color:rgba(34,211,238,0.25)}
+.reg-badge{
+  width:48px;height:48px;border-radius:12px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px;
+  color:#fff;text-align:center;line-height:1.2;
+}
+.reg-card:nth-child(1) .reg-badge{background:linear-gradient(135deg,#006B5E,#0a8c7a)}
+.reg-card:nth-child(2) .reg-badge{background:linear-gradient(135deg,#7c5cff,#a78bfa)}
+.reg-card:nth-child(3) .reg-badge{background:linear-gradient(135deg,#22d3ee,#06b6d4)}
+.reg-card:nth-child(4) .reg-badge{background:linear-gradient(135deg,#f59e0b,#f97316)}
+.reg-card:nth-child(5) .reg-badge{background:linear-gradient(135deg,#ff7ac0,#ec4899)}
+.reg-body h4{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
+.reg-body p{color:var(--text-dim);font-size:13px;margin:0 0 6px;line-height:1.5}
+.reg-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.reg-tag{font-size:10.5px;padding:3px 8px;border-radius:5px;background:rgba(34,211,238,0.08);color:var(--accent-2);border:1px solid rgba(34,211,238,0.15);font-weight:500}
+
+/* ── CTA SECTION ─────────────────────────────── */
+.cta-section{
+  text-align:center;padding:48px 32px;border-radius:18px;
+  background:linear-gradient(135deg,rgba(0,107,94,0.12),rgba(34,211,238,0.08));
+  border:1px solid rgba(0,107,94,0.25);
+}
+.cta-section h2{font-family:'Space Grotesk',sans-serif;font-size:28px;margin-bottom:12px}
+.cta-section p{color:var(--text-dim);font-size:16px;max-width:520px;margin:0 auto 28px}
+.cta-grid{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.cta-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:16px 36px;border-radius:12px;
+  font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;
+  letter-spacing:0.03em;text-transform:uppercase;
+  background:linear-gradient(135deg,#006B5E,#22d3ee);color:#fff;
+  border:none;cursor:pointer;text-decoration:none;transition:opacity 0.25s;
+}
+.cta-primary:hover{opacity:0.88;color:#fff}
+.cta-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:16px 36px;border-radius:12px;
+  font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;
+  letter-spacing:0.03em;text-transform:uppercase;
+  background:transparent;color:var(--text);
+  border:1px solid var(--border-strong);
+  text-decoration:none;transition:border-color 0.25s,color 0.25s;
+}
+.cta-ghost:hover{border-color:var(--accent-2);color:var(--accent-2)}
+</style>
 </head>
 <body>
 <div class="container">
   <a class="back" href="../index.html">← Back to Enterprise.AI</a>
-  <div class="header">
-    <span class="eyebrow"><span class="dot"></span> Accelerator · Assessment</span>
-    <h1 class="display">NDMO Data Readiness Assessment</h1>
-    <p class="lead">A structured self-assessment for Gulf financial institutions preparing for AI at scale. Evaluate your data foundation across six critical dimensions — classification, quality, governance, NDMO/PDPL compliance, lineage, and cataloguing — and receive a prioritised remediation roadmap.</p>
+
+  <!-- ══════ HERO BANNER ══════ -->
+  <div class="hero-banner">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <span class="eyebrow"><span class="dot"></span> Accelerator · Assessment</span>
+        <h1>NDMO Data <span class="teal">Readiness</span> Assessment</h1>
+        <p class="lead">A structured self-assessment for Gulf financial institutions preparing for AI at scale. Evaluate your data foundation across six critical dimensions and receive a prioritised remediation roadmap.</p>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="val">85%</div>
+          <div class="lbl">of Saudi banks have an AI strategy</div>
+          <div class="sub">Source: Enterprise.AI analysis, 2025</div>
+        </div>
+        <div class="hero-stat">
+          <div class="val">&lt;15%</div>
+          <div class="lbl">have the data foundation to execute it</div>
+          <div class="sub">The gap is not technology — it is data</div>
+        </div>
+      </div>
+    </div>
   </div>
 
+  <!-- ══════ WHY DATA READINESS ══════ -->
   <div class="card">
     <h2>Why data readiness before AI</h2>
-    <p>85% of Saudi banks have an AI strategy. Fewer than 15% have the data foundation to execute it. The gap is not technology — it is data classification, quality, and governance. NDMO's National Data Governance Interim Regulations and SDAIA's AI Ethics Principles both require demonstrable data governance before AI models can be deployed in regulated environments.</p>
-    <div class="grid-2">
-      <div>
-        <h3>The regulatory landscape</h3>
-        <p>Saudi Arabia's data governance requirements span multiple regulators: NDMO sets national standards for data classification and sharing; SDAIA governs AI ethics and data use; SAMA enforces financial sector data controls; and the PDPL (enacted September 2023) mandates personal data protection with significant penalties for non-compliance.</p>
+    <p>NDMO's National Data Governance Interim Regulations and SDAIA's AI Ethics Principles both require demonstrable data governance before AI models can be deployed in regulated environments.</p>
+
+    <div class="callout">
+      <div class="callout-icon teal">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       </div>
-      <div>
-        <h3>The AI connection</h3>
+      <div class="callout-body">
+        <h4>The regulatory landscape</h4>
+        <p>Saudi Arabia's data governance spans multiple regulators: NDMO sets national standards for data classification and sharing; SDAIA governs AI ethics; SAMA enforces financial sector data controls; and the PDPL mandates personal data protection with significant penalties.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-icon purple">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      </div>
+      <div class="callout-body">
+        <h4>The AI connection</h4>
         <p>Every AI model inherits the quality, bias, and governance posture of its training data. Without classification, you cannot control what data enters which model. Without lineage, you cannot audit model outputs. Without quality controls, your AI delivers confident wrong answers at scale.</p>
       </div>
     </div>
   </div>
 
+  <!-- ══════ SIX DIMENSIONS ══════ -->
   <div class="card">
     <h2>The six dimensions of data readiness</h2>
-    <p>Enterprise.AI assesses data readiness across six interdependent dimensions. Each dimension maps to specific NDMO regulations, SAMA expectations, and AI deployment prerequisites.</p>
-    <div class="grid-2">
-      <div>
+    <p>Enterprise.AI assesses data readiness across six interdependent dimensions. Each maps to specific NDMO regulations, SAMA expectations, and AI deployment prerequisites.</p>
+
+    <div class="dim-grid" style="margin-top:20px">
+      <!-- 1. Classification -->
+      <div class="dim-card">
+        <div class="dim-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+        </div>
         <h3>1. Data Classification</h3>
-        <p>Structured taxonomy aligned to NDMO's four-tier classification (Public, Restricted, Confidential, Top Secret). Every dataset tagged, every access control mapped, every cross-border transfer rule enforced. Without this, AI models cannot be risk-tiered.</p>
+        <p>Taxonomy aligned to NDMO's four-tier classification. Every dataset tagged, every access control mapped, every cross-border transfer rule enforced.</p>
       </div>
-      <div>
+
+      <!-- 2. Quality -->
+      <div class="dim-card">
+        <div class="dim-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
         <h3>2. Data Quality</h3>
-        <p>Measured across six axes: completeness, accuracy, consistency, timeliness, validity, and uniqueness. Profiling at source, quality rules in pipelines, and automated monitoring dashboards. AI accuracy is bounded by input data quality.</p>
+        <p>Measured across six axes: completeness, accuracy, consistency, timeliness, validity, and uniqueness. AI accuracy is bounded by input data quality.</p>
       </div>
-      <div>
-        <h3>3. Data Governance Operating Model</h3>
-        <p>Roles, stewards, councils, and escalation paths. A Chief Data Officer mandate, domain data owners, and stewardship networks. Decision rights for data creation, modification, sharing, and deletion — formalised and enforced.</p>
+
+      <!-- 3. Governance -->
+      <div class="dim-card">
+        <div class="dim-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>3. Governance Model</h3>
+        <p>CDO mandate, domain data owners, stewardship networks. Decision rights for data creation, modification, sharing, and deletion — formalised and enforced.</p>
       </div>
-      <div>
-        <h3>4. NDMO &amp; PDPL Compliance</h3>
-        <p>Conformance with NDMO's National Data Governance Interim Regulations, Open Data Policy, and Data Sharing Regulations. PDPL readiness including consent management, data subject rights, cross-border transfer controls, and breach notification procedures.</p>
+
+      <!-- 4. NDMO/PDPL -->
+      <div class="dim-card">
+        <div class="dim-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3>4. NDMO &amp; PDPL</h3>
+        <p>Conformance with NDMO Interim Regulations, Open Data Policy, and Data Sharing. PDPL readiness including consent management and breach notification.</p>
       </div>
-      <div>
-        <h3>5. Data Lineage &amp; Traceability</h3>
-        <p>End-to-end visibility from source systems through transformation to AI model inputs and outputs. Critical for model validation, regulatory audit trails, and explainability requirements under SAMA's expectations and the EU AI Act (for cross-border institutions).</p>
+
+      <!-- 5. Lineage -->
+      <div class="dim-card">
+        <div class="dim-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>5. Lineage &amp; Traceability</h3>
+        <p>End-to-end visibility from source systems through transformation to AI model inputs and outputs. Critical for regulatory audit trails and explainability.</p>
       </div>
-      <div>
-        <h3>6. Data Catalogue &amp; Metadata</h3>
-        <p>A searchable, governed inventory of all data assets — business glossary, technical metadata, ownership, sensitivity labels, and usage policies. The foundation that makes all other dimensions discoverable and enforceable.</p>
+
+      <!-- 6. Catalogue -->
+      <div class="dim-card">
+        <div class="dim-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <h3>6. Catalogue &amp; Metadata</h3>
+        <p>A searchable inventory of all data assets — business glossary, technical metadata, ownership, sensitivity labels, and usage policies.</p>
       </div>
     </div>
   </div>
 
+  <!-- ══════ INTERACTIVE RADAR ASSESSMENT ══════ -->
   <div class="card">
-    <h2>Self-assessment scorecard</h2>
-    <p>Rate your institution across each dimension. Be candid — this assessment is most valuable when it reflects reality, not aspiration. Each dimension is scored 1–5:</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Score</th>
-          <th>Maturity Level</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>1</strong></td><td>Ad Hoc</td><td>No formal process. Individuals manage data informally. No documentation.</td></tr>
-        <tr><td><strong>2</strong></td><td>Developing</td><td>Some processes exist but are inconsistent. Limited documentation. Reactive approach.</td></tr>
-        <tr><td><strong>3</strong></td><td>Defined</td><td>Formal policies and processes documented. Roles assigned. Partial implementation.</td></tr>
-        <tr><td><strong>4</strong></td><td>Managed</td><td>Processes measured and controlled. Regular reviews. Automation in place. Proactive monitoring.</td></tr>
-        <tr><td><strong>5</strong></td><td>Optimised</td><td>Continuous improvement. Industry-leading practices. Full automation. Real-time governance.</td></tr>
-      </tbody>
-    </table>
+    <h2>Interactive self-assessment</h2>
+    <p>Rate your institution across each dimension (1–5). The radar chart updates in real time. A score of 3 or above across all dimensions is the minimum threshold for enterprise AI deployment.</p>
+
+    <div class="radar-section" style="margin-top:24px">
+      <!-- Radar chart SVG -->
+      <div class="radar-container">
+        <svg id="radarChart" viewBox="0 0 400 380" xmlns="http://www.w3.org/2000/svg">
+          <!-- Grid rings -->
+          <g id="radarGrid" opacity="0.3"></g>
+          <!-- Data polygon -->
+          <polygon id="radarPoly" fill="rgba(34,211,238,0.15)" stroke="#22d3ee" stroke-width="2"/>
+          <!-- Data points -->
+          <g id="radarDots"></g>
+          <!-- Labels -->
+          <g id="radarLabels" font-family="Space Grotesk,sans-serif" font-size="11" font-weight="600" fill="#e8ecf5"></g>
+        </svg>
+      </div>
+
+      <!-- Sliders -->
+      <div>
+        <div class="slider-panel">
+          <div class="slider-item">
+            <span class="slider-label">Classification</span>
+            <input type="range" class="slider-input" id="s0" min="1" max="5" value="2" oninput="updateRadar()">
+            <span class="slider-val" id="v0">2</span>
+          </div>
+          <div class="slider-item">
+            <span class="slider-label">Quality</span>
+            <input type="range" class="slider-input" id="s1" min="1" max="5" value="2" oninput="updateRadar()">
+            <span class="slider-val" id="v1">2</span>
+          </div>
+          <div class="slider-item">
+            <span class="slider-label">Governance</span>
+            <input type="range" class="slider-input" id="s2" min="1" max="5" value="1" oninput="updateRadar()">
+            <span class="slider-val" id="v2">1</span>
+          </div>
+          <div class="slider-item">
+            <span class="slider-label">NDMO / PDPL</span>
+            <input type="range" class="slider-input" id="s3" min="1" max="5" value="2" oninput="updateRadar()">
+            <span class="slider-val" id="v3">2</span>
+          </div>
+          <div class="slider-item">
+            <span class="slider-label">Lineage</span>
+            <input type="range" class="slider-input" id="s4" min="1" max="5" value="1" oninput="updateRadar()">
+            <span class="slider-val" id="v4">1</span>
+          </div>
+          <div class="slider-item">
+            <span class="slider-label">Catalogue</span>
+            <input type="range" class="slider-input" id="s5" min="1" max="5" value="1" oninput="updateRadar()">
+            <span class="slider-val" id="v5">1</span>
+          </div>
+        </div>
+
+        <div class="overall-score">
+          <div class="big" id="avgScore">1.5</div>
+          <div class="lbl">Overall Readiness Score</div>
+          <div class="verdict" id="verdict" style="color:#ff7ac0">Below minimum threshold — foundational work required</div>
+        </div>
+      </div>
+    </div>
   </div>
 
+  <!-- ══════ ASSESSMENT MATRIX ══════ -->
   <div class="card">
     <h2>Assessment matrix</h2>
-    <p>For each dimension, assess your current state against the key indicators below. A score of 3 or above across all dimensions is the minimum threshold for enterprise AI deployment.</p>
+    <p>For each dimension, assess your current state against the key indicators below.</p>
     <table>
       <thead>
         <tr>
@@ -144,88 +466,230 @@
     </table>
   </div>
 
+  <!-- ══════ MATURITY JOURNEY ══════ -->
   <div class="card">
     <h2>Remediation priorities by AI maturity stage</h2>
-    <p>Your remediation sequence depends on where you are in the AI journey. Institutions at different stages should prioritise different dimensions.</p>
-    <div class="grid-2">
-      <div>
-        <h3>Stage 1: Pre-AI (exploring)</h3>
-        <p><strong>Priority:</strong> Classification → Governance → Quality. Get the foundations in place before any AI investment. Appoint a CDO, classify your top 50 datasets, establish quality baselines. Time: 3–6 months.</p>
+    <p>Your remediation sequence depends on where you are in the AI journey.</p>
+
+    <div class="journey-grid" style="margin-top:24px">
+      <div class="journey-step">
+        <div class="journey-num">1</div>
+        <h4>Pre-AI</h4>
+        <div class="stage-time">3–6 months</div>
+        <div class="priorities"><strong>Classification → Governance → Quality.</strong> Appoint a CDO, classify your top 50 datasets, establish quality baselines.</div>
       </div>
-      <div>
-        <h3>Stage 2: Pilot AI (1–3 use cases)</h3>
-        <p><strong>Priority:</strong> Quality → Lineage → NDMO/PDPL. You are already building models — ensure the data feeding them is profiled, traceable, and compliant. Automate quality rules in the pipeline. Time: 2–4 months.</p>
+      <div class="journey-step">
+        <div class="journey-num">2</div>
+        <h4>Pilot AI</h4>
+        <div class="stage-time">2–4 months</div>
+        <div class="priorities"><strong>Quality → Lineage → NDMO/PDPL.</strong> Ensure data feeding models is profiled, traceable, and compliant.</div>
       </div>
-      <div>
-        <h3>Stage 3: Scaling AI (enterprise rollout)</h3>
-        <p><strong>Priority:</strong> Catalogue → Lineage → Governance maturity. At scale, data discovery and self-service become critical. Build the catalogue, mature the governance operating model, and ensure lineage covers all production models. Time: 4–8 months.</p>
+      <div class="journey-step">
+        <div class="journey-num">3</div>
+        <h4>Scaling AI</h4>
+        <div class="stage-time">4–8 months</div>
+        <div class="priorities"><strong>Catalogue → Lineage → Governance.</strong> Build the catalogue, mature governance, ensure lineage covers all models.</div>
       </div>
-      <div>
-        <h3>Stage 4: AI-native operations</h3>
-        <p><strong>Priority:</strong> Continuous improvement across all six dimensions. Real-time quality monitoring, automated classification, dynamic lineage, and governance-as-code. This is where data governance becomes a competitive advantage. Time: Ongoing.</p>
+      <div class="journey-step">
+        <div class="journey-num">4</div>
+        <h4>AI-Native</h4>
+        <div class="stage-time">Ongoing</div>
+        <div class="priorities"><strong>All six dimensions.</strong> Real-time quality monitoring, automated classification, governance-as-code.</div>
       </div>
     </div>
   </div>
 
+  <!-- ══════ REGULATORY MAPPING ══════ -->
   <div class="card">
     <h2>NDMO regulatory mapping</h2>
     <p>Key NDMO regulations and their data readiness implications for AI-deploying institutions.</p>
-    <table>
-      <thead>
-        <tr>
-          <th>NDMO Regulation</th>
-          <th>Core Requirements</th>
-          <th>AI Impact</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>National Data Governance Interim Regulations</strong></td>
-          <td>Data governance framework · CDO appointment · Data management standards · Annual compliance reporting</td>
-          <td>Mandatory foundation for any AI programme — no governance, no AI deployment</td>
-        </tr>
-        <tr>
-          <td><strong>Data Classification Policy</strong></td>
-          <td>Four-tier classification · Labelling standards · Handling procedures · Access controls per tier</td>
-          <td>Determines which data can be used for AI training, which models need additional controls</td>
-        </tr>
-        <tr>
-          <td><strong>Data Sharing Regulations</strong></td>
-          <td>Sharing agreements · Purpose limitation · Security requirements · Cross-entity sharing controls</td>
-          <td>Critical for federated AI, multi-entity models, and third-party AI platform data flows</td>
-        </tr>
-        <tr>
-          <td><strong>Open Data Policy</strong></td>
-          <td>Public dataset publication · Format standards · API requirements · Update schedules</td>
-          <td>Opportunity: enrichment data for AI models. Obligation: ensure AI outputs using open data are attributed</td>
-        </tr>
-        <tr>
-          <td><strong>Personal Data Protection Law (PDPL)</strong></td>
-          <td>Consent · Data subject rights · Cross-border transfer · Breach notification · DPO appointment</td>
-          <td>Governs all AI models using customer data — consent for profiling, right to explanation, automated decision safeguards</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
 
-  <div class="card">
-    <h2>Next steps</h2>
-    <div class="grid-2">
-      <div>
-        <h3>Self-serve</h3>
-        <p>Use this assessment to score your institution across all six dimensions. Identify your lowest-scoring areas and map them to the remediation priorities for your AI maturity stage. This gives you a board-ready view of data readiness gaps.</p>
+    <div style="margin-top:18px">
+      <div class="reg-card">
+        <div class="reg-badge">NDG</div>
+        <div class="reg-body">
+          <h4>National Data Governance Interim Regulations</h4>
+          <p>Data governance framework · CDO appointment · Data management standards · Annual compliance reporting</p>
+          <div class="reg-tags">
+            <span class="reg-tag">Mandatory foundation</span>
+            <span class="reg-tag">No governance = No AI</span>
+          </div>
+        </div>
       </div>
-      <div>
-        <h3>Guided assessment</h3>
-        <p>Enterprise.AI delivers a 4-week structured data readiness assessment that includes stakeholder interviews, automated data profiling, NDMO gap analysis, and a prioritised remediation roadmap with effort estimates and quick wins.</p>
+
+      <div class="reg-card">
+        <div class="reg-badge">DCP</div>
+        <div class="reg-body">
+          <h4>Data Classification Policy</h4>
+          <p>Four-tier classification · Labelling standards · Handling procedures · Access controls per tier</p>
+          <div class="reg-tags">
+            <span class="reg-tag">AI training data controls</span>
+            <span class="reg-tag">Model risk tiering</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reg-card">
+        <div class="reg-badge">DSR</div>
+        <div class="reg-body">
+          <h4>Data Sharing Regulations</h4>
+          <p>Sharing agreements · Purpose limitation · Security requirements · Cross-entity sharing controls</p>
+          <div class="reg-tags">
+            <span class="reg-tag">Federated AI</span>
+            <span class="reg-tag">Third-party platforms</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reg-card">
+        <div class="reg-badge">ODP</div>
+        <div class="reg-body">
+          <h4>Open Data Policy</h4>
+          <p>Public dataset publication · Format standards · API requirements · Update schedules</p>
+          <div class="reg-tags">
+            <span class="reg-tag">AI enrichment data</span>
+            <span class="reg-tag">Attribution required</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reg-card">
+        <div class="reg-badge">PDPL</div>
+        <div class="reg-body">
+          <h4>Personal Data Protection Law</h4>
+          <p>Consent · Data subject rights · Cross-border transfer · Breach notification · DPO appointment</p>
+          <div class="reg-tags">
+            <span class="reg-tag">Profiling consent</span>
+            <span class="reg-tag">Right to explanation</span>
+            <span class="reg-tag">Automated decisions</span>
+          </div>
+        </div>
       </div>
     </div>
-    <div style="text-align:center; margin-top:32px;">
-      <a href="../index.html#contact" class="cta-btn" style="display:inline-block;background:#006B5E;color:#fff;padding:14px 36px;border-radius:6px;font-weight:600;font-size:14px;text-decoration:none;">Request a Data Readiness Briefing</a>
+  </div>
+
+  <!-- ══════ CTA ══════ -->
+  <div class="cta-section">
+    <h2>Ready to assess your data foundation?</h2>
+    <p>Enterprise.AI delivers a 4-week structured data readiness assessment with stakeholder interviews, automated profiling, NDMO gap analysis, and a prioritised remediation roadmap.</p>
+    <div class="cta-grid">
+      <a href="../index.html#contact" class="cta-primary">Request a Briefing →</a>
+      <a href="../index.html" class="cta-ghost">Explore Enterprise.AI</a>
     </div>
   </div>
 
+  <p class="footer-note">Enterprise.AI · SCALE · GOVERN · UNLOCK · <a href="mailto:advisor@rodney-ai.com">advisor@rodney-ai.com</a></p>
 </div>
+
+<!-- ══════ RADAR CHART ENGINE ══════ -->
+<script>
+(function(){
+  var dims = ['Classification','Quality','Governance','NDMO / PDPL','Lineage','Catalogue'];
+  var n = dims.length;
+  var cx = 200, cy = 180, maxR = 140;
+
+  // Build grid
+  var gridEl = document.getElementById('radarGrid');
+  var labelsEl = document.getElementById('radarLabels');
+
+  for(var ring = 1; ring <= 5; ring++){
+    var r = (ring/5)*maxR;
+    var pts = [];
+    for(var i = 0; i < n; i++){
+      var angle = (Math.PI*2/n)*i - Math.PI/2;
+      pts.push((cx + r*Math.cos(angle)).toFixed(1)+','+(cy + r*Math.sin(angle)).toFixed(1));
+    }
+    var poly = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+    poly.setAttribute('points',pts.join(' '));
+    poly.setAttribute('fill','none');
+    poly.setAttribute('stroke','#e8ecf5');
+    poly.setAttribute('stroke-width','0.5');
+    gridEl.appendChild(poly);
+  }
+
+  // Axis lines and labels
+  for(var i = 0; i < n; i++){
+    var angle = (Math.PI*2/n)*i - Math.PI/2;
+    var x2 = cx + maxR*Math.cos(angle);
+    var y2 = cy + maxR*Math.sin(angle);
+
+    var line = document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1',cx);line.setAttribute('y1',cy);
+    line.setAttribute('x2',x2);line.setAttribute('y2',y2);
+    line.setAttribute('stroke','#e8ecf5');line.setAttribute('stroke-width','0.3');
+    gridEl.appendChild(line);
+
+    // Label
+    var lx = cx + (maxR+22)*Math.cos(angle);
+    var ly = cy + (maxR+22)*Math.sin(angle);
+    var txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+    txt.setAttribute('x',lx);txt.setAttribute('y',ly+4);
+    txt.setAttribute('text-anchor','middle');
+    txt.textContent = dims[i];
+    labelsEl.appendChild(txt);
+  }
+
+  // Scale labels (1-5 on first axis)
+  for(var ring = 1; ring <= 5; ring++){
+    var r = (ring/5)*maxR;
+    var st = document.createElementNS('http://www.w3.org/2000/svg','text');
+    st.setAttribute('x',cx+6);st.setAttribute('y',cy - r + 4);
+    st.setAttribute('font-size','9');st.setAttribute('fill','#6b7388');
+    st.setAttribute('font-family','Inter,sans-serif');
+    st.textContent = ring;
+    labelsEl.appendChild(st);
+  }
+
+  window.updateRadar = function(){
+    var vals = [];
+    for(var i = 0; i < n; i++){
+      var v = parseInt(document.getElementById('s'+i).value);
+      vals.push(v);
+      document.getElementById('v'+i).textContent = v;
+    }
+
+    var pts = [];
+    var dotsEl = document.getElementById('radarDots');
+    dotsEl.innerHTML = '';
+
+    for(var i = 0; i < n; i++){
+      var angle = (Math.PI*2/n)*i - Math.PI/2;
+      var r = (vals[i]/5)*maxR;
+      var x = cx + r*Math.cos(angle);
+      var y = cy + r*Math.sin(angle);
+      pts.push(x.toFixed(1)+','+y.toFixed(1));
+
+      var dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      dot.setAttribute('cx',x.toFixed(1));dot.setAttribute('cy',y.toFixed(1));
+      dot.setAttribute('r','5');dot.setAttribute('fill','#22d3ee');
+      dot.setAttribute('stroke','#0a0e1a');dot.setAttribute('stroke-width','2');
+      dotsEl.appendChild(dot);
+    }
+
+    document.getElementById('radarPoly').setAttribute('points',pts.join(' '));
+
+    var avg = vals.reduce(function(a,b){return a+b},0)/n;
+    document.getElementById('avgScore').textContent = avg.toFixed(1);
+
+    var verdict = document.getElementById('verdict');
+    if(avg >= 4){
+      verdict.textContent = 'AI-ready — focus on optimisation and scaling';
+      verdict.style.color = '#22d3ee';
+    } else if(avg >= 3){
+      verdict.textContent = 'Meeting minimum threshold — continue building maturity';
+      verdict.style.color = '#f59e0b';
+    } else if(avg >= 2){
+      verdict.textContent = 'Below threshold — targeted remediation required';
+      verdict.style.color = '#ff7ac0';
+    } else {
+      verdict.textContent = 'Below minimum threshold — foundational work required';
+      verdict.style.color = '#ff7ac0';
+    }
+  };
+
+  updateRadar();
+})();
+</script>
 <script src="_gate.js"></script>
 </body>
 </html>

@@ -616,9 +616,25 @@ img { max-width: 100%; display: block; }
 }
 .training-format {
   flex: 1; min-width: 140px;
-  padding: 16px; background: rgba(255,255,255,0.04);
+  padding: 20px 16px; background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: var(--radius);
+  transition: all 0.3s var(--ease);
+}
+.training-format:hover {
+  border-color: rgba(201,162,39,0.3);
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-2px);
+}
+.training-format-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(201,162,39,0.1); border: 1px solid rgba(201,162,39,0.2);
+  margin-bottom: 12px;
+}
+.training-format-icon svg {
+  width: 18px; height: 18px; fill: none; stroke: var(--gold);
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
 }
 .training-format-label {
   font-size: 13px; font-weight: 700; color: var(--gold);
@@ -640,12 +656,15 @@ img { max-width: 100%; display: block; }
 .training-topic {
   font-size: 13px; color: rgba(255,255,255,0.7);
   padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
-  position: relative; padding-left: 20px;
+  display: flex; align-items: center; gap: 10px;
 }
 .training-topic:last-child { border-bottom: none; }
 .training-topic::before {
-  content: "▸"; position: absolute; left: 0; color: var(--gold);
-  font-size: 10px;
+  content: ""; display: inline-block; width: 16px; height: 16px; min-width: 16px;
+  border-radius: 50%; background: rgba(201,162,39,0.12);
+  border: 1px solid rgba(201,162,39,0.25);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C9A227' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-size: 10px; background-position: center; background-repeat: no-repeat;
 }
 
 /* ========== ONTOLOGY SECTION ========== */
@@ -1005,9 +1024,12 @@ img { max-width: 100%; display: block; }
   background: #fff; padding: 40px 32px;
 }
 .service-icon {
-  width: 44px; height: 44px; border-radius: 10px;
+  width: 48px; height: 48px; border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  margin-bottom: 16px; font-size: 20px;
+  margin-bottom: 16px;
+}
+.service-icon svg {
+  width: 24px; height: 24px;
 }
 .service-icon.si-strategy { background: rgba(27,79,114,0.06); color: var(--accent); border: 1px solid rgba(27,79,114,0.12); }
 .service-icon.si-govern { background: rgba(0,107,94,0.06); color: var(--gold); border: 1px solid var(--gold-border); }
@@ -1330,6 +1352,29 @@ img { max-width: 100%; display: block; }
   display: block; padding: 24px 22px; background: #fff;
   border: 1px solid var(--border-light); border-radius: var(--radius-lg);
   transition: all 0.25s var(--ease);
+  position: relative;
+}
+.acc-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px;
+}
+.acc-icon svg { width: 20px; height: 20px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.acc-icon.ai-data { background: rgba(0,107,94,0.08); border: 1px solid rgba(0,107,94,0.18); }
+.acc-icon.ai-data svg { stroke: var(--gold); }
+.acc-icon.ai-govern { background: rgba(27,79,114,0.06); border: 1px solid rgba(27,79,114,0.14); }
+.acc-icon.ai-govern svg { stroke: var(--accent); }
+.acc-icon.ai-strategy { background: rgba(40,116,166,0.06); border: 1px solid rgba(40,116,166,0.12); }
+.acc-icon.ai-strategy svg { stroke: var(--blue); }
+.acc-icon.ai-risk { background: rgba(180,83,9,0.06); border: 1px solid rgba(180,83,9,0.14); }
+.acc-icon.ai-risk svg { stroke: #B45309; }
+.acc-icon.ai-training { background: rgba(124,58,237,0.06); border: 1px solid rgba(124,58,237,0.14); }
+.acc-icon.ai-training svg { stroke: #7C3AED; }
+.acc-icon.ai-capital { background: rgba(5,150,105,0.06); border: 1px solid rgba(5,150,105,0.14); }
+.acc-icon.ai-capital svg { stroke: #059669; }
+.acc-cat {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 6px;
 }
 .acc-card:hover {
   border-color: var(--gold-border);
@@ -1453,8 +1498,24 @@ img { max-width: 100%; display: block; }
   margin-bottom: 24px;
 }
 .about-highlight {
-  padding: 16px 18px; background: #fff;
+  padding: 18px 18px; background: #fff;
   border: 1px solid var(--border-light); border-radius: var(--radius);
+  display: flex; gap: 14px; align-items: flex-start;
+  transition: all 0.3s var(--ease);
+}
+.about-highlight:hover {
+  border-color: var(--gold-border);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  transform: translateY(-2px);
+}
+.about-highlight-icon {
+  width: 36px; height: 36px; min-width: 36px;
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  background: rgba(0,107,94,0.06); border: 1px solid rgba(0,107,94,0.12);
+}
+.about-highlight-icon svg {
+  width: 18px; height: 18px; fill: none; stroke: var(--gold);
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
 }
 .about-highlight h4 {
   font-size: 12px; color: var(--gold); font-weight: 700;
@@ -1463,6 +1524,16 @@ img { max-width: 100%; display: block; }
 }
 .about-highlight p {
   font-size: 13px; color: var(--text-secondary); line-height: 1.45;
+}
+.about-cred-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(201,162,39,0.1); border: 1px solid rgba(201,162,39,0.2);
+  margin-bottom: 10px;
+}
+.about-cred-icon svg {
+  width: 16px; height: 16px; fill: none; stroke: var(--gold);
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
 }
 
 /* ========== CREDENTIALS ========== */
@@ -2324,7 +2395,7 @@ footer {
     <div class="services-grid">
 
       <div class="service-card">
-        <div class="service-icon si-data">◈</div>
+        <div class="service-icon si-data"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
         <div class="service-num">The foundation · <span class="arabic-hint">البيانات</span></div>
         <h3 class="service-title">Data</h3>
         <div class="service-highlight">AI without data governance is risk without reward</div>
@@ -2340,7 +2411,7 @@ footer {
       </div>
 
       <div class="service-card">
-        <div class="service-icon si-strategy">▸</div>
+        <div class="service-icon si-strategy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/></svg></div>
         <div class="service-num">Where to start · <span class="arabic-hint">الاستراتيجية</span></div>
         <h3 class="service-title">Strategy</h3>
         <p class="service-desc">AI roadmaps anchored in P&L, ROE, and market cap — not lab metrics. We've sized the opportunity for Saudi banks at SAR 40.8B/year. We do the same for your institution.</p>
@@ -2356,7 +2427,7 @@ footer {
       </div>
 
       <div class="service-card">
-        <div class="service-icon si-govern">◆</div>
+        <div class="service-icon si-govern"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
         <div class="service-num">How to govern · <span class="arabic-hint">الحوكمة</span></div>
         <h3 class="service-title">Governance</h3>
         <p class="service-desc">Risk frameworks and regulatory readiness that stand up to SAMA, SDAIA, NDMO, QCB, CBUAE, and DFSA scrutiny. Built by practitioners who've been in the room with each regulator.</p>
@@ -2369,7 +2440,7 @@ footer {
       </div>
 
       <div class="service-card">
-        <div class="service-icon si-oversight">●</div>
+        <div class="service-icon si-oversight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
         <div class="service-num">Who to trust · <span class="arabic-hint">التنفيذ</span></div>
         <h3 class="service-title">Execution</h3>
         <div class="service-highlight">8–12 week delivery cycle · Value-driven outcomes</div>
@@ -2446,14 +2517,17 @@ footer {
         <p class="training-desc">Most directors can't distinguish an LLM from a knowledge graph. That gap doesn't just slow decisions — it creates risk. Our executive AI training programmes are built for senior leaders who need to govern AI, not build it.</p>
         <div class="training-formats">
           <div class="training-format">
+            <div class="training-format-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
             <div class="training-format-label">Half-Day</div>
             <div class="training-format-desc">Board immersion — AI landscape, risk, and governance responsibilities</div>
           </div>
           <div class="training-format">
+            <div class="training-format-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
             <div class="training-format-label">2-Day</div>
             <div class="training-format-desc">ExCo intensive — strategy, vendor landscape, use-case prioritisation, regulatory readiness</div>
           </div>
           <div class="training-format">
+            <div class="training-format-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
             <div class="training-format-label">Multi-Week</div>
             <div class="training-format-desc">Platform team upskilling — ontology design, agent orchestration, MLOps, production governance</div>
           </div>
@@ -2787,84 +2861,112 @@ footer {
     <div class="acc-grid">
 
       <a href="accelerators/ndmo-data-readiness.html" class="acc-card">
+        <div class="acc-icon ai-data"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+        <div class="acc-cat">Data Foundation</div>
         <h3>NDMO Data Readiness</h3>
         <p>Assess data classification, quality, lineage, and NDMO/PDPL compliance — the foundation for enterprise AI.</p>
         <span class="acc-link">Open tool →</span>
       </a>
 
       <a href="accelerators/fs-ai-maturity-assessment.html" class="acc-card">
+        <div class="acc-icon ai-strategy"><svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div>
+        <div class="acc-cat">Assessment</div>
         <h3>FS AI Maturity Assessment</h3>
         <p>6-dimension diagnostic with live scoring and heat-map output.</p>
         <span class="acc-link">Open tool →</span>
       </a>
 
       <a href="accelerators/ai-governance-framework.html" class="acc-card">
+        <div class="acc-icon ai-govern"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="acc-cat">Governance</div>
         <h3>AI Governance Framework</h3>
         <p>Pillars, RACI, risk tiering — aligned to SR 11-7, SS1/23, NIST AI RMF.</p>
         <span class="acc-link">Open tool →</span>
       </a>
 
       <a href="accelerators/ai-risk-taxonomy.html" class="acc-card">
+        <div class="acc-icon ai-risk"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <div class="acc-cat">Risk</div>
         <h3>AI Risk Taxonomy</h3>
         <p>30+ risks across six dimensions with FS-grade mitigations.</p>
         <span class="acc-link">Open tool →</span>
       </a>
 
       <a href="accelerators/genai-prioritization-matrix.html" class="acc-card">
+        <div class="acc-icon ai-strategy"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <div class="acc-cat">Strategy</div>
         <h3>GenAI Prioritization Matrix</h3>
         <p>Value vs feasibility vs risk — 8 worked FS examples.</p>
         <span class="acc-link">Open tool →</span>
       </a>
 
       <a href="accelerators/mrm-checklist.html" class="acc-card">
+        <div class="acc-icon ai-govern"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <div class="acc-cat">Governance</div>
         <h3>MRM Checklist · SR 11-7</h3>
         <p>Board-ready model risk management with live coverage tracker.</p>
         <span class="acc-link">Open tool →</span>
       </a>
 
       <a href="accelerators/eu-ai-act-tracker.html" class="acc-card">
+        <div class="acc-icon ai-govern"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <div class="acc-cat">Compliance</div>
         <h3>EU AI Act Tracker</h3>
         <p>Compliance timeline and 10-step readiness checklist for banks.</p>
         <span class="acc-link">Open tool →</span>
       </a>
 
       <a href="accelerators/ai-tokenomics.html" class="acc-card">
+        <div class="acc-icon ai-capital"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="acc-cat">Economics</div>
         <h3>AI Tokenomics</h3>
         <p>LLM cost-vs-value, private vs public AI factory economics.</p>
         <span class="acc-link">Open tool →</span>
       </a>
 
       <a href="accelerators/exchange-ai-use-cases.html" class="acc-card">
+        <div class="acc-icon ai-strategy"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="acc-cat">Capital Markets</div>
         <h3>Exchange AI · 42 Use Cases</h3>
         <p>Surveillance, trading, post-trade, data products across 8 domains.</p>
         <span class="acc-link">Open tool →</span>
       </a>
 
       <a href="accelerators/agentic-ai-ceo-cfo.html" class="acc-card">
+        <div class="acc-icon ai-strategy"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div class="acc-cat">C-Suite</div>
         <h3>Agentic AI for CEOs &amp; CFOs</h3>
         <p>Where agents create value, how they differ from copilots.</p>
         <span class="acc-link">Open tool →</span>
       </a>
 
       <a href="accelerators/executive-ai-training.html" class="acc-card">
+        <div class="acc-icon ai-training"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+        <div class="acc-cat">Training</div>
         <h3>Executive AI Training</h3>
         <p>Board and ExCo programmes — half-day to multi-week immersives.</p>
         <span class="acc-link">Open tool →</span>
       </a>
 
       <a href="accelerators/capital-efficiency-rwa.html" class="acc-card">
+        <div class="acc-icon ai-capital"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+        <div class="acc-cat">Capital</div>
         <h3>Capital Efficiency / RWA</h3>
         <p>Model capital released through IRB migration and portfolio optimisation.</p>
         <span class="acc-link">Open tool →</span>
       </a>
 
       <a href="accelerators/architecture-blueprint.html" class="acc-card">
+        <div class="acc-icon ai-data"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+        <div class="acc-cat">Technology</div>
         <h3>Architecture Blueprint</h3>
         <p>Target-state AI platform design — data layer, model serving, agent orchestration, governance controls.</p>
         <span class="acc-link">Open tool →</span>
       </a>
 
       <a href="accelerators/ai-operating-model.html" class="acc-card">
+        <div class="acc-icon ai-strategy"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+        <div class="acc-cat">Operations</div>
         <h3>AI Operating Model</h3>
         <p>Roles, processes, and org design for AI at scale — from CoE structure to platform team operating rhythm.</p>
         <span class="acc-link">Open tool →</span>
@@ -2932,18 +3034,22 @@ footer {
         </div>
         <div class="about-cred-tag">Track Record</div>
         <div class="about-cred-stat">
+          <div class="about-cred-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
           <div class="about-cred-num">25+</div>
           <div class="about-cred-label">Years in financial services AI &amp; data</div>
         </div>
         <div class="about-cred-stat">
+          <div class="about-cred-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg></div>
           <div class="about-cred-num">4</div>
           <div class="about-cred-label">Gulf markets — Saudi, Qatar, UAE, Bahrain</div>
         </div>
         <div class="about-cred-stat">
+          <div class="about-cred-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
           <div class="about-cred-num">200+</div>
           <div class="about-cred-label">Engineer platforms built and governed</div>
         </div>
         <div class="about-cred-stat">
+          <div class="about-cred-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
           <div class="about-cred-num">Big 4</div>
           <div class="about-cred-label">Partner-level advisory — Deloitte, EY, global exchanges</div>
         </div>
@@ -2956,20 +3062,24 @@ footer {
         <p class="about-bio">Enterprise.AI is a boutique advisory firm for Gulf FS institutions that want senior practitioners embedded in the work — not a pyramid of juniors writing slides. We bring a network of experienced consultants and subject matter experts across banking, capital markets, and insurance.</p>
         <div class="about-highlights">
           <div class="about-highlight">
-            <h4>Saudi Arabia</h4>
-            <p>SAMA, SDAIA, NDMO, Vision 2030, HUMAIN, PIF — we know the ecosystem</p>
+            <div class="about-highlight-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+            <div><h4>Saudi Arabia</h4>
+            <p>SAMA, SDAIA, NDMO, Vision 2030, HUMAIN, PIF — we know the ecosystem</p></div>
           </div>
           <div class="about-highlight">
-            <h4>Qatar</h4>
-            <p>QCB, QFC, QNV 2030 — regulatory engagement and FS advisory</p>
+            <div class="about-highlight-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><h4>Qatar</h4>
+            <p>QCB, QFC, QNV 2030 — regulatory engagement and FS advisory</p></div>
           </div>
           <div class="about-highlight">
-            <h4>UAE</h4>
-            <p>CBUAE, DFSA, DIFC, ADGM — cross-emirate coverage</p>
+            <div class="about-highlight-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+            <div><h4>UAE</h4>
+            <p>CBUAE, DFSA, DIFC, ADGM — cross-emirate coverage</p></div>
           </div>
           <div class="about-highlight">
-            <h4>UK &amp; Europe</h4>
-            <p>FCA, PRA, EU AI Act — supporting market and regulatory bridge</p>
+            <div class="about-highlight-icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+            <div><h4>UK &amp; Europe</h4>
+            <p>FCA, PRA, EU AI Act — supporting market and regulatory bridge</p></div>
           </div>
         </div>
         <a href="https://www.linkedin.com/in/rodneycoutinho" target="_blank" rel="noopener" class="btn btn-ghost">Connect on LinkedIn</a>
@@ -2984,18 +3094,22 @@ footer {
         </div>
         <div class="about-cred-tag">Track Record</div>
         <div class="about-cred-stat">
+          <div class="about-cred-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
           <div class="about-cred-num">20+</div>
           <div class="about-cred-label">Years in data strategy &amp; transformation</div>
         </div>
         <div class="about-cred-stat">
+          <div class="about-cred-icon"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
           <div class="about-cred-num">HSBC</div>
           <div class="about-cred-label">Senior data leadership — global banking</div>
         </div>
         <div class="about-cred-stat">
+          <div class="about-cred-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
           <div class="about-cred-num">Fidelity</div>
           <div class="about-cred-label">Data &amp; AI strategy — wealth management</div>
         </div>
         <div class="about-cred-stat">
+          <div class="about-cred-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
           <div class="about-cred-num">Global</div>
           <div class="about-cred-label">Cross-border data governance &amp; compliance</div>
         </div>
@@ -3008,20 +3122,24 @@ footer {
         <p class="about-bio">Stephen brings deep expertise in data operating models, enterprise data governance, and regulatory compliance — enabling institutions to move from fragmented data estates to enterprise-grade, AI-ready platforms.</p>
         <div class="about-highlights">
           <div class="about-highlight">
-            <h4>Data Strategy</h4>
-            <p>Enterprise data strategy, roadmap design, and value realisation frameworks</p>
+            <div class="about-highlight-icon"><svg viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></div>
+            <div><h4>Data Strategy</h4>
+            <p>Enterprise data strategy, roadmap design, and value realisation frameworks</p></div>
           </div>
           <div class="about-highlight">
-            <h4>Governance</h4>
-            <p>Data governance operating models, stewardship networks, and decision rights</p>
+            <div class="about-highlight-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div><h4>Governance</h4>
+            <p>Data governance operating models, stewardship networks, and decision rights</p></div>
           </div>
           <div class="about-highlight">
-            <h4>Transformation</h4>
-            <p>Large-scale data platform migrations and organisational change management</p>
+            <div class="about-highlight-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+            <div><h4>Transformation</h4>
+            <p>Large-scale data platform migrations and organisational change management</p></div>
           </div>
           <div class="about-highlight">
-            <h4>Compliance</h4>
-            <p>Cross-border data regulation, privacy frameworks, and audit readiness</p>
+            <div class="about-highlight-icon"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></div>
+            <div><h4>Compliance</h4>
+            <p>Cross-border data regulation, privacy frameworks, and audit readiness</p></div>
           </div>
         </div>
         <a href="https://www.linkedin.com/in/stephen-y-880741a/" target="_blank" rel="noopener" class="btn btn-ghost">Connect on LinkedIn</a>
