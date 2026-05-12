@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Enterprise.AI Accelerator PDF Generator
-Creates professional, client-ready companion PDFs for all 10 accelerators
+Creates professional, client-ready companion PDFs for all 12 accelerators
 """
 
 import os
@@ -20,7 +20,7 @@ from reportlab.lib.utils import ImageReader
 
 # Brand Colors
 NAVY = colors.HexColor("#0D1B2A")
-GOLD = colors.HexColor("#C9A227")
+TEAL = colors.HexColor("#006B5E")
 LIGHT_GRAY = colors.HexColor("#F5F5F5")
 DARK_GRAY = colors.HexColor("#333333")
 
@@ -69,7 +69,7 @@ class PDFGenerator:
                 name='BrandTagline',
                 parent=self.styles['Normal'],
                 fontSize=14,
-                textColor=GOLD,
+                textColor=TEAL,
                 spaceAfter=12,
                 alignment=TA_LEFT,
                 fontName='Helvetica-Bold'
@@ -1872,11 +1872,366 @@ def create_mrm_checklist():
     pdf.build()
 
 
+def create_ndmo_data_readiness():
+    """11. NDMO Data Readiness Assessment"""
+    pdf = PDFGenerator(
+        "ndmo-data-readiness.pdf",
+        "NDMO Data Readiness Assessment",
+        "A structured self-assessment for Gulf financial institutions preparing for AI at scale. "
+        "Evaluate your data foundation across six critical dimensions and receive a prioritised remediation roadmap."
+    )
+
+    pdf.add_cover_page()
+
+    toc = [
+        "Why Data Readiness Before AI",
+        "The Six Dimensions of Data Readiness",
+        "Self-Assessment Scorecard",
+        "Assessment Matrix",
+        "Remediation Priorities by AI Maturity Stage",
+        "NDMO Regulatory Mapping",
+        "Next Steps"
+    ]
+    pdf.add_toc(toc)
+
+    pdf.add_section("1. Why Data Readiness Before AI")
+    pdf.add_text(
+        "85% of Saudi banks have an AI strategy. Fewer than 15% have the data foundation to execute it. "
+        "The gap is not technology -- it is data classification, quality, and governance. NDMO's National Data "
+        "Governance Interim Regulations and SDAIA's AI Ethics Principles both require demonstrable data governance "
+        "before AI models can be deployed in regulated environments."
+    )
+
+    pdf.add_subsection("The Regulatory Landscape")
+    pdf.add_text(
+        "Saudi Arabia's data governance requirements span multiple regulators: NDMO sets national standards for "
+        "data classification and sharing; SDAIA governs AI ethics and data use; SAMA enforces financial sector "
+        "data controls; and the PDPL (enacted September 2023) mandates personal data protection with significant "
+        "penalties for non-compliance."
+    )
+
+    pdf.add_subsection("The AI Connection")
+    pdf.add_text(
+        "Every AI model inherits the quality, bias, and governance posture of its training data. Without classification, "
+        "you cannot control what data enters which model. Without lineage, you cannot audit model outputs. Without "
+        "quality controls, your AI delivers confident wrong answers at scale."
+    )
+
+    pdf.add_section("2. The Six Dimensions of Data Readiness")
+
+    dimensions = [
+        ("1. Data Classification",
+         "Structured taxonomy aligned to NDMO's four-tier classification (Public, Restricted, Confidential, Top Secret). "
+         "Every dataset tagged, every access control mapped, every cross-border transfer rule enforced. Without this, "
+         "AI models cannot be risk-tiered."),
+        ("2. Data Quality",
+         "Measured across six axes: completeness, accuracy, consistency, timeliness, validity, and uniqueness. "
+         "Profiling at source, quality rules in pipelines, and automated monitoring dashboards. AI accuracy is "
+         "bounded by input data quality."),
+        ("3. Data Governance Operating Model",
+         "Roles, stewards, councils, and escalation paths. A Chief Data Officer mandate, domain data owners, and "
+         "stewardship networks. Decision rights for data creation, modification, sharing, and deletion -- formalised and enforced."),
+        ("4. NDMO & PDPL Compliance",
+         "Conformance with NDMO's National Data Governance Interim Regulations, Open Data Policy, and Data Sharing "
+         "Regulations. PDPL readiness including consent management, data subject rights, cross-border transfer controls, "
+         "and breach notification procedures."),
+        ("5. Data Lineage & Traceability",
+         "End-to-end visibility from source systems through transformation to AI model inputs and outputs. Critical for "
+         "model validation, regulatory audit trails, and explainability requirements under SAMA's expectations and the "
+         "EU AI Act (for cross-border institutions)."),
+        ("6. Data Catalogue & Metadata",
+         "A searchable, governed inventory of all data assets -- business glossary, technical metadata, ownership, "
+         "sensitivity labels, and usage policies. The foundation that makes all other dimensions discoverable and enforceable.")
+    ]
+
+    for title, desc in dimensions:
+        pdf.add_subsection(title)
+        pdf.add_text(desc)
+
+    pdf.add_section("3. Self-Assessment Scorecard")
+    pdf.add_text("Rate your institution across each dimension. Be candid -- this assessment is most valuable when it reflects reality, not aspiration.")
+
+    score_headers = ["Score", "Maturity Level", "Description"]
+    score_rows = [
+        ["1", "Ad Hoc", "No formal process. Individuals manage data informally. No documentation."],
+        ["2", "Developing", "Some processes exist but are inconsistent. Limited documentation. Reactive approach."],
+        ["3", "Defined", "Formal policies and processes documented. Roles assigned. Partial implementation."],
+        ["4", "Managed", "Processes measured and controlled. Regular reviews. Automation in place. Proactive monitoring."],
+        ["5", "Optimised", "Continuous improvement. Industry-leading practices. Full automation. Real-time governance."],
+    ]
+    pdf.add_template_table(score_headers, score_rows, [0.6*inch, 1.2*inch, 3.5*inch])
+
+    pdf.add_section("4. Assessment Matrix")
+    pdf.add_text("For each dimension, assess your current state against the key indicators below. A score of 3 or above across all dimensions is the minimum threshold for enterprise AI deployment.")
+
+    matrix_headers = ["Dimension", "Key Indicators", "NDMO/Regulatory Link", "AI Prerequisite"]
+    matrix_rows = [
+        ["Classification", "Taxonomy defined; All datasets tagged; Access controls enforced; Cross-border rules applied",
+         "NDMO Data Classification Policy; PDPL Art. 29", "Model risk tiering; Data access for training"],
+        ["Quality", "Profiling complete; Quality rules automated; Monitoring dashboards live; Remediation SLAs defined",
+         "SAMA Operational Risk; NDMO Data Quality Standards", "Model accuracy; Bias detection; Output reliability"],
+        ["Governance", "CDO appointed; Stewards active; Councils meeting; Policies enforced; Escalation paths clear",
+         "NDMO National Data Governance Regulations", "AI governance integration; Decision rights for AI data use"],
+        ["NDMO/PDPL", "Consent management; Data subject rights; Breach procedures; Transfer controls; DPO appointed",
+         "PDPL; NDMO Open Data; Data Sharing Regulations", "Lawful AI training data; Customer data in models"],
+        ["Lineage", "Source-to-report tracing; Transformation documented; Impact analysis capability; Audit trail complete",
+         "SAMA Model Risk; NDMO Data Lifecycle", "Model explainability; Regulatory audit; Bias tracing"],
+        ["Catalogue", "Business glossary; Technical metadata; Ownership mapped; Sensitivity labels; Search enabled",
+         "NDMO Metadata Standards; Data Inventory", "Feature store readiness; Data discovery for AI teams"],
+    ]
+    pdf.add_template_table(matrix_headers, matrix_rows, [1*inch, 1.5*inch, 1.3*inch, 1.5*inch])
+
+    pdf.add_section("5. Remediation Priorities by AI Maturity Stage")
+
+    pdf.add_subsection("Stage 1: Pre-AI (Exploring)")
+    pdf.add_text(
+        "<b>Priority:</b> Classification, Governance, Quality. Get the foundations in place before any AI investment. "
+        "Appoint a CDO, classify your top 50 datasets, establish quality baselines. Time: 3-6 months."
+    )
+
+    pdf.add_subsection("Stage 2: Pilot AI (1-3 Use Cases)")
+    pdf.add_text(
+        "<b>Priority:</b> Quality, Lineage, NDMO/PDPL. You are already building models -- ensure the data feeding them "
+        "is profiled, traceable, and compliant. Automate quality rules in the pipeline. Time: 2-4 months."
+    )
+
+    pdf.add_subsection("Stage 3: Scaling AI (Enterprise Rollout)")
+    pdf.add_text(
+        "<b>Priority:</b> Catalogue, Lineage, Governance maturity. At scale, data discovery and self-service become "
+        "critical. Build the catalogue, mature the governance operating model, and ensure lineage covers all production models. Time: 4-8 months."
+    )
+
+    pdf.add_subsection("Stage 4: AI-Native Operations")
+    pdf.add_text(
+        "<b>Priority:</b> Continuous improvement across all six dimensions. Real-time quality monitoring, automated "
+        "classification, dynamic lineage, and governance-as-code. This is where data governance becomes a competitive advantage."
+    )
+
+    pdf.add_section("6. NDMO Regulatory Mapping")
+    pdf.add_text("Key NDMO regulations and their data readiness implications for AI-deploying institutions.")
+
+    reg_headers = ["NDMO Regulation", "Core Requirements", "AI Impact"]
+    reg_rows = [
+        ["National Data Governance Interim Regulations",
+         "Data governance framework; CDO appointment; Data management standards; Annual compliance reporting",
+         "Mandatory foundation for any AI programme -- no governance, no AI deployment"],
+        ["Data Classification Policy",
+         "Four-tier classification; Labelling standards; Handling procedures; Access controls per tier",
+         "Determines which data can be used for AI training, which models need additional controls"],
+        ["Data Sharing Regulations",
+         "Sharing agreements; Purpose limitation; Security requirements; Cross-entity sharing controls",
+         "Critical for federated AI, multi-entity models, and third-party AI platform data flows"],
+        ["Open Data Policy",
+         "Public dataset publication; Format standards; API requirements; Update schedules",
+         "Opportunity: enrichment data for AI models. Obligation: ensure AI outputs using open data are attributed"],
+        ["Personal Data Protection Law (PDPL)",
+         "Consent; Data subject rights; Cross-border transfer; Breach notification; DPO appointment",
+         "Governs all AI models using customer data -- consent for profiling, right to explanation, automated decision safeguards"],
+    ]
+    pdf.add_template_table(reg_headers, reg_rows, [1.5*inch, 1.8*inch, 2*inch])
+
+    pdf.add_section("7. Next Steps")
+
+    pdf.add_subsection("Self-Serve")
+    pdf.add_text(
+        "Use this assessment to score your institution across all six dimensions. Identify your lowest-scoring areas "
+        "and map them to the remediation priorities for your AI maturity stage. This gives you a board-ready view of "
+        "data readiness gaps."
+    )
+
+    pdf.add_subsection("Guided Assessment")
+    pdf.add_text(
+        "Enterprise.AI delivers a 4-week structured data readiness assessment that includes stakeholder interviews, "
+        "automated data profiling, NDMO gap analysis, and a prioritised remediation roadmap with effort estimates and quick wins."
+    )
+
+    pdf.add_footer_page()
+    pdf.build()
+
+
+def create_capital_efficiency_rwa():
+    """12. Capital Efficiency / RWA Optimisation"""
+    pdf = PDFGenerator(
+        "capital-efficiency-rwa.pdf",
+        "Capital Efficiency / RWA Optimisation",
+        "Model capital released through IRB migration, collateral optimisation, securitisation, "
+        "and portfolio density improvement. Built for bank CFOs, CROs, and treasury heads navigating Basel III endgame in the GCC."
+    )
+
+    pdf.add_cover_page()
+
+    toc = [
+        "Executive Summary",
+        "IRB Migration & Model Sophistication",
+        "Collateral Optimisation",
+        "Securitisation & Balance Sheet Recycling",
+        "Portfolio Risk-Weight Optimisation",
+        "Capital Release Estimation Framework",
+        "Scoreboard & GCC Benchmarks"
+    ]
+    pdf.add_toc(toc)
+
+    pdf.add_section("1. Executive Summary")
+    pdf.add_text(
+        "Capital efficiency is the defining strategic lever for GCC banks navigating Basel III endgame. This accelerator "
+        "provides a structured framework across four optimisation pathways to model capital release, estimate ROE uplift, "
+        "and benchmark against regional peers. Each pathway includes calculation templates and implementation guidance."
+    )
+
+    pdf.add_section("2. IRB Migration & Model Sophistication")
+    pdf.add_text(
+        "Moving from standardised to foundation or advanced IRB typically reduces credit-risk RWA by 15-35%. "
+        "The magnitude depends on portfolio composition, data maturity, and regulatory approval timelines."
+    )
+
+    pdf.add_subsection("Migration Pathway Comparison")
+
+    irb_headers = ["Approach", "Typical RWA Reduction", "Data Requirements", "Approval Timeline"]
+    irb_rows = [
+        ["Standardised to Foundation IRB", "15-20%", "5+ years PD history, validated models", "12-18 months"],
+        ["Foundation IRB to Advanced IRB", "10-15% incremental", "7+ years LGD/EAD history, granular data", "18-24 months"],
+        ["Standardised to Advanced IRB", "25-35%", "Full internal model suite, extensive data", "24-36 months"],
+    ]
+    pdf.add_template_table(irb_headers, irb_rows, [1.5*inch, 1.3*inch, 1.3*inch, 1.3*inch])
+
+    pdf.add_subsection("Implementation Considerations")
+    pdf.add_text(
+        "<b>Data Readiness:</b> IRB approval requires demonstrably clean, complete, and validated historical data. "
+        "Most GCC banks need 12-18 months of data remediation before application.\n\n"
+        "<b>Model Governance:</b> SAMA expects robust model risk management frameworks aligned with SR 11-7 principles.\n\n"
+        "<b>Regulatory Engagement:</b> Early and continuous dialogue with SAMA is critical. Parallel running periods typically span 6-12 months."
+    )
+
+    pdf.add_section("3. Collateral Optimisation")
+    pdf.add_text(
+        "Recognising eligible collateral currently unrecognised under regulatory frameworks can release significant capital. "
+        "The gap between economic collateral value and regulatory recognition is typically 20-40% for GCC banks."
+    )
+
+    pdf.add_subsection("Eligible Collateral Types")
+
+    coll_headers = ["Collateral Type", "Regulatory Haircut", "Typical Coverage Gap", "RWA Impact"]
+    coll_rows = [
+        ["Cash & Government Securities", "0-5%", "Low (5-10%)", "High"],
+        ["Listed Equities", "20-40%", "Medium (15-25%)", "Medium"],
+        ["Real Estate (Commercial)", "40-60%", "High (25-40%)", "Medium"],
+        ["Guarantees (Sovereign/Bank)", "0-20%", "Medium (10-20%)", "High"],
+        ["Receivables", "40-60%", "High (30-50%)", "Low-Medium"],
+    ]
+    pdf.add_template_table(coll_headers, coll_rows, [1.3*inch, 1.2*inch, 1.3*inch, 1*inch])
+
+    pdf.add_subsection("Optimisation Checklist")
+    coll_checks = [
+        "Complete collateral inventory with regulatory eligibility mapping",
+        "Valuation frequency aligned with Basel requirements",
+        "Legal enforceability opinions current for all jurisdictions",
+        "Haircut methodology documented and validated",
+        "Cross-border collateral recognition assessed",
+        "Netting agreements reviewed and updated"
+    ]
+    pdf.add_checklist(coll_checks)
+
+    pdf.add_section("4. Securitisation & Balance Sheet Recycling")
+    pdf.add_text(
+        "Significant risk transfer (SRT) via securitisation of mortgage or loan books can dramatically reduce "
+        "on-balance-sheet RWA while retaining servicing economics. GCC sukuk structures offer Sharia-compliant pathways."
+    )
+
+    pdf.add_subsection("SRT Structure Comparison")
+
+    srt_headers = ["Structure", "RWA Benefit", "Complexity", "Market Depth (GCC)"]
+    srt_rows = [
+        ["Synthetic Securitisation", "60-80% RWA reduction on ref pool", "High", "Emerging"],
+        ["True Sale Securitisation", "Full derecognition possible", "Medium-High", "Moderate"],
+        ["Covered Bonds / Sukuk", "Lower risk weight on retained", "Medium", "Growing"],
+        ["Sub-participation", "Partial risk transfer", "Low-Medium", "Established"],
+    ]
+    pdf.add_template_table(srt_headers, srt_rows, [1.3*inch, 1.5*inch, 1*inch, 1.2*inch])
+
+    pdf.add_subsection("Key Considerations")
+    pdf.add_text(
+        "<b>SAMA Approval:</b> SRT transactions require prior supervisory approval with full documentation of risk transfer.\n\n"
+        "<b>Sharia Compliance:</b> Structures must satisfy Sharia board requirements for asset-backed instruments.\n\n"
+        "<b>Investor Base:</b> GCC investor appetite for structured products is growing but still developing compared to European markets."
+    )
+
+    pdf.add_section("5. Portfolio Risk-Weight Optimisation")
+    pdf.add_text(
+        "Systematic portfolio rebalancing, exposure netting, and guarantee restructuring to reduce average "
+        "risk-weight density across the book. Typical density improvements of 1-5% are achievable."
+    )
+
+    pdf.add_subsection("Optimisation Levers")
+    pdf.add_text(
+        "<b>Exposure Netting:</b> Consolidate bilateral exposures to reduce gross RWA. Requires enforceable netting agreements.\n\n"
+        "<b>Guarantee Substitution:</b> Replace higher-risk-weight exposures with guaranteed equivalents (sovereign, multilateral).\n\n"
+        "<b>Portfolio Rebalancing:</b> Shift asset mix toward lower risk-weight categories while maintaining return targets.\n\n"
+        "<b>CRM Techniques:</b> Credit risk mitigation through funded and unfunded protection, credit derivatives."
+    )
+
+    pdf.add_subsection("Risk-Weight Density Template")
+
+    density_headers = ["Asset Class", "Current Density", "Target Density", "Actions"]
+    density_rows = [
+        ["Corporate (Investment Grade)", "75-100%", "50-75%", "IRB migration, collateral recognition"],
+        ["Retail Mortgages", "35-75%", "20-35%", "Securitisation, LTV improvement"],
+        ["SME", "75-100%", "50-75%", "Guarantee programmes, data improvement"],
+        ["Sovereign / PSE", "0-20%", "0-10%", "Rating upgrade, ECAI alignment"],
+        ["Interbank", "20-50%", "20-35%", "Netting, collateral posting"],
+    ]
+    pdf.add_template_table(density_headers, density_rows, [1.3*inch, 1*inch, 1*inch, 1.8*inch])
+
+    pdf.add_section("6. Capital Release Estimation Framework")
+
+    pdf.add_subsection("Calculation Template")
+    pdf.add_text(
+        "Use this template to estimate total capital release across all four pathways:"
+    )
+
+    calc_headers = ["Pathway", "Input", "Formula", "Estimated Release"]
+    calc_rows = [
+        ["IRB Migration", "Current RWA, migration factor", "RWA x (target factor - current factor)", "[Calculate]"],
+        ["Collateral", "Unrecognised collateral, gap %, haircut", "Collateral x gap x haircut", "[Calculate]"],
+        ["Securitisation", "Eligible book, current RW, target RW", "Book x (current RW - target RW)", "[Calculate]"],
+        ["Portfolio Density", "Total RWA, density improvement %", "RWA x density improvement", "[Calculate]"],
+        ["<b>Total</b>", "", "", "<b>[Sum]</b>"],
+    ]
+    pdf.add_template_table(calc_headers, calc_rows, [1.2*inch, 1.3*inch, 1.5*inch, 1.2*inch])
+
+    pdf.add_subsection("ROE Impact Estimation")
+    pdf.add_text(
+        "<b>Rule of thumb:</b> Each SAR 1B of released capital translates to approximately 0.8% ROE uplift "
+        "(assuming 12.5% CAR and current net income margins).\n\n"
+        "<b>AT1 Sukuk equivalent:</b> Released capital reduces the need for expensive AT1 instruments. "
+        "Each SAR 1B of capital release saves approximately SAR 150M in AT1 sukuk equivalent."
+    )
+
+    pdf.add_section("7. Scoreboard & GCC Benchmarks")
+
+    pdf.add_subsection("GCC Banking Capital Release Benchmarks")
+
+    bench_headers = ["Scenario", "Capital Released (SAR B)", "ROE Impact", "Typical Profile"]
+    bench_rows = [
+        ["Conservative", "0.5", "+0.4%", "Single pathway, standardised approach"],
+        ["Base Case", "2.5", "+2.0%", "Two pathways, foundation IRB"],
+        ["Aggressive", "5.3", "+4.2%", "All four pathways, advanced IRB"],
+    ]
+    pdf.add_template_table(bench_headers, bench_rows, [1.1*inch, 1.5*inch, 1*inch, 1.8*inch])
+
+    pdf.add_text(
+        "<b>Note:</b> These benchmarks are based on analysis of GCC Tier 1 banks with total assets of SAR 200-500B. "
+        "Actual results will vary based on portfolio composition, regulatory approval timelines, and market conditions."
+    )
+
+    pdf.add_footer_page()
+    pdf.build()
+
+
 def main():
-    """Generate all 10 PDFs"""
+    """Generate all 12 PDFs"""
     print("\nGenerating Enterprise.AI Accelerator Companion PDFs...\n")
 
-    os.chdir("/sessions/cool-elegant-cori/mnt/Claude/rodney-ai/accelerators/downloads")
+    os.chdir("/sessions/cool-elegant-cori/mnt/CV/Claude/rodney-ai/accelerators/downloads")
 
     pdf_generators = [
         create_agentic_ai_ceo_cfo,
@@ -1888,7 +2243,9 @@ def main():
         create_executive_ai_training,
         create_fs_ai_maturity_assessment,
         create_genai_prioritization_matrix,
-        create_mrm_checklist
+        create_mrm_checklist,
+        create_ndmo_data_readiness,
+        create_capital_efficiency_rwa
     ]
 
     for generator in pdf_generators:
