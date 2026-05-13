@@ -276,9 +276,10 @@ img { max-width: 100%; display: block; }
   line-height: 1.6;
 }
 .sf-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;
 }
 .sf-card {
   background: #fff;
@@ -289,6 +290,8 @@ img { max-width: 100%; display: block; }
   flex-direction: column;
   transition: all 0.3s var(--ease);
   position: relative;
+  flex: 0 1 calc(33.333% - 14px);
+  min-width: 260px;
 }
 .sf-card:hover {
   border-color: var(--gold-border);
@@ -315,6 +318,8 @@ img { max-width: 100%; display: block; }
 .sf-card-icon.sf-data svg { color: var(--navy); stroke: var(--navy); }
 .sf-card-icon.sf-execute { background: rgba(0,107,94,0.08); border: 1px solid rgba(0,107,94,0.15); }
 .sf-card-icon.sf-execute svg { color: var(--teal); stroke: var(--teal); }
+.sf-card-icon.sf-rollout { background: rgba(27,79,114,0.08); border: 1px solid rgba(27,79,114,0.15); }
+.sf-card-icon.sf-rollout svg { color: var(--accent); stroke: var(--accent); }
 .sf-problem {
   font-family: 'Fraunces', Georgia, serif;
   font-size: 14px;
@@ -349,10 +354,10 @@ img { max-width: 100%; display: block; }
 }
 .sf-outcome span { font-weight: 400; color: var(--text-muted); }
 @media (max-width: 960px) {
-  .sf-grid { grid-template-columns: 1fr 1fr; }
+  .sf-card { flex: 0 1 calc(50% - 10px); }
 }
 @media (max-width: 480px) {
-  .sf-grid { grid-template-columns: 1fr; }
+  .sf-card { flex: 0 1 100%; min-width: unset; }
 }
 
 /* Data Foundation strip */
@@ -1152,6 +1157,84 @@ img { max-width: 100%; display: block; }
 .geo-divider-icon::before {
   content: "✦"; font-size: 14px; color: var(--gold);
 }
+/* ========== SERVICE CARDS (services.html) ========== */
+.svc-card {
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  margin-bottom: 24px;
+  transition: border-color 0.3s;
+}
+.svc-card:hover { border-color: var(--gold-border); }
+.svc-card-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 8px; gap: 16px; flex-wrap: wrap;
+}
+.svc-challenge {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 15px; font-style: italic; color: var(--text-muted);
+  line-height: 1.5; flex: 1; min-width: 240px;
+}
+.svc-meta { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+.svc-timeline {
+  font-size: 11px; font-weight: 700; color: var(--gold);
+  background: var(--gold-bg); border: 1px solid var(--gold-border);
+  padding: 4px 12px; border-radius: 20px; letter-spacing: 0.02em;
+}
+.svc-pillar {
+  font-size: 10px; font-weight: 700; color: var(--navy);
+  letter-spacing: 0.15em; text-transform: uppercase;
+  background: rgba(13,27,42,0.04); border: 1px solid rgba(13,27,42,0.08);
+  padding: 4px 10px; border-radius: 4px;
+}
+.svc-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 24px; font-weight: 600; color: var(--navy);
+  margin-bottom: 20px;
+}
+.svc-body {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+}
+.svc-label {
+  font-size: 10px; font-weight: 700; color: var(--gold);
+  letter-spacing: 0.18em; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.svc-approach ul {
+  list-style: none; padding: 0;
+}
+.svc-approach li {
+  font-size: 14px; color: var(--text-secondary); line-height: 1.6;
+  padding: 6px 0 6px 20px; position: relative;
+  border-bottom: 1px solid var(--border-light);
+}
+.svc-approach li:last-child { border-bottom: none; }
+.svc-approach li::before {
+  content: "→"; position: absolute; left: 0; color: var(--gold);
+  font-weight: 600;
+}
+.svc-deliverables p {
+  font-size: 14px; color: var(--text-secondary); line-height: 1.6;
+}
+.svc-accels {
+  margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-light);
+}
+.svc-accels a {
+  display: inline-block; font-size: 12px; font-weight: 600;
+  color: var(--gold); background: var(--gold-bg);
+  border: 1px solid var(--gold-border);
+  padding: 4px 12px; border-radius: 4px;
+  margin: 3px 4px 3px 0; transition: all 0.2s;
+}
+.svc-accels a:hover {
+  background: var(--gold); color: #fff; border-color: var(--gold);
+}
+@media (max-width: 768px) {
+  .svc-body { grid-template-columns: 1fr; gap: 20px; }
+  .svc-card { padding: 24px 20px; }
+}
+
 /* Arabic pull-quote styling */
 .ar-pullquote {
   font-family: 'Amiri', 'Noto Naskh Arabic', serif;
