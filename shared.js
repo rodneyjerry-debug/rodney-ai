@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /* Scroll reveal */
   var revealEls = document.querySelectorAll(
-    '.service-card, .insight-card, .acc-card, .resource-card, .faq-item, ' +
+    '.sf-card, .service-card, .insight-card, .acc-card, .resource-card, .faq-item, ' +
     '.about-highlight, .fr-part, .fr-scoreboard-card, .cred-item, .contact-card'
   );
   var revealObs = new IntersectionObserver(function(entries){
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   /* Stagger delays for grids */
-  document.querySelectorAll('.services-grid, .insights-grid, .acc-grid, .resources-grid, .faq-grid, .about-highlights, .fr-parts').forEach(function(grid){
+  document.querySelectorAll('.sf-grid, .services-grid, .insights-grid, .acc-grid, .resources-grid, .faq-grid, .about-highlights, .fr-parts').forEach(function(grid){
     var children = grid.children;
     for(var i = 0; i < children.length; i++){
       children[i].classList.add('reveal-delay-' + Math.min(i % 4 + 1, 4));
