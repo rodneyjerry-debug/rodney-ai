@@ -11,6 +11,39 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Naskh+Arabic:wght@400;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
+<style>
+/* Gated download cards */
+.gated-card { cursor:default; }
+.gate-lock { font-size:13px; color:var(--teal); margin:12px 0 8px; font-weight:500; }
+.gate-form { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+.gate-form input {
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12);
+  border-radius:6px; padding:10px 12px; font-size:13px; color:#fff;
+  font-family:'Inter',sans-serif; transition:border-color .2s;
+}
+.gate-form input::placeholder { color:rgba(255,255,255,0.35); }
+.gate-form input:focus { outline:none; border-color:var(--teal); }
+#gate-blueprint .gate-form input:focus { border-color:var(--gold); }
+.gate-btn {
+  background:var(--teal); color:#fff; border:none; border-radius:6px;
+  padding:11px 16px; font-size:14px; font-weight:600; cursor:pointer;
+  font-family:'Inter',sans-serif; transition:opacity .2s; margin-top:4px;
+}
+.gate-btn:hover { opacity:0.88; }
+.gate-btn-gold { background:var(--gold); color:var(--navy); }
+.gate-btn-gold:hover { opacity:0.88; }
+.gate-success { margin-top:12px; font-size:14px; color:#fff; }
+.gate-success span { display:block; margin-bottom:10px; }
+.gate-dl-btn {
+  display:inline-block; background:var(--teal); color:#fff; text-decoration:none;
+  padding:10px 20px; border-radius:6px; font-weight:600; font-size:14px;
+  transition:opacity .2s;
+}
+.gate-dl-btn:hover { opacity:0.88; color:#fff; }
+.gate-dl-gold { background:var(--gold); color:var(--navy); }
+.gate-dl-gold:hover { color:var(--navy); }
+.gate-btn:disabled { opacity:0.5; cursor:not-allowed; }
+</style>
 </head>
 <body id="top">
 
@@ -38,7 +71,7 @@
       <a href="research.html" class="nav-link active" aria-current="page">Research</a>
       <a href="tools.html" class="nav-link">Tools</a>
       <a href="about.html" class="nav-link">About</a>
-      <a href="about.html#contact" class="btn btn-primary">Book a Briefing</a>
+      <a href="about.html#contact" class="btn btn-primary">Book a Free Briefing</a>
     </nav>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -55,7 +88,7 @@
   <a href="research.html" class="active" aria-current="page">Research</a>
   <a href="tools.html">Tools</a>
   <a href="about.html">About</a>
-  <a href="about.html#contact" style="color:var(--gold);font-weight:700">Book a Briefing →</a>
+  <a href="about.html#contact" style="color:var(--gold);font-weight:700">Book a Free Briefing →</a>
 </div>
 
 <main>
@@ -217,12 +250,26 @@
         <span class="res-dl"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download free</span>
       </a>
 
-      <a href="resources/banking-ai-readiness-scorecard.xlsx" download class="resource-card">
+      <div class="resource-card gated-card" id="gate-scorecard">
         <div class="res-type">Scorecard · Excel</div>
         <h4>Banking AI Readiness Scorecard</h4>
         <p>Benchmark your bank across 6 AI capability dimensions with peer comparison.</p>
-        <span class="res-dl"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download free</span>
-      </a>
+        <div class="gate-lock">
+          <svg viewBox="0 0 24 24" width="16" height="16" style="vertical-align:middle;margin-right:6px;"><rect x="3" y="11" width="18" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 11V7a5 5 0 0 1 10 0v4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          Enter your details to download
+        </div>
+        <form class="gate-form" data-file="resources/banking-ai-readiness-scorecard.xlsx" data-name="Banking AI Readiness Scorecard">
+          <input type="text" name="name" placeholder="Full name" required>
+          <input type="email" name="email" placeholder="Work email" required>
+          <input type="text" name="company" placeholder="Company / Institution" required>
+          <button type="submit" class="gate-btn">Get the Scorecard →</button>
+        </form>
+        <div class="gate-success" style="display:none;">
+          <svg viewBox="0 0 24 24" width="20" height="20" style="vertical-align:middle;margin-right:6px;color:var(--teal);"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" fill="none" stroke="currentColor" stroke-width="2"/><polyline points="22 4 12 14.01 9 11.01" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          <span>Thank you! Your download is ready.</span>
+          <a href="resources/banking-ai-readiness-scorecard.xlsx" download class="gate-dl-btn">Download Scorecard →</a>
+        </div>
+      </div>
 
       <a href="resources/genai-risk-red-teaming-framework.pdf" download class="resource-card">
         <div class="res-type">Framework · PDF</div>
@@ -238,12 +285,26 @@
         <span class="res-dl"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download free</span>
       </a>
 
-      <a href="resources/enterprise-ai-adoption-blueprint-summary.pdf" download class="resource-card" style="border-color:var(--gold-border); background:var(--gold-bg);">
+      <div class="resource-card gated-card" id="gate-blueprint" style="border-color:var(--gold-border); background:var(--gold-bg);">
         <div class="res-type" style="color:var(--gold);">Lead Magnet · PDF</div>
         <h4>Enterprise AI Adoption Blueprint™ — Executive Summary</h4>
         <p>2-page overview: why enterprise AI enablement matters, the 6-week programme structure, and what your board needs to approve it.</p>
-        <span class="res-dl" style="color:var(--gold);"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download free</span>
-      </a>
+        <div class="gate-lock" style="color:var(--gold);">
+          <svg viewBox="0 0 24 24" width="16" height="16" style="vertical-align:middle;margin-right:6px;"><rect x="3" y="11" width="18" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 11V7a5 5 0 0 1 10 0v4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          Enter your details to download
+        </div>
+        <form class="gate-form" data-file="resources/enterprise-ai-adoption-blueprint-summary.pdf" data-name="Enterprise AI Adoption Blueprint">
+          <input type="text" name="name" placeholder="Full name" required>
+          <input type="email" name="email" placeholder="Work email" required>
+          <input type="text" name="company" placeholder="Company / Institution" required>
+          <button type="submit" class="gate-btn gate-btn-gold">Get the Blueprint →</button>
+        </form>
+        <div class="gate-success" style="display:none;">
+          <svg viewBox="0 0 24 24" width="20" height="20" style="vertical-align:middle;margin-right:6px;color:var(--gold);"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" fill="none" stroke="currentColor" stroke-width="2"/><polyline points="22 4 12 14.01 9 11.01" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          <span>Thank you! Your download is ready.</span>
+          <a href="resources/enterprise-ai-adoption-blueprint-summary.pdf" download class="gate-dl-btn gate-dl-gold">Download Blueprint →</a>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -253,7 +314,7 @@
 <section style="background:var(--navy);padding:56px 0;text-align:center;">
   <div class="container">
     <h2 style="font-family:'Fraunces',Georgia,serif;color:#fff;font-size:28px;margin-bottom:16px;">Want the full research briefing?</h2>
-    <a href="about.html#contact" class="btn btn-gold" style="font-size:15px;padding:14px 32px;">Request a Briefing →</a>
+    <a href="about.html#contact" class="btn btn-gold" style="font-size:15px;padding:14px 32px;">Book a Free 30-Min Briefing →</a>
   </div>
 </section>
 
@@ -287,11 +348,52 @@
 
 <!-- Sticky mobile CTA -->
 <div class="sticky-cta" id="stickyCta">
-  <a href="about.html#contact" class="btn btn-primary">Book a Briefing →</a>
+  <a href="about.html#contact" class="btn btn-primary">Book a Free 30-Min Briefing →</a>
 </div>
 
 <!-- Back to top -->
 <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top">↑</a>
 
 <script src="shared.js"></script>
+<script>
+/* Email-gated downloads */
+document.querySelectorAll('.gate-form').forEach(function(form) {
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = form.querySelector('.gate-btn');
+    var origText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    var data = {
+      name: form.querySelector('[name="name"]').value,
+      email: form.querySelector('[name="email"]').value,
+      company: form.querySelector('[name="company"]').value,
+      resource: form.getAttribute('data-name'),
+      _subject: 'New download: ' + form.getAttribute('data-name')
+    };
+
+    /* TODO: Replace with your real Formspree form ID — create one at formspree.io */
+    fetch('https://formspree.io/f/xwpkpojj', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(function(r) {
+      if (r.ok) {
+        form.style.display = 'none';
+        form.closest('.gated-card').querySelector('.gate-lock').style.display = 'none';
+        form.closest('.gated-card').querySelector('.gate-success').style.display = 'block';
+      } else {
+        btn.disabled = false;
+        btn.textContent = origText;
+        alert('Something went wrong — please try again.');
+      }
+    }).catch(function() {
+      btn.disabled = false;
+      btn.textContent = origText;
+      alert('Network error — please check your connection and try again.');
+    });
+  });
+});
+</script>
 </body></html>

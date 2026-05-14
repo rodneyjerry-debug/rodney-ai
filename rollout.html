@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-QZ9C4MLQS8');</script>
+<title>AI Rollout for Banks — Enterprise.AI</title>
+<meta name="description" content="A proven 10–12 week AI rollout framework for Gulf banks. Strategy, governance, and execution — from board approval to production AI. Book a free briefing.">
+<meta property="og:title" content="AI Rollout for Banks — Enterprise.AI">
+<meta property="og:description" content="How Gulf banks go from AI strategy deck to production systems in 10–12 weeks. Free briefing available.">
+<meta property="og:image" content="assets/brand/03_linkedin_banner.png">
+<link rel="icon" type="image/png" href="assets/brand/04_avatar_square.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Naskh+Arabic:wght@400;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* Rollout landing page overrides */
+.roll-hero {
+  background: var(--navy);
+  padding: 100px 0 72px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.roll-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 80%, rgba(0,107,94,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 20%, rgba(200,173,127,0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+.roll-hero h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(32px, 5vw, 52px);
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.roll-hero h1 span { color: var(--teal); }
+.roll-sub {
+  font-size: 18px; color: rgba(255,255,255,0.7);
+  max-width: 560px; margin: 0 auto 32px; line-height: 1.6;
+}
+.roll-cta-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.roll-cta-row .btn { font-size: 15px; padding: 14px 32px; }
+.roll-trust {
+  margin-top: 40px; font-size: 13px;
+  color: rgba(255,255,255,0.4); letter-spacing: 0.5px;
+}
+
+/* Problem strip */
+.roll-problems {
+  background: #0a1420; padding: 56px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.roll-problems h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  color: #fff; font-size: 26px; text-align: center; margin-bottom: 40px;
+}
+.roll-prob-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px; max-width: 900px; margin: 0 auto;
+}
+.roll-prob {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px; padding: 28px;
+}
+.roll-prob-icon {
+  width: 40px; height: 40px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px; color: #fff;
+}
+.roll-prob-icon.red { background: rgba(220,53,69,0.15); color: #dc3545; }
+.roll-prob-icon.amber { background: rgba(200,173,127,0.15); color: var(--gold); }
+.roll-prob-icon.blue { background: rgba(0,107,94,0.15); color: var(--teal); }
+.roll-prob h4 { color: #fff; font-size: 16px; margin-bottom: 8px; }
+.roll-prob p { color: rgba(255,255,255,0.55); font-size: 14px; line-height: 1.6; }
+
+/* Framework section */
+.roll-framework {
+  background: var(--navy); padding: 72px 0;
+}
+.roll-framework h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  color: #fff; font-size: 28px; text-align: center; margin-bottom: 12px;
+}
+.roll-framework .roll-sub { margin-bottom: 48px; text-align: center; }
+.roll-phases {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0; max-width: 960px; margin: 0 auto; position: relative;
+}
+.roll-phase {
+  padding: 32px 28px;
+  border: 1px solid rgba(255,255,255,0.08);
+  position: relative;
+}
+.roll-phase:first-child { border-radius: 10px 0 0 10px; }
+.roll-phase:last-child { border-radius: 0 10px 10px 0; }
+.roll-phase-num {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.roll-phase-num.p1 { color: var(--teal); }
+.roll-phase-num.p2 { color: var(--gold); }
+.roll-phase-num.p3 { color: #7EC8E3; }
+.roll-phase-num.p4 { color: #a5d6a7; }
+.roll-phase h4 { color: #fff; font-size: 17px; margin-bottom: 6px; }
+.roll-phase .roll-weeks {
+  font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 14px;
+}
+.roll-phase ul {
+  list-style: none; padding: 0; margin: 0;
+}
+.roll-phase li {
+  font-size: 13px; color: rgba(255,255,255,0.6);
+  padding: 4px 0 4px 16px; position: relative; line-height: 1.5;
+}
+.roll-phase li::before {
+  content: '→'; position: absolute; left: 0; color: var(--teal); font-size: 12px;
+}
+
+/* Outcomes */
+.roll-outcomes {
+  background: #0a1420; padding: 64px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.roll-outcomes h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  color: #fff; font-size: 28px; text-align: center; margin-bottom: 40px;
+}
+.roll-stats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 32px; max-width: 800px; margin: 0 auto; text-align: center;
+}
+.roll-stat-num {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 48px; color: var(--teal); line-height: 1;
+}
+.roll-stat-label {
+  font-size: 14px; color: rgba(255,255,255,0.55); margin-top: 8px; line-height: 1.5;
+}
+
+/* Why us */
+.roll-why {
+  background: var(--navy); padding: 64px 0;
+}
+.roll-why h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  color: #fff; font-size: 28px; text-align: center; margin-bottom: 40px;
+}
+.roll-diff-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px; max-width: 900px; margin: 0 auto;
+}
+.roll-diff {
+  padding: 28px; border-left: 3px solid var(--teal);
+  background: rgba(255,255,255,0.02);
+}
+.roll-diff h4 { color: #fff; font-size: 16px; margin-bottom: 8px; }
+.roll-diff p { color: rgba(255,255,255,0.55); font-size: 14px; line-height: 1.6; }
+
+/* Final CTA */
+.roll-final-cta {
+  background: linear-gradient(135deg, rgba(0,107,94,0.12) 0%, var(--navy) 100%);
+  padding: 80px 0; text-align: center;
+  border-top: 1px solid rgba(0,107,94,0.2);
+}
+.roll-final-cta h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  color: #fff; font-size: 32px; margin-bottom: 16px;
+}
+.roll-final-cta p {
+  color: rgba(255,255,255,0.6); font-size: 16px;
+  max-width: 480px; margin: 0 auto 28px; line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .roll-phases { grid-template-columns: 1fr; }
+  .roll-phase:first-child { border-radius: 10px 10px 0 0; }
+  .roll-phase:last-child { border-radius: 0 0 10px 10px; }
+}
+</style>
+</head>
+<body id="top">
+
+<!-- ========== LOCALE STRIP ========== -->
+<div class="locale-strip">
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center">
+    <span class="locale-geo">Riyadh · Doha · Dubai · London</span>
+    <span class="locale-date" id="hijriDate"></span>
+  </div>
+</div>
+
+<!-- ========== NAV ========== -->
+<header class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div>
+        <div class="logo-text">Enterprise<span class="dot">.AI</span></div>
+        <div class="logo-tag">AI Strategy · Governance · Execution</div>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html#storefront" class="nav-link">What We Do</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="training.html" class="nav-link">Training</a>
+      <a href="research.html" class="nav-link">Research</a>
+      <a href="tools.html" class="nav-link">Tools</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="about.html#contact" class="btn btn-primary">Book a Free Briefing</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <nav>
+    <a href="index.html#storefront">What We Do</a>
+    <a href="services.html">Services</a>
+    <a href="training.html">Training</a>
+    <a href="research.html">Research</a>
+    <a href="tools.html">Tools</a>
+    <a href="about.html">About</a>
+    <a href="about.html#contact" class="btn btn-primary" style="margin-top:16px;text-align:center;">Book a Free Briefing →</a>
+  </nav>
+</div>
+
+<main>
+
+<!-- ========== HERO ========== -->
+<section class="roll-hero">
+  <div class="container" style="position:relative;z-index:1;">
+    <h1>How Gulf Banks Go from AI Strategy Deck to <span>Production Systems</span></h1>
+    <p class="roll-sub">A proven 10–12 week framework used by banks across Saudi Arabia, Qatar, and the UAE to move from board approval to measurable P&amp;L impact.</p>
+    <div class="roll-cta-row">
+      <a href="about.html#contact" class="btn btn-primary">Book a Free 30-Min Briefing →</a>
+      <a href="resources/enterprise-ai-adoption-blueprint-summary.pdf" class="btn btn-outline" style="border-color:rgba(255,255,255,0.2);color:#fff;">Download the Blueprint</a>
+    </div>
+    <div class="roll-trust">Trusted by institutions across Saudi Arabia · Qatar · UAE · Bahrain</div>
+  </div>
+</section>
+
+<!-- ========== THE PROBLEM ========== -->
+<section class="roll-problems">
+  <div class="container">
+    <h2>Three reasons AI rollouts stall in banks</h2>
+    <div class="roll-prob-grid">
+
+      <div class="roll-prob">
+        <div class="roll-prob-icon red">
+          <svg viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width="1.5"/><line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <h4>No governance from day one</h4>
+        <p>Risk, compliance, and Sharia governance are bolted on after the POC — leading to months of rework when the regulator asks questions.</p>
+      </div>
+
+      <div class="roll-prob">
+        <div class="roll-prob-icon amber">
+          <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 9v4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <h4>Vendor overload, no strategy</h4>
+        <p>HUMAIN, AWS, Azure, OCI, GCP — every hyperscaler is pitching. Without a vendor-neutral architecture, banks buy platforms they never operationalise.</p>
+      </div>
+
+      <div class="roll-prob">
+        <div class="roll-prob-icon blue">
+          <svg viewBox="0 0 24 24" width="22" height="22"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="9" cy="7" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M16 3.13a4 4 0 0 1 0 7.75" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <h4>Consultants who leave decks, not systems</h4>
+        <p>Big-firm teams hand over a 200-slide playbook and exit. Nobody stays to build, integrate, and drive adoption across the front line.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== THE FRAMEWORK ========== -->
+<section class="roll-framework">
+  <div class="container">
+    <h2>The Enterprise.AI Rollout Framework</h2>
+    <p class="roll-sub">Four phases. 10–12 weeks. Board-ready governance from day one.</p>
+    <div class="roll-phases">
+
+      <div class="roll-phase">
+        <div class="roll-phase-num p1">Phase 1</div>
+        <h4>Discovery &amp; Architecture</h4>
+        <div class="roll-weeks">Weeks 1–2</div>
+        <ul>
+          <li>Use-case prioritisation by P&amp;L impact</li>
+          <li>Data readiness audit (NDMO-aligned)</li>
+          <li>Vendor-neutral architecture blueprint</li>
+          <li>Board-ready business case</li>
+        </ul>
+      </div>
+
+      <div class="roll-phase">
+        <div class="roll-phase-num p2">Phase 2</div>
+        <h4>Governance &amp; Risk</h4>
+        <div class="roll-weeks">Weeks 3–4</div>
+        <ul>
+          <li>AI policy aligned to SAMA / QCB / CBUAE</li>
+          <li>Model risk framework (SR 11-7 / SS1/23)</li>
+          <li>Sharia-sensitive use-case screening</li>
+          <li>Responsible AI guardrails</li>
+        </ul>
+      </div>
+
+      <div class="roll-phase">
+        <div class="roll-phase-num p3">Phase 3</div>
+        <h4>Build &amp; Integrate</h4>
+        <div class="roll-weeks">Weeks 5–9</div>
+        <ul>
+          <li>Claude, OpenAI &amp; GCP platform engineers</li>
+          <li>Core-banking and data integration</li>
+          <li>Change management &amp; user adoption</li>
+          <li>Weekly milestone reviews</li>
+        </ul>
+      </div>
+
+      <div class="roll-phase">
+        <div class="roll-phase-num p4">Phase 4</div>
+        <h4>Launch &amp; Scale</h4>
+        <div class="roll-weeks">Weeks 10–12</div>
+        <ul>
+          <li>Production deployment with rollback plan</li>
+          <li>KPI dashboard &amp; P&amp;L measurement</li>
+          <li>Board reporting package</li>
+          <li>Scale roadmap for next 3 use cases</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== OUTCOMES ========== -->
+<section class="roll-outcomes">
+  <div class="container">
+    <h2>What banks achieve in 12 weeks</h2>
+    <div class="roll-stats">
+      <div>
+        <div class="roll-stat-num">10–12</div>
+        <div class="roll-stat-label">weeks to production AI — not 12–18 months</div>
+      </div>
+      <div>
+        <div class="roll-stat-num">1</div>
+        <div class="roll-stat-label">accountable team across strategy, governance, and build</div>
+      </div>
+      <div>
+        <div class="roll-stat-num">0</div>
+        <div class="roll-stat-label">regulatory surprises — governance is built in from week 1</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WHY US ========== -->
+<section class="roll-why">
+  <div class="container">
+    <h2>Why banks choose Enterprise.AI</h2>
+    <div class="roll-diff-grid">
+
+      <div class="roll-diff">
+        <h4>Platform engineers, not generalists</h4>
+        <p>Claude/Anthropic, OpenAI, and GCP specialists who build on these platforms daily — not juniors learning on your budget.</p>
+      </div>
+
+      <div class="roll-diff">
+        <h4>Governance from day one</h4>
+        <p>SAMA, QCB, CBUAE, EU AI Act — we build the policy framework before the first line of code, not after the regulator calls.</p>
+      </div>
+
+      <div class="roll-diff">
+        <h4>Change management built in</h4>
+        <p>Every sprint pairs engineers with adoption specialists. 70% of AI failures are people problems — we solve them in parallel.</p>
+      </div>
+
+      <div class="roll-diff">
+        <h4>Vendor-neutral, locally grounded</h4>
+        <p>We manage HUMAIN, AWS, OCI, GCP, and Azure so you get one accountable team — not five vendor sales cycles.</p>
+      </div>
+
+      <div class="roll-diff">
+        <h4>Senior advisory throughout</h4>
+        <p>Partners govern every engagement end-to-end. Board reporting, stakeholder management, and quality gates — not a pyramid of juniors writing slides.</p>
+      </div>
+
+      <div class="roll-diff">
+        <h4>25+ years in Gulf banking</h4>
+        <p>Core banking, Islamic finance, capital markets, and regulatory — we understand your operating reality, not just the AI.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== FINAL CTA ========== -->
+<section class="roll-final-cta">
+  <div class="container">
+    <h2>Ready to move from strategy to production?</h2>
+    <p>Book a free 30-minute briefing. We will assess your current AI posture and show you exactly how the 10–12 week framework maps to your institution.</p>
+    <div class="roll-cta-row">
+      <a href="about.html#contact" class="btn btn-primary" style="font-size:16px;padding:16px 36px;">Book a Free 30-Min Briefing →</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div>
+          <div class="footer-wordmark">Enterprise<span class="dot">.AI</span></div>
+          <div class="footer-sgu">Strategy · Governance · Execution</div>
+          <div style="font-family:'Amiri','Noto Naskh Arabic',serif; font-size:12px; color:var(--gold); opacity:0.5; direction:rtl; margin-top:4px;">الاستراتيجية · الحوكمة · التنفيذ</div>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="services.html">Services</a>
+        <a href="research.html">Research</a>
+        <a href="tools.html">Tools</a>
+        <a href="about.html">About</a>
+        <a href="mailto:advisor@rodney-ai.com">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 Enterprise.AI. All rights reserved.</span>
+      <span class="footer-copy">Riyadh · Doha · Dubai · London</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Sticky mobile CTA -->
+<div class="sticky-cta" id="stickyCta">
+  <a href="about.html#contact" class="btn btn-primary">Book a Free 30-Min Briefing →</a>
+</div>
+
+<!-- Back to top -->
+<a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top">↑</a>
+
+<script src="shared.js"></script>
+</body></html>
