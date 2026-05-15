@@ -17,11 +17,11 @@
 .gate-lock { font-size:13px; color:var(--teal); margin:12px 0 8px; font-weight:500; }
 .gate-form { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
 .gate-form input {
-  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12);
-  border-radius:6px; padding:10px 12px; font-size:13px; color:#fff;
+  background:#fff; border:1px solid var(--border-light);
+  border-radius:6px; padding:10px 12px; font-size:13px; color:var(--navy);
   font-family:'Inter',sans-serif; transition:border-color .2s;
 }
-.gate-form input::placeholder { color:rgba(255,255,255,0.35); }
+.gate-form input::placeholder { color:rgba(13,27,42,0.4); }
 .gate-form input:focus { outline:none; border-color:var(--teal); }
 #gate-blueprint .gate-form input:focus { border-color:var(--gold); }
 .gate-btn {
@@ -262,7 +262,7 @@
         </div>
         <form class="gate-form" data-file="resources/banking-ai-readiness-scorecard.xlsx" data-name="Banking AI Readiness Scorecard">
           <input type="text" name="name" placeholder="Full name" required>
-          <input type="email" name="email" placeholder="Work email" required>
+          <input type="email" name="email" placeholder="Enter your email to download" required>
           <input type="text" name="company" placeholder="Company / Institution" required>
           <button type="submit" class="gate-btn">Get the Scorecard →</button>
         </form>
@@ -297,7 +297,7 @@
         </div>
         <form class="gate-form" data-file="resources/enterprise-ai-adoption-blueprint-summary.pdf" data-name="Enterprise AI Adoption Blueprint">
           <input type="text" name="name" placeholder="Full name" required>
-          <input type="email" name="email" placeholder="Work email" required>
+          <input type="email" name="email" placeholder="Enter your email to download" required>
           <input type="text" name="company" placeholder="Company / Institution" required>
           <button type="submit" class="gate-btn gate-btn-gold">Get the Blueprint →</button>
         </form>
@@ -365,7 +365,7 @@ document.querySelectorAll('.gate-form').forEach(function(form) {
     var btn = form.querySelector('.gate-btn');
     var origText = btn.textContent;
     btn.disabled = true;
-    btn.textContent = 'Sending…';
+    btn.textContent = 'Processing…';
 
     var data = {
       name: form.querySelector('[name="name"]').value,
@@ -375,25 +375,15 @@ document.querySelectorAll('.gate-form').forEach(function(form) {
       _subject: 'New download: ' + form.getAttribute('data-name')
     };
 
-    /* TODO: Replace with your real Formspree form ID — create one at formspree.io */
+    /* Send lead to Formspree, but always reveal download regardless of API response */
     fetch('https://formspree.io/f/xwpkpojj', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(data)
-    }).then(function(r) {
-      if (r.ok) {
-        form.style.display = 'none';
-        form.closest('.gated-card').querySelector('.gate-lock').style.display = 'none';
-        form.closest('.gated-card').querySelector('.gate-success').style.display = 'block';
-      } else {
-        btn.disabled = false;
-        btn.textContent = origText;
-        alert('Something went wrong — please try again.');
-      }
-    }).catch(function() {
-      btn.disabled = false;
-      btn.textContent = origText;
-      alert('Network error — please check your connection and try again.');
+    }).finally(function() {
+      form.style.display = 'none';
+      form.closest('.gated-card').querySelector('.gate-lock').style.display = 'none';
+      form.closest('.gated-card').querySelector('.gate-success').style.display = 'block';
     });
   });
 });
