@@ -41,6 +41,7 @@
       </div>
     </a>
     <nav class="nav-links">
+      <a href="#top" class="nav-link">Home</a>
       <a href="#storefront" class="nav-link">What We Do</a>
       <a href="services.html" class="nav-link">Services</a>
       <a href="training.html" class="nav-link">Training</a>
@@ -58,6 +59,7 @@
 <!-- Mobile drawer -->
 <div class="mobile-drawer-overlay" id="drawerOverlay"></div>
 <div class="mobile-drawer" id="mobileDrawer">
+  <a href="#top">Home</a>
   <a href="#storefront">What We Do</a>
   <a href="services.html">Services</a>
   <a href="training.html">Training</a>
@@ -94,62 +96,51 @@
       <h2>Five challenges we solve for financial institutions</h2>
       <p>Each starts with a conversation. No slides, no proposal — just a clear read on where you are and what moves next.</p>
     </div>
-    <div class="sf-grid">
+    <div class="sf-bento">
 
-      <div class="sf-card">
-        <div class="sf-card-top">
-          <div class="sf-card-icon sf-strategy">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><polyline points="12 6 12 12 16 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <span class="sf-entry-label">Entry Point 1</span>
+      <!-- Left column: 2 flagship cards -->
+      <div class="sf-card sf-card-lg" data-pillar="scale">
+        <div class="sf-card-icon sf-strategy">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><polyline points="12 6 12 12 16 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="sf-problem">"We approved the AI budget but have no roadmap."</div>
         <h3>AI Strategy</h3>
+        <div class="sf-pillar-tag">SCALE</div>
         <div class="sf-outcome">You get <span>→ A signed-off strategy with KPIs, timelines, and board accountability</span></div>
       </div>
 
-      <div class="sf-card">
-        <div class="sf-card-top">
-          <div class="sf-card-icon sf-govern">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <span class="sf-entry-label">Entry Point 2</span>
+      <div class="sf-card sf-card-lg" data-pillar="govern">
+        <div class="sf-card-icon sf-govern">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="sf-problem">"The regulator wants our AI risk framework by Q3."</div>
         <h3>AI Governance</h3>
+        <div class="sf-pillar-tag">GOVERN</div>
         <div class="sf-outcome">You get <span>→ A regulator-ready governance framework with clear ownership</span></div>
       </div>
 
-      <div class="sf-card">
-        <div class="sf-card-top">
-          <div class="sf-card-icon sf-data">
-            <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-          </div>
-          <span class="sf-entry-label">Entry Point 3</span>
+      <!-- Right column: 3 cards -->
+      <div class="sf-card" data-pillar="scale">
+        <div class="sf-card-icon sf-data">
+          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
         </div>
         <div class="sf-problem">"Our data isn't AI-ready and everyone knows it."</div>
         <h3>Data Foundation</h3>
         <div class="sf-outcome">You get <span>→ An AI-ready data architecture with measurable quality baselines</span></div>
       </div>
 
-      <div class="sf-card">
-        <div class="sf-card-top">
-          <div class="sf-card-icon sf-execute">
-            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22 4 12 14.01 9 11.01" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <span class="sf-entry-label">Entry Point 4</span>
+      <div class="sf-card" data-pillar="unlock">
+        <div class="sf-card-icon sf-execute">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22 4 12 14.01 9 11.01" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="sf-problem">"We have the strategy deck. Nothing is getting built."</div>
         <h3>Execution &amp; Delivery</h3>
         <div class="sf-outcome">You get <span>→ Production AI and measurable P&amp;L impact in a single quarter</span></div>
       </div>
 
-      <div class="sf-card">
-        <div class="sf-card-top">
-          <div class="sf-card-icon sf-rollout">
-            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 3.13a4 4 0 0 1 0 7.75" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <span class="sf-entry-label">Entry Point 5</span>
+      <div class="sf-card" data-pillar="unlock">
+        <div class="sf-card-icon sf-rollout">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 3.13a4 4 0 0 1 0 7.75" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="sf-problem">"We bought 500 Anthropic licenses. Nobody's using them."</div>
         <h3>Enterprise AI Rollout</h3>
@@ -159,7 +150,7 @@
     </div>
 
     <!-- Link to full services -->
-    <div style="text-align:center;margin-top:40px;">
+    <div style="text-align:center;margin-top:36px;">
       <a href="services.html" class="sf-services-link">
         See how we solve each one — approach, timeline &amp; accelerators
         <svg viewBox="0 0 24 24" width="16" height="16" style="vertical-align:middle;margin-left:6px;"><path d="M5 12h14M12 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -273,7 +264,7 @@
         <div class="timeline-connector"></div>
         <div class="timeline-step done">
           <div class="timeline-tick">✓</div>
-          <div class="timeline-step-label">Partner<br>Selection</div>
+          <div class="timeline-step-label">Vendor<br>Selection</div>
         </div>
         <div class="timeline-connector"></div>
         <div class="timeline-step done">

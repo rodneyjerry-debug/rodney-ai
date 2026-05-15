@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   /* Stagger delays for grids */
-  document.querySelectorAll('.sf-grid, .services-grid, .insights-grid, .acc-grid, .resources-grid, .faq-grid, .about-highlights, .fr-parts').forEach(function(grid){
+  document.querySelectorAll('.sf-bento, .services-grid, .insights-grid, .acc-grid, .resources-grid, .faq-grid, .about-highlights, .fr-parts').forEach(function(grid){
     var children = grid.children;
     for(var i = 0; i < children.length; i++){
       children[i].classList.add('reveal-delay-' + Math.min(i % 4 + 1, 4));
