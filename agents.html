@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-QZ9C4MLQS8');</script>
+<title>AI Agent Prototypes — Enterprise.AI</title>
+<meta name="description" content="Working AI agent prototypes for banking — credit memos, regulatory gap analysis, model risk scoring, KYC EDD, and board AI reports. Built, not theorised.">
+<link rel="icon" type="image/png" href="assets/brand/04_avatar_square.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Naskh+Arabic:wght@400;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* Page-specific styles */
+.agents-hero {
+  background: var(--navy);
+  padding: 80px 0 56px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.agents-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(0,107,94,0.08) 0%, transparent 70%),
+              radial-gradient(ellipse 40% 60% at 80% 70%, rgba(201,162,39,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.agents-hero .container { position: relative; }
+.ah-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gold); background: rgba(201,162,39,0.1);
+  padding: 6px 14px; border-radius: 20px; margin-bottom: 20px;
+}
+.ah-badge::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--gold); animation: ahPulse 2s ease infinite;
+}
+@keyframes ahPulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+.ah-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(32px, 4.5vw, 52px);
+  color: #fff; font-weight: 600; line-height: 1.15;
+  margin-bottom: 16px;
+}
+.ah-title span { color: var(--gold); }
+.ah-sub {
+  font-size: 17px; color: rgba(255,255,255,0.6);
+  max-width: 620px; margin: 0 auto 32px; line-height: 1.6;
+}
+.ah-stats {
+  display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+}
+.ah-stat-num {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 28px; font-weight: 600; color: #fff;
+}
+.ah-stat-label {
+  font-size: 11px; color: rgba(255,255,255,0.45);
+  text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px;
+}
+
+/* Agent cards grid */
+.agents-grid {
+  padding: 56px 0;
+  background: var(--bg-warm);
+}
+.ag-header {
+  text-align: center; margin-bottom: 40px;
+}
+.ag-header .section-tag { color: var(--gold-light); }
+.ag-cards {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px; max-width: 1100px; margin: 0 auto;
+}
+.ag-card {
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 32px 28px;
+  text-decoration: none; color: inherit;
+  transition: all 0.35s var(--ease);
+  display: flex; flex-direction: column;
+}
+.ag-card:hover {
+  border-color: rgba(0,107,94,0.2);
+  box-shadow: 0 12px 32px rgba(0,107,94,0.08), 0 2px 8px rgba(0,0,0,0.04);
+  transform: translateY(-4px);
+}
+.ag-card-cat {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gold-light); margin-bottom: 8px;
+}
+.ag-card-icon {
+  font-size: 32px; margin-bottom: 12px;
+}
+.ag-card h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 20px; font-weight: 600; color: var(--navy);
+  margin-bottom: 10px;
+}
+.ag-card p {
+  font-size: 14px; color: var(--text-muted); line-height: 1.6;
+  margin-bottom: 16px; flex: 1;
+}
+.ag-card-stats {
+  display: flex; gap: 20px; padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+  margin-top: auto;
+}
+.ag-card-stat-val {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 18px; font-weight: 600; color: var(--navy);
+}
+.ag-card-stat-lbl {
+  font-size: 10px; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.ag-card-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; color: var(--gold-light);
+  margin-top: 16px;
+}
+
+/* Ecosystem feature card */
+.ecosystem-feature {
+  background: var(--navy);
+  padding: 56px 0;
+}
+.ef-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+  align-items: center;
+}
+.ef-text h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 28px; color: #fff; font-weight: 600; margin-bottom: 14px;
+}
+.ef-text p {
+  font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 24px;
+}
+.ef-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  margin-bottom: 24px;
+}
+.ef-stat {
+  text-align: center; padding: 14px 8px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+}
+.ef-stat-num {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 22px; font-weight: 600; color: var(--gold);
+}
+.ef-stat-lbl {
+  font-size: 10px; color: rgba(255,255,255,0.45);
+  text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px;
+}
+.ef-visual {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 32px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+}
+.ef-cell {
+  padding: 12px 8px; border-radius: 8px;
+  text-align: center; font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
+.ef-cell.hot { background: rgba(255,82,82,0.15); color: #ff6b6b; }
+.ef-cell.warm { background: rgba(255,193,7,0.12); color: #ffd54f; }
+.ef-cell.cool { background: rgba(34,211,238,0.12); color: #22d3ee; }
+.ef-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px; background: var(--gold);
+  color: var(--navy); font-weight: 600; font-size: 14px;
+  border-radius: 8px; text-decoration: none;
+  transition: all 0.2s ease;
+}
+.ef-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* How it works */
+.how-section {
+  padding: 56px 0;
+  background: #fff;
+}
+.how-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 24px; max-width: 1100px; margin: 0 auto;
+}
+.how-step {
+  text-align: center; padding: 24px 16px;
+}
+.how-num {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--navy); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 16px;
+  margin: 0 auto 14px;
+}
+.how-step h4 {
+  font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 8px;
+}
+.how-step p {
+  font-size: 13px; color: var(--text-muted); line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .ef-inner { grid-template-columns: 1fr; }
+  .how-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .ag-cards { grid-template-columns: 1fr; }
+  .how-grid { grid-template-columns: 1fr; }
+  .ah-stats { gap: 24px; }
+  .ef-visual { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body id="top">
+
+<!-- ========== LOCALE STRIP ========== -->
+<div class="locale-strip">
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center">
+    <span class="locale-geo">Riyadh · Doha · Dubai · London</span>
+    <span class="locale-date" id="hijriDate"></span>
+  </div>
+</div>
+
+<!-- ========== NAV ========== -->
+<header class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div>
+        <div class="logo-text">Enterprise<span class="dot">.AI</span></div>
+        <div class="logo-tag">AI Strategy · Governance · Execution</div>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="index.html#storefront" class="nav-link">What We Do</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="training.html" class="nav-link">Training</a>
+      <a href="research.html" class="nav-link">Research</a>
+      <a href="agents.html" class="nav-link active" aria-current="page">Agents</a>
+      <a href="tools.html" class="nav-link">Tools</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="about.html#contact" class="btn btn-primary">Book a Free Briefing</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <a href="index.html">Home</a>
+  <a href="index.html#storefront">What We Do</a>
+  <a href="services.html">Services</a>
+  <a href="training.html">Training</a>
+  <a href="research.html">Research</a>
+  <a href="agents.html" class="active" aria-current="page">Agents</a>
+  <a href="tools.html">Tools</a>
+  <a href="about.html">About</a>
+  <a href="about.html#contact" style="color:var(--gold);font-weight:700">Book a Free Briefing →</a>
+</div>
+
+<main>
+
+<!-- ========== HERO ========== -->
+<section class="agents-hero">
+  <div class="container">
+    <div class="ah-badge">Working Prototypes</div>
+    <h1 class="ah-title">AI Agents for <span>Banking</span></h1>
+    <p class="ah-sub">Most advisory firms show you slides about agentic AI. We build the agents. Select a scenario, click "Run Agent", and watch it work — step-by-step reasoning, real outputs, full audit trail.</p>
+    <div class="ah-stats">
+      <div class="ah-stat">
+        <div class="ah-stat-num">5</div>
+        <div class="ah-stat-label">Agent Prototypes</div>
+      </div>
+      <div class="ah-stat">
+        <div class="ah-stat-num">15</div>
+        <div class="ah-stat-label">Pre-Built Scenarios</div>
+      </div>
+      <div class="ah-stat">
+        <div class="ah-stat-num">42</div>
+        <div class="ah-stat-label">Use Cases Mapped</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== AGENT CARDS ========== -->
+<section class="agents-grid">
+  <div class="container">
+    <div class="ag-header">
+      <div class="section-tag">Live Demos</div>
+      <h2 class="section-title">Try the Agents</h2>
+      <p style="color:var(--text-muted);max-width:560px;margin:12px auto 0;font-size:15px;">Each prototype runs 3 realistic GCC banking scenarios. Select, click, and watch the agent reason through the workflow.</p>
+    </div>
+    <div class="ag-cards">
+
+      <a href="accelerators/agent-credit-memo.html" class="ag-card">
+        <div class="ag-card-cat">Revenue Monetisation</div>
+        <div class="ag-card-icon">📄</div>
+        <h3>Credit Memo Agent</h3>
+        <p>Analyses company financials, extracts key ratios, flags credit risks, and drafts a structured credit memorandum — complete with recommendation and conditions precedent.</p>
+        <div class="ag-card-stats">
+          <div><div class="ag-card-stat-val">90 sec</div><div class="ag-card-stat-lbl">vs 4–6 hours</div></div>
+          <div><div class="ag-card-stat-val">12</div><div class="ag-card-stat-lbl">Ratios computed</div></div>
+          <div><div class="ag-card-stat-val">3</div><div class="ag-card-stat-lbl">Scenarios</div></div>
+        </div>
+        <div class="ag-card-cta">Try the prototype →</div>
+      </a>
+
+      <a href="accelerators/agent-board-ai-report.html" class="ag-card">
+        <div class="ag-card-cat">Sovereign AI</div>
+        <div class="ag-card-icon">📊</div>
+        <h3>Board AI Report Generator</h3>
+        <p>Benchmarks the bank against peers, sizes AI opportunity across 4 value levers, prioritises use cases, identifies risks, and generates a board-ready AI strategy report with 90-day roadmap.</p>
+        <div class="ag-card-stats">
+          <div><div class="ag-card-stat-val">7 steps</div><div class="ag-card-stat-lbl">Full workflow</div></div>
+          <div><div class="ag-card-stat-val">4</div><div class="ag-card-stat-lbl">Value levers</div></div>
+          <div><div class="ag-card-stat-val">3</div><div class="ag-card-stat-lbl">Bank profiles</div></div>
+        </div>
+        <div class="ag-card-cta">Try the prototype →</div>
+      </a>
+
+      <a href="accelerators/agent-regulatory-gap.html" class="ag-card">
+        <div class="ag-card-cat">Governance & Risk</div>
+        <div class="ag-card-icon">🛡️</div>
+        <h3>Regulatory Gap Analyzer</h3>
+        <p>Scans the bank's AI governance posture against SAMA, SDAIA, CBUAE, and QCB frameworks — mapping every gap, scoring readiness per domain, and generating a prioritised 30/60/90-day remediation roadmap.</p>
+        <div class="ag-card-stats">
+          <div><div class="ag-card-stat-val">94</div><div class="ag-card-stat-lbl">Controls scanned</div></div>
+          <div><div class="ag-card-stat-val">4</div><div class="ag-card-stat-lbl">Frameworks</div></div>
+          <div><div class="ag-card-stat-val">6 min</div><div class="ag-card-stat-lbl">vs 8–12 weeks</div></div>
+        </div>
+        <div class="ag-card-cta">Try the prototype →</div>
+      </a>
+
+      <a href="accelerators/agent-model-risk.html" class="ag-card">
+        <div class="ag-card-cat">Capital Efficiency</div>
+        <div class="ag-card-icon">⚠️</div>
+        <h3>Model Risk Scorecard</h3>
+        <p>Assesses AI model risk across 6 dimensions — data quality, performance stability, bias, explainability, operational resilience, and governance maturity — producing a validated risk tier with remediation priorities.</p>
+        <div class="ag-card-stats">
+          <div><div class="ag-card-stat-val">6</div><div class="ag-card-stat-lbl">Risk dimensions</div></div>
+          <div><div class="ag-card-stat-val">SR 11-7</div><div class="ag-card-stat-lbl">Grade framework</div></div>
+          <div><div class="ag-card-stat-val">3 min</div><div class="ag-card-stat-lbl">vs 2–3 weeks</div></div>
+        </div>
+        <div class="ag-card-cta">Try the prototype →</div>
+      </a>
+
+      <a href="accelerators/agent-kyc-edd.html" class="ag-card">
+        <div class="ag-card-cat">Risk & Compliance</div>
+        <div class="ag-card-icon">🔍</div>
+        <h3>KYC Enhanced Due Diligence</h3>
+        <p>Conducts full EDD investigations — tracing beneficial ownership, screening sanctions and PEP databases, analysing source of wealth, and generating a risk-scored report ready for MLRO sign-off.</p>
+        <div class="ag-card-stats">
+          <div><div class="ag-card-stat-val">12</div><div class="ag-card-stat-lbl">Sources checked</div></div>
+          <div><div class="ag-card-stat-val">4 min</div><div class="ag-card-stat-lbl">vs 3–5 days</div></div>
+          <div><div class="ag-card-stat-val">100%</div><div class="ag-card-stat-lbl">Audit trail</div></div>
+        </div>
+        <div class="ag-card-cta">Try the prototype →</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== ECOSYSTEM MAP FEATURE ========== -->
+<section class="ecosystem-feature">
+  <div class="container">
+    <div class="ef-inner">
+      <div class="ef-text">
+        <div class="section-tag" style="color:var(--gold-light);margin-bottom:12px;">Agentic AI Landscape</div>
+        <h2>Investment Bank Agent Ecosystem</h2>
+        <p>Interactive heatmap of 42 agentic AI use cases across 7 investment banking divisions. Filter by complexity, criticality, and value lever. Understand where agents create the most impact — and where to start.</p>
+        <div class="ef-stats">
+          <div class="ef-stat"><div class="ef-stat-num">42</div><div class="ef-stat-lbl">Use Cases</div></div>
+          <div class="ef-stat"><div class="ef-stat-num">7</div><div class="ef-stat-lbl">Divisions</div></div>
+          <div class="ef-stat"><div class="ef-stat-num">3</div><div class="ef-stat-lbl">Horizons</div></div>
+        </div>
+        <a href="accelerators/agentic-ai-ecosystem.html" class="ef-btn">
+          Explore the Map
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="ef-visual">
+        <div class="ef-cell hot">Global Markets</div>
+        <div class="ef-cell warm">Investment Banking</div>
+        <div class="ef-cell hot">Risk Mgmt</div>
+        <div class="ef-cell warm">Wealth Mgmt</div>
+        <div class="ef-cell cool">Operations</div>
+        <div class="ef-cell hot">Compliance</div>
+        <div class="ef-cell cool">Tech & Data</div>
+        <div class="ef-cell warm">Treasury</div>
+        <div class="ef-cell hot">Credit Risk</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== HOW IT WORKS ========== -->
+<section class="how-section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:40px;">
+      <div class="section-tag">From Prototype to Production</div>
+      <h2 class="section-title">How We Deploy Agents</h2>
+    </div>
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <h4>Identify</h4>
+        <p>Map your highest-value agent opportunities using the Ecosystem Map. Score by impact, feasibility, and regulatory readiness.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">2</div>
+        <h4>Prototype</h4>
+        <p>Build a working prototype in 2–4 weeks. Real scenarios, real data shapes, real outputs — not mockups or slide decks.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <h4>Govern</h4>
+        <p>Wrap each agent in your governance framework — model risk scoring, explainability, audit trail, and human-in-the-loop controls.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">4</div>
+        <h4>Scale</h4>
+        <p>Move to production with API integration, monitoring, and change management. Measure value. Expand the agent portfolio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section style="background:var(--navy);padding:56px 0;text-align:center;">
+  <div class="container">
+    <h2 style="font-family:'Fraunces',Georgia,serif;color:#fff;font-size:28px;margin-bottom:8px;">Ready to build your agent portfolio?</h2>
+    <p style="color:rgba(255,255,255,0.55);font-size:15px;margin-bottom:24px;">30-minute briefing. No slides. We'll map where agents can create the most value for your institution.</p>
+    <a href="about.html#contact" class="btn btn-gold" style="font-size:15px;padding:14px 32px;">Book a Free Briefing →</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div>
+          <div class="footer-wordmark">Enterprise<span class="dot">.AI</span></div>
+          <div class="footer-sgu">Strategy · Governance · Execution</div>
+          <div style="font-family:'Amiri','Noto Naskh Arabic',serif; font-size:12px; color:var(--gold); opacity:0.5; direction:rtl; margin-top:4px;">الاستراتيجية · الحوكمة · التنفيذ</div>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="services.html">Services</a>
+        <a href="research.html">Research</a>
+        <a href="agents.html">Agents</a>
+        <a href="tools.html">Tools</a>
+        <a href="about.html">About</a>
+        <a href="mailto:advisor@rodney-ai.com">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 Enterprise.AI. All rights reserved.</span>
+      <span class="footer-copy">Riyadh · Doha · Dubai · London</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Sticky mobile CTA -->
+<div class="sticky-cta" id="stickyCta">
+  <a href="about.html#contact" class="btn btn-primary">Book a Free 30-Min Briefing →</a>
+</div>
+
+<!-- Back to top -->
+<a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top">↑</a>
+
+<script src="shared.js"></script>
+</body></html>
