@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-QZ9C4MLQS8");
+</script>
+<title>Agentic AI Ecosystem Map — Enterprise.AI Accelerator</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="_shared.css"/>
+<style>
+/* ---- FILTERS ---- */
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 28px;align-items:center}
+.filter-bar label{font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-right:4px}
+.filter-btn{font-size:12.5px;padding:6px 14px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text-dim);cursor:pointer;transition:all 0.2s;font-family:inherit}
+.filter-btn:hover{border-color:rgba(124,92,255,0.4);color:var(--text)}
+.filter-btn.active{background:rgba(124,92,255,0.15);border-color:rgba(124,92,255,0.4);color:#bfb5ff;font-weight:600}
+.filter-group{display:flex;gap:6px;align-items:center;margin-right:16px}
+
+/* ---- HEATMAP GRID ---- */
+.heatmap-wrap{overflow-x:auto;margin:0 -8px;padding:0 8px}
+.heatmap{width:100%;border-collapse:separate;border-spacing:3px;margin:0 0 28px}
+.heatmap th{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;padding:10px 8px;text-align:center;background:transparent;border:none;position:sticky;top:0;z-index:2}
+.heatmap th:first-child{text-align:left;min-width:140px}
+.heatmap td{padding:0;border:none;vertical-align:top}
+.heatmap td:first-child{font-size:12.5px;font-weight:600;color:var(--text);padding:14px 10px;vertical-align:middle;background:rgba(255,255,255,0.02);border-radius:8px;min-width:140px}
+.heat-cell{position:relative;border-radius:10px;padding:12px 10px;min-height:80px;cursor:pointer;transition:all 0.25s;border:1px solid transparent;display:flex;flex-direction:column;justify-content:space-between}
+.heat-cell:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.3);border-color:rgba(255,255,255,0.15);z-index:3}
+.heat-cell .agent-name{font-size:11.5px;font-weight:600;color:#fff;line-height:1.3;margin-bottom:6px}
+.heat-cell .agent-meta{display:flex;gap:4px;flex-wrap:wrap}
+.heat-cell .micro-tag{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
+
+/* Heat levels */
+.heat-high{background:rgba(124,92,255,0.25)}
+.heat-med{background:rgba(34,211,238,0.18)}
+.heat-low{background:rgba(255,255,255,0.06)}
+.heat-critical{background:rgba(255,122,192,0.22)}
+
+/* Complexity colors */
+.cx-low{background:rgba(34,211,238,0.2);color:#67e8f9}
+.cx-med{background:rgba(255,193,7,0.2);color:#ffd54f}
+.cx-high{background:rgba(255,122,192,0.2);color:#ff7ac0}
+
+/* Benefit colors */
+.bn-revenue{background:rgba(124,92,255,0.2);color:#bfb5ff}
+.bn-cost{background:rgba(34,211,238,0.2);color:#67e8f9}
+.bn-risk{background:rgba(255,122,192,0.2);color:#ff7ac0}
+.bn-speed{background:rgba(255,193,7,0.2);color:#ffd54f}
+
+/* ---- DETAIL MODAL ---- */
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:100;backdrop-filter:blur(4px);justify-content:center;align-items:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg-2);border:1px solid var(--border-strong);border-radius:18px;max-width:640px;width:100%;max-height:85vh;overflow-y:auto;padding:36px}
+.modal-close{float:right;background:none;border:none;color:var(--text-muted);font-size:22px;cursor:pointer;padding:4px 8px;line-height:1}
+.modal-close:hover{color:var(--text)}
+.modal h3{font-family:'Space Grotesk',sans-serif;font-size:22px;margin-bottom:4px}
+.modal .modal-division{font-size:13px;color:var(--accent-2);font-weight:500;margin-bottom:16px}
+.modal-scores{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}
+.modal-score{text-align:center;padding:14px 8px;background:var(--surface);border-radius:10px;border:1px solid var(--border)}
+.modal-score .score-val{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;margin-bottom:2px}
+.modal-score .score-lbl{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em}
+.modal-section{margin-top:20px}
+.modal-section h4{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--text);margin-bottom:8px}
+.modal-section p,.modal-section li{font-size:14px;color:var(--text-dim)}
+.modal-section ul{margin:6px 0 0 18px}
+.modal-section li{margin-bottom:5px}
+.modal-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+
+/* ---- SUMMARY STATS ---- */
+.summary-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:24px 0}
+.summary-stat{text-align:center;padding:20px 12px;background:var(--bg-2);border-radius:12px;border:1px solid var(--border)}
+.summary-stat .val{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;margin-bottom:4px}
+.summary-stat .val.purple{color:var(--accent)}
+.summary-stat .val.cyan{color:var(--accent-2)}
+.summary-stat .val.pink{color:var(--accent-3)}
+.summary-stat .val.gold{color:#ffd54f}
+.summary-stat .lbl{font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em}
+
+/* ---- LEGEND ---- */
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:16px 0 24px;padding:14px 18px;background:var(--bg-2);border-radius:10px;border:1px solid var(--border)}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text-dim)}
+.legend-swatch{width:14px;height:14px;border-radius:4px}
+
+/* ---- VALUE LEVER STRIP ---- */
+.lever-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:24px 0}
+.lever-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:border-color 0.25s}
+.lever-card:hover{border-color:rgba(124,92,255,0.3)}
+.lever-card .lever-num{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;margin-bottom:4px}
+.lever-card .lever-label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px}
+.lever-card .lever-agents{font-size:13px;color:var(--text-dim)}
+
+/* ---- EMPTY STATE ---- */
+.no-results{text-align:center;padding:48px 20px;color:var(--text-muted);font-size:15px}
+
+@media(max-width:760px){
+  .summary-stats,.modal-scores{grid-template-columns:1fr 1fr}
+  .lever-strip{grid-template-columns:1fr 1fr}
+  .filter-bar{flex-direction:column;align-items:flex-start}
+  .filter-group{margin-right:0;margin-bottom:8px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="../tools.html" class="back">← Back to Enterprise.AI</a>
+  <div class="hero-banner">
+    <div class="eyebrow"><span class="dot"></span>Accelerator · Agentic AI</div>
+    <h1 class="display">Agentic AI <span class="gradient-text">Ecosystem Map</span></h1>
+    <p class="lead">A comprehensive map of 40+ agentic AI use cases across the investment banking value chain — scored by complexity, criticality, benefit, and consumer. Use this to prioritise your AI agent roadmap and build your board-ready business case.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">42</div><div class="hero-stat-label">Agent Use Cases Mapped</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">7</div><div class="hero-stat-label">IB Divisions Covered</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">4</div><div class="hero-stat-label">Value Levers Linked</div></div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="card">
+    <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>Ecosystem Overview</h2>
+    <p>Agentic AI is moving beyond chatbots and copilots. The next wave of value in investment banking comes from autonomous agents that can reason, plan, use tools, and execute multi-step workflows with human oversight. This ecosystem map identifies where those agents create the most value — and where to start.</p>
+    <div class="summary-stats">
+      <div class="summary-stat"><div class="val purple">18</div><div class="lbl">High-Impact Agents</div></div>
+      <div class="summary-stat"><div class="val cyan">12</div><div class="lbl">Quick Wins (Low Complexity)</div></div>
+      <div class="summary-stat"><div class="val pink">8</div><div class="lbl">Risk-Critical Agents</div></div>
+      <div class="summary-stat"><div class="val gold">SAR 40.8B</div><div class="lbl">Value at Stake</div></div>
+    </div>
+  </div>
+
+  <!-- VALUE LEVER MAPPING -->
+  <div class="card">
+    <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>Linked to Banking 2030 Value Levers</h2>
+    <p>Each agent use case maps to one of four value levers from the Enterprise.AI Banking 2030 Scoreboard — connecting the ecosystem directly to the SAR 40.8B opportunity.</p>
+    <div class="lever-strip">
+      <div class="lever-card"><div class="lever-num" style="color:var(--accent)">14</div><div class="lever-label">Revenue Monetization</div><div class="lever-agents">Credit, Sales, Advisory agents</div></div>
+      <div class="lever-card"><div class="lever-num" style="color:var(--accent-2)">10</div><div class="lever-label">Capital Efficiency</div><div class="lever-agents">Risk, Treasury, ALM agents</div></div>
+      <div class="lever-card"><div class="lever-num" style="color:var(--accent-3)">11</div><div class="lever-label">Asset Tokenization</div><div class="lever-agents">Securities, Custody, Settlement</div></div>
+      <div class="lever-card"><div class="lever-num" style="color:#ffd54f">7</div><div class="lever-label">Sovereign AI Infra</div><div class="lever-agents">Compliance, Data, Platform</div></div>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="card">
+    <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg></span>Interactive Heatmap</h2>
+    <p>Click any cell to see the full agent profile — use case description, value drivers, implementation requirements, and linked Banking 2030 lever.</p>
+
+    <div class="filter-bar">
+      <div class="filter-group">
+        <label>Benefit:</label>
+        <button class="filter-btn active" data-filter="benefit" data-val="all">All</button>
+        <button class="filter-btn" data-filter="benefit" data-val="revenue">Revenue</button>
+        <button class="filter-btn" data-filter="benefit" data-val="cost">Cost</button>
+        <button class="filter-btn" data-filter="benefit" data-val="risk">Risk</button>
+        <button class="filter-btn" data-filter="benefit" data-val="speed">Speed</button>
+      </div>
+      <div class="filter-group">
+        <label>Complexity:</label>
+        <button class="filter-btn active" data-filter="complexity" data-val="all">All</button>
+        <button class="filter-btn" data-filter="complexity" data-val="low">Low</button>
+        <button class="filter-btn" data-filter="complexity" data-val="med">Med</button>
+        <button class="filter-btn" data-filter="complexity" data-val="high">High</button>
+      </div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-swatch" style="background:rgba(255,122,192,0.35)"></div>Critical (Regulatory / Risk)</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:rgba(124,92,255,0.35)"></div>High Impact</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:rgba(34,211,238,0.28)"></div>Medium Impact</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:rgba(255,255,255,0.08)"></div>Supporting</div>
+    </div>
+
+    <div class="heatmap-wrap">
+      <table class="heatmap" id="heatmapTable">
+        <thead>
+          <tr>
+            <th>Division</th>
+            <th>Agent 1</th>
+            <th>Agent 2</th>
+            <th>Agent 3</th>
+            <th>Agent 4</th>
+            <th>Agent 5</th>
+            <th>Agent 6</th>
+          </tr>
+        </thead>
+        <tbody id="heatmapBody"></tbody>
+      </table>
+    </div>
+    <div class="no-results" id="noResults" style="display:none">No agents match the selected filters. Try adjusting your criteria.</div>
+  </div>
+
+  <!-- IMPLEMENTATION ROADMAP -->
+  <div class="card">
+    <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>Recommended Implementation Sequence</h2>
+    <p>Based on complexity, criticality, and value impact, we recommend a three-horizon approach to agent deployment.</p>
+    <div class="grid-3" style="margin-top:18px">
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:14px;padding:22px">
+        <div style="font-size:11px;color:var(--accent-2);font-weight:600;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">Horizon 1 · 0–3 Months</div>
+        <h4 style="font-family:'Space Grotesk',sans-serif;font-size:16px;margin-bottom:10px">Quick Wins</h4>
+        <p style="font-size:13.5px;color:var(--text-dim)">Low-complexity agents with immediate ROI. Document drafting, research synthesis, KYC screening, regulatory monitoring. Minimal integration, human-in-the-loop throughout.</p>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:14px;padding:22px">
+        <div style="font-size:11px;color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">Horizon 2 · 3–9 Months</div>
+        <h4 style="font-family:'Space Grotesk',sans-serif;font-size:16px;margin-bottom:10px">Value Drivers</h4>
+        <p style="font-size:13.5px;color:var(--text-dim)">Medium-complexity agents that transform workflows. Credit analysis, trade surveillance, client advisory, model validation. Requires API integration and governance framework.</p>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:14px;padding:22px">
+        <div style="font-size:11px;color:var(--accent-3);font-weight:600;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">Horizon 3 · 9–18 Months</div>
+        <h4 style="font-family:'Space Grotesk',sans-serif;font-size:16px;margin-bottom:10px">Transformational</h4>
+        <p style="font-size:13.5px;color:var(--text-dim)">High-complexity autonomous agents. Portfolio optimisation, algorithmic strategy, real-time settlement, sovereign AI infrastructure. Deep system integration, advanced governance.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="card" style="text-align:center;padding:40px">
+    <h2 style="margin-bottom:10px">Ready to build your agent roadmap?</h2>
+    <p style="max-width:520px;margin:0 auto 20px">Book a free 30-minute briefing. We'll walk through which agents fit your bank's priorities and how to sequence the first three.</p>
+    <a href="../about.html#contact" style="display:inline-block;padding:14px 32px;background:var(--gradient);color:#fff;font-weight:600;border-radius:10px;font-size:15px;text-decoration:none">Book a Free Briefing →</a>
+  </div>
+
+  <div class="footer-note">
+    &copy; 2026 Enterprise.AI — advisor@rodney-ai.com<br/>
+    <a href="../tools.html">Tools</a> · <a href="../services.html">Services</a> · <a href="../research.html">Research</a> · <a href="../about.html">About</a>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <h3 id="modalTitle"></h3>
+    <div class="modal-division" id="modalDivision"></div>
+    <div class="modal-scores" id="modalScores"></div>
+    <div class="modal-section" id="modalDesc"></div>
+    <div class="modal-section" id="modalValue"></div>
+    <div class="modal-section" id="modalReqs"></div>
+    <div class="modal-tags" id="modalTags"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ========== AGENT DATA ========== */
+var agents = [
+  // ---- GLOBAL MARKETS / TRADING ----
+  {division:"Global Markets",name:"Trade Idea Generator",complexity:"med",criticality:"high",consumer:"Front Office",benefit:"revenue",lever:"Revenue Monetization",heat:"high",
+   desc:"Synthesises macro data, earnings, flows, and positioning to generate actionable trade ideas for sales and trading desks. Reasons across asset classes and generates client-ready commentary.",
+   value:["Increases idea velocity by 5–8x","Enables personalised ideas per client segment","Reduces reliance on individual star analysts"],
+   reqs:["Market data feeds (Bloomberg, Reuters)","CRM integration for client preferences","Human approval before client distribution"]},
+
+  {division:"Global Markets",name:"Pre-Trade Compliance Agent",complexity:"med",criticality:"critical",consumer:"Middle Office",benefit:"risk",lever:"Capital Efficiency",heat:"critical",
+   desc:"Automatically screens proposed trades against regulatory limits, internal risk policies, sanctions lists, and position limits before execution. Flags violations in real-time.",
+   value:["Eliminates manual compliance bottleneck","Reduces trade rejection rate by 40%","Real-time SAMA/QCB regulatory alignment"],
+   reqs:["Integration with OMS/EMS","Regulatory rule engine","Real-time position data"]},
+
+  {division:"Global Markets",name:"Market Colour Summariser",complexity:"low",criticality:"med",consumer:"Front Office",benefit:"speed",lever:"Revenue Monetization",heat:"med",
+   desc:"Ingests morning research, broker notes, news feeds, and internal chat to produce a concise market colour summary for each desk by 7am. Highlights what changed overnight.",
+   value:["Saves 45–60 min per trader per day","Consistent quality across desks","Captures cross-asset signals humans miss"],
+   reqs:["News/research API access","Internal chat integration","Desk-specific configuration"]},
+
+  {division:"Global Markets",name:"Post-Trade Reconciliation Agent",complexity:"med",criticality:"high",consumer:"Back Office",benefit:"cost",lever:"Capital Efficiency",heat:"high",
+   desc:"Matches and reconciles trades across internal systems, counterparties, and custodians. Identifies breaks, proposes resolutions, and escalates genuine exceptions.",
+   value:["Reduces reconciliation staff by 30–50%","Faster settlement, lower fail rates","Identifies systemic breaks early"],
+   reqs:["Multi-system data access","Counterparty connectivity","Exception management workflow"]},
+
+  {division:"Global Markets",name:"Algo Strategy Optimiser",complexity:"high",criticality:"high",consumer:"Front Office",benefit:"revenue",lever:"Revenue Monetization",heat:"high",
+   desc:"Analyses historical execution data to suggest parameter adjustments for algorithmic trading strategies. Back-tests variations and recommends optimal configurations per market regime.",
+   value:["Improves execution quality by 5–15bps","Adapts strategies to regime changes faster","Reduces manual parameter tuning"],
+   reqs:["Execution analytics platform","Back-testing infrastructure","Model risk governance"]},
+
+  {division:"Global Markets",name:"Client Flow Predictor",complexity:"high",criticality:"med",consumer:"Front Office",benefit:"revenue",lever:"Revenue Monetization",heat:"med",
+   desc:"Analyses historical client trading patterns, seasonal flows, and macro events to predict likely client activity — helping desks pre-position and allocate coverage.",
+   value:["Better inventory management","Proactive client engagement","Reduced hedging costs"],
+   reqs:["5+ years client flow data","CRM integration","Privacy/data classification compliance"]},
+
+  // ---- INVESTMENT BANKING (ADVISORY) ----
+  {division:"Investment Banking",name:"Credit Memo Agent",complexity:"med",criticality:"high",consumer:"Front Office",benefit:"speed",lever:"Revenue Monetization",heat:"high",
+   desc:"Ingests company financials, annual reports, and industry data to draft a structured credit memorandum — ratio analysis, peer comparison, risk flags, and covenant recommendations.",
+   value:["Reduces memo drafting from 6 hours to 30 minutes","Consistent analytical rigour across analysts","Frees bankers to focus on client relationships"],
+   reqs:["Financial data provider (Capital IQ, Bloomberg)","Document template engine","Senior banker review workflow"]},
+
+  {division:"Investment Banking",name:"Pitchbook Builder",complexity:"med",criticality:"med",consumer:"Front Office",benefit:"speed",lever:"Revenue Monetization",heat:"med",
+   desc:"Generates M&A or capital markets pitchbooks from structured inputs — target profiles, comparable transactions, valuation frameworks, and market positioning slides.",
+   value:["Cuts pitchbook creation from 2 days to 2 hours","Standardises formatting and methodology","Enables faster response to mandate opportunities"],
+   reqs:["Deal database access","Presentation template library","Brand compliance engine"]},
+
+  {division:"Investment Banking",name:"Deal Screening Agent",complexity:"low",criticality:"med",consumer:"Front Office",benefit:"revenue",lever:"Revenue Monetization",heat:"med",
+   desc:"Monitors M&A activity, capital events, and corporate announcements to identify potential mandates matching the bank's sector coverage and capability.",
+   value:["Expands deal pipeline by 20–30%","Identifies opportunities before competitors","Systematic coverage of adjacent sectors"],
+   reqs:["News and corporate filing feeds","Internal CRM/pipeline system","Sector coverage mapping"]},
+
+  {division:"Investment Banking",name:"Due Diligence Coordinator",complexity:"high",criticality:"critical",consumer:"Front Office",benefit:"risk",lever:"Capital Efficiency",heat:"critical",
+   desc:"Orchestrates the due diligence process — tracks checklist completion across workstreams, flags missing documents, identifies red flags in data rooms, and generates status reports.",
+   value:["Reduces DD timeline by 25–40%","Ensures nothing falls through the cracks","Real-time visibility for deal principals"],
+   reqs:["Data room API integration","Checklist/workflow engine","Multi-party access controls"]},
+
+  {division:"Investment Banking",name:"Regulatory Filing Drafter",complexity:"med",criticality:"critical",consumer:"Middle Office",benefit:"risk",lever:"Sovereign AI Infra",heat:"critical",
+   desc:"Drafts regulatory filings and disclosures (SAMA, CMA, DFSA submissions) from deal data and templates. Ensures compliance with jurisdiction-specific requirements.",
+   value:["Reduces filing errors by 60%","Accelerates time-to-filing","Multi-jurisdiction support (KSA, UAE, Qatar)"],
+   reqs:["Regulatory template library","Deal data integration","Legal review workflow"]},
+
+  // ---- RISK MANAGEMENT ----
+  {division:"Risk Management",name:"Model Risk Scorecard Agent",complexity:"med",criticality:"critical",consumer:"Middle Office",benefit:"risk",lever:"Capital Efficiency",heat:"critical",
+   desc:"Evaluates AI/ML models against SR 11-7, SAMA model risk guidelines, and Basel requirements. Produces a risk scorecard with red/amber/green ratings and remediation actions.",
+   value:["Standardises model risk assessment","Reduces validation cycle from weeks to days","Ensures regulatory alignment across model inventory"],
+   reqs:["Model inventory/registry","Regulatory framework engine","Validation data access"]},
+
+  {division:"Risk Management",name:"Stress Test Scenario Agent",complexity:"high",criticality:"high",consumer:"Middle Office",benefit:"risk",lever:"Capital Efficiency",heat:"high",
+   desc:"Generates and analyses stress test scenarios — macro shocks, sector-specific events, and tail risks. Produces impact assessments across the portfolio with narrative explanations.",
+   value:["More comprehensive scenario coverage","Faster regulatory stress test cycles","Board-ready narrative outputs"],
+   reqs:["Portfolio data access","Macro-economic models","Regulatory scenario requirements"]},
+
+  {division:"Risk Management",name:"Credit Risk Early Warning",complexity:"med",criticality:"high",consumer:"Middle Office",benefit:"risk",lever:"Capital Efficiency",heat:"high",
+   desc:"Monitors borrower behaviour, financial covenants, news sentiment, and market signals to generate early warning alerts for credit deterioration before formal downgrades.",
+   value:["3–6 month earlier detection vs traditional models","Reduces unexpected credit losses","Proactive portfolio management"],
+   reqs:["Borrower financial data feeds","News/sentiment analysis","Credit monitoring systems"]},
+
+  {division:"Risk Management",name:"Operational Risk Event Classifier",complexity:"low",criticality:"med",consumer:"Middle Office",benefit:"cost",lever:"Sovereign AI Infra",heat:"med",
+   desc:"Automatically classifies and categorises operational risk events from incident reports, loss data, and near-misses. Maps to Basel categories and internal risk taxonomy.",
+   value:["Consistent classification across business lines","Reduces manual triage by 70%","Better data quality for capital calculations"],
+   reqs:["Incident management system","Risk taxonomy configuration","Loss database access"]},
+
+  {division:"Risk Management",name:"Limit Breach Investigator",complexity:"low",criticality:"critical",consumer:"Middle Office",benefit:"risk",lever:"Capital Efficiency",heat:"critical",
+   desc:"When a risk limit breach occurs, this agent automatically gathers context — what positions drove it, market moves involved, historical breach patterns — and drafts the investigation memo.",
+   value:["Reduces breach investigation time by 80%","Consistent investigation quality","Faster regulatory reporting"],
+   reqs:["Real-time position data","Risk limit framework","Investigation template engine"]},
+
+  // ---- WEALTH MANAGEMENT ----
+  {division:"Wealth Management",name:"Client Advisory Agent",complexity:"med",criticality:"high",consumer:"Front Office",benefit:"revenue",lever:"Revenue Monetization",heat:"high",
+   desc:"Generates personalised investment recommendations based on client risk profile, portfolio composition, market outlook, and life events. Produces client-ready advisory notes.",
+   value:["Scales advisory capacity by 3–5x","Consistent suitability alignment","Enables mass-affluent segment coverage"],
+   reqs:["Client portfolio data","Suitability engine","CRM/client lifecycle data"]},
+
+  {division:"Wealth Management",name:"KYC/EDD Agent",complexity:"med",criticality:"critical",consumer:"Middle Office",benefit:"cost",lever:"Capital Efficiency",heat:"critical",
+   desc:"Drafts enhanced due diligence reports — PEP screening, adverse media analysis, source of wealth verification, and risk rating recommendations. Covers KSA, UAE, Qatar jurisdictions.",
+   value:["Reduces EDD processing time by 60%","Consistent risk rating methodology","Multi-jurisdiction regulatory alignment"],
+   reqs:["Screening databases (World-Check, Dow Jones)","Jurisdiction rule engine","Compliance review workflow"]},
+
+  {division:"Wealth Management",name:"Portfolio Rebalancing Agent",complexity:"high",criticality:"high",consumer:"Front Office",benefit:"revenue",lever:"Revenue Monetization",heat:"high",
+   desc:"Monitors client portfolios against target allocations, market conditions, and tax implications. Proposes rebalancing trades with rationale and generates client communication.",
+   value:["Timely rebalancing across entire book","Tax-efficient trade proposals","Automated client communication drafts"],
+   reqs:["Portfolio management system","Market data feeds","Tax rule engine"]},
+
+  {division:"Wealth Management",name:"Client Onboarding Agent",complexity:"low",criticality:"med",consumer:"Back Office",benefit:"speed",lever:"Revenue Monetization",heat:"med",
+   desc:"Orchestrates the client onboarding journey — document collection, form pre-population, identity verification coordination, and account setup tracking.",
+   value:["Reduces onboarding from 2 weeks to 3 days","Better client experience","Reduces drop-off during onboarding"],
+   reqs:["Document management system","Identity verification APIs","Account opening systems"]},
+
+  {division:"Wealth Management",name:"Inheritance & Succession Planner",complexity:"high",criticality:"med",consumer:"Front Office",benefit:"revenue",lever:"Revenue Monetization",heat:"med",
+   desc:"Analyses family structures, asset distribution, Sharia compliance requirements, and cross-border tax implications to generate succession planning recommendations.",
+   value:["Deepens ultra-HNW client relationships","Captures inter-generational wealth transfer","Sharia-compliant structuring"],
+   reqs:["Client family data","Sharia compliance engine","Multi-jurisdiction legal frameworks"]},
+
+  // ---- OPERATIONS ----
+  {division:"Operations",name:"Payment Repair Agent",complexity:"low",criticality:"high",consumer:"Back Office",benefit:"cost",lever:"Capital Efficiency",heat:"high",
+   desc:"Identifies failed or stuck payments, diagnoses the root cause (missing fields, sanctions hits, format errors), and either auto-repairs or routes to the correct handler.",
+   value:["Reduces payment exceptions by 50%","Faster straight-through processing","Lower correspondent banking costs"],
+   reqs:["Payment processing system","SWIFT/payment format rules","Exception queue integration"]},
+
+  {division:"Operations",name:"Nostro/Vostro Reconciliation Agent",complexity:"med",criticality:"high",consumer:"Back Office",benefit:"cost",lever:"Capital Efficiency",heat:"high",
+   desc:"Reconciles nostro and vostro accounts across correspondent banks. Identifies and investigates discrepancies, proposes journal entries, and escalates genuine breaks.",
+   value:["Reduces reconciliation effort by 40–60%","Faster identification of trapped liquidity","Improved correspondent bank relationships"],
+   reqs:["Multi-bank statement feeds","Accounting system integration","Break investigation workflow"]},
+
+  {division:"Operations",name:"Corporate Actions Agent",complexity:"med",criticality:"high",consumer:"Back Office",benefit:"risk",lever:"Asset Tokenization",heat:"high",
+   desc:"Monitors and processes corporate actions — dividends, splits, mergers, tender offers — across the securities portfolio. Ensures accurate entitlement calculations and client notifications.",
+   value:["Eliminates manual corporate action errors","Faster processing of complex events","Accurate entitlement across custody chain"],
+   reqs:["Corporate actions data feeds","Securities master","Client notification system"]},
+
+  {division:"Operations",name:"Settlement Instruction Agent",complexity:"low",criticality:"med",consumer:"Back Office",benefit:"speed",lever:"Asset Tokenization",heat:"med",
+   desc:"Validates and enriches settlement instructions with correct SSIs, cutoff times, and market conventions. Pre-matches with counterparties to reduce settlement fails.",
+   value:["Reduces settlement fails by 30%","Faster T+1/T+0 readiness","Lower penalty costs under CSDR"],
+   reqs:["SSI database","Market convention rules","Counterparty connectivity"]},
+
+  {division:"Operations",name:"Regulatory Reporting Agent",complexity:"med",criticality:"critical",consumer:"Back Office",benefit:"risk",lever:"Sovereign AI Infra",heat:"critical",
+   desc:"Generates regulatory reports (SAMA prudential returns, QCB submissions, CBUAE filings) from source data. Validates data quality, applies business rules, and flags anomalies before submission.",
+   value:["Reduces reporting errors by 70%","Faster submission cycles","Multi-regulator support from single data source"],
+   reqs:["Regulatory reporting platform","Source data integration","Validation rule engine"]},
+
+  // ---- COMPLIANCE ----
+  {division:"Compliance",name:"Trade Surveillance Agent",complexity:"med",criticality:"critical",consumer:"Middle Office",benefit:"risk",lever:"Sovereign AI Infra",heat:"critical",
+   desc:"Monitors trading activity for market abuse patterns — insider trading, spoofing, layering, front-running. Analyses alerts, investigates context, and drafts suspicious activity narratives.",
+   value:["Reduces false positive alerts by 60–80%","Deeper investigation quality","Faster SAR/STR filing"],
+   reqs:["Surveillance system integration","Communication monitoring","Trade and order data"]},
+
+  {division:"Compliance",name:"Regulatory Change Monitor",complexity:"low",criticality:"high",consumer:"Middle Office",benefit:"risk",lever:"Sovereign AI Infra",heat:"high",
+   desc:"Tracks regulatory publications from SAMA, SDAIA, NDMO, QCB, CBUAE, DFSA and maps changes to impacted policies, procedures, and systems. Generates impact assessments.",
+   value:["Never miss a regulatory change","Automated impact assessment","Reduces compliance team overhead"],
+   reqs:["Regulatory publication feeds","Policy/procedure mapping","Impact assessment templates"]},
+
+  {division:"Compliance",name:"AML Transaction Monitoring Agent",complexity:"med",criticality:"critical",consumer:"Middle Office",benefit:"risk",lever:"Capital Efficiency",heat:"critical",
+   desc:"Analyses transaction patterns for anti-money laundering indicators. Goes beyond rule-based alerts to identify complex layering, structuring, and unusual activity patterns.",
+   value:["30–50% reduction in false positives","Detects complex laundering schemes","Faster investigation turnaround"],
+   reqs:["Transaction monitoring system","Customer risk profiles","Case management integration"]},
+
+  {division:"Compliance",name:"Policy Document Updater",complexity:"low",criticality:"med",consumer:"Middle Office",benefit:"cost",lever:"Sovereign AI Infra",heat:"med",
+   desc:"When a regulatory change is identified, this agent drafts the required updates to internal policies and procedures, tracks approvals, and maintains version history.",
+   value:["Reduces policy update cycle from weeks to days","Consistent policy language","Audit-ready version control"],
+   reqs:["Policy management system","Approval workflow","Regulatory requirement mapping"]},
+
+  {division:"Compliance",name:"Sanctions Screening Agent",complexity:"low",criticality:"critical",consumer:"Middle Office",benefit:"risk",lever:"Sovereign AI Infra",heat:"critical",
+   desc:"Screens customers, counterparties, and transactions against global sanctions lists (OFAC, EU, UN, local) with contextual analysis to reduce false positives while maintaining detection.",
+   value:["90%+ reduction in false positives","Real-time screening at transaction speed","Multi-list, multi-jurisdiction coverage"],
+   reqs:["Sanctions list feeds","Name matching engine","Case escalation workflow"]},
+
+  // ---- TECHNOLOGY & DATA ----
+  {division:"Technology & Data",name:"Data Quality Monitor",complexity:"low",criticality:"high",consumer:"Back Office",benefit:"cost",lever:"Sovereign AI Infra",heat:"high",
+   desc:"Continuously monitors data quality across critical data assets — completeness, accuracy, timeliness, consistency. Alerts data stewards and tracks remediation.",
+   value:["Catches data issues before they impact downstream","NDMO compliance readiness","Reduces data-related operational losses"],
+   reqs:["Data catalogue/lineage tools","Quality rule definitions","Stewardship workflow"]},
+
+  {division:"Technology & Data",name:"Incident Triage Agent",complexity:"low",criticality:"med",consumer:"Back Office",benefit:"speed",lever:"Sovereign AI Infra",heat:"med",
+   desc:"Analyses incoming IT incidents, classifies severity, identifies probable root cause from historical patterns, and routes to the correct resolution team with suggested fixes.",
+   value:["Faster mean-time-to-resolution","Consistent severity classification","Reduces P1 escalation noise"],
+   reqs:["ITSM platform (ServiceNow)","Historical incident data","Runbook library"]},
+
+  {division:"Technology & Data",name:"API Integration Agent",complexity:"high",criticality:"med",consumer:"Back Office",benefit:"speed",lever:"Asset Tokenization",heat:"med",
+   desc:"Assists developers in building and testing API integrations — generates code, validates schemas, tests edge cases, and produces integration documentation.",
+   value:["Reduces integration development time by 40%","Consistent API patterns","Self-documenting integrations"],
+   reqs:["API gateway access","Schema registry","Development sandbox"]},
+
+  {division:"Technology & Data",name:"Cloud Cost Optimiser",complexity:"med",criticality:"med",consumer:"Back Office",benefit:"cost",lever:"Sovereign AI Infra",heat:"med",
+   desc:"Analyses cloud resource utilisation across environments, identifies waste, recommends right-sizing, and generates cost allocation reports by business unit.",
+   value:["15–30% cloud cost reduction","Business-line cost transparency","Automated right-sizing recommendations"],
+   reqs:["Cloud provider APIs (AWS/Azure/GCP)","Cost allocation tags","Usage monitoring"]},
+
+  {division:"Technology & Data",name:"Data Classification Agent",complexity:"low",criticality:"high",consumer:"Back Office",benefit:"risk",lever:"Sovereign AI Infra",heat:"high",
+   desc:"Scans data assets and classifies them according to NDMO, PDPL, and internal data classification schemes. Tags sensitive data and recommends appropriate access controls.",
+   value:["NDMO/PDPL compliance acceleration","Prevents data leakage","Foundation for AI-ready data architecture"],
+   reqs:["Data scanning tools","Classification taxonomy","Access control systems"]},
+
+  // ---- TREASURY ----
+  {division:"Treasury",name:"Liquidity Forecasting Agent",complexity:"med",criticality:"high",consumer:"Front Office",benefit:"cost",lever:"Capital Efficiency",heat:"high",
+   desc:"Forecasts daily and intraday liquidity positions across currencies and entities. Incorporates expected flows, seasonal patterns, and stress scenarios.",
+   value:["More accurate liquidity buffers","Reduced cost of excess reserves","Better intraday liquidity management"],
+   reqs:["Cash management systems","Payment flow data","Macro calendar integration"]},
+
+  {division:"Treasury",name:"FX Hedging Agent",complexity:"high",criticality:"high",consumer:"Front Office",benefit:"cost",lever:"Capital Efficiency",heat:"high",
+   desc:"Analyses FX exposures across the balance sheet, recommends hedging strategies (forwards, options, swaps), and generates hedge accounting documentation.",
+   value:["Optimises hedging costs by 10–20%","Automated hedge effectiveness testing","IFRS 9 compliant documentation"],
+   reqs:["FX exposure data","Pricing engine","Hedge accounting system"]},
+
+  {division:"Treasury",name:"IRRBB Analysis Agent",complexity:"high",criticality:"critical",consumer:"Middle Office",benefit:"risk",lever:"Capital Efficiency",heat:"critical",
+   desc:"Performs interest rate risk in the banking book analysis — EVE and NII sensitivity, gap analysis, and scenario modelling. Generates SAMA-compliant IRRBB reports.",
+   value:["Faster IRRBB reporting cycles","More granular scenario analysis","SAMA regulatory alignment"],
+   reqs:["ALM system","Yield curve data","Regulatory reporting templates"]},
+
+  {division:"Treasury",name:"Collateral Optimisation Agent",complexity:"med",criticality:"med",consumer:"Middle Office",benefit:"cost",lever:"Asset Tokenization",heat:"med",
+   desc:"Optimises collateral allocation across margin calls, central counterparties, and bilateral agreements. Identifies cheapest-to-deliver and reduces collateral drag.",
+   value:["Frees trapped collateral worth millions","Reduces margin call failures","Optimises HQLA allocation"],
+   reqs:["Collateral management system","Margin agreement database","Securities lending integration"]}
+];
+
+/* ========== RENDER HEATMAP ========== */
+var divisions = ["Global Markets","Investment Banking","Risk Management","Wealth Management","Operations","Compliance","Technology & Data","Treasury"];
+var activeFilters = {benefit:'all',complexity:'all'};
+
+function matchesFilter(a) {
+  if (activeFilters.benefit !== 'all' && a.benefit !== activeFilters.benefit) return false;
+  if (activeFilters.complexity !== 'all' && a.complexity !== activeFilters.complexity) return false;
+  return true;
+}
+
+function renderHeatmap() {
+  var tbody = document.getElementById('heatmapBody');
+  tbody.innerHTML = '';
+  var anyVisible = false;
+
+  divisions.forEach(function(div) {
+    var divAgents = agents.filter(function(a){ return a.division === div && matchesFilter(a); });
+    if (divAgents.length === 0) return;
+    anyVisible = true;
+
+    var tr = document.createElement('tr');
+    var tdDiv = document.createElement('td');
+    tdDiv.textContent = div;
+    tr.appendChild(tdDiv);
+
+    divAgents.forEach(function(a) {
+      var td = document.createElement('td');
+      var cell = document.createElement('div');
+      cell.className = 'heat-cell heat-' + a.heat;
+      cell.innerHTML = '<div class="agent-name">' + a.name + '</div>' +
+        '<div class="agent-meta">' +
+        '<span class="micro-tag cx-' + a.complexity + '">' + a.complexity.toUpperCase() + '</span>' +
+        '<span class="micro-tag bn-' + a.benefit + '">' + a.benefit.charAt(0).toUpperCase() + a.benefit.slice(1) + '</span>' +
+        '</div>';
+      cell.onclick = function(){ openModal(a); };
+      td.appendChild(cell);
+      tr.appendChild(td);
+    });
+
+    // Pad empty cells
+    for (var i = divAgents.length; i < 6; i++) {
+      var empty = document.createElement('td');
+      tr.appendChild(empty);
+    }
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById('noResults').style.display = anyVisible ? 'none' : 'block';
+  document.getElementById('heatmapTable').style.display = anyVisible ? '' : 'none';
+}
+
+/* ========== FILTERS ========== */
+document.querySelectorAll('.filter-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var filterType = this.dataset.filter;
+    var filterVal = this.dataset.val;
+    activeFilters[filterType] = filterVal;
+
+    document.querySelectorAll('.filter-btn[data-filter="'+filterType+'"]').forEach(function(b){
+      b.classList.remove('active');
+    });
+    this.classList.add('active');
+    renderHeatmap();
+  });
+});
+
+/* ========== MODAL ========== */
+function openModal(a) {
+  document.getElementById('modalTitle').textContent = a.name;
+  document.getElementById('modalDivision').textContent = a.division + ' · ' + a.consumer;
+
+  var cxColors = {low:'#67e8f9',med:'#ffd54f',high:'#ff7ac0'};
+  var critColors = {med:'#ffd54f',high:'var(--accent)',critical:'#ff7ac0'};
+  var bnColors = {revenue:'var(--accent)',cost:'#67e8f9',risk:'#ff7ac0',speed:'#ffd54f'};
+
+  document.getElementById('modalScores').innerHTML =
+    '<div class="modal-score"><div class="score-val" style="color:'+cxColors[a.complexity]+'">'+a.complexity.toUpperCase()+'</div><div class="score-lbl">Complexity</div></div>' +
+    '<div class="modal-score"><div class="score-val" style="color:'+(critColors[a.criticality]||'var(--text)')+'">'+a.criticality.toUpperCase()+'</div><div class="score-lbl">Criticality</div></div>' +
+    '<div class="modal-score"><div class="score-val" style="color:'+(bnColors[a.benefit]||'var(--text)')+'">'+a.benefit.toUpperCase()+'</div><div class="score-lbl">Primary Benefit</div></div>' +
+    '<div class="modal-score"><div class="score-val" style="color:var(--accent-2)">'+a.lever.split(' ')[0]+'</div><div class="score-lbl">Value Lever</div></div>';
+
+  document.getElementById('modalDesc').innerHTML = '<h4>Use Case</h4><p>'+a.desc+'</p>';
+
+  var valHtml = '<h4>Value Drivers</h4><ul>';
+  a.value.forEach(function(v){ valHtml += '<li>'+v+'</li>'; });
+  valHtml += '</ul>';
+  document.getElementById('modalValue').innerHTML = valHtml;
+
+  var reqHtml = '<h4>Implementation Requirements</h4><ul>';
+  a.reqs.forEach(function(r){ reqHtml += '<li>'+r+'</li>'; });
+  reqHtml += '</ul>';
+  document.getElementById('modalReqs').innerHTML = reqHtml;
+
+  document.getElementById('modalTags').innerHTML =
+    '<span class="tag">'+a.lever+'</span>' +
+    '<span class="tag">'+a.consumer+'</span>' +
+    '<span class="tag">'+a.division+'</span>';
+
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+document.getElementById('modalClose').onclick = function(){ document.getElementById('modalOverlay').classList.remove('open'); };
+document.getElementById('modalOverlay').onclick = function(e){ if(e.target===this) this.classList.remove('open'); };
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') document.getElementById('modalOverlay').classList.remove('open'); });
+
+/* ========== INIT ========== */
+renderHeatmap();
+
+})();
+</script>
+</body>
+</html>

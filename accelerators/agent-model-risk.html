@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-QZ9C4MLQS8");
+</script>
+<title>Model Risk Scorecard — Enterprise.AI Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="_shared.css"/>
+<style>
+.agent-workspace{display:grid;grid-template-columns:320px 1fr;gap:20px;margin:24px 0;min-height:600px}
+@media(max-width:900px){.agent-workspace{grid-template-columns:1fr;min-height:auto}}
+
+.scenario-panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px}
+.scenario-panel h3{font-family:'Space Grotesk',sans-serif;font-size:17px;margin-bottom:16px}
+.scenario-card{background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.25s}
+.scenario-card:hover{border-color:rgba(124,92,255,0.4)}
+.scenario-card.selected{border-color:var(--accent);background:rgba(124,92,255,0.08)}
+.scenario-card .sc-name{font-weight:600;font-size:14px;color:var(--text);margin-bottom:4px}
+.scenario-card .sc-meta{font-size:12px;color:var(--text-muted)}
+.scenario-card .sc-desc{font-size:12.5px;color:var(--text-dim);margin-top:8px;line-height:1.5}
+.run-btn{width:100%;padding:14px;background:var(--gradient);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;margin-top:16px;font-family:inherit;transition:opacity 0.2s}
+.run-btn:hover{opacity:0.9}
+.run-btn:disabled{opacity:0.4;cursor:not-allowed}
+
+.output-panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;overflow-y:auto;max-height:800px}
+.output-panel h3{font-family:'Space Grotesk',sans-serif;font-size:18px;margin-bottom:20px}
+
+.agent-step{margin-bottom:16px;opacity:0;transform:translateY(8px);transition:all 0.4s ease}
+.agent-step.visible{opacity:1;transform:translateY(0)}
+.step-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.step-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.step-icon.thinking{background:rgba(124,92,255,0.15);color:var(--accent)}
+.step-icon.data{background:rgba(34,211,238,0.15);color:var(--accent-2)}
+.step-icon.analysis{background:rgba(255,193,7,0.15);color:#ffd54f}
+.step-icon.output{background:rgba(255,122,192,0.15);color:var(--accent-3)}
+.step-icon.done{background:rgba(34,211,238,0.15);color:var(--accent-2)}
+.step-label{font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em}
+.step-content{background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:16px;font-size:13.5px;color:var(--text-dim);line-height:1.7}
+.step-content code{font-family:'JetBrains Mono',monospace;font-size:12px;background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;color:var(--accent-2)}
+
+/* Score ring */
+.score-ring{display:flex;align-items:center;gap:20px;padding:16px;background:var(--bg);border-radius:12px;margin:12px 0}
+.ring-visual{position:relative;width:80px;height:80px;flex-shrink:0}
+.ring-visual svg{transform:rotate(-90deg)}
+.ring-visual .ring-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700}
+.ring-detail{flex:1}
+.ring-detail .rd-tier{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;margin-bottom:4px}
+.ring-detail .rd-desc{font-size:13px;color:var(--text-dim);line-height:1.5}
+
+/* Dimension scores */
+.dim-scores{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin:12px 0}
+.dim-score{padding:12px;border-radius:8px;background:var(--bg);border:1px solid var(--border);text-align:center}
+.dim-score .ds-name{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;color:var(--text-muted)}
+.dim-score .ds-val{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700}
+.dim-score .ds-bar{height:4px;border-radius:2px;margin-top:8px;background:var(--border)}
+.dim-score .ds-fill{height:100%;border-radius:2px}
+
+/* Risk table */
+.risk-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+.risk-table th,.risk-table td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.risk-table th{color:var(--text);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em}
+
+.sev-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
+.sev-badge.critical{background:rgba(255,82,82,0.15);color:#ff5252}
+.sev-badge.high{background:rgba(255,122,192,0.15);color:var(--accent-3)}
+.sev-badge.medium{background:rgba(255,193,7,0.12);color:#ffd54f}
+.sev-badge.low{background:rgba(34,211,238,0.12);color:var(--accent-2)}
+
+.risk-flag{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:8px;margin-bottom:8px;font-size:13px}
+.risk-flag.high{background:rgba(255,122,192,0.1);border:1px solid rgba(255,122,192,0.2);color:var(--accent-3)}
+.risk-flag.medium{background:rgba(255,193,7,0.08);border:1px solid rgba(255,193,7,0.15);color:#ffd54f}
+.risk-flag.low{background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);color:var(--accent-2)}
+.risk-flag .rf-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.risk-flag .rf-text{line-height:1.5}
+
+.recommendation{background:rgba(124,92,255,0.08);border:1px solid rgba(124,92,255,0.2);border-radius:12px;padding:18px;margin-top:16px}
+.recommendation h4{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--accent);margin-bottom:8px}
+.recommendation p{font-size:14px;color:var(--text-dim);margin:0}
+
+.typing{display:inline-flex;gap:4px;padding:8px 14px}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:typingDot 1.4s infinite;opacity:0.3}
+.typing span:nth-child(2){animation-delay:0.2s}
+.typing span:nth-child(3){animation-delay:0.4s}
+@keyframes typingDot{0%,60%,100%{opacity:0.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+
+.empty-state{text-align:center;padding:80px 20px;color:var(--text-muted)}
+.empty-state .es-icon{font-size:48px;margin-bottom:16px;opacity:0.3}
+.empty-state p{font-size:15px;max-width:360px;margin:0 auto}
+
+.progress-wrap{margin:16px 0 8px;height:4px;background:var(--bg);border-radius:2px;overflow:hidden}
+.progress-bar{height:100%;background:var(--gradient);border-radius:2px;width:0;transition:width 0.6s ease}
+
+.value-banner{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+.vb-item{text-align:center;padding:18px 12px;background:var(--bg-2);border-radius:12px;border:1px solid var(--border)}
+.vb-item .vb-num{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;margin-bottom:4px}
+.vb-item .vb-lbl{font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em}
+@media(max-width:760px){.value-banner{grid-template-columns:1fr}}
+
+.action-item{display:grid;grid-template-columns:80px 1fr;gap:12px;margin-bottom:10px;padding:12px;border-radius:10px;background:var(--bg-2);border:1px solid var(--border)}
+.action-item .ai-priority{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px}
+.action-item .ai-detail{font-size:13px;color:var(--text-dim);line-height:1.6}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="../tools.html" class="back">← Back to Enterprise.AI</a>
+  <div class="hero-banner">
+    <div class="eyebrow"><span class="dot"></span>Agent Prototype · Capital Efficiency</div>
+    <h1 class="display">Model Risk <span class="gradient-text">Scorecard</span></h1>
+    <p class="lead">Watch an AI agent assess model risk across 6 dimensions — data quality, performance stability, bias, explainability, operational resilience, and governance maturity — producing a validated risk tier with actionable remediation priorities.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">6 Dimensions</div><div class="hero-stat-label">Comprehensive Scoring</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">3 min</div><div class="hero-stat-label">vs 2–3 weeks manual</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">SR 11-7</div><div class="hero-stat-label">Fed-Grade Framework</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></span>The Opportunity</h2>
+    <p>Model validation teams in GCC banks spend 2–3 weeks per model producing risk scorecards — reviewing documentation, testing performance, evaluating controls, and writing findings. With 15–50 AI models per bank and growing, the validation backlog is becoming a bottleneck to AI deployment. This agent automates the initial risk assessment, producing a structured scorecard that the validation team can review and challenge rather than build from scratch — cutting cycle time by 80% while improving consistency.</p>
+    <div class="value-banner">
+      <div class="vb-item"><div class="vb-num" style="color:var(--accent)">80%</div><div class="vb-lbl">Faster Validation</div></div>
+      <div class="vb-item"><div class="vb-num" style="color:var(--accent-2)">6</div><div class="vb-lbl">Risk Dimensions</div></div>
+      <div class="vb-item"><div class="vb-num" style="color:var(--accent-3)">100%</div><div class="vb-lbl">Audit-Ready Output</div></div>
+    </div>
+  </div>
+
+  <div class="card" style="padding:0;overflow:hidden">
+    <div style="padding:24px 28px 0">
+      <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>Try the Agent</h2>
+      <p>Select an AI model below and click "Run Agent" to see the risk scoring in action.</p>
+    </div>
+    <div class="agent-workspace" style="padding:0 28px 28px">
+
+      <div class="scenario-panel">
+        <h3>Select AI Model</h3>
+
+        <div class="scenario-card" data-scenario="0">
+          <div class="sc-name">Credit Scoring Model</div>
+          <div class="sc-meta">Retail Banking · XGBoost · 2.3M decisions/month</div>
+          <div class="sc-desc">Core retail lending model processing personal loan and credit card applications. In production 18 months, last validated 11 months ago.</div>
+        </div>
+
+        <div class="scenario-card" data-scenario="1">
+          <div class="sc-name">AML Transaction Monitor</div>
+          <div class="sc-meta">Compliance · Deep Learning · SAR 4.2B daily volume</div>
+          <div class="sc-desc">Neural network detecting suspicious transactions across corporate banking. High recall requirement with regulatory reporting obligations.</div>
+        </div>
+
+        <div class="scenario-card" data-scenario="2">
+          <div class="sc-name">Algo Trading Engine</div>
+          <div class="sc-meta">Global Markets · Reinforcement Learning · QAR 1.8B daily</div>
+          <div class="sc-desc">Multi-strategy execution engine for GCC equities and sukuk. Self-adapting model with limited documentation and no formal validation history.</div>
+        </div>
+
+        <button class="run-btn" id="runBtn" disabled>Select a model to begin</button>
+
+        <div class="progress-wrap" id="progressWrap" style="display:none">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <div class="output-panel" id="outputPanel">
+        <div class="empty-state">
+          <div class="es-icon">📊</div>
+          <p>Select an AI model and run the agent to see the risk scorecard with dimension-level analysis and remediation actions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></span>How It Works</h2>
+    <div class="grid-2" style="gap:16px;margin-top:16px">
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:18px">
+        <div style="font-size:24px;margin-bottom:8px">📥</div>
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--text)">1. Model Ingestion</div>
+        <div style="font-size:13px;color:var(--text-dim);line-height:1.6">Agent ingests model documentation, training data metadata, performance logs, and governance artifacts. Identifies gaps in the documentation baseline before scoring begins.</div>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:18px">
+        <div style="font-size:24px;margin-bottom:8px">🎯</div>
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--text)">2. Dimension Scoring</div>
+        <div style="font-size:13px;color:var(--text-dim);line-height:1.6">Scores each model across 6 risk dimensions: Data Quality, Performance Stability, Bias & Fairness, Explainability, Operational Resilience, and Governance Maturity.</div>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:18px">
+        <div style="font-size:24px;margin-bottom:8px">⚠️</div>
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--text)">3. Risk Identification</div>
+        <div style="font-size:13px;color:var(--text-dim);line-height:1.6">Cross-references dimension scores with model materiality (decision volume, financial impact) to identify specific risk findings with severity ratings.</div>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:18px">
+        <div style="font-size:24px;margin-bottom:8px">📋</div>
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--text)">4. Scorecard Output</div>
+        <div style="font-size:13px;color:var(--text-dim);line-height:1.6">Generates a tier classification (Tier-1 Critical / Tier-2 Significant / Tier-3 Standard) with prioritised remediation actions and validation cycle recommendations.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Enterprise.AI — Model Risk Scorecard Prototype</p>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:4px">This is a demonstration prototype. Production deployment requires integration with model inventory systems, MLOps platforms, and validation workflow tools.</p>
+  </div>
+</div>
+
+<script>
+function makeRing(score, color) {
+  const r = 32, c = 2 * Math.PI * r, offset = c * (1 - score / 100);
+  return `<svg width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="${r}" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="6"/><circle cx="40" cy="40" r="${r}" fill="none" stroke="${color}" stroke-width="6" stroke-dasharray="${c}" stroke-dashoffset="${offset}" stroke-linecap="round"/></svg>`;
+}
+function dimBar(val, color) {
+  return `<div class="ds-bar"><div class="ds-fill" style="width:${val}%;background:${color}"></div></div>`;
+}
+
+const scenarios = [
+  {
+    name: "Credit Scoring Model",
+    type: "XGBoost · Retail Lending",
+    steps: [
+      {
+        icon: "thinking", label: "Model Ingestion",
+        html: `<strong>Agent is loading model artefacts...</strong><br><br>
+          <code>Model ID:</code> CS-RET-001<br>
+          <code>Type:</code> XGBoost Gradient Boosted Trees<br>
+          <code>Purpose:</code> Retail credit scoring (personal loans, credit cards)<br>
+          <code>Decision Volume:</code> 2.3M applications/month<br>
+          <code>In Production:</code> 18 months &nbsp;|&nbsp; <code>Last Validated:</code> 11 months ago<br>
+          <code>Features:</code> 142 input features &nbsp;|&nbsp; <code>Training Data:</code> 4.2M records (2019–2024)<br><br>
+          <strong>Documentation Check:</strong><br>
+          ✅ Model development document (MDD) — present<br>
+          ✅ Training data dictionary — present<br>
+          ⚠️ Ongoing monitoring report — 6 months overdue<br>
+          ❌ Bias testing report — not found<br>
+          ❌ Explainability documentation — not found`
+      },
+      {
+        icon: "data", label: "Dimension Scoring",
+        html: () => {
+          const dims = [
+            { name: "Data Quality", val: 72, color: "#22d3ee" },
+            { name: "Performance", val: 65, color: "#ffd54f" },
+            { name: "Bias & Fairness", val: 28, color: "#ff5252" },
+            { name: "Explainability", val: 35, color: "#ff5252" },
+            { name: "Resilience", val: 58, color: "#ffd54f" },
+            { name: "Governance", val: 48, color: "#ffd54f" }
+          ];
+          let grid = '<div class="dim-scores">';
+          dims.forEach(d => {
+            grid += `<div class="dim-score"><div class="ds-name">${d.name}</div><div class="ds-val" style="color:${d.color}">${d.val}</div>${dimBar(d.val, d.color)}</div>`;
+          });
+          grid += '</div>';
+          return `<strong>Scoring across 6 risk dimensions...</strong><br><br>${grid}
+          <div style="margin-top:8px;font-size:12px;color:var(--text-muted)">Scoring methodology: 0–100 scale. Green (≥70): Acceptable | Amber (40–69): Needs Improvement | Red (&lt;40): Critical Gap</div>`;
+        }
+      },
+      {
+        icon: "analysis", label: "Overall Risk Score",
+        html: () => {
+          return `<strong>Computing weighted risk score...</strong><br><br>
+          <div class="score-ring">
+            <div class="ring-visual">${makeRing(51, '#ffd54f')}<div class="ring-label" style="color:#ffd54f">51</div></div>
+            <div class="ring-detail">
+              <div class="rd-tier" style="color:#ffd54f">⚠️ TIER-1 — High Risk</div>
+              <div class="rd-desc">Model classified as Tier-1 due to high decision volume (2.3M/month), critical bias and explainability gaps, and overdue validation. Requires <strong>enhanced monitoring</strong> and <strong>priority remediation</strong> before next validation cycle.</div>
+            </div>
+          </div>
+          <table class="risk-table">
+            <tr><th>Risk Factor</th><th>Weight</th><th>Score</th><th>Weighted</th></tr>
+            <tr><td>Data Quality</td><td>20%</td><td style="color:#22d3ee">72</td><td>14.4</td></tr>
+            <tr><td>Performance Stability</td><td>20%</td><td style="color:#ffd54f">65</td><td>13.0</td></tr>
+            <tr><td>Bias & Fairness</td><td>20%</td><td style="color:#ff5252">28</td><td>5.6</td></tr>
+            <tr><td>Explainability</td><td>15%</td><td style="color:#ff5252">35</td><td>5.3</td></tr>
+            <tr><td>Operational Resilience</td><td>10%</td><td style="color:#ffd54f">58</td><td>5.8</td></tr>
+            <tr><td>Governance Maturity</td><td>15%</td><td style="color:#ffd54f">48</td><td>7.2</td></tr>
+            <tr><td colspan="3"><strong>Composite Score</strong></td><td><strong style="color:#ffd54f">51.3</strong></td></tr>
+          </table>`;
+        }
+      },
+      {
+        icon: "analysis", label: "Risk Findings",
+        html: `<strong>6 findings identified:</strong><br><br>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>F1: No Bias Testing Conducted</strong> — Model processes 2.3M applications/month with zero documented testing for disparate impact across gender, nationality, income band, or age group. SAMA mandates fairness assessment for consumer lending models. <span class="sev-badge critical">Critical</span></div></div>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>F2: Missing Explainability Framework</strong> — Declined applicants receive no model-driven reason codes. No SHAP/LIME implementation or feature importance documentation. Consumer protection regulations require meaningful decline reasons. <span class="sev-badge critical">Critical</span></div></div>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>F3: Validation 5 Months Overdue</strong> — Annual validation was due 5 months ago. Model continues to make decisions without independent challenge of assumptions, performance, or data quality. <span class="sev-badge high">High</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>F4: Performance Drift Detected</strong> — PSI (Population Stability Index) of 0.23 on 3 key features over last 6 months, exceeding the 0.20 threshold. Gini coefficient dropped from 0.48 to 0.41 — a 15% degradation. <span class="sev-badge high">High</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>F5: Stale Training Data</strong> — Training dataset ends at Dec 2024. Model has not been retrained with post-pandemic economic patterns or recent regulatory changes affecting credit assessment criteria. <span class="sev-badge medium">Medium</span></div></div>
+          <div class="risk-flag low"><span class="rf-icon">🔵</span><div class="rf-text"><strong>F6: Limited Fallback Mechanism</strong> — No documented manual override process when model confidence is low (&lt;60% predicted probability). 8% of decisions fall in this uncertainty zone. <span class="sev-badge medium">Medium</span></div></div>`
+      },
+      {
+        icon: "output", label: "Remediation Actions",
+        html: `<strong>Prioritised remediation plan:</strong><br><br>
+          <div class="action-item">
+            <div class="ai-priority" style="color:#ff5252">🔴 P1</div>
+            <div class="ai-detail"><strong>Conduct comprehensive bias testing</strong> — Run disparate impact analysis across gender, nationality, and income. Target: 4/5 ratio (80% rule) compliance. Timeline: 2 weeks. Owner: Model Validation Team.</div>
+          </div>
+          <div class="action-item">
+            <div class="ai-priority" style="color:#ff5252">🔴 P2</div>
+            <div class="ai-detail"><strong>Implement SHAP-based explainability</strong> — Deploy SHAP values for top-10 feature contributions per decision. Generate automated reason codes for declines. Timeline: 3 weeks. Owner: ML Engineering.</div>
+          </div>
+          <div class="action-item">
+            <div class="ai-priority" style="color:var(--accent-3)">🔴 P3</div>
+            <div class="ai-detail"><strong>Initiate emergency model validation</strong> — Given 5-month overdue status and detected drift, schedule fast-track independent validation. Timeline: 4 weeks. Owner: Model Risk Management.</div>
+          </div>
+          <div class="action-item">
+            <div class="ai-priority" style="color:#ffd54f">🟡 P4</div>
+            <div class="ai-detail"><strong>Retrain with current data</strong> — Incorporate 2025 data, recalibrate features showing PSI > 0.20, validate on out-of-time sample. Timeline: 6 weeks. Owner: Data Science Team.</div>
+          </div>
+          <div class="action-item">
+            <div class="ai-priority" style="color:#ffd54f">🟡 P5</div>
+            <div class="ai-detail"><strong>Define low-confidence escalation path</strong> — Create human review workflow for predictions with confidence < 60%. Include SLA and decision documentation. Timeline: 3 weeks. Owner: Operations.</div>
+          </div>
+          <div class="recommendation">
+            <h4>Validation Summary</h4>
+            <p>Model CS-RET-001 scores <strong>51/100</strong> — classified as <strong>Tier-1 (High Risk)</strong>. The combination of missing bias testing and no explainability on a 2.3M-decision/month model creates significant regulatory and reputational exposure. Recommend restricting approval limits to existing customers only until P1 and P2 are complete. Next full validation: <strong>30 days</strong> (accelerated from annual cycle).</p>
+          </div>`
+      },
+      {
+        icon: "done", label: "Scorecard Complete",
+        html: `<div style="text-align:center;padding:20px">
+          <div style="font-size:32px;margin-bottom:12px">✅</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px">Model Risk Scorecard Complete</div>
+          <div style="font-size:14px;color:var(--text-dim);max-width:500px;margin:0 auto;line-height:1.6">
+            <strong>6 risk dimensions</strong> scored with weighted composite.<br>
+            <strong>6 findings</strong> identified with severity and ownership.<br>
+            <strong>5 remediation actions</strong> prioritised with timelines.<br><br>
+            <em>In production, this agent would connect to your MLOps platform, pull live performance metrics, and update scorecards continuously.</em>
+          </div>
+        </div>`
+      }
+    ]
+  },
+  {
+    name: "AML Transaction Monitor",
+    type: "Deep Learning · Compliance",
+    steps: [
+      {
+        icon: "thinking", label: "Model Ingestion",
+        html: `<strong>Agent is loading model artefacts...</strong><br><br>
+          <code>Model ID:</code> AML-TXN-003<br>
+          <code>Type:</code> Deep Learning (LSTM + Attention)<br>
+          <code>Purpose:</code> Suspicious transaction detection — corporate banking<br>
+          <code>Decision Volume:</code> SAR 4.2B daily transaction screening<br>
+          <code>In Production:</code> 24 months &nbsp;|&nbsp; <code>Last Validated:</code> 6 months ago<br>
+          <code>Features:</code> 89 transaction features + 34 network features<br><br>
+          <strong>Documentation Check:</strong><br>
+          ✅ Model development document — present<br>
+          ✅ Validation report (6 months old) — present<br>
+          ✅ Ongoing monitoring report — current<br>
+          ⚠️ Explainability methodology — partial (attention weights only)<br>
+          ❌ Adversarial robustness testing — not found`
+      },
+      {
+        icon: "data", label: "Dimension Scoring",
+        html: () => {
+          const dims = [
+            { name: "Data Quality", val: 82, color: "#22d3ee" },
+            { name: "Performance", val: 78, color: "#22d3ee" },
+            { name: "Bias & Fairness", val: 55, color: "#ffd54f" },
+            { name: "Explainability", val: 42, color: "#ffd54f" },
+            { name: "Resilience", val: 38, color: "#ff5252" },
+            { name: "Governance", val: 71, color: "#22d3ee" }
+          ];
+          let grid = '<div class="dim-scores">';
+          dims.forEach(d => {
+            grid += `<div class="dim-score"><div class="ds-name">${d.name}</div><div class="ds-val" style="color:${d.color}">${d.val}</div>${dimBar(d.val, d.color)}</div>`;
+          });
+          grid += '</div>';
+          return `<strong>Scoring across 6 risk dimensions...</strong><br><br>${grid}
+          <div style="margin-top:8px;font-size:12px;color:var(--text-muted)">Scoring methodology: 0–100 scale. Green (≥70): Acceptable | Amber (40–69): Needs Improvement | Red (&lt;40): Critical Gap</div>`;
+        }
+      },
+      {
+        icon: "analysis", label: "Overall Risk Score",
+        html: () => {
+          return `<strong>Computing weighted risk score...</strong><br><br>
+          <div class="score-ring">
+            <div class="ring-visual">${makeRing(63, '#ffd54f')}<div class="ring-label" style="color:#ffd54f">63</div></div>
+            <div class="ring-detail">
+              <div class="rd-tier" style="color:#ffd54f">⚠️ TIER-1 — High Risk</div>
+              <div class="rd-desc">Despite strong data quality and performance, model is Tier-1 due to its <strong>regulatory criticality</strong> (AML/CFT reporting obligations) and critical resilience gap. Any model failure directly impacts SAR filing obligations.</div>
+            </div>
+          </div>
+          <table class="risk-table">
+            <tr><th>Risk Factor</th><th>Weight</th><th>Score</th><th>Weighted</th></tr>
+            <tr><td>Data Quality</td><td>15%</td><td style="color:#22d3ee">82</td><td>12.3</td></tr>
+            <tr><td>Performance Stability</td><td>20%</td><td style="color:#22d3ee">78</td><td>15.6</td></tr>
+            <tr><td>Bias & Fairness</td><td>15%</td><td style="color:#ffd54f">55</td><td>8.3</td></tr>
+            <tr><td>Explainability</td><td>20%</td><td style="color:#ffd54f">42</td><td>8.4</td></tr>
+            <tr><td>Operational Resilience</td><td>15%</td><td style="color:#ff5252">38</td><td>5.7</td></tr>
+            <tr><td>Governance Maturity</td><td>15%</td><td style="color:#22d3ee">71</td><td>10.7</td></tr>
+            <tr><td colspan="3"><strong>Composite Score</strong></td><td><strong style="color:#ffd54f">61.0</strong></td></tr>
+          </table>
+          <div style="margin-top:8px;font-size:12px;color:var(--text-muted)">Note: AML models carry a regulatory materiality uplift. Base composite of 61 would be Tier-2 for non-regulatory models but is Tier-1 for AML due to SAR filing obligations.</div>`;
+        }
+      },
+      {
+        icon: "analysis", label: "Risk Findings",
+        html: `<strong>5 findings identified:</strong><br><br>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>F1: No Adversarial Robustness Testing</strong> — Model has never been tested against adversarial transaction patterns (structuring, layering, synthetic identities). Sophisticated actors could exploit model blind spots to evade detection. <span class="sev-badge critical">Critical</span></div></div>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>F2: No Failover or Degraded-Mode Capability</strong> — If the model fails, there is no documented fallback. No rules-based backup, no manual screening trigger, no SLA for model recovery. Transaction screening would halt entirely. <span class="sev-badge critical">Critical</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>F3: Limited Explainability for Investigators</strong> — Attention weights provide partial transparency but are insufficient for compliance officers to document investigation rationale. Regulators expect human-readable alert reasoning. <span class="sev-badge high">High</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>F4: Nationality Bias in Alert Generation</strong> — Alert rate for transactions involving specific nationalities is 3.2x higher than baseline, after controlling for transaction characteristics. Potential discriminatory profiling concern. <span class="sev-badge high">High</span></div></div>
+          <div class="risk-flag low"><span class="rf-icon">🔵</span><div class="rf-text"><strong>F5: Model Retraining on Biased Labels</strong> — Training labels derived from historical SARs, which reflect past investigator biases. No label quality review or correction mechanism in place. <span class="sev-badge medium">Medium</span></div></div>`
+      },
+      {
+        icon: "output", label: "Remediation Actions",
+        html: `<strong>Prioritised remediation plan:</strong><br><br>
+          <div class="action-item">
+            <div class="ai-priority" style="color:#ff5252">🔴 P1</div>
+            <div class="ai-detail"><strong>Build model failover capability</strong> — Implement rules-based backup screening to activate within 15 minutes of model failure. Define degraded-mode SLA and notification chain. Timeline: 3 weeks. Owner: Technology + Compliance.</div>
+          </div>
+          <div class="action-item">
+            <div class="ai-priority" style="color:#ff5252">🔴 P2</div>
+            <div class="ai-detail"><strong>Conduct adversarial red-team testing</strong> — Simulate structuring, layering, and synthetic identity attacks against the model. Document detection rates and evasion thresholds. Timeline: 4 weeks. Owner: Model Risk + Financial Crime.</div>
+          </div>
+          <div class="action-item">
+            <div class="ai-priority" style="color:var(--accent-3)">🔴 P3</div>
+            <div class="ai-detail"><strong>Address nationality bias</strong> — Investigate 3.2x alert rate disparity. Implement fairness constraints or post-processing calibration. Document findings for regulatory inquiries. Timeline: 4 weeks. Owner: Data Science + Compliance.</div>
+          </div>
+          <div class="action-item">
+            <div class="ai-priority" style="color:#ffd54f">🟡 P4</div>
+            <div class="ai-detail"><strong>Enhance explainability layer</strong> — Supplement attention weights with SHAP-based feature attribution. Generate natural language alert narratives for investigators. Timeline: 6 weeks. Owner: ML Engineering.</div>
+          </div>
+          <div class="action-item">
+            <div class="ai-priority" style="color:#ffd54f">🟡 P5</div>
+            <div class="ai-detail"><strong>Implement label quality programme</strong> — Review and re-label 10% sample of historical SARs for bias. Introduce label confidence scoring for future training cycles. Timeline: 8 weeks. Owner: Financial Crime Analytics.</div>
+          </div>
+          <div class="recommendation">
+            <h4>Validation Summary</h4>
+            <p>Model AML-TXN-003 scores <strong>63/100</strong> (base) — elevated to <strong>Tier-1 (High Risk)</strong> due to regulatory materiality. The model performs well on core detection metrics, but the absence of failover capability and adversarial testing creates unacceptable operational risk for a system screening SAR 4.2B daily. Recommend implementing P1 (failover) within <strong>21 days</strong> as a mandatory pre-condition for continued production operation.</p>
+          </div>`
+      },
+      {
+        icon: "done", label: "Scorecard Complete",
+        html: `<div style="text-align:center;padding:20px">
+          <div style="font-size:32px;margin-bottom:12px">✅</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px">Model Risk Scorecard Complete</div>
+          <div style="font-size:14px;color:var(--text-dim);max-width:500px;margin:0 auto;line-height:1.6">
+            <strong>6 risk dimensions</strong> scored with regulatory materiality uplift.<br>
+            <strong>5 findings</strong> identified with severity and ownership.<br>
+            <strong>5 remediation actions</strong> prioritised with timelines.<br><br>
+            <em>In production, this agent would connect to your MLOps platform, pull live performance metrics, and update scorecards continuously.</em>
+          </div>
+        </div>`
+      }
+    ]
+  },
+  {
+    name: "Algo Trading Engine",
+    type: "Reinforcement Learning · Global Markets",
+    steps: [
+      {
+        icon: "thinking", label: "Model Ingestion",
+        html: `<strong>Agent is loading model artefacts...</strong><br><br>
+          <code>Model ID:</code> AT-GM-007<br>
+          <code>Type:</code> Multi-Agent Reinforcement Learning (PPO + SAC ensemble)<br>
+          <code>Purpose:</code> Automated execution — GCC equities and sukuk<br>
+          <code>Decision Volume:</code> QAR 1.8B daily notional &nbsp;|&nbsp; ~12,000 orders/day<br>
+          <code>In Production:</code> 9 months &nbsp;|&nbsp; <code>Last Validated:</code> Never<br>
+          <code>Features:</code> 240+ market signals, order book depth, sentiment<br><br>
+          <strong>Documentation Check:</strong><br>
+          ⚠️ Model development document — informal Jupyter notebooks only<br>
+          ❌ Validation report — no validation history<br>
+          ❌ Ongoing monitoring report — not established<br>
+          ❌ Explainability methodology — not applicable (RL agent)<br>
+          ❌ Risk limits documentation — verbal agreements only<br>
+          ❌ Kill switch procedure — undocumented`
+      },
+      {
+        icon: "data", label: "Dimension Scoring",
+        html: () => {
+          const dims = [
+            { name: "Data Quality", val: 60, color: "#ffd54f" },
+            { name: "Performance", val: 45, color: "#ffd54f" },
+            { name: "Bias & Fairness", val: 50, color: "#ffd54f" },
+            { name: "Explainability", val: 12, color: "#ff5252" },
+            { name: "Resilience", val: 18, color: "#ff5252" },
+            { name: "Governance", val: 15, color: "#ff5252" }
+          ];
+          let grid = '<div class="dim-scores">';
+          dims.forEach(d => {
+            grid += `<div class="dim-score"><div class="ds-name">${d.name}</div><div class="ds-val" style="color:${d.color}">${d.val}</div>${dimBar(d.val, d.color)}</div>`;
+          });
+          grid += '</div>';
+          return `<strong>Scoring across 6 risk dimensions...</strong><br><br>${grid}
+          <div style="margin-top:8px;font-size:12px;color:var(--text-muted)">Scoring methodology: 0–100 scale. Green (≥70): Acceptable | Amber (40–69): Needs Improvement | Red (&lt;40): Critical Gap</div>`;
+        }
+      },
+      {
+        icon: "analysis", label: "Overall Risk Score",
+        html: () => {
+          return `<strong>Computing weighted risk score...</strong><br><br>
+          <div class="score-ring">
+            <div class="ring-visual">${makeRing(33, '#ff5252')}<div class="ring-label" style="color:#ff5252">33</div></div>
+            <div class="ring-detail">
+              <div class="rd-tier" style="color:#ff5252">🔴 TIER-1 — Critical Risk</div>
+              <div class="rd-desc">Model classified as <strong>Tier-1 Critical</strong> with the lowest composite score assessed. Zero validation history, no documented controls, and QAR 1.8B daily notional without governance framework. Immediate remediation or production suspension required.</div>
+            </div>
+          </div>
+          <table class="risk-table">
+            <tr><th>Risk Factor</th><th>Weight</th><th>Score</th><th>Weighted</th></tr>
+            <tr><td>Data Quality</td><td>15%</td><td style="color:#ffd54f">60</td><td>9.0</td></tr>
+            <tr><td>Performance Stability</td><td>20%</td><td style="color:#ffd54f">45</td><td>9.0</td></tr>
+            <tr><td>Bias & Fairness</td><td>10%</td><td style="color:#ffd54f">50</td><td>5.0</td></tr>
+            <tr><td>Explainability</td><td>15%</td><td style="color:#ff5252">12</td><td>1.8</td></tr>
+            <tr><td>Operational Resilience</td><td>20%</td><td style="color:#ff5252">18</td><td>3.6</td></tr>
+            <tr><td>Governance Maturity</td><td>20%</td><td style="color:#ff5252">15</td><td>3.0</td></tr>
+            <tr><td colspan="3"><strong>Composite Score</strong></td><td><strong style="color:#ff5252">31.4</strong></td></tr>
+          </table>
+          <div style="margin-top:8px;padding:10px 14px;background:rgba(255,82,82,0.12);border:1px solid rgba(255,82,82,0.2);border-radius:8px;font-size:13px;color:#ff5252">
+            <strong>⚠️ PRODUCTION HOLD RECOMMENDED</strong> — Score below 35 on a model executing QAR 1.8B daily triggers mandatory production review under SR 11-7 equivalent standards.
+          </div>`;
+        }
+      },
+      {
+        icon: "analysis", label: "Risk Findings",
+        html: `<strong>7 findings identified — 4 critical:</strong><br><br>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>F1: Zero Validation History</strong> — Model has been live for 9 months executing QAR 1.8B/day without any independent model validation. This is a fundamental governance failure for a Tier-1 trading model. <span class="sev-badge critical">Critical</span></div></div>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>F2: No Kill Switch Documentation</strong> — No documented procedure to halt the trading engine. Kill switch exists as undocumented code but no runbook, no SLA for activation, no designated operator during market hours. <span class="sev-badge critical">Critical</span></div></div>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>F3: Self-Adapting Without Guardrails</strong> — RL agent continuously updates its policy based on market feedback. No parameter drift bounds, no policy change logging, no human approval for strategy shifts above threshold. <span class="sev-badge critical">Critical</span></div></div>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>F4: Verbal-Only Risk Limits</strong> — Daily loss limits (QAR 5M max), position concentration limits, and sector exposure caps exist as verbal agreements with the desk head. Not documented, not enforced in code, not monitored. <span class="sev-badge critical">Critical</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>F5: No Performance Attribution</strong> — Cannot decompose P&L into model alpha vs. market beta. Trading desk cannot demonstrate the model adds value beyond market movement. <span class="sev-badge high">High</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>F6: Opaque Decision Logic</strong> — RL policy network provides no human-interpretable rationale for trade decisions. Regulatory inquiries about specific trades cannot be answered with model-level explanation. <span class="sev-badge high">High</span></div></div>
+          <div class="risk-flag low"><span class="rf-icon">🔵</span><div class="rf-text"><strong>F7: Notebook-Only Documentation</strong> — Model development exists only in Jupyter notebooks on a single developer's machine. No version control, no peer review, no formal MDD. <span class="sev-badge medium">Medium</span></div></div>`
+      },
+      {
+        icon: "output", label: "Remediation Actions",
+        html: `<strong>Prioritised remediation plan:</strong><br><br>
+          <div class="action-item">
+            <div class="ai-priority" style="color:#ff5252">🔴 P0</div>
+            <div class="ai-detail"><strong>IMMEDIATE: Reduce notional limits to QAR 200M/day</strong> — Restrict trading volume to 11% of current until F1–F4 are resolved. Implement hard-coded daily loss limit of QAR 1M. Timeline: Today. Owner: CRO + Head of Trading.</div>
+          </div>
+          <div class="action-item">
+            <div class="ai-priority" style="color:#ff5252">🔴 P1</div>
+            <div class="ai-detail"><strong>Document and test kill switch</strong> — Write operational runbook for engine shutdown. Test kill switch in UAT with full market simulation. Define activation criteria and operator SLA. Timeline: 1 week. Owner: Technology + Risk.</div>
+          </div>
+          <div class="action-item">
+            <div class="ai-priority" style="color:#ff5252">🔴 P2</div>
+            <div class="ai-detail"><strong>Codify risk limits in engine</strong> — Hard-code daily loss, position, sector, and concentration limits. Implement automated breach alerts to risk management. Timeline: 2 weeks. Owner: Quant Engineering.</div>
+          </div>
+          <div class="action-item">
+            <div class="ai-priority" style="color:var(--accent-3)">🔴 P3</div>
+            <div class="ai-detail"><strong>Implement policy change controls</strong> — Log all RL policy updates. Require human approval for strategy shifts exceeding defined thresholds. Add policy rollback capability. Timeline: 3 weeks. Owner: ML Engineering.</div>
+          </div>
+          <div class="action-item">
+            <div class="ai-priority" style="color:#ffd54f">🟡 P4</div>
+            <div class="ai-detail"><strong>Commission independent model validation</strong> — Engage external validator for full SR 11-7 equivalent assessment. Include stress testing, backtesting integrity review, and governance gap closure. Timeline: 8 weeks. Owner: Model Risk Management.</div>
+          </div>
+          <div class="action-item">
+            <div class="ai-priority" style="color:#ffd54f">🟡 P5</div>
+            <div class="ai-detail"><strong>Formal model documentation</strong> — Convert notebooks to versioned MDD. Peer review by independent quant. Archive in model inventory with metadata. Timeline: 4 weeks. Owner: Quant Team.</div>
+          </div>
+          <div class="recommendation">
+            <h4>Validation Summary</h4>
+            <p>Model AT-GM-007 scores <strong>33/100</strong> — classified as <strong>Tier-1 Critical</strong>. This is the highest-risk model assessed. An RL-based trading engine executing QAR 1.8B daily with no validation, no documented controls, no kill switch runbook, and verbal-only risk limits represents a systemic operational risk event waiting to happen. <strong>Immediate volume restriction (P0) is a mandatory pre-condition</strong> — this is not a remediation item that can be sequenced; it must happen today. Full remediation estimated at <strong>QAR 850K</strong> over 8 weeks.</p>
+          </div>`
+      },
+      {
+        icon: "done", label: "Scorecard Complete",
+        html: `<div style="text-align:center;padding:20px">
+          <div style="font-size:32px;margin-bottom:12px">✅</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px">Model Risk Scorecard Complete</div>
+          <div style="font-size:14px;color:var(--text-dim);max-width:500px;margin:0 auto;line-height:1.6">
+            <strong>6 risk dimensions</strong> scored with composite risk tier.<br>
+            <strong>7 findings</strong> identified — 4 at critical severity.<br>
+            <strong>6 remediation actions</strong> including 1 immediate (P0).<br><br>
+            <em>In production, this agent would connect to your MLOps platform, pull live performance metrics, and update scorecards continuously.</em>
+          </div>
+        </div>`
+      }
+    ]
+  }
+];
+
+let selected = null, running = false;
+const cards = document.querySelectorAll('.scenario-card');
+const runBtn = document.getElementById('runBtn');
+const outputPanel = document.getElementById('outputPanel');
+const progressWrap = document.getElementById('progressWrap');
+const progressBar = document.getElementById('progressBar');
+
+cards.forEach(c => c.addEventListener('click', () => {
+  if (running) return;
+  cards.forEach(x => x.classList.remove('selected'));
+  c.classList.add('selected');
+  selected = parseInt(c.dataset.scenario);
+  runBtn.disabled = false;
+  runBtn.textContent = 'Run Agent ▸';
+}));
+
+runBtn.addEventListener('click', async () => {
+  if (selected === null || running) return;
+  running = true;
+  runBtn.disabled = true;
+  runBtn.textContent = 'Agent Running...';
+  progressWrap.style.display = 'block';
+  progressBar.style.width = '0%';
+
+  const sc = scenarios[selected];
+  outputPanel.innerHTML = `<h3>📊 ${sc.name} — Risk Scorecard</h3>`;
+
+  for (let i = 0; i < sc.steps.length; i++) {
+    const step = sc.steps[i];
+    const typing = document.createElement('div');
+    typing.className = 'agent-step visible';
+    typing.innerHTML = `<div class="step-header"><div class="step-icon ${step.icon}">●</div><div class="step-label">${step.label}</div></div><div class="step-content"><div class="typing"><span></span><span></span><span></span></div></div>`;
+    outputPanel.appendChild(typing);
+    outputPanel.scrollTop = outputPanel.scrollHeight;
+
+    await sleep(1200 + Math.random() * 800);
+
+    const content = typeof step.html === 'function' ? step.html() : step.html;
+    typing.querySelector('.step-content').innerHTML = content;
+    progressBar.style.width = ((i + 1) / sc.steps.length * 100) + '%';
+    outputPanel.scrollTop = outputPanel.scrollHeight;
+
+    await sleep(800 + Math.random() * 600);
+  }
+
+  running = false;
+  runBtn.textContent = 'Run Again ▸';
+  runBtn.disabled = false;
+});
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+</script>
+</body>
+</html>

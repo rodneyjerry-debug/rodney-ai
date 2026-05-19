@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-QZ9C4MLQS8");
+</script>
+<title>KYC EDD Agent — Enterprise.AI Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="_shared.css"/>
+<style>
+.agent-workspace{display:grid;grid-template-columns:320px 1fr;gap:20px;margin:24px 0;min-height:600px}
+@media(max-width:900px){.agent-workspace{grid-template-columns:1fr;min-height:auto}}
+
+.scenario-panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px}
+.scenario-panel h3{font-family:'Space Grotesk',sans-serif;font-size:17px;margin-bottom:16px}
+.scenario-card{background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.25s}
+.scenario-card:hover{border-color:rgba(124,92,255,0.4)}
+.scenario-card.selected{border-color:var(--accent);background:rgba(124,92,255,0.08)}
+.scenario-card .sc-name{font-weight:600;font-size:14px;color:var(--text);margin-bottom:4px}
+.scenario-card .sc-meta{font-size:12px;color:var(--text-muted)}
+.scenario-card .sc-desc{font-size:12.5px;color:var(--text-dim);margin-top:8px;line-height:1.5}
+.run-btn{width:100%;padding:14px;background:var(--gradient);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;margin-top:16px;font-family:inherit;transition:opacity 0.2s}
+.run-btn:hover{opacity:0.9}
+.run-btn:disabled{opacity:0.4;cursor:not-allowed}
+
+.output-panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;overflow-y:auto;max-height:800px}
+.output-panel h3{font-family:'Space Grotesk',sans-serif;font-size:18px;margin-bottom:20px}
+
+.agent-step{margin-bottom:16px;opacity:0;transform:translateY(8px);transition:all 0.4s ease}
+.agent-step.visible{opacity:1;transform:translateY(0)}
+.step-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.step-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.step-icon.thinking{background:rgba(124,92,255,0.15);color:var(--accent)}
+.step-icon.data{background:rgba(34,211,238,0.15);color:var(--accent-2)}
+.step-icon.analysis{background:rgba(255,193,7,0.15);color:#ffd54f}
+.step-icon.output{background:rgba(255,122,192,0.15);color:var(--accent-3)}
+.step-icon.done{background:rgba(34,211,238,0.15);color:var(--accent-2)}
+.step-label{font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em}
+.step-content{background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:16px;font-size:13.5px;color:var(--text-dim);line-height:1.7}
+.step-content code{font-family:'JetBrains Mono',monospace;font-size:12px;background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;color:var(--accent-2)}
+
+.risk-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+.risk-table th,.risk-table td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.risk-table th{color:var(--text);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em}
+
+.sev-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
+.sev-badge.critical{background:rgba(255,82,82,0.15);color:#ff5252}
+.sev-badge.high{background:rgba(255,122,192,0.15);color:var(--accent-3)}
+.sev-badge.medium{background:rgba(255,193,7,0.12);color:#ffd54f}
+.sev-badge.low{background:rgba(34,211,238,0.12);color:var(--accent-2)}
+.sev-badge.clear{background:rgba(34,211,238,0.12);color:var(--accent-2)}
+
+.risk-flag{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:8px;margin-bottom:8px;font-size:13px}
+.risk-flag.high{background:rgba(255,122,192,0.1);border:1px solid rgba(255,122,192,0.2);color:var(--accent-3)}
+.risk-flag.medium{background:rgba(255,193,7,0.08);border:1px solid rgba(255,193,7,0.15);color:#ffd54f}
+.risk-flag.low{background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);color:var(--accent-2)}
+.risk-flag .rf-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.risk-flag .rf-text{line-height:1.5}
+
+.recommendation{background:rgba(124,92,255,0.08);border:1px solid rgba(124,92,255,0.2);border-radius:12px;padding:18px;margin-top:16px}
+.recommendation h4{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--accent);margin-bottom:8px}
+.recommendation p{font-size:14px;color:var(--text-dim);margin:0}
+
+/* Source check grid */
+.source-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin:12px 0}
+.source-item{padding:10px 14px;border-radius:8px;background:var(--bg);border:1px solid var(--border);font-size:12.5px;display:flex;align-items:center;gap:8px}
+.source-item .si-status{font-size:14px;flex-shrink:0}
+.source-item .si-name{font-weight:600;color:var(--text)}
+.source-item .si-detail{color:var(--text-muted);font-size:11px}
+
+/* Risk score bar */
+.risk-meter{margin:16px 0}
+.rm-bar{height:24px;border-radius:12px;background:linear-gradient(90deg,#22d3ee 0%,#ffd54f 40%,#ff5252 80%,#ff1744 100%);position:relative}
+.rm-needle{position:absolute;top:-6px;width:4px;height:36px;background:#fff;border-radius:2px;transform:translateX(-50%)}
+.rm-labels{display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--text-muted)}
+
+/* UBO tree */
+.ubo-tree{margin:12px 0;padding:16px;background:var(--bg);border-radius:12px;border:1px solid var(--border)}
+.ubo-node{margin-left:20px;padding:6px 0;border-left:2px solid var(--border);padding-left:16px;font-size:13px}
+.ubo-node:first-child{margin-left:0;border-left:none;padding-left:0;font-weight:600;font-size:14px;color:var(--text)}
+.ubo-pct{color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:12px}
+
+.typing{display:inline-flex;gap:4px;padding:8px 14px}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:typingDot 1.4s infinite;opacity:0.3}
+.typing span:nth-child(2){animation-delay:0.2s}
+.typing span:nth-child(3){animation-delay:0.4s}
+@keyframes typingDot{0%,60%,100%{opacity:0.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+
+.empty-state{text-align:center;padding:80px 20px;color:var(--text-muted)}
+.empty-state .es-icon{font-size:48px;margin-bottom:16px;opacity:0.3}
+.empty-state p{font-size:15px;max-width:360px;margin:0 auto}
+
+.progress-wrap{margin:16px 0 8px;height:4px;background:var(--bg);border-radius:2px;overflow:hidden}
+.progress-bar{height:100%;background:var(--gradient);border-radius:2px;width:0;transition:width 0.6s ease}
+
+.value-banner{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+.vb-item{text-align:center;padding:18px 12px;background:var(--bg-2);border-radius:12px;border:1px solid var(--border)}
+.vb-item .vb-num{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;margin-bottom:4px}
+.vb-item .vb-lbl{font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em}
+@media(max-width:760px){.value-banner{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="../tools.html" class="back">← Back to Enterprise.AI</a>
+  <div class="hero-banner">
+    <div class="eyebrow"><span class="dot"></span>Agent Prototype · Risk & Compliance</div>
+    <h1 class="display">KYC Enhanced <span class="gradient-text">Due Diligence</span></h1>
+    <p class="lead">Watch an AI agent conduct Enhanced Due Diligence — tracing beneficial ownership, screening sanctions and PEP databases, analysing source of wealth, and generating a risk-scored EDD report ready for compliance sign-off.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">4 min</div><div class="hero-stat-label">vs 3–5 days manual</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">12</div><div class="hero-stat-label">Sources Checked</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-label">Audit Trail</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg></span>The Opportunity</h2>
+    <p>Enhanced Due Diligence for high-risk customers takes 3–5 analyst days per case — tracing UBO structures through offshore entities, screening across multiple sanctions lists, verifying source of wealth, and documenting findings for compliance review. A Tier-1 GCC bank typically has 500–2,000 EDD cases annually, creating a permanent backlog in the compliance function. This agent automates the research, cross-referencing, and report generation — reducing a 3-day process to a 4-minute analysis with full audit trail.</p>
+    <div class="value-banner">
+      <div class="vb-item"><div class="vb-num" style="color:var(--accent)">95%</div><div class="vb-lbl">Faster Processing</div></div>
+      <div class="vb-item"><div class="vb-num" style="color:var(--accent-2)">12</div><div class="vb-lbl">Data Sources</div></div>
+      <div class="vb-item"><div class="vb-num" style="color:var(--accent-3)">100%</div><div class="vb-lbl">Audit Complete</div></div>
+    </div>
+  </div>
+
+  <div class="card" style="padding:0;overflow:hidden">
+    <div style="padding:24px 28px 0">
+      <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>Try the Agent</h2>
+      <p>Select a customer case below and click "Run Agent" to see the EDD investigation in action.</p>
+    </div>
+    <div class="agent-workspace" style="padding:0 28px 28px">
+
+      <div class="scenario-panel">
+        <h3>Select Customer Case</h3>
+
+        <div class="scenario-card" data-scenario="0">
+          <div class="sc-name">Al-Faisal Holdings Group</div>
+          <div class="sc-meta">KSA · Conglomerate · EDD Trigger: PEP</div>
+          <div class="sc-desc">Multi-sector holding company requesting SAR 800M credit facility. UBO identified as a Politically Exposed Person with complex cross-border ownership.</div>
+        </div>
+
+        <div class="scenario-card" data-scenario="1">
+          <div class="sc-name">Pacific Rim Trading FZE</div>
+          <div class="sc-meta">UAE · Commodities · EDD Trigger: High-Risk Jurisdiction</div>
+          <div class="sc-desc">Commodity trading entity with operations in high-risk jurisdictions. Account opening request with unusual transaction patterns in initial deposits.</div>
+        </div>
+
+        <div class="scenario-card" data-scenario="2">
+          <div class="sc-name">Doha Ventures International</div>
+          <div class="sc-meta">Qatar · Investment · EDD Trigger: Complex Structure</div>
+          <div class="sc-desc">Multi-layered investment vehicle with beneficial ownership spread across 4 jurisdictions. Source of wealth verification required for QAR 200M deposit.</div>
+        </div>
+
+        <button class="run-btn" id="runBtn" disabled>Select a case to begin</button>
+
+        <div class="progress-wrap" id="progressWrap" style="display:none">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <div class="output-panel" id="outputPanel">
+        <div class="empty-state">
+          <div class="es-icon">🔍</div>
+          <p>Select a customer case and run the agent to see the full EDD investigation with UBO mapping, sanctions screening, and risk assessment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></span>How It Works</h2>
+    <div class="grid-2" style="gap:16px;margin-top:16px">
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:18px">
+        <div style="font-size:24px;margin-bottom:8px">🏢</div>
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--text)">1. UBO Tracing</div>
+        <div style="font-size:13px;color:var(--text-dim);line-height:1.6">Agent maps the full beneficial ownership chain through corporate registries, free zone databases, and offshore records — resolving shell companies to natural persons.</div>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:18px">
+        <div style="font-size:24px;margin-bottom:8px">🛡️</div>
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--text)">2. Screening</div>
+        <div style="font-size:13px;color:var(--text-dim);line-height:1.6">Cross-references all identified persons and entities against sanctions lists (OFAC, EU, UN, local), PEP databases, adverse media, and law enforcement records.</div>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:18px">
+        <div style="font-size:24px;margin-bottom:8px">💰</div>
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--text)">3. Source of Wealth</div>
+        <div style="font-size:13px;color:var(--text-dim);line-height:1.6">Analyses declared source of wealth against publicly verifiable data — company financials, property records, disclosed investments, and income consistency checks.</div>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:18px">
+        <div style="font-size:24px;margin-bottom:8px">📋</div>
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--text)">4. EDD Report</div>
+        <div style="font-size:13px;color:var(--text-dim);line-height:1.6">Generates a risk-scored EDD report with findings summary, risk rating, recommended mitigants, and suggested review frequency — ready for MLRO sign-off.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Enterprise.AI — KYC EDD Agent Prototype</p>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:4px">This is a demonstration prototype. Production deployment requires integration with screening databases, corporate registries, and case management systems.</p>
+  </div>
+</div>
+
+<script>
+const scenarios = [
+  {
+    name: "Al-Faisal Holdings Group",
+    trigger: "PEP Identification",
+    steps: [
+      {
+        icon: "thinking", label: "Case Intake",
+        html: `<strong>Agent is analysing the EDD trigger...</strong><br><br>
+          <code>Customer:</code> Al-Faisal Holdings Group<br>
+          <code>Entity Type:</code> Holding Company (CR: 1010XXXXXX)<br>
+          <code>Jurisdiction:</code> KSA (Riyadh)<br>
+          <code>Relationship:</code> New-to-Bank &nbsp;|&nbsp; <code>Product:</code> SAR 800M Term Facility<br>
+          <code>EDD Trigger:</code> UBO identified as Politically Exposed Person<br>
+          <code>Risk Category:</code> High (PEP + Large Facility)<br><br>
+          <strong>EDD Scope:</strong> Full beneficial ownership trace, PEP verification, sanctions screening, source of wealth analysis, adverse media scan, and relationship risk assessment.`
+      },
+      {
+        icon: "data", label: "Source Screening",
+        html: `<strong>Screening across 12 data sources...</strong><br><br>
+          <div class="source-grid">
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">OFAC SDN List</div><div class="si-detail">No match</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">EU Sanctions</div><div class="si-detail">No match</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">UN Sanctions</div><div class="si-detail">No match</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">SAMA Sanctions</div><div class="si-detail">No match</div></div></div>
+            <div class="source-item"><span class="si-status">⚠️</span><div><div class="si-name">PEP Database</div><div class="si-detail">Match — Level 2 PEP</div></div></div>
+            <div class="source-item"><span class="si-status">⚠️</span><div><div class="si-name">Adverse Media</div><div class="si-detail">3 articles flagged</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">Interpol Red Notices</div><div class="si-detail">No match</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">World-Check</div><div class="si-detail">PEP confirmed</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">Companies Registry</div><div class="si-detail">Verified</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">Property Records</div><div class="si-detail">6 properties found</div></div></div>
+            <div class="source-item"><span class="si-status">⚠️</span><div><div class="si-name">Court Records</div><div class="si-detail">1 civil case (resolved)</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">Credit Bureau</div><div class="si-detail">Clean record</div></div></div>
+          </div>
+          <div style="margin-top:8px;font-size:12px;color:var(--text-muted)">12 of 12 sources checked. 3 items flagged for analyst review.</div>`
+      },
+      {
+        icon: "data", label: "UBO Mapping",
+        html: `<strong>Tracing beneficial ownership chain...</strong><br><br>
+          <div class="ubo-tree">
+            <div class="ubo-node">🏢 Al-Faisal Holdings Group (KSA)</div>
+            <div class="ubo-node">├── <span class="ubo-pct">60%</span> Sheikh Abdullah Al-Faisal <span class="sev-badge high">PEP</span><br>
+              <span style="font-size:12px;color:var(--text-muted);margin-left:20px">Former Deputy Minister of Commerce (2015–2021). Level-2 PEP. No current government role. Family member of senior royal-adjacent official.</span></div>
+            <div class="ubo-node">├── <span class="ubo-pct">25%</span> Faisal Family Trust (Jersey, CI)<br>
+              <span style="font-size:12px;color:var(--text-muted);margin-left:20px">Discretionary trust. Beneficiaries: 3 family members. Trustee: Atlantic Trust Services Ltd.</span></div>
+            <div class="ubo-node">│ &nbsp;&nbsp;└── <span class="ubo-pct">UBOs</span> Norah Al-Faisal, Khalid Al-Faisal, Sara Al-Faisal<br>
+              <span style="font-size:12px;color:var(--text-muted);margin-left:20px">All screened: no sanctions, no PEP status, no adverse media.</span></div>
+            <div class="ubo-node">└── <span class="ubo-pct">15%</span> GCC Strategic Partners Fund (DIFC)<br>
+              <span style="font-size:12px;color:var(--text-muted);margin-left:20px">Regulated fund (DFSA License #XXXX). 8 institutional LPs. No sanctioned entities.</span></div>
+          </div>
+          <div style="margin-top:8px;font-size:12.5px;color:var(--text-dim)"><strong>UBO Resolution:</strong> All beneficial owners identified and screened. 1 PEP identified (60% ownership). Offshore trust structure in Jersey requires enhanced monitoring but is a common estate planning vehicle for the region.</div>`
+      },
+      {
+        icon: "analysis", label: "Risk Assessment",
+        html: `<strong>Evaluating risk factors...</strong><br><br>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>PEP Status — Level 2 (Former Senior Official)</strong> — Sheikh Abdullah served as Deputy Minister until 2021. PEP status remains active for 5 years post-office. 60% ownership means the entity is a PEP-controlled relationship. <span class="sev-badge high">High</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>Adverse Media — 3 Articles</strong> — Two articles (2019) reference a government procurement dispute involving the Ministry during his tenure (no personal allegation). One article (2022) reports his involvement in a large real estate development — neutral/positive coverage. <span class="sev-badge medium">Medium</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>Offshore Trust Structure</strong> — Jersey-based discretionary trust is a standard estate planning vehicle but requires monitoring for any changes in beneficiary structure or unusual distributions. <span class="sev-badge medium">Medium</span></div></div>
+          <div class="risk-flag low"><span class="rf-icon">🔵</span><div class="rf-text"><strong>Civil Court Record (Resolved)</strong> — 2020 commercial dispute with a contractor (SAR 12M). Settled out of court in 2021. No fraud or financial crime elements. <span class="sev-badge low">Low</span></div></div>
+
+          <div style="margin-top:16px"><strong>Source of Wealth Analysis:</strong></div>
+          <table class="risk-table">
+            <tr><th>Source</th><th>Amount (est.)</th><th>Verification</th><th>Status</th></tr>
+            <tr><td>Real Estate Portfolio (6 properties)</td><td>SAR 450M</td><td>Land Registry confirmed</td><td><span class="sev-badge clear">Verified</span></td></tr>
+            <tr><td>Al-Faisal Holdings Dividends</td><td>SAR 120M (3yr)</td><td>Audited financials</td><td><span class="sev-badge clear">Verified</span></td></tr>
+            <tr><td>Prior Government Salary</td><td>SAR 3.6M (6yr)</td><td>Public records</td><td><span class="sev-badge clear">Verified</span></td></tr>
+            <tr><td>Family Inheritance</td><td>SAR 280M (declared)</td><td>Self-declared only</td><td><span class="sev-badge medium">Partial</span></td></tr>
+          </table>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:4px">Total declared wealth: SAR 853M. Verified: SAR 573M (67%). Gap: SAR 280M inheritance requires supporting documentation.</div>`
+      },
+      {
+        icon: "output", label: "EDD Report",
+        html: `<strong>Enhanced Due Diligence Report Generated</strong><br><br>
+          <div style="margin-bottom:16px">
+            <div style="font-size:13px;margin-bottom:8px"><strong>Overall Risk Rating:</strong></div>
+            <div class="risk-meter">
+              <div class="rm-bar"><div class="rm-needle" style="left:68%"></div></div>
+              <div class="rm-labels"><span>Low</span><span>Medium</span><span>High</span><span>Very High</span></div>
+            </div>
+            <div style="text-align:center;margin-top:4px;font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:var(--accent-3)">HIGH RISK — Proceed with Enhanced Controls</div>
+          </div>
+          <table class="risk-table">
+            <tr><th>Risk Factor</th><th>Rating</th><th>Mitigant</th></tr>
+            <tr><td>PEP Relationship</td><td><span class="sev-badge high">High</span></td><td>Senior management approval + annual review</td></tr>
+            <tr><td>Source of Wealth</td><td><span class="sev-badge medium">Medium</span></td><td>Request inheritance documentation</td></tr>
+            <tr><td>Entity Structure</td><td><span class="sev-badge medium">Medium</span></td><td>Monitor trust beneficiary changes</td></tr>
+            <tr><td>Transaction Purpose</td><td><span class="sev-badge low">Low</span></td><td>Standard facility monitoring</td></tr>
+          </table>
+          <div class="recommendation">
+            <h4>Recommendation</h4>
+            <p><strong>PROCEED WITH CONDITIONS</strong> — Relationship may be onboarded subject to: (1) Senior Management / Board approval as PEP relationship, (2) Supporting documentation for SAR 280M inheritance claim, (3) Enhanced transaction monitoring with quarterly review, (4) Annual EDD refresh, (5) MLRO sign-off on this report. Estimated next review: <strong>May 2027</strong>.</p>
+          </div>`
+      },
+      {
+        icon: "done", label: "EDD Complete",
+        html: `<div style="text-align:center;padding:20px">
+          <div style="font-size:32px;margin-bottom:12px">✅</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px">EDD Investigation Complete</div>
+          <div style="font-size:14px;color:var(--text-dim);max-width:500px;margin:0 auto;line-height:1.6">
+            <strong>12 sources</strong> screened with full audit trail.<br>
+            <strong>4 risk factors</strong> assessed with mitigants.<br>
+            <strong>UBO chain</strong> fully resolved to natural persons.<br><br>
+            <em>In production, this agent would integrate with your screening platforms, case management system, and regulatory reporting tools for continuous monitoring.</em>
+          </div>
+        </div>`
+      }
+    ]
+  },
+  {
+    name: "Pacific Rim Trading FZE",
+    trigger: "High-Risk Jurisdiction",
+    steps: [
+      {
+        icon: "thinking", label: "Case Intake",
+        html: `<strong>Agent is analysing the EDD trigger...</strong><br><br>
+          <code>Customer:</code> Pacific Rim Trading FZE<br>
+          <code>Entity Type:</code> Free Zone Entity (JAFZA License)<br>
+          <code>Jurisdiction:</code> UAE (Dubai)<br>
+          <code>Relationship:</code> New-to-Bank &nbsp;|&nbsp; <code>Product:</code> AED 50M Trade Finance Facility<br>
+          <code>EDD Trigger:</code> Operations in FATF grey-list jurisdictions (Myanmar, Cambodia)<br>
+          <code>Risk Category:</code> Very High (High-Risk Jurisdiction + Commodities + FZE)<br><br>
+          <strong>EDD Scope:</strong> Full beneficial ownership trace, jurisdictional risk assessment, sanctions screening, trade flow analysis, source of funds verification, and red flag evaluation.`
+      },
+      {
+        icon: "data", label: "Source Screening",
+        html: `<strong>Screening across 12 data sources...</strong><br><br>
+          <div class="source-grid">
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">OFAC SDN List</div><div class="si-detail">No match</div></div></div>
+            <div class="source-item"><span class="si-status">⚠️</span><div><div class="si-name">EU Sanctions</div><div class="si-detail">1 partial name match</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">UN Sanctions</div><div class="si-detail">No match</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">CBUAE List</div><div class="si-detail">No match</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">PEP Database</div><div class="si-detail">No match</div></div></div>
+            <div class="source-item"><span class="si-status">⚠️</span><div><div class="si-name">Adverse Media</div><div class="si-detail">7 articles flagged</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">Interpol</div><div class="si-detail">No match</div></div></div>
+            <div class="source-item"><span class="si-status">⚠️</span><div><div class="si-name">World-Check</div><div class="si-detail">Former associate flagged</div></div></div>
+            <div class="source-item"><span class="si-status">⚠️</span><div><div class="si-name">JAFZA Registry</div><div class="si-detail">License active — 2 amendments</div></div></div>
+            <div class="source-item"><span class="si-status">❌</span><div><div class="si-name">Myanmar Registry</div><div class="si-detail">Unable to verify</div></div></div>
+            <div class="source-item"><span class="si-status">⚠️</span><div><div class="si-name">Shipping Records</div><div class="si-detail">Irregular patterns</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">Credit Bureau</div><div class="si-detail">Limited history</div></div></div>
+          </div>
+          <div style="margin-top:8px;font-size:12px;color:#ff5252"><strong>⚠️ 5 items flagged, 1 source unverifiable.</strong> Elevated screening required.</div>`
+      },
+      {
+        icon: "data", label: "UBO Mapping",
+        html: `<strong>Tracing beneficial ownership chain...</strong><br><br>
+          <div class="ubo-tree">
+            <div class="ubo-node">🏢 Pacific Rim Trading FZE (UAE — JAFZA)</div>
+            <div class="ubo-node">├── <span class="ubo-pct">70%</span> Chen Wei Holdings Ltd (Hong Kong)<br>
+              <span style="font-size:12px;color:var(--text-muted);margin-left:20px">Registered 2018. Director: Chen Wei Lin. No public financials available.</span></div>
+            <div class="ubo-node">│ &nbsp;&nbsp;└── <span class="ubo-pct">100%</span> Chen Wei Lin (Chinese national, UAE resident)<br>
+              <span style="font-size:12px;color:var(--text-muted);margin-left:20px">Age 47. UAE Golden Visa holder. Former employee of state-owned commodity trader (2005–2016).</span></div>
+            <div class="ubo-node">├── <span class="ubo-pct">20%</span> Mekong Resources PTE (Singapore)<br>
+              <span style="font-size:12px;color:var(--text-muted);margin-left:20px">Incorporated 2020. Director: Aung Kyaw Moe. <span class="sev-badge high">Myanmar operations</span></span></div>
+            <div class="ubo-node">│ &nbsp;&nbsp;└── <span class="ubo-pct">100%</span> Aung Kyaw Moe (Myanmar national, Singapore PR)<br>
+              <span style="font-size:12px;color:var(--text-muted);margin-left:20px">Age 39. <span class="sev-badge medium">World-Check: former associate of sanctioned entity (2019 — association ended)</span></span></div>
+            <div class="ubo-node">└── <span class="ubo-pct">10%</span> Nominee shareholder (JAFZA nominee service)<br>
+              <span style="font-size:12px;color:var(--text-muted);margin-left:20px"><span class="sev-badge high">Cannot resolve to natural person</span> — nominee service provider refuses disclosure.</span></div>
+          </div>
+          <div style="margin-top:8px;font-size:12.5px;color:#ff5252"><strong>⚠️ UBO Resolution Incomplete:</strong> 10% ownership held by unresolvable nominee. 20% linked to individual with former sanctioned-entity association.</div>`
+      },
+      {
+        icon: "analysis", label: "Risk Assessment",
+        html: `<strong>Evaluating risk factors...</strong><br><br>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>Unresolvable UBO (10% Nominee)</strong> — Cannot identify the natural person behind 10% ownership. JAFZA nominee service declined to disclose. FATF Recommendation 24 requires full UBO identification. This alone may be grounds for decline. <span class="sev-badge critical">Critical</span></div></div>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>Former Sanctioned-Entity Association</strong> — Aung Kyaw Moe (20% UBO) was a director of a Myanmar entity sanctioned by the EU in 2019. He resigned before sanctions were imposed but the association is flagged by World-Check. <span class="sev-badge high">High</span></div></div>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>High-Risk Jurisdiction Operations</strong> — Active commodity sourcing from Myanmar (FATF grey-list) and Cambodia. Trade flows cannot be independently verified through Myanmar registry. <span class="sev-badge high">High</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>Adverse Media (7 Articles)</strong> — 3 articles reference the Myanmar military's involvement in the mining sector where Pacific Rim sources materials. 2 articles discuss commodity smuggling routes through the region. 2 are neutral industry coverage. <span class="sev-badge medium">Medium</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>Irregular Shipping Patterns</strong> — Shipping records show 4 consignments re-routed through intermediary ports (Sihanoukville, Colombo) without documented commercial reason. Potential transhipment risk. <span class="sev-badge medium">Medium</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>Partial EU Sanctions Name Match</strong> — "Chen Wei" partially matches an EU-listed entity. Resolved as false positive after date-of-birth and nationality verification. <span class="sev-badge low">Resolved</span></div></div>`
+      },
+      {
+        icon: "output", label: "EDD Report",
+        html: `<strong>Enhanced Due Diligence Report Generated</strong><br><br>
+          <div style="margin-bottom:16px">
+            <div style="font-size:13px;margin-bottom:8px"><strong>Overall Risk Rating:</strong></div>
+            <div class="risk-meter">
+              <div class="rm-bar"><div class="rm-needle" style="left:88%"></div></div>
+              <div class="rm-labels"><span>Low</span><span>Medium</span><span>High</span><span>Very High</span></div>
+            </div>
+            <div style="text-align:center;margin-top:4px;font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#ff5252">VERY HIGH RISK — Decline Recommended</div>
+          </div>
+          <table class="risk-table">
+            <tr><th>Risk Factor</th><th>Rating</th><th>Mitigant Available?</th></tr>
+            <tr><td>UBO Identification</td><td><span class="sev-badge critical">Critical</span></td><td style="color:#ff5252">No — incomplete</td></tr>
+            <tr><td>Sanctions Proximity</td><td><span class="sev-badge high">High</span></td><td style="color:#ffd54f">Limited — historical</td></tr>
+            <tr><td>Jurisdictional Risk</td><td><span class="sev-badge high">High</span></td><td style="color:#ffd54f">Limited — unverifiable</td></tr>
+            <tr><td>Trade Flow Integrity</td><td><span class="sev-badge medium">Medium</span></td><td style="color:#ffd54f">Possible with monitoring</td></tr>
+          </table>
+          <div class="recommendation" style="border-color:rgba(255,82,82,0.3);background:rgba(255,82,82,0.06)">
+            <h4 style="color:#ff5252">Recommendation: DECLINE</h4>
+            <p>The combination of unresolvable beneficial ownership (10% nominee), a UBO with former sanctioned-entity association, operations in FATF grey-list jurisdictions with unverifiable trade flows, and irregular shipping patterns presents an <strong>unacceptable risk profile</strong>. The unresolvable nominee ownership alone constitutes a regulatory non-starter under CBUAE AML regulations. Recommend <strong>declining the relationship</strong> and filing a Suspicious Activity Report if further investigation reveals intent to circumvent controls.</p>
+          </div>`
+      },
+      {
+        icon: "done", label: "EDD Complete",
+        html: `<div style="text-align:center;padding:20px">
+          <div style="font-size:32px;margin-bottom:12px">✅</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px">EDD Investigation Complete</div>
+          <div style="font-size:14px;color:var(--text-dim);max-width:500px;margin:0 auto;line-height:1.6">
+            <strong>12 sources</strong> screened with full audit trail.<br>
+            <strong>6 risk factors</strong> assessed — 3 critical/high.<br>
+            <strong>Recommendation:</strong> <span style="color:#ff5252;font-weight:600">DECLINE</span><br><br>
+            <em>In production, this agent would integrate with your screening platforms, case management system, and regulatory reporting tools for continuous monitoring.</em>
+          </div>
+        </div>`
+      }
+    ]
+  },
+  {
+    name: "Doha Ventures International",
+    trigger: "Complex Structure",
+    steps: [
+      {
+        icon: "thinking", label: "Case Intake",
+        html: `<strong>Agent is analysing the EDD trigger...</strong><br><br>
+          <code>Customer:</code> Doha Ventures International WLL<br>
+          <code>Entity Type:</code> Limited Liability Company (CR: XXXXXXX)<br>
+          <code>Jurisdiction:</code> Qatar (QFC-registered)<br>
+          <code>Relationship:</code> Existing — Upgrade &nbsp;|&nbsp; <code>Product:</code> QAR 200M Deposit + Custody<br>
+          <code>EDD Trigger:</code> Complex multi-jurisdictional structure + large deposit<br>
+          <code>Risk Category:</code> High (Structure Complexity + Value)<br><br>
+          <strong>EDD Scope:</strong> Full ownership chain resolution across 4 jurisdictions, source of wealth for large deposit, sanctions and PEP screening of all identified UBOs, structure rationale assessment.`
+      },
+      {
+        icon: "data", label: "Source Screening",
+        html: `<strong>Screening across 12 data sources...</strong><br><br>
+          <div class="source-grid">
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">OFAC SDN List</div><div class="si-detail">No match</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">EU Sanctions</div><div class="si-detail">No match</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">UN Sanctions</div><div class="si-detail">No match</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">QCB Sanctions</div><div class="si-detail">No match</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">PEP Database</div><div class="si-detail">No match</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">Adverse Media</div><div class="si-detail">Clean</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">Interpol</div><div class="si-detail">No match</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">World-Check</div><div class="si-detail">Clean</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">QFC Registry</div><div class="si-detail">Verified</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">DIFC Registry</div><div class="si-detail">Verified</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">ADGM Registry</div><div class="si-detail">Verified</div></div></div>
+            <div class="source-item"><span class="si-status">✅</span><div><div class="si-name">Credit Bureau</div><div class="si-detail">Good standing</div></div></div>
+          </div>
+          <div style="margin-top:8px;font-size:12px;color:var(--accent-2)">✅ All 12 sources clear. No sanctions, PEP, or adverse media hits.</div>`
+      },
+      {
+        icon: "data", label: "UBO Mapping",
+        html: `<strong>Tracing beneficial ownership chain across 4 jurisdictions...</strong><br><br>
+          <div class="ubo-tree">
+            <div class="ubo-node">🏢 Doha Ventures International WLL (Qatar — QFC)</div>
+            <div class="ubo-node">├── <span class="ubo-pct">40%</span> Al-Thani Investments Ltd (DIFC, UAE)<br>
+              <span style="font-size:12px;color:var(--text-muted);margin-left:20px">Licensed investment vehicle. DFSA regulated. 3 directors.</span></div>
+            <div class="ubo-node">│ &nbsp;&nbsp;└── <span class="ubo-pct">100%</span> Hamad bin Jassim Al-Thani (Qatari national)<br>
+              <span style="font-size:12px;color:var(--text-muted);margin-left:20px">Age 52. Private investor. Former MD of Al-Thani Group (family business, non-sovereign). Clean screening.</span></div>
+            <div class="ubo-node">├── <span class="ubo-pct">35%</span> Crescent Capital Partners (ADGM, UAE)<br>
+              <span style="font-size:12px;color:var(--text-muted);margin-left:20px">FSRA-regulated fund manager. AUM: USD 1.2B. Established 2012.</span></div>
+            <div class="ubo-node">│ &nbsp;&nbsp;└── <span class="ubo-pct">UBOs</span> 4 GP partners (all screened — clean)<br>
+              <span style="font-size:12px;color:var(--text-muted);margin-left:20px">Saeed Al-Mansoori (30%), John Richardson (25%), Omar Hashemi (25%), Fatima Al-Ketbi (20%)</span></div>
+            <div class="ubo-node">└── <span class="ubo-pct">25%</span> Qatar Innovation Fund (QFC)<br>
+              <span style="font-size:12px;color:var(--text-muted);margin-left:20px">Government-linked but not sovereign. Board-managed. Screened at fund level — clean.</span></div>
+          </div>
+          <div style="margin-top:8px;font-size:12.5px;color:var(--text-dim)"><strong>UBO Resolution:</strong> All beneficial owners identified and screened across 4 jurisdictions (Qatar, DIFC, ADGM). Structure complexity driven by legitimate regulatory and investment considerations — each entity is in a regulated financial centre with independent oversight.</div>`
+      },
+      {
+        icon: "analysis", label: "Risk Assessment",
+        html: `<strong>Evaluating risk factors...</strong><br><br>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>Multi-Jurisdictional Structure</strong> — 4 jurisdictions (QFC, DIFC, ADGM, Qatar domestic) create complexity. However, all entities are in well-regulated GCC financial centres with robust AML frameworks — structure is consistent with regional investment practice. <span class="sev-badge medium">Medium</span></div></div>
+          <div class="risk-flag low"><span class="rf-icon">🔵</span><div class="rf-text"><strong>Large Deposit Value (QAR 200M)</strong> — Value exceeds threshold for enhanced monitoring. Source of funds documented and verified through audited returns of Crescent Capital Partners (35% share) and property sale proceeds (40% share). <span class="sev-badge low">Low</span></div></div>
+          <div class="risk-flag low"><span class="rf-icon">🔵</span><div class="rf-text"><strong>Government-Linked Entity (25%)</strong> — Qatar Innovation Fund is government-linked but not a sovereign wealth fund or state entity. Operates independently with commercial mandate. No PEP exposure identified at board level. <span class="sev-badge low">Low</span></div></div>
+
+          <div style="margin-top:16px"><strong>Source of Wealth Analysis:</strong></div>
+          <table class="risk-table">
+            <tr><th>Source</th><th>Amount</th><th>Verification</th><th>Status</th></tr>
+            <tr><td>Crescent Capital Fund Returns</td><td>QAR 70M</td><td>Audited fund statements (KPMG)</td><td><span class="sev-badge clear">Verified</span></td></tr>
+            <tr><td>Property Sale — The Pearl, Qatar</td><td>QAR 80M</td><td>Title deed + sale agreement</td><td><span class="sev-badge clear">Verified</span></td></tr>
+            <tr><td>Al-Thani Group Dividends</td><td>QAR 35M</td><td>Audited company accounts</td><td><span class="sev-badge clear">Verified</span></td></tr>
+            <tr><td>Qatar Innovation Fund Capital Call</td><td>QAR 15M</td><td>Fund documentation</td><td><span class="sev-badge clear">Verified</span></td></tr>
+          </table>
+          <div style="font-size:12px;color:var(--accent-2);margin-top:4px">Total: QAR 200M. <strong>100% verified</strong> through independent sources.</div>`
+      },
+      {
+        icon: "output", label: "EDD Report",
+        html: `<strong>Enhanced Due Diligence Report Generated</strong><br><br>
+          <div style="margin-bottom:16px">
+            <div style="font-size:13px;margin-bottom:8px"><strong>Overall Risk Rating:</strong></div>
+            <div class="risk-meter">
+              <div class="rm-bar"><div class="rm-needle" style="left:38%"></div></div>
+              <div class="rm-labels"><span>Low</span><span>Medium</span><span>High</span><span>Very High</span></div>
+            </div>
+            <div style="text-align:center;margin-top:4px;font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#ffd54f">MEDIUM RISK — Proceed with Standard EDD Controls</div>
+          </div>
+          <table class="risk-table">
+            <tr><th>Risk Factor</th><th>Rating</th><th>Mitigant</th></tr>
+            <tr><td>UBO Identification</td><td><span class="sev-badge clear">Low</span></td><td>All UBOs identified and screened</td></tr>
+            <tr><td>Structure Complexity</td><td><span class="sev-badge medium">Medium</span></td><td>All entities in regulated centres</td></tr>
+            <tr><td>Source of Wealth</td><td><span class="sev-badge clear">Low</span></td><td>100% independently verified</td></tr>
+            <tr><td>Sanctions/PEP Exposure</td><td><span class="sev-badge clear">None</span></td><td>All clear across all databases</td></tr>
+          </table>
+          <div class="recommendation">
+            <h4>Recommendation: APPROVE</h4>
+            <p>Despite the multi-jurisdictional complexity, this is a well-structured investment vehicle with fully identified UBOs, clean screening results, and 100% verified source of wealth. The structure reflects standard GCC investment practice across regulated financial centres. Recommend <strong>approval with standard EDD controls</strong>: annual review cycle, transaction monitoring at deposit level, and periodic UBO re-verification. Next review: <strong>May 2027</strong>.</p>
+          </div>`
+      },
+      {
+        icon: "done", label: "EDD Complete",
+        html: `<div style="text-align:center;padding:20px">
+          <div style="font-size:32px;margin-bottom:12px">✅</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px">EDD Investigation Complete</div>
+          <div style="font-size:14px;color:var(--text-dim);max-width:500px;margin:0 auto;line-height:1.6">
+            <strong>12 sources</strong> screened with full audit trail.<br>
+            <strong>3 risk factors</strong> assessed — all mitigated.<br>
+            <strong>Recommendation:</strong> <span style="color:var(--accent-2);font-weight:600">APPROVE</span><br><br>
+            <em>In production, this agent would integrate with your screening platforms, case management system, and regulatory reporting tools for continuous monitoring.</em>
+          </div>
+        </div>`
+      }
+    ]
+  }
+];
+
+let selected = null, running = false;
+const cards = document.querySelectorAll('.scenario-card');
+const runBtn = document.getElementById('runBtn');
+const outputPanel = document.getElementById('outputPanel');
+const progressWrap = document.getElementById('progressWrap');
+const progressBar = document.getElementById('progressBar');
+
+cards.forEach(c => c.addEventListener('click', () => {
+  if (running) return;
+  cards.forEach(x => x.classList.remove('selected'));
+  c.classList.add('selected');
+  selected = parseInt(c.dataset.scenario);
+  runBtn.disabled = false;
+  runBtn.textContent = 'Run Agent ▸';
+}));
+
+runBtn.addEventListener('click', async () => {
+  if (selected === null || running) return;
+  running = true;
+  runBtn.disabled = true;
+  runBtn.textContent = 'Agent Running...';
+  progressWrap.style.display = 'block';
+  progressBar.style.width = '0%';
+
+  const sc = scenarios[selected];
+  outputPanel.innerHTML = `<h3>🔍 ${sc.name} — EDD Investigation</h3>`;
+
+  for (let i = 0; i < sc.steps.length; i++) {
+    const step = sc.steps[i];
+    const typing = document.createElement('div');
+    typing.className = 'agent-step visible';
+    typing.innerHTML = `<div class="step-header"><div class="step-icon ${step.icon}">●</div><div class="step-label">${step.label}</div></div><div class="step-content"><div class="typing"><span></span><span></span><span></span></div></div>`;
+    outputPanel.appendChild(typing);
+    outputPanel.scrollTop = outputPanel.scrollHeight;
+
+    await sleep(1200 + Math.random() * 800);
+
+    typing.querySelector('.step-content').innerHTML = step.html;
+    progressBar.style.width = ((i + 1) / sc.steps.length * 100) + '%';
+    outputPanel.scrollTop = outputPanel.scrollHeight;
+
+    await sleep(800 + Math.random() * 600);
+  }
+
+  running = false;
+  runBtn.textContent = 'Run Again ▸';
+  runBtn.disabled = false;
+});
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+</script>
+</body>
+</html>

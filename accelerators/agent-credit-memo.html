@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-QZ9C4MLQS8");
+</script>
+<title>Credit Memo Agent — Enterprise.AI Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="_shared.css"/>
+<style>
+/* ---- AGENT UI ---- */
+.agent-workspace{display:grid;grid-template-columns:320px 1fr;gap:20px;margin:24px 0;min-height:600px}
+@media(max-width:900px){.agent-workspace{grid-template-columns:1fr;min-height:auto}}
+
+/* Scenario panel */
+.scenario-panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px}
+.scenario-panel h3{font-family:'Space Grotesk',sans-serif;font-size:17px;margin-bottom:16px}
+.scenario-card{background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.25s}
+.scenario-card:hover{border-color:rgba(124,92,255,0.4)}
+.scenario-card.selected{border-color:var(--accent);background:rgba(124,92,255,0.08)}
+.scenario-card .sc-name{font-weight:600;font-size:14px;color:var(--text);margin-bottom:4px}
+.scenario-card .sc-meta{font-size:12px;color:var(--text-muted)}
+.scenario-card .sc-desc{font-size:12.5px;color:var(--text-dim);margin-top:8px;line-height:1.5}
+.run-btn{width:100%;padding:14px;background:var(--gradient);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;margin-top:16px;font-family:inherit;transition:opacity 0.2s}
+.run-btn:hover{opacity:0.9}
+.run-btn:disabled{opacity:0.4;cursor:not-allowed}
+
+/* Agent output panel */
+.output-panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;overflow-y:auto;max-height:800px}
+.output-panel h3{font-family:'Space Grotesk',sans-serif;font-size:18px;margin-bottom:20px}
+
+/* Agent thinking steps */
+.agent-step{margin-bottom:16px;opacity:0;transform:translateY(8px);transition:all 0.4s ease}
+.agent-step.visible{opacity:1;transform:translateY(0)}
+.step-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.step-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.step-icon.thinking{background:rgba(124,92,255,0.15);color:var(--accent)}
+.step-icon.data{background:rgba(34,211,238,0.15);color:var(--accent-2)}
+.step-icon.analysis{background:rgba(255,193,7,0.15);color:#ffd54f}
+.step-icon.output{background:rgba(255,122,192,0.15);color:var(--accent-3)}
+.step-icon.done{background:rgba(34,211,238,0.15);color:var(--accent-2)}
+.step-label{font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em}
+.step-content{background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:16px;font-size:13.5px;color:var(--text-dim);line-height:1.7}
+.step-content code{font-family:'JetBrains Mono',monospace;font-size:12px;background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;color:var(--accent-2)}
+
+/* Ratio table */
+.ratio-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+.ratio-table th,.ratio-table td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.ratio-table th{color:var(--text);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em}
+.ratio-table .good{color:var(--accent-2)}
+.ratio-table .warn{color:#ffd54f}
+.ratio-table .bad{color:var(--accent-3)}
+.ratio-table td:first-child{color:var(--text);font-weight:500}
+
+/* Risk flags */
+.risk-flag{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:8px;margin-bottom:8px;font-size:13px}
+.risk-flag.high{background:rgba(255,122,192,0.1);border:1px solid rgba(255,122,192,0.2);color:var(--accent-3)}
+.risk-flag.medium{background:rgba(255,193,7,0.08);border:1px solid rgba(255,193,7,0.15);color:#ffd54f}
+.risk-flag.low{background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);color:var(--accent-2)}
+.risk-flag .rf-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.risk-flag .rf-text{line-height:1.5}
+
+/* Recommendation box */
+.recommendation{background:rgba(124,92,255,0.08);border:1px solid rgba(124,92,255,0.2);border-radius:12px;padding:18px;margin-top:16px}
+.recommendation h4{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--accent);margin-bottom:8px}
+.recommendation p{font-size:14px;color:var(--text-dim);margin:0}
+
+/* Typing indicator */
+.typing{display:inline-flex;gap:4px;padding:8px 14px}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:typingDot 1.4s infinite;opacity:0.3}
+.typing span:nth-child(2){animation-delay:0.2s}
+.typing span:nth-child(3){animation-delay:0.4s}
+@keyframes typingDot{0%,60%,100%{opacity:0.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+
+/* Empty state */
+.empty-state{text-align:center;padding:80px 20px;color:var(--text-muted)}
+.empty-state .es-icon{font-size:48px;margin-bottom:16px;opacity:0.3}
+.empty-state p{font-size:15px;max-width:360px;margin:0 auto}
+
+/* Progress bar */
+.progress-wrap{margin:16px 0 8px;height:4px;background:var(--bg);border-radius:2px;overflow:hidden}
+.progress-bar{height:100%;background:var(--gradient);border-radius:2px;width:0;transition:width 0.6s ease}
+
+/* Value banner */
+.value-banner{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+.vb-item{text-align:center;padding:18px 12px;background:var(--bg-2);border-radius:12px;border:1px solid var(--border)}
+.vb-item .vb-num{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;margin-bottom:4px}
+.vb-item .vb-lbl{font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em}
+@media(max-width:760px){.value-banner{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="../tools.html" class="back">← Back to Enterprise.AI</a>
+  <div class="hero-banner">
+    <div class="eyebrow"><span class="dot"></span>Agent Prototype · Revenue Monetization</div>
+    <h1 class="display">Credit Memo <span class="gradient-text">Agent</span></h1>
+    <p class="lead">Watch an AI agent analyse company financials, extract key ratios, flag risks, and draft a structured credit memorandum — in under 90 seconds. This is what agentic AI looks like in corporate banking.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">90 sec</div><div class="hero-stat-label">vs 4–6 hours manual</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">12</div><div class="hero-stat-label">Ratios Computed</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-label">Auditable Reasoning</div></div>
+    </div>
+  </div>
+
+  <!-- VALUE PROPOSITION -->
+  <div class="card">
+    <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>The Opportunity</h2>
+    <p>A corporate banker spends 4–6 hours drafting each credit memorandum — extracting financials, computing ratios, benchmarking against peers, flagging risks, and formatting for credit committee. Multiply across a lending book of 200+ obligors and you have thousands of analyst hours per year locked in document production, not client relationships.</p>
+    <div class="value-banner">
+      <div class="vb-item"><div class="vb-num" style="color:var(--accent)">85%</div><div class="vb-lbl">Time Reduction</div></div>
+      <div class="vb-item"><div class="vb-num" style="color:var(--accent-2)">3–5x</div><div class="vb-lbl">Throughput Increase</div></div>
+      <div class="vb-item"><div class="vb-num" style="color:var(--accent-3)">100%</div><div class="vb-lbl">Consistent Analysis</div></div>
+    </div>
+  </div>
+
+  <!-- AGENT WORKSPACE -->
+  <div class="card" style="padding:0;overflow:hidden">
+    <div style="padding:24px 28px 0">
+      <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>Try the Agent</h2>
+      <p>Select a scenario below and click "Run Agent" to see the credit analysis workflow in action.</p>
+    </div>
+    <div class="agent-workspace" style="padding:0 28px 28px">
+
+      <!-- SCENARIO SELECTION -->
+      <div class="scenario-panel">
+        <h3>Select Scenario</h3>
+
+        <div class="scenario-card" data-scenario="0">
+          <div class="sc-name">Saudi Cement Co.</div>
+          <div class="sc-meta">KSA · Materials · SAR 2.4B Revenue</div>
+          <div class="sc-desc">Mid-cap industrial with strong cash flow but rising leverage. Seeking SAR 500M term facility for capacity expansion.</div>
+        </div>
+
+        <div class="scenario-card" data-scenario="1">
+          <div class="sc-name">Gulf Digital Payments</div>
+          <div class="sc-meta">UAE · Fintech · AED 890M Revenue</div>
+          <div class="sc-desc">High-growth payments company with negative free cash flow. Seeking AED 200M working capital line.</div>
+        </div>
+
+        <div class="scenario-card" data-scenario="2">
+          <div class="sc-name">Al-Rayan Hospitality Group</div>
+          <div class="sc-meta">Qatar · Hospitality · QAR 1.6B Revenue</div>
+          <div class="sc-desc">Diversified hotel and F&B group with seasonal cash flows. Seeking QAR 750M project finance for new resort development.</div>
+        </div>
+
+        <button class="run-btn" id="runBtn" disabled>Select a scenario to begin</button>
+
+        <div class="progress-wrap" id="progressWrap" style="display:none">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <!-- AGENT OUTPUT -->
+      <div class="output-panel" id="outputPanel">
+        <div class="empty-state" id="emptyState">
+          <div class="es-icon">⚡</div>
+          <p>Select a scenario from the left panel and click "Run Agent" to watch the credit analysis unfold in real-time.</p>
+        </div>
+        <div id="agentOutput" style="display:none"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="card">
+    <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>How the Agent Works</h2>
+    <p>The Credit Memo Agent follows a structured reasoning chain — the same analytical process a senior credit analyst would follow, but executed in seconds with full auditability.</p>
+    <div class="grid-2" style="margin-top:18px">
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:18px">
+        <h4 style="font-family:'Space Grotesk',sans-serif;font-size:14px;color:var(--accent-2);margin-bottom:8px">1. Data Ingestion</h4>
+        <p style="font-size:13.5px;color:var(--text-dim);margin:0">Ingests annual reports, financial statements, and industry data. Extracts structured data from unstructured documents.</p>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:18px">
+        <h4 style="font-family:'Space Grotesk',sans-serif;font-size:14px;color:var(--accent-2);margin-bottom:8px">2. Ratio Analysis</h4>
+        <p style="font-size:13.5px;color:var(--text-dim);margin:0">Computes 12+ financial ratios — liquidity, leverage, profitability, coverage — and benchmarks against sector peers.</p>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:18px">
+        <h4 style="font-family:'Space Grotesk',sans-serif;font-size:14px;color:var(--accent-2);margin-bottom:8px">3. Risk Assessment</h4>
+        <p style="font-size:13.5px;color:var(--text-dim);margin:0">Identifies credit risks — concentration, covenant triggers, cash flow adequacy, market conditions — with severity ratings.</p>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:18px">
+        <h4 style="font-family:'Space Grotesk',sans-serif;font-size:14px;color:var(--accent-2);margin-bottom:8px">4. Memo Generation</h4>
+        <p style="font-size:13.5px;color:var(--text-dim);margin:0">Produces a structured credit memorandum with recommendation, conditions, and covenant proposals — ready for credit committee.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="card" style="text-align:center;padding:40px">
+    <h2 style="margin-bottom:10px">Want this agent built for your bank?</h2>
+    <p style="max-width:520px;margin:0 auto 20px">We build custom credit memo agents trained on your templates, connected to your data sources, and governed by your risk policies. Book a free 30-minute briefing to see how.</p>
+    <a href="../about.html#contact" style="display:inline-block;padding:14px 32px;background:var(--gradient);color:#fff;font-weight:600;border-radius:10px;font-size:15px;text-decoration:none">Book a Free Briefing →</a>
+    <div style="margin-top:12px"><a href="agentic-ai-ecosystem.html" style="font-size:14px">← View the full Agentic AI Ecosystem Map</a></div>
+  </div>
+
+  <div class="footer-note">
+    &copy; 2026 Enterprise.AI — advisor@rodney-ai.com<br/>
+    <a href="../tools.html">Tools</a> · <a href="../services.html">Services</a> · <a href="../research.html">Research</a> · <a href="../about.html">About</a>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ========== SCENARIO DATA ========== */
+var scenarios = [
+  {
+    name: "Saudi Cement Co.",
+    ticker: "SCC",
+    country: "Saudi Arabia",
+    sector: "Materials — Cement & Building Products",
+    revenue: "SAR 2,410M",
+    facility: "SAR 500M Senior Secured Term Loan — 5 Year",
+    purpose: "Capacity expansion — new production line at Yanbu facility",
+    steps: [
+      {type:"thinking",label:"Planning analysis",content:"Initiating credit analysis for Saudi Cement Co. Facility request: SAR 500M term loan for capacity expansion. I'll extract financials from the FY2025 annual report, compute key credit ratios, benchmark against GCC cement peers, and assess risk factors."},
+      {type:"data",label:"Extracting financials",content:'<strong>Income Statement (FY2025)</strong><br>Revenue: SAR 2,410M (+8.2% YoY) · COGS: SAR 1,590M · Gross Profit: SAR 820M · EBITDA: SAR 685M · Net Income: SAR 342M<br><br><strong>Balance Sheet</strong><br>Total Assets: SAR 4,820M · Total Debt: SAR 1,240M · Cash: SAR 380M · Equity: SAR 2,450M<br><br><strong>Cash Flow</strong><br>Operating CF: SAR 610M · Capex: SAR 285M · Free Cash Flow: SAR 325M · Dividends: SAR 180M'},
+      {type:"analysis",label:"Computing ratios",content:'<table class="ratio-table"><thead><tr><th>Ratio</th><th>FY2025</th><th>FY2024</th><th>Peer Median</th><th>Status</th></tr></thead><tbody><tr><td>Current Ratio</td><td>1.8x</td><td>2.1x</td><td>1.6x</td><td class="good">✓ Adequate</td></tr><tr><td>Debt/Equity</td><td>0.51x</td><td>0.38x</td><td>0.45x</td><td class="warn">⚠ Above peer</td></tr><tr><td>Net Debt/EBITDA</td><td>1.26x</td><td>0.95x</td><td>1.40x</td><td class="good">✓ Comfortable</td></tr><tr><td>EBITDA Margin</td><td>28.4%</td><td>27.1%</td><td>25.8%</td><td class="good">✓ Strong</td></tr><tr><td>Interest Coverage</td><td>5.8x</td><td>7.2x</td><td>5.0x</td><td class="good">✓ Adequate</td></tr><tr><td>DSCR</td><td>2.1x</td><td>2.4x</td><td>1.8x</td><td class="good">✓ Strong</td></tr><tr><td>FCF/Total Debt</td><td>26.2%</td><td>31.5%</td><td>22.0%</td><td class="good">✓ Strong</td></tr><tr><td>Return on Equity</td><td>14.0%</td><td>13.2%</td><td>12.5%</td><td class="good">✓ Above peer</td></tr></tbody></table><br><strong>Post-facility pro-forma:</strong> Net Debt/EBITDA increases from 1.26x → 1.99x. Interest coverage declines from 5.8x → 4.2x. Both remain within acceptable thresholds but leave limited headroom.'},
+      {type:"analysis",label:"Assessing risk factors",content:'<div class="risk-flag medium"><span class="rf-icon">⚠</span><div class="rf-text"><strong>Leverage Trajectory:</strong> Net Debt/EBITDA has risen from 0.95x to 1.26x and will reach ~2.0x post-drawdown. Trend is manageable but requires monitoring. Recommend covenant at 2.75x.</div></div><div class="risk-flag low"><span class="rf-icon">ℹ</span><div class="rf-text"><strong>Sector Cyclicality:</strong> Cement demand in KSA is supported by Vision 2030 mega-projects (NEOM, Red Sea, Qiddiya). Current pipeline provides 3–5 year demand visibility.</div></div><div class="risk-flag medium"><span class="rf-icon">⚠</span><div class="rf-text"><strong>Concentration Risk:</strong> 62% of revenue from government-linked construction projects. Diversification into private sector demand is limited. Monitor single-client exposure.</div></div><div class="risk-flag low"><span class="rf-icon">ℹ</span><div class="rf-text"><strong>FX Risk:</strong> Minimal — SAR-pegged operations with limited import exposure. Raw materials largely domestic (limestone, gypsum).</div></div>'},
+      {type:"output",label:"Generating credit memo",content:'<div class="recommendation"><h4>Credit Recommendation: APPROVE with Conditions</h4><p><strong>Facility:</strong> SAR 500M Senior Secured Term Loan, 5-year tenor, quarterly amortisation<br><br><strong>Rationale:</strong> Saudi Cement Co. demonstrates strong operating performance with EBITDA margins above sector median, adequate coverage ratios, and a robust cash flow profile. The capacity expansion aligns with Vision 2030 demand drivers and is expected to generate incremental EBITDA of SAR 120–150M by Year 3. Post-facility leverage remains within acceptable bounds.<br><br><strong>Conditions Precedent:</strong><br>• Net Debt/EBITDA covenant: ≤ 2.75x (tested quarterly)<br>• Minimum DSCR: ≥ 1.5x<br>• Security: First-priority charge over Yanbu plant assets + corporate guarantee<br>• Construction milestone reporting: Quarterly progress against capex schedule<br>• Dividend lock-up if Net Debt/EBITDA exceeds 2.25x<br><br><strong>Risk Rating:</strong> BB+ (internal) — Stable outlook</p></div>'},
+      {type:"done",label:"Complete",content:"Credit memorandum generated in <strong>87 seconds</strong>. Traditional manual process: 4–6 hours. The agent's reasoning chain is fully auditable — every ratio, benchmark, and risk flag traces back to source data."}
+    ]
+  },
+  {
+    name: "Gulf Digital Payments",
+    ticker: "GDP",
+    country: "UAE",
+    sector: "Financial Technology — Payments",
+    revenue: "AED 890M",
+    facility: "AED 200M Revolving Credit Facility — 3 Year",
+    purpose: "Working capital support during rapid growth phase",
+    steps: [
+      {type:"thinking",label:"Planning analysis",content:"Initiating credit analysis for Gulf Digital Payments. Facility request: AED 200M revolving credit facility. This is a high-growth fintech — I need to focus on cash burn rate, path to profitability, and the quality of recurring revenue."},
+      {type:"data",label:"Extracting financials",content:'<strong>Income Statement (FY2025)</strong><br>Revenue: AED 890M (+42% YoY) · Gross Profit: AED 445M (50% margin) · EBITDA: AED -35M (negative) · Net Loss: AED -82M<br><br><strong>Balance Sheet</strong><br>Total Assets: AED 1,420M · Total Debt: AED 180M · Cash: AED 310M · Equity: AED 680M<br><br><strong>Cash Flow</strong><br>Operating CF: AED -15M · Capex: AED -95M · Free Cash Flow: AED -110M<br><br><strong>Key Metrics</strong><br>TPV (Total Payment Volume): AED 48B (+55% YoY) · Active Merchants: 28,500 · Net Revenue Retention: 135%'},
+      {type:"analysis",label:"Computing ratios",content:'<table class="ratio-table"><thead><tr><th>Ratio</th><th>FY2025</th><th>FY2024</th><th>Peer Median</th><th>Status</th></tr></thead><tbody><tr><td>Current Ratio</td><td>2.4x</td><td>3.1x</td><td>1.8x</td><td class="good">✓ Strong</td></tr><tr><td>Debt/Equity</td><td>0.26x</td><td>0.18x</td><td>0.35x</td><td class="good">✓ Conservative</td></tr><tr><td>EBITDA Margin</td><td>-3.9%</td><td>-8.2%</td><td>12.0%</td><td class="bad">✗ Negative</td></tr><tr><td>Cash Burn (monthly)</td><td>AED 9.2M</td><td>AED 12.5M</td><td>—</td><td class="warn">⚠ Declining</td></tr><tr><td>Cash Runway</td><td>34 months</td><td>28 months</td><td>—</td><td class="good">✓ Adequate</td></tr><tr><td>Revenue Growth</td><td>42%</td><td>68%</td><td>25%</td><td class="good">✓ Strong</td></tr><tr><td>Gross Margin</td><td>50%</td><td>47%</td><td>45%</td><td class="good">✓ Expanding</td></tr><tr><td>Net Revenue Retention</td><td>135%</td><td>128%</td><td>115%</td><td class="good">✓ Excellent</td></tr></tbody></table><br><strong>Path to profitability:</strong> Management guides EBITDA breakeven by Q3 2026 at current growth trajectory. Gross margins expanding as payment volumes scale. Unit economics are positive at the transaction level.'},
+      {type:"analysis",label:"Assessing risk factors",content:'<div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>Negative EBITDA:</strong> The company is pre-profit. Traditional credit metrics (DSCR, interest coverage) are not meaningful. The facility must be underwritten on cash runway, growth trajectory, and strategic value — not current earnings.</div></div><div class="risk-flag medium"><span class="rf-icon">⚠</span><div class="rf-text"><strong>Regulatory Risk:</strong> CBUAE is tightening payment service provider regulations. New licensing requirements could increase compliance costs by AED 15–20M annually. Company has applied for full PSP license.</div></div><div class="risk-flag medium"><span class="rf-icon">⚠</span><div class="rf-text"><strong>Customer Concentration:</strong> Top 10 merchants account for 28% of TPV. Loss of a major merchant could impact revenue trajectory and delay profitability timeline.</div></div><div class="risk-flag low"><span class="rf-icon">ℹ</span><div class="rf-text"><strong>Competition:</strong> Market is consolidating — smaller players are exiting. GDP is the #3 player by TPV in the UAE. Strategic acquirer interest provides downside protection.</div></div>'},
+      {type:"output",label:"Generating credit memo",content:'<div class="recommendation"><h4>Credit Recommendation: APPROVE with Enhanced Conditions</h4><p><strong>Facility:</strong> AED 200M Revolving Credit Facility, 3-year tenor, secured<br><br><strong>Rationale:</strong> Despite negative EBITDA, Gulf Digital Payments exhibits strong unit economics (50% gross margin, 135% NRR), improving cash burn trajectory, and 34 months of cash runway before this facility. The payment volumes growth (+55% YoY TPV) demonstrates product-market fit. The RCF provides flexibility during the final push to profitability while maintaining the bank\'s exposure at a manageable level relative to the company\'s equity base.<br><br><strong>Conditions Precedent:</strong><br>• Minimum cash balance: AED 150M at all times<br>• Monthly management reporting (cash flow, TPV, merchant metrics)<br>• EBITDA breakeven milestone: Must achieve by Q4 2026 or facility margin steps up 75bps<br>• Security: First-priority charge over receivables + merchant contracts<br>• Change of control clause — mandatory prepayment on ownership change<br>• Negative pledge on additional indebtedness without bank consent<br><br><strong>Risk Rating:</strong> B+ (internal) — Positive outlook (upgrade path on profitability)</p></div>'},
+      {type:"done",label:"Complete",content:"Credit memorandum generated in <strong>92 seconds</strong>. Traditional manual process: 5–7 hours. Note: this high-growth fintech required non-traditional analysis — the agent automatically shifted from earnings-based to cash-runway-based underwriting."}
+    ]
+  },
+  {
+    name: "Al-Rayan Hospitality Group",
+    ticker: "ARHG",
+    country: "Qatar",
+    sector: "Hospitality — Hotels & F&B",
+    revenue: "QAR 1,600M",
+    facility: "QAR 750M Project Finance — 8 Year",
+    purpose: "New 450-key luxury resort development in Lusail",
+    steps: [
+      {type:"thinking",label:"Planning analysis",content:"Initiating credit analysis for Al-Rayan Hospitality Group. Facility request: QAR 750M project finance for Lusail resort. This is a project finance structure — I need to focus on project economics, sponsor strength, market demand drivers (World Cup legacy, Qatar National Vision 2030), and construction risk."},
+      {type:"data",label:"Extracting financials",content:'<strong>Sponsor — Income Statement (FY2025)</strong><br>Revenue: QAR 1,600M (+12% YoY) · EBITDA: QAR 420M (26.3% margin) · Net Income: QAR 195M<br><br><strong>Sponsor — Balance Sheet</strong><br>Total Assets: QAR 5,200M · Total Debt: QAR 1,850M · Cash: QAR 280M · Equity: QAR 2,400M<br><br><strong>Project Economics (Base Case)</strong><br>Total Development Cost: QAR 950M · Equity Contribution: QAR 200M (21%) · Debt: QAR 750M (79%)<br>Projected RevPAR: QAR 680 · Occupancy Target (stabilised): 72% · Stabilised EBITDA: QAR 145M/year<br>Project IRR: 14.2% · Payback: 6.8 years · DSCR (stabilised): 1.65x'},
+      {type:"analysis",label:"Computing ratios",content:'<table class="ratio-table"><thead><tr><th>Ratio</th><th>Sponsor</th><th>Project (Stab.)</th><th>Benchmark</th><th>Status</th></tr></thead><tbody><tr><td>Sponsor Debt/Equity</td><td>0.77x</td><td>—</td><td>0.80x</td><td class="good">✓ In line</td></tr><tr><td>Sponsor Net Debt/EBITDA</td><td>3.74x</td><td>—</td><td>3.50x</td><td class="warn">⚠ Elevated</td></tr><tr><td>Sponsor Interest Coverage</td><td>3.8x</td><td>—</td><td>3.5x</td><td class="good">✓ Adequate</td></tr><tr><td>Project DSCR (stabilised)</td><td>—</td><td>1.65x</td><td>1.40x</td><td class="good">✓ Strong</td></tr><tr><td>Project LLCR</td><td>—</td><td>1.52x</td><td>1.30x</td><td class="good">✓ Adequate</td></tr><tr><td>LTV (at completion)</td><td>—</td><td>79%</td><td>70%</td><td class="warn">⚠ High</td></tr><tr><td>Equity Contribution</td><td>—</td><td>21%</td><td>25%</td><td class="warn">⚠ Below typical</td></tr><tr><td>Break-even Occupancy</td><td>—</td><td>48%</td><td>55%</td><td class="good">✓ Comfortable</td></tr></tbody></table><br><strong>Sensitivity Analysis:</strong> At 60% occupancy (stress), DSCR remains at 1.18x. At RevPAR -15%, DSCR drops to 1.22x. The project withstands moderate downside scenarios.'},
+      {type:"analysis",label:"Assessing risk factors",content:'<div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>Construction Risk:</strong> 30-month build timeline with potential for cost overruns. Qatar construction market is tight post-World Cup. Recommend fixed-price EPC contract as condition precedent and 10% contingency reserve.</div></div><div class="risk-flag medium"><span class="rf-icon">⚠</span><div class="rf-text"><strong>Sponsor Leverage:</strong> Sponsor Net Debt/EBITDA at 3.74x is already elevated. Adding QAR 750M project debt (even if non-recourse) increases group risk profile. Sponsor completion guarantee is essential.</div></div><div class="risk-flag medium"><span class="rf-icon">⚠</span><div class="rf-text"><strong>Market Saturation:</strong> Lusail hotel supply increased 40% post-World Cup. Occupancy across Doha luxury segment has stabilised at 68%. Demand growth depends on Qatar tourism strategy execution.</div></div><div class="risk-flag low"><span class="rf-icon">ℹ</span><div class="rf-text"><strong>Regulatory Support:</strong> Qatar Tourism Authority actively promoting luxury segment. Visa liberalisation and events calendar (Asian Games 2030 bid) provide demand catalysts.</div></div>'},
+      {type:"output",label:"Generating credit memo",content:'<div class="recommendation"><h4>Credit Recommendation: APPROVE with Project Finance Conditions</h4><p><strong>Facility:</strong> QAR 750M Project Finance, 8-year tenor (2-year construction + 6-year term), non-recourse post-completion<br><br><strong>Rationale:</strong> The Lusail resort development demonstrates acceptable project economics with a stabilised DSCR of 1.65x and break-even occupancy of 48% — well below the Doha luxury market average of 68%. The sponsor has a strong track record operating 12 properties across Qatar, and the project aligns with Qatar National Vision 2030 tourism targets. Key risk is construction delivery — mitigated through fixed-price EPC and sponsor completion guarantee.<br><br><strong>Conditions Precedent:</strong><br>• Sponsor completion guarantee until practical completion certificate<br>• Fixed-price EPC contract with reputable GCC contractor<br>• 10% cost overrun reserve (QAR 95M) funded from equity<br>• Minimum DSCR covenant: ≥ 1.30x (tested semi-annually post-stabilisation)<br>• Cash sweep: 50% of excess cash flow above DSCR 1.50x<br>• Insurance: Full construction all-risks + 24-month delay in start-up<br>• Independent technical advisor: Quarterly construction monitoring<br>• Revenue account: All project revenues through designated account<br><br><strong>Risk Rating:</strong> BB (internal) — Stable outlook (upgrade to BB+ on completion)</p></div>'},
+      {type:"done",label:"Complete",content:"Credit memorandum generated in <strong>95 seconds</strong>. Traditional manual process: 6–8 hours (project finance memos are more complex). The agent identified the need for project finance-specific analysis and automatically adjusted its framework — computing DSCR, LLCR, break-even occupancy, and stress scenarios."}
+    ]
+  }
+];
+
+/* ========== UI LOGIC ========== */
+var selectedScenario = -1;
+var isRunning = false;
+
+// Scenario selection
+document.querySelectorAll('.scenario-card').forEach(function(card){
+  card.addEventListener('click', function(){
+    if (isRunning) return;
+    selectedScenario = parseInt(this.dataset.scenario);
+    document.querySelectorAll('.scenario-card').forEach(function(c){ c.classList.remove('selected'); });
+    this.classList.add('selected');
+    document.getElementById('runBtn').disabled = false;
+    document.getElementById('runBtn').textContent = 'Run Agent →';
+  });
+});
+
+// Run agent
+document.getElementById('runBtn').addEventListener('click', function(){
+  if (selectedScenario < 0 || isRunning) return;
+  runAgent(scenarios[selectedScenario]);
+});
+
+function runAgent(scenario) {
+  isRunning = true;
+  var btn = document.getElementById('runBtn');
+  btn.disabled = true;
+  btn.textContent = 'Agent running...';
+
+  document.getElementById('emptyState').style.display = 'none';
+  var output = document.getElementById('agentOutput');
+  output.style.display = 'block';
+  output.innerHTML = '<h3>Credit Memo: ' + scenario.name + '</h3>' +
+    '<div style="font-size:13px;color:var(--text-muted);margin-bottom:20px">' +
+    scenario.sector + ' · ' + scenario.country + '<br>' +
+    'Facility: ' + scenario.facility + '<br>' +
+    'Purpose: ' + scenario.purpose + '</div>';
+
+  var progressWrap = document.getElementById('progressWrap');
+  var progressBar = document.getElementById('progressBar');
+  progressWrap.style.display = 'block';
+  progressBar.style.width = '0%';
+
+  var steps = scenario.steps;
+  var stepIndex = 0;
+  var delays = [800, 1500, 2200, 2000, 2500, 1000]; // ms per step
+
+  function showNextStep() {
+    if (stepIndex >= steps.length) {
+      isRunning = false;
+      btn.textContent = 'Run again →';
+      btn.disabled = false;
+      progressBar.style.width = '100%';
+      return;
+    }
+
+    var step = steps[stepIndex];
+    var pct = ((stepIndex + 1) / steps.length * 100);
+    progressBar.style.width = pct + '%';
+
+    // Show typing indicator
+    var typingDiv = document.createElement('div');
+    typingDiv.className = 'agent-step visible';
+    typingDiv.innerHTML = '<div class="step-header"><div class="step-icon ' + step.type + '">⟳</div><div class="step-label">' + step.label + '</div></div><div class="typing"><span></span><span></span><span></span></div>';
+    output.appendChild(typingDiv);
+    output.scrollTop = output.scrollHeight;
+
+    setTimeout(function(){
+      // Replace typing with content
+      typingDiv.innerHTML = '<div class="step-header"><div class="step-icon ' + step.type + '">' +
+        (step.type === 'thinking' ? '🧠' : step.type === 'data' ? '📊' : step.type === 'analysis' ? '🔍' : step.type === 'output' ? '📝' : '✓') +
+        '</div><div class="step-label">' + step.label + '</div></div><div class="step-content">' + step.content + '</div>';
+      output.scrollTop = output.scrollHeight;
+
+      stepIndex++;
+      setTimeout(showNextStep, 400);
+    }, delays[stepIndex] || 1500);
+  }
+
+  showNextStep();
+}
+
+})();
+</script>
+</body>
+</html>

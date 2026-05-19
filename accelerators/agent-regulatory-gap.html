@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-QZ9C4MLQS8");
+</script>
+<title>Regulatory Gap Analyzer — Enterprise.AI Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="_shared.css"/>
+<style>
+/* ---- AGENT UI ---- */
+.agent-workspace{display:grid;grid-template-columns:320px 1fr;gap:20px;margin:24px 0;min-height:600px}
+@media(max-width:900px){.agent-workspace{grid-template-columns:1fr;min-height:auto}}
+
+.scenario-panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px}
+.scenario-panel h3{font-family:'Space Grotesk',sans-serif;font-size:17px;margin-bottom:16px}
+.scenario-card{background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.25s}
+.scenario-card:hover{border-color:rgba(124,92,255,0.4)}
+.scenario-card.selected{border-color:var(--accent);background:rgba(124,92,255,0.08)}
+.scenario-card .sc-name{font-weight:600;font-size:14px;color:var(--text);margin-bottom:4px}
+.scenario-card .sc-meta{font-size:12px;color:var(--text-muted)}
+.scenario-card .sc-desc{font-size:12.5px;color:var(--text-dim);margin-top:8px;line-height:1.5}
+.run-btn{width:100%;padding:14px;background:var(--gradient);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;margin-top:16px;font-family:inherit;transition:opacity 0.2s}
+.run-btn:hover{opacity:0.9}
+.run-btn:disabled{opacity:0.4;cursor:not-allowed}
+
+.output-panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;overflow-y:auto;max-height:800px}
+.output-panel h3{font-family:'Space Grotesk',sans-serif;font-size:18px;margin-bottom:20px}
+
+.agent-step{margin-bottom:16px;opacity:0;transform:translateY(8px);transition:all 0.4s ease}
+.agent-step.visible{opacity:1;transform:translateY(0)}
+.step-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.step-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.step-icon.thinking{background:rgba(124,92,255,0.15);color:var(--accent)}
+.step-icon.data{background:rgba(34,211,238,0.15);color:var(--accent-2)}
+.step-icon.analysis{background:rgba(255,193,7,0.15);color:#ffd54f}
+.step-icon.output{background:rgba(255,122,192,0.15);color:var(--accent-3)}
+.step-icon.done{background:rgba(34,211,238,0.15);color:var(--accent-2)}
+.step-label{font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em}
+.step-content{background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:16px;font-size:13.5px;color:var(--text-dim);line-height:1.7}
+.step-content code{font-family:'JetBrains Mono',monospace;font-size:12px;background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;color:var(--accent-2)}
+
+/* Gap table */
+.gap-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+.gap-table th,.gap-table td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.gap-table th{color:var(--text);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em}
+.gap-table .compliant{color:var(--accent-2)}
+.gap-table .partial{color:#ffd54f}
+.gap-table .non-compliant{color:var(--accent-3)}
+.gap-table td:first-child{color:var(--text);font-weight:500}
+
+/* Severity badges */
+.sev-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
+.sev-badge.critical{background:rgba(255,82,82,0.15);color:#ff5252}
+.sev-badge.high{background:rgba(255,122,192,0.15);color:var(--accent-3)}
+.sev-badge.medium{background:rgba(255,193,7,0.12);color:#ffd54f}
+.sev-badge.low{background:rgba(34,211,238,0.12);color:var(--accent-2)}
+
+/* Risk flags */
+.risk-flag{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:8px;margin-bottom:8px;font-size:13px}
+.risk-flag.high{background:rgba(255,122,192,0.1);border:1px solid rgba(255,122,192,0.2);color:var(--accent-3)}
+.risk-flag.medium{background:rgba(255,193,7,0.08);border:1px solid rgba(255,193,7,0.15);color:#ffd54f}
+.risk-flag.low{background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);color:var(--accent-2)}
+.risk-flag .rf-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.risk-flag .rf-text{line-height:1.5}
+
+/* Recommendation box */
+.recommendation{background:rgba(124,92,255,0.08);border:1px solid rgba(124,92,255,0.2);border-radius:12px;padding:18px;margin-top:16px}
+.recommendation h4{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--accent);margin-bottom:8px}
+.recommendation p{font-size:14px;color:var(--text-dim);margin:0}
+
+/* Heatmap mini */
+.gap-heatmap{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:12px 0}
+.gap-cell{padding:12px;border-radius:8px;font-size:12px;text-align:center}
+.gap-cell .gc-domain{font-weight:600;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:0.05em}
+.gap-cell .gc-score{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700}
+.gap-cell.red{background:rgba(255,82,82,0.12);border:1px solid rgba(255,82,82,0.2);color:#ff5252}
+.gap-cell.amber{background:rgba(255,193,7,0.10);border:1px solid rgba(255,193,7,0.18);color:#ffd54f}
+.gap-cell.green{background:rgba(34,211,238,0.10);border:1px solid rgba(34,211,238,0.18);color:var(--accent-2)}
+
+/* Typing indicator */
+.typing{display:inline-flex;gap:4px;padding:8px 14px}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:typingDot 1.4s infinite;opacity:0.3}
+.typing span:nth-child(2){animation-delay:0.2s}
+.typing span:nth-child(3){animation-delay:0.4s}
+@keyframes typingDot{0%,60%,100%{opacity:0.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+
+.empty-state{text-align:center;padding:80px 20px;color:var(--text-muted)}
+.empty-state .es-icon{font-size:48px;margin-bottom:16px;opacity:0.3}
+.empty-state p{font-size:15px;max-width:360px;margin:0 auto}
+
+.progress-wrap{margin:16px 0 8px;height:4px;background:var(--bg);border-radius:2px;overflow:hidden}
+.progress-bar{height:100%;background:var(--gradient);border-radius:2px;width:0;transition:width 0.6s ease}
+
+.value-banner{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+.vb-item{text-align:center;padding:18px 12px;background:var(--bg-2);border-radius:12px;border:1px solid var(--border)}
+.vb-item .vb-num{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;margin-bottom:4px}
+.vb-item .vb-lbl{font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em}
+@media(max-width:760px){.value-banner{grid-template-columns:1fr}}
+
+/* Remediation timeline */
+.remediation-timeline{margin:16px 0}
+.rem-phase{display:grid;grid-template-columns:100px 1fr;gap:12px;margin-bottom:12px;padding:12px;border-radius:10px;background:var(--bg-2);border:1px solid var(--border)}
+.rem-phase .rp-label{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px}
+.rem-phase .rp-items{font-size:13px;color:var(--text-dim);line-height:1.7}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="../tools.html" class="back">← Back to Enterprise.AI</a>
+  <div class="hero-banner">
+    <div class="eyebrow"><span class="dot"></span>Agent Prototype · Governance & Risk</div>
+    <h1 class="display">Regulatory Gap <span class="gradient-text">Analyzer</span></h1>
+    <p class="lead">Watch an AI agent scan a bank's AI governance posture against SAMA, SDAIA, CBUAE, and QCB frameworks — mapping every gap, scoring readiness, and generating a prioritised remediation roadmap in minutes, not months.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">6 min</div><div class="hero-stat-label">vs 8–12 weeks manual</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">94</div><div class="hero-stat-label">Controls Scanned</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-label">Framework Coverage</div></div>
+    </div>
+  </div>
+
+  <!-- VALUE PROPOSITION -->
+  <div class="card">
+    <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>The Opportunity</h2>
+    <p>GCC regulators are rolling out AI-specific frameworks at pace — SAMA's AI Governance Guidelines, SDAIA's AI Ethics Principles, CBUAE's Digital Banking Regulations, and QCB's Fintech Strategy. A typical bank takes 8–12 weeks and 3–5 consultants to complete a gap assessment against just one framework. This agent maps the entire regulatory landscape, cross-references the bank's existing policies, and generates a prioritised remediation plan — converting weeks of manual assessment into a single analyst session.</p>
+    <div class="value-banner">
+      <div class="vb-item"><div class="vb-num" style="color:var(--accent)">92%</div><div class="vb-lbl">Faster Assessment</div></div>
+      <div class="vb-item"><div class="vb-num" style="color:var(--accent-2)">4x</div><div class="vb-lbl">Framework Coverage</div></div>
+      <div class="vb-item"><div class="vb-num" style="color:var(--accent-3)">Zero</div><div class="vb-lbl">Blind Spots</div></div>
+    </div>
+  </div>
+
+  <!-- AGENT WORKSPACE -->
+  <div class="card" style="padding:0;overflow:hidden">
+    <div style="padding:24px 28px 0">
+      <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>Try the Agent</h2>
+      <p>Select a bank profile below and click "Run Agent" to see the regulatory gap analysis in action.</p>
+    </div>
+    <div class="agent-workspace" style="padding:0 28px 28px">
+
+      <div class="scenario-panel">
+        <h3>Select Bank Profile</h3>
+
+        <div class="scenario-card" data-scenario="0">
+          <div class="sc-name">Tier-1 Saudi Commercial Bank</div>
+          <div class="sc-meta">KSA · SAMA-regulated · SAR 320B Assets</div>
+          <div class="sc-desc">Large retail and corporate bank with 15 AI models in production. Has risk management framework but no dedicated AI governance policy.</div>
+        </div>
+
+        <div class="scenario-card" data-scenario="1">
+          <div class="sc-name">UAE Digital-First Bank</div>
+          <div class="sc-meta">UAE · CBUAE-regulated · AED 45B Assets</div>
+          <div class="sc-desc">Neobank with heavy ML usage across onboarding, credit, and fraud. Early-stage AI policy with limited board oversight.</div>
+        </div>
+
+        <div class="scenario-card" data-scenario="2">
+          <div class="sc-name">Qatari Investment Bank</div>
+          <div class="sc-meta">Qatar · QCB-regulated · QAR 85B AUM</div>
+          <div class="sc-desc">Boutique investment bank deploying AI in trade execution and portfolio analytics. No formal AI governance; relies on general IT risk policy.</div>
+        </div>
+
+        <button class="run-btn" id="runBtn" disabled>Select a bank profile to begin</button>
+
+        <div class="progress-wrap" id="progressWrap" style="display:none">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <div class="output-panel" id="outputPanel">
+        <div class="empty-state">
+          <div class="es-icon">🛡️</div>
+          <p>Select a bank profile and run the agent to see the regulatory gap analysis with remediation roadmap.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="card">
+    <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></span>How It Works</h2>
+    <div class="grid-2" style="gap:16px;margin-top:16px">
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:18px">
+        <div style="font-size:24px;margin-bottom:8px">📋</div>
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--text)">1. Regulatory Mapping</div>
+        <div style="font-size:13px;color:var(--text-dim);line-height:1.6">Agent loads the latest SAMA, SDAIA, CBUAE, and QCB AI governance frameworks — 94 controls across model governance, data ethics, explainability, cybersecurity, and board oversight.</div>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:18px">
+        <div style="font-size:24px;margin-bottom:8px">🔍</div>
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--text)">2. Policy Cross-Reference</div>
+        <div style="font-size:13px;color:var(--text-dim);line-height:1.6">Cross-references the bank's existing policies, committee structures, and model inventory against each regulatory requirement — identifying compliant, partial, and missing controls.</div>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:18px">
+        <div style="font-size:24px;margin-bottom:8px">📊</div>
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--text)">3. Gap Scoring</div>
+        <div style="font-size:13px;color:var(--text-dim);line-height:1.6">Assigns severity to each gap based on regulatory penalty risk, implementation complexity, and dependency chains — producing a domain-level heatmap and overall readiness score.</div>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:18px">
+        <div style="font-size:24px;margin-bottom:8px">🗺️</div>
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--text)">4. Remediation Roadmap</div>
+        <div style="font-size:13px;color:var(--text-dim);line-height:1.6">Generates a phased remediation plan with 30/60/90-day milestones, resource estimates, and quick wins — ready for board or audit committee presentation.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Enterprise.AI — Regulatory Gap Analyzer Prototype</p>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:4px">This is a demonstration prototype. Production deployment requires integration with document management systems, policy repositories, and regulatory feeds.</p>
+  </div>
+</div>
+
+<script>
+const scenarios = [
+  {
+    name: "Tier-1 Saudi Commercial Bank",
+    jurisdiction: "KSA",
+    regulator: "SAMA",
+    assets: "SAR 320B",
+    aiModels: 15,
+    steps: [
+      {
+        icon: "thinking", label: "Scoping Assessment",
+        html: `<strong>Agent is analysing the bank profile...</strong><br><br>
+          <code>Institution:</code> Tier-1 Saudi Commercial Bank<br>
+          <code>Regulator:</code> SAMA (Saudi Central Bank)<br>
+          <code>Assets:</code> SAR 320B &nbsp;|&nbsp; <code>AI Models:</code> 15 in production<br>
+          <code>Existing Policies:</code> Enterprise Risk Framework (2023), IT Governance Policy (2022), Data Classification Policy (2021)<br>
+          <code>AI-Specific Policy:</code> None documented<br><br>
+          Mapping against: <strong>SAMA AI Governance Guidelines (2024)</strong>, <strong>SDAIA AI Ethics Principles</strong>, <strong>NCA Cybersecurity Controls</strong>, <strong>PDPL Data Protection Requirements</strong>`
+      },
+      {
+        icon: "data", label: "Framework Loading",
+        html: `<strong>Loading regulatory control catalogue...</strong><br><br>
+          <table class="gap-table">
+            <tr><th>Framework</th><th>Controls</th><th>Domains</th><th>Status</th></tr>
+            <tr><td>SAMA AI Governance</td><td>32</td><td>Model Risk, Explainability, Data Governance, Board Oversight</td><td><span class="sev-badge medium">Primary</span></td></tr>
+            <tr><td>SDAIA AI Ethics</td><td>24</td><td>Fairness, Transparency, Accountability, Human Oversight</td><td><span class="sev-badge medium">Mandatory</span></td></tr>
+            <tr><td>NCA Cybersecurity</td><td>22</td><td>AI System Security, Data Protection, Incident Response</td><td><span class="sev-badge low">Cross-Ref</span></td></tr>
+            <tr><td>PDPL Compliance</td><td>16</td><td>Consent, Data Minimisation, Cross-Border Transfer</td><td><span class="sev-badge low">Cross-Ref</span></td></tr>
+          </table>
+          Total controls mapped: <strong>94</strong> across <strong>8 governance domains</strong>`
+      },
+      {
+        icon: "analysis", label: "Gap Analysis",
+        html: `<strong>Cross-referencing bank policies against 94 controls...</strong><br><br>
+          <div class="gap-heatmap">
+            <div class="gap-cell red"><div class="gc-domain">AI Model Governance</div><div class="gc-score">28%</div></div>
+            <div class="gap-cell red"><div class="gc-domain">Explainability</div><div class="gc-score">15%</div></div>
+            <div class="gap-cell amber"><div class="gc-domain">Data Ethics</div><div class="gc-score">52%</div></div>
+            <div class="gap-cell amber"><div class="gc-domain">Board Oversight</div><div class="gc-score">45%</div></div>
+            <div class="gap-cell green"><div class="gc-domain">Cyber Controls</div><div class="gc-score">78%</div></div>
+            <div class="gap-cell amber"><div class="gc-domain">Third-Party AI</div><div class="gc-score">33%</div></div>
+            <div class="gap-cell red"><div class="gc-domain">Bias & Fairness</div><div class="gc-score">20%</div></div>
+            <div class="gap-cell amber"><div class="gc-domain">Data Protection</div><div class="gc-score">61%</div></div>
+          </div>
+          <div style="margin-top:12px;padding:12px 16px;background:rgba(255,82,82,0.08);border:1px solid rgba(255,82,82,0.15);border-radius:10px;font-size:13.5px;color:var(--text-dim)">
+            <strong style="color:#ff5252">Overall Readiness Score: 41%</strong> — 3 domains critically non-compliant, 3 partially compliant, 2 largely compliant. 55 of 94 controls require remediation action.
+          </div>`
+      },
+      {
+        icon: "analysis", label: "Critical Gaps Identified",
+        html: `<strong>Top 8 critical gaps requiring immediate attention:</strong><br><br>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>No AI Model Risk Policy</strong> — SAMA requires a standalone AI/ML model risk management framework separate from general operational risk. Bank has no dedicated policy. <span class="sev-badge critical">Critical</span></div></div>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>Missing Model Inventory & Tiering</strong> — All 15 AI models lack formal classification by criticality tier. SAMA mandates Tier-1/2/3 classification with differentiated governance. <span class="sev-badge critical">Critical</span></div></div>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>No Explainability Standards</strong> — Zero models have documented explainability methods. SDAIA requires all consumer-facing AI decisions to provide meaningful explanations. <span class="sev-badge critical">Critical</span></div></div>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>No AI Ethics Committee</strong> — SDAIA mandates a dedicated ethics review body for AI deployments. Bank has no committee or designated responsible officer. <span class="sev-badge high">High</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>Incomplete Bias Testing</strong> — Credit scoring model (largest AI deployment) has no documented fairness testing across gender, nationality, or income segments. <span class="sev-badge high">High</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>Weak Board AI Reporting</strong> — Board receives quarterly IT updates but no dedicated AI risk reporting. SAMA expects board-level AI oversight with defined risk appetite. <span class="sev-badge medium">Medium</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>No Third-Party AI Due Diligence</strong> — 6 of 15 models use vendor APIs (LLMs, OCR) with no documented vendor AI risk assessment process. <span class="sev-badge medium">Medium</span></div></div>
+          <div class="risk-flag low"><span class="rf-icon">🔵</span><div class="rf-text"><strong>PDPL Consent Gaps in AI Processing</strong> — Customer consent forms do not specifically mention AI/ML processing of personal data. PDPL requires explicit informed consent. <span class="sev-badge medium">Medium</span></div></div>`
+      },
+      {
+        icon: "output", label: "Remediation Roadmap",
+        html: `<strong>Phased remediation plan generated:</strong><br><br>
+          <div class="remediation-timeline">
+            <div class="rem-phase">
+              <div class="rp-label" style="color:#ff5252">🔴 0–30 Days</div>
+              <div class="rp-items">
+                <strong>Quick Wins & Critical Fixes</strong><br>
+                → Draft AI Model Risk Management Policy (align to SAMA template)<br>
+                → Create AI Model Inventory — classify all 15 models by tier<br>
+                → Appoint interim AI Risk Officer (CRO-direct report)<br>
+                → Update customer consent forms to cover AI processing (PDPL)<br>
+                <span style="color:var(--text-muted);font-size:12px">Resource: 2 FTE risk + external advisory | Est. cost: SAR 350K</span>
+              </div>
+            </div>
+            <div class="rem-phase">
+              <div class="rp-label" style="color:#ffd54f">🟡 30–60 Days</div>
+              <div class="rp-items">
+                <strong>Framework Build-Out</strong><br>
+                → Establish AI Ethics Committee (3 senior members + external)<br>
+                → Implement explainability standards for Tier-1 models (credit, fraud)<br>
+                → Conduct bias testing on credit scoring model (gender, nationality)<br>
+                → Create third-party AI vendor assessment checklist<br>
+                <span style="color:var(--text-muted);font-size:12px">Resource: 3 FTE + model validation team | Est. cost: SAR 600K</span>
+              </div>
+            </div>
+            <div class="rem-phase">
+              <div class="rp-label" style="color:var(--accent-2)">🟢 60–90 Days</div>
+              <div class="rp-items">
+                <strong>Embedding & Board Readiness</strong><br>
+                → Build board AI risk dashboard with quarterly reporting cadence<br>
+                → Complete model validation for all Tier-1 and Tier-2 models<br>
+                → Run first AI Ethics Committee review cycle<br>
+                → Submit SAMA AI governance self-assessment<br>
+                <span style="color:var(--text-muted);font-size:12px">Resource: Ongoing FTE + board prep | Est. cost: SAR 250K</span>
+              </div>
+            </div>
+          </div>
+          <div class="recommendation">
+            <h4>Assessment Summary</h4>
+            <p>The bank's overall AI regulatory readiness is <strong>41%</strong> — driven by the absence of a standalone AI governance framework despite having 15 models in production. The 3 critical gaps (model risk policy, inventory, explainability) are regulatory non-negotiables under SAMA's latest guidance. Estimated total remediation cost: <strong>SAR 1.2M</strong> over 90 days — a fraction of the potential supervisory action risk. Recommend scheduling SAMA pre-submission review at Day 75.</p>
+          </div>`
+      },
+      {
+        icon: "done", label: "Assessment Complete",
+        html: `<div style="text-align:center;padding:20px">
+          <div style="font-size:32px;margin-bottom:12px">✅</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px">Regulatory Gap Assessment Complete</div>
+          <div style="font-size:14px;color:var(--text-dim);max-width:500px;margin:0 auto;line-height:1.6">
+            <strong>94 controls analysed</strong> across 4 regulatory frameworks.<br>
+            <strong>8 critical gaps</strong> identified with severity-ranked remediation.<br>
+            <strong>90-day roadmap</strong> generated with resource and cost estimates.<br><br>
+            <em>In production, this agent would integrate with your GRC platform, policy repository, and model inventory to perform continuous compliance monitoring.</em>
+          </div>
+        </div>`
+      }
+    ]
+  },
+  {
+    name: "UAE Digital-First Bank",
+    jurisdiction: "UAE",
+    regulator: "CBUAE",
+    assets: "AED 45B",
+    aiModels: 28,
+    steps: [
+      {
+        icon: "thinking", label: "Scoping Assessment",
+        html: `<strong>Agent is analysing the bank profile...</strong><br><br>
+          <code>Institution:</code> UAE Digital-First Bank (Neobank)<br>
+          <code>Regulator:</code> CBUAE (Central Bank of the UAE)<br>
+          <code>Assets:</code> AED 45B &nbsp;|&nbsp; <code>AI Models:</code> 28 in production<br>
+          <code>Existing Policies:</code> Digital Risk Policy (2024), Basic AI Usage Guide (2023), Data Governance Framework (2023)<br>
+          <code>AI-Specific Policy:</code> Draft stage — not board-approved<br><br>
+          Mapping against: <strong>CBUAE Digital Banking Regulations</strong>, <strong>CBUAE Consumer Protection Standards</strong>, <strong>UAE AI Office Guidelines</strong>, <strong>DIFC Data Protection Law</strong>`
+      },
+      {
+        icon: "data", label: "Framework Loading",
+        html: `<strong>Loading regulatory control catalogue...</strong><br><br>
+          <table class="gap-table">
+            <tr><th>Framework</th><th>Controls</th><th>Domains</th><th>Status</th></tr>
+            <tr><td>CBUAE Digital Banking</td><td>28</td><td>Digital Channels, AI in Lending, Automated Decisioning</td><td><span class="sev-badge medium">Primary</span></td></tr>
+            <tr><td>CBUAE Consumer Protection</td><td>18</td><td>Fair Treatment, Transparency, Complaint Handling</td><td><span class="sev-badge medium">Mandatory</span></td></tr>
+            <tr><td>UAE AI Office Guidelines</td><td>20</td><td>Trustworthy AI, Sectoral Standards, AI Register</td><td><span class="sev-badge medium">Emerging</span></td></tr>
+            <tr><td>DIFC Data Protection</td><td>14</td><td>Automated Decision Rights, Data Subject Access, DPIA</td><td><span class="sev-badge low">Applicable</span></td></tr>
+          </table>
+          Total controls mapped: <strong>80</strong> across <strong>7 governance domains</strong>`
+      },
+      {
+        icon: "analysis", label: "Gap Analysis",
+        html: `<strong>Cross-referencing bank policies against 80 controls...</strong><br><br>
+          <div class="gap-heatmap">
+            <div class="gap-cell amber"><div class="gc-domain">Model Governance</div><div class="gc-score">55%</div></div>
+            <div class="gap-cell red"><div class="gc-domain">Explainability</div><div class="gc-score">22%</div></div>
+            <div class="gap-cell green"><div class="gc-domain">Data Governance</div><div class="gc-score">72%</div></div>
+            <div class="gap-cell red"><div class="gc-domain">Consumer Rights</div><div class="gc-score">30%</div></div>
+            <div class="gap-cell green"><div class="gc-domain">Cyber Controls</div><div class="gc-score">85%</div></div>
+            <div class="gap-cell red"><div class="gc-domain">Human Override</div><div class="gc-score">18%</div></div>
+            <div class="gap-cell amber"><div class="gc-domain">AI Register</div><div class="gc-score">40%</div></div>
+          </div>
+          <div style="margin-top:12px;padding:12px 16px;background:rgba(255,193,7,0.08);border:1px solid rgba(255,193,7,0.15);border-radius:10px;font-size:13.5px;color:var(--text-dim)">
+            <strong style="color:#ffd54f">Overall Readiness Score: 46%</strong> — Strong on cyber and data governance (neobank advantage), but critically weak on consumer AI rights, human override mechanisms, and explainability. 43 of 80 controls require action.
+          </div>`
+      },
+      {
+        icon: "analysis", label: "Critical Gaps Identified",
+        html: `<strong>Top 8 critical gaps requiring immediate attention:</strong><br><br>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>No Human Override on AI Lending Decisions</strong> — 100% of personal loan decisions are fully automated with no human-in-the-loop escalation path. CBUAE mandates human review capability for credit decisions above AED 50K. <span class="sev-badge critical">Critical</span></div></div>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>Missing AI Decision Explanations to Customers</strong> — Declined applicants receive generic rejection. CBUAE Consumer Protection requires specific, meaningful reasons for automated adverse decisions. <span class="sev-badge critical">Critical</span></div></div>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>No Right to Human Review</strong> — No process for customers to request human review of AI decisions. DIFC Data Protection Law grants this as a statutory right. <span class="sev-badge critical">Critical</span></div></div>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>AI Policy Not Board-Approved</strong> — Draft AI Usage Guide exists but was never submitted to the board. CBUAE expects board-approved policies for all digital banking activities. <span class="sev-badge high">High</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>Incomplete AI Model Register</strong> — Only 12 of 28 models documented in internal registry. UAE AI Office requires comprehensive AI system registration for regulated entities. <span class="sev-badge high">High</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>No DPIA for AI Processing</strong> — High-risk AI models (credit, fraud, onboarding) lack dedicated Data Protection Impact Assessments. Required under DIFC law. <span class="sev-badge medium">Medium</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>Missing Model Drift Monitoring</strong> — No automated performance monitoring for deployed models. 3 credit models show feature drift signals but no alerting mechanism exists. <span class="sev-badge medium">Medium</span></div></div>
+          <div class="risk-flag low"><span class="rf-icon">🔵</span><div class="rf-text"><strong>Vendor AI Concentration Risk</strong> — 60% of AI capabilities rely on a single cloud provider's ML services with no documented contingency plan. <span class="sev-badge medium">Medium</span></div></div>`
+      },
+      {
+        icon: "output", label: "Remediation Roadmap",
+        html: `<strong>Phased remediation plan generated:</strong><br><br>
+          <div class="remediation-timeline">
+            <div class="rem-phase">
+              <div class="rp-label" style="color:#ff5252">🔴 0–30 Days</div>
+              <div class="rp-items">
+                <strong>Consumer Protection Quick Fixes</strong><br>
+                → Implement human escalation path for loan decisions > AED 50K<br>
+                → Build meaningful AI decision explanation templates for decline letters<br>
+                → Add "Request Human Review" option to mobile app decision screens<br>
+                → Fast-track board approval of AI Usage Guide<br>
+                <span style="color:var(--text-muted);font-size:12px">Resource: 2 FTE product + 1 compliance | Est. cost: AED 280K</span>
+              </div>
+            </div>
+            <div class="rem-phase">
+              <div class="rp-label" style="color:#ffd54f">🟡 30–60 Days</div>
+              <div class="rp-items">
+                <strong>Governance Infrastructure</strong><br>
+                → Complete AI model register for all 28 models (UAE AI Office format)<br>
+                → Conduct DPIAs for 8 high-risk AI models<br>
+                → Deploy model performance monitoring with drift alerting<br>
+                → Develop vendor AI contingency and exit plan<br>
+                <span style="color:var(--text-muted);font-size:12px">Resource: 3 FTE + MLOps team | Est. cost: AED 450K</span>
+              </div>
+            </div>
+            <div class="rem-phase">
+              <div class="rp-label" style="color:var(--accent-2)">🟢 60–90 Days</div>
+              <div class="rp-items">
+                <strong>Maturity & Continuous Compliance</strong><br>
+                → Implement explainability framework (SHAP/LIME for Tier-1 models)<br>
+                → Build automated compliance dashboard for ongoing monitoring<br>
+                → Complete first-cycle model validation for credit and fraud models<br>
+                → Submit AI register to UAE AI Office<br>
+                <span style="color:var(--text-muted);font-size:12px">Resource: Ongoing FTE + vendor tools | Est. cost: AED 320K</span>
+              </div>
+            </div>
+          </div>
+          <div class="recommendation">
+            <h4>Assessment Summary</h4>
+            <p>The bank's readiness score of <strong>46%</strong> reflects a common neobank pattern — strong technical infrastructure but weak governance overlay. The 3 critical consumer protection gaps pose the highest regulatory risk, as CBUAE has been actively enforcing fair treatment standards. Estimated total remediation: <strong>AED 1.05M</strong> over 90 days. Recommend prioritising consumer-facing fixes (Days 0–30) to mitigate enforcement risk before the next CBUAE thematic review cycle.</p>
+          </div>`
+      },
+      {
+        icon: "done", label: "Assessment Complete",
+        html: `<div style="text-align:center;padding:20px">
+          <div style="font-size:32px;margin-bottom:12px">✅</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px">Regulatory Gap Assessment Complete</div>
+          <div style="font-size:14px;color:var(--text-dim);max-width:500px;margin:0 auto;line-height:1.6">
+            <strong>80 controls analysed</strong> across 4 regulatory frameworks.<br>
+            <strong>8 critical gaps</strong> identified with severity-ranked remediation.<br>
+            <strong>90-day roadmap</strong> generated with resource and cost estimates.<br><br>
+            <em>In production, this agent would integrate with your GRC platform, policy repository, and model inventory to perform continuous compliance monitoring.</em>
+          </div>
+        </div>`
+      }
+    ]
+  },
+  {
+    name: "Qatari Investment Bank",
+    jurisdiction: "Qatar",
+    regulator: "QCB",
+    assets: "QAR 85B AUM",
+    aiModels: 8,
+    steps: [
+      {
+        icon: "thinking", label: "Scoping Assessment",
+        html: `<strong>Agent is analysing the bank profile...</strong><br><br>
+          <code>Institution:</code> Qatari Investment Bank<br>
+          <code>Regulator:</code> QCB (Qatar Central Bank)<br>
+          <code>AUM:</code> QAR 85B &nbsp;|&nbsp; <code>AI Models:</code> 8 in production<br>
+          <code>Existing Policies:</code> Operational Risk Policy (2022), IT Security Policy (2023), General Data Handling Guidelines (2021)<br>
+          <code>AI-Specific Policy:</code> None — AI governed under general IT risk<br><br>
+          Mapping against: <strong>QCB Fintech & Innovation Framework</strong>, <strong>QCB Outsourcing Regulations</strong>, <strong>Qatar PDPL (Law No. 13 of 2016)</strong>, <strong>QFC Data Protection Regulations</strong>`
+      },
+      {
+        icon: "data", label: "Framework Loading",
+        html: `<strong>Loading regulatory control catalogue...</strong><br><br>
+          <table class="gap-table">
+            <tr><th>Framework</th><th>Controls</th><th>Domains</th><th>Status</th></tr>
+            <tr><td>QCB Fintech Framework</td><td>22</td><td>AI Innovation Sandbox, Model Governance, Board Reporting</td><td><span class="sev-badge medium">Primary</span></td></tr>
+            <tr><td>QCB Outsourcing Regs</td><td>16</td><td>Cloud AI, Vendor Risk, Data Residency</td><td><span class="sev-badge medium">Mandatory</span></td></tr>
+            <tr><td>Qatar PDPL</td><td>12</td><td>Automated Decisions, Consent, Cross-Border</td><td><span class="sev-badge low">Applicable</span></td></tr>
+            <tr><td>QFC Data Protection</td><td>10</td><td>Profiling, Data Subject Rights, DPIA</td><td><span class="sev-badge low">Applicable</span></td></tr>
+          </table>
+          Total controls mapped: <strong>60</strong> across <strong>6 governance domains</strong>`
+      },
+      {
+        icon: "analysis", label: "Gap Analysis",
+        html: `<strong>Cross-referencing bank policies against 60 controls...</strong><br><br>
+          <div class="gap-heatmap">
+            <div class="gap-cell red"><div class="gc-domain">AI Model Governance</div><div class="gc-score">12%</div></div>
+            <div class="gap-cell red"><div class="gc-domain">Explainability</div><div class="gc-score">8%</div></div>
+            <div class="gap-cell amber"><div class="gc-domain">Data Residency</div><div class="gc-score">55%</div></div>
+            <div class="gap-cell red"><div class="gc-domain">Board Oversight</div><div class="gc-score">20%</div></div>
+            <div class="gap-cell amber"><div class="gc-domain">Vendor AI Risk</div><div class="gc-score">38%</div></div>
+            <div class="gap-cell green"><div class="gc-domain">IT Security</div><div class="gc-score">74%</div></div>
+          </div>
+          <div style="margin-top:12px;padding:12px 16px;background:rgba(255,82,82,0.08);border:1px solid rgba(255,82,82,0.15);border-radius:10px;font-size:13.5px;color:var(--text-dim)">
+            <strong style="color:#ff5252">Overall Readiness Score: 34%</strong> — Lowest score of assessed banks. Absence of any AI-specific governance creates systemic gaps across 4 of 6 domains. 40 of 60 controls require remediation.
+          </div>`
+      },
+      {
+        icon: "analysis", label: "Critical Gaps Identified",
+        html: `<strong>Top 8 critical gaps requiring immediate attention:</strong><br><br>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>Zero AI Governance Framework</strong> — No AI policy, no AI risk taxonomy, no model inventory. Bank treats AI systems identically to traditional software. QCB expects dedicated AI governance for regulated entities using algorithmic decision-making. <span class="sev-badge critical">Critical</span></div></div>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>AI Trade Execution Without Oversight</strong> — Algo trading models execute QAR 2.1B daily with no model validation, no kill switch documentation, and no performance attribution audits. <span class="sev-badge critical">Critical</span></div></div>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>No Explainability for Portfolio Recommendations</strong> — AI-generated investment recommendations provided to HNW clients with no documentation of model logic or risk factors. Potential suitability liability. <span class="sev-badge critical">Critical</span></div></div>
+          <div class="risk-flag high"><span class="rf-icon">🔴</span><div class="rf-text"><strong>Shadow AI Usage Untracked</strong> — Desk-level teams using ChatGPT and other LLMs for research and client communications without any usage policy, data leakage controls, or audit trail. <span class="sev-badge high">High</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>Cross-Border Data in AI Pipelines</strong> — 3 of 8 AI models process data on cloud infrastructure outside Qatar without QCB notification or data residency assessment. <span class="sev-badge high">High</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>No Board AI Risk Reporting</strong> — Board has zero visibility into AI-driven investment decisions, model performance, or emerging AI risks. No designated AI risk owner at C-suite level. <span class="sev-badge medium">Medium</span></div></div>
+          <div class="risk-flag medium"><span class="rf-icon">🟡</span><div class="rf-text"><strong>Missing Automated Decision DPIA</strong> — Portfolio analytics and client profiling models lack Data Protection Impact Assessments. Required under Qatar PDPL for automated profiling. <span class="sev-badge medium">Medium</span></div></div>
+          <div class="risk-flag low"><span class="rf-icon">🔵</span><div class="rf-text"><strong>No AI Incident Response Plan</strong> — General IT incident response does not cover AI-specific scenarios (model failure, adversarial attacks, hallucination in client comms). <span class="sev-badge medium">Medium</span></div></div>`
+      },
+      {
+        icon: "output", label: "Remediation Roadmap",
+        html: `<strong>Phased remediation plan generated:</strong><br><br>
+          <div class="remediation-timeline">
+            <div class="rem-phase">
+              <div class="rp-label" style="color:#ff5252">🔴 0–30 Days</div>
+              <div class="rp-items">
+                <strong>Emergency Governance Foundations</strong><br>
+                → Issue immediate Shadow AI usage moratorium with approved-tools list<br>
+                → Document algo trading kill switch procedures and model inventory<br>
+                → Draft and fast-track board approval of AI Governance Policy<br>
+                → Appoint Head of AI Risk (CRO or COO-direct report)<br>
+                <span style="color:var(--text-muted);font-size:12px">Resource: 2 FTE risk + external advisory | Est. cost: QAR 400K</span>
+              </div>
+            </div>
+            <div class="rem-phase">
+              <div class="rp-label" style="color:#ffd54f">🟡 30–60 Days</div>
+              <div class="rp-items">
+                <strong>Model Risk & Data Controls</strong><br>
+                → Validate and document all 8 AI models (algo trading as priority)<br>
+                → Implement explainability framework for client-facing recommendations<br>
+                → Conduct data residency assessment and migrate non-compliant pipelines<br>
+                → Complete DPIAs for profiling and portfolio analytics models<br>
+                <span style="color:var(--text-muted);font-size:12px">Resource: 3 FTE + model validation vendor | Est. cost: QAR 700K</span>
+              </div>
+            </div>
+            <div class="rem-phase">
+              <div class="rp-label" style="color:var(--accent-2)">🟢 60–90 Days</div>
+              <div class="rp-items">
+                <strong>Board Readiness & Continuous Monitoring</strong><br>
+                → Build board AI risk dashboard with algo trading performance attribution<br>
+                → Deploy controlled GenAI environment for research teams<br>
+                → Establish AI incident response playbook (model failure, adversarial attack)<br>
+                → Schedule QCB engagement for AI governance self-assessment review<br>
+                <span style="color:var(--text-muted);font-size:12px">Resource: Ongoing FTE + technology investment | Est. cost: QAR 350K</span>
+              </div>
+            </div>
+          </div>
+          <div class="recommendation">
+            <h4>Assessment Summary</h4>
+            <p>At <strong>34% readiness</strong>, this is the most exposed profile assessed. The combination of algorithmic trading without governance and shadow AI usage creates both regulatory and fiduciary risk. The algo trading gap alone — QAR 2.1B daily volume without model validation — represents the single highest-urgency finding. Estimated total remediation: <strong>QAR 1.45M</strong> over 90 days. Recommend treating the Shadow AI moratorium and algo trading documentation as Day-1 actions, ahead of the broader governance framework build.</p>
+          </div>`
+      },
+      {
+        icon: "done", label: "Assessment Complete",
+        html: `<div style="text-align:center;padding:20px">
+          <div style="font-size:32px;margin-bottom:12px">✅</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px">Regulatory Gap Assessment Complete</div>
+          <div style="font-size:14px;color:var(--text-dim);max-width:500px;margin:0 auto;line-height:1.6">
+            <strong>60 controls analysed</strong> across 4 regulatory frameworks.<br>
+            <strong>8 critical gaps</strong> identified with severity-ranked remediation.<br>
+            <strong>90-day roadmap</strong> generated with resource and cost estimates.<br><br>
+            <em>In production, this agent would integrate with your GRC platform, policy repository, and model inventory to perform continuous compliance monitoring.</em>
+          </div>
+        </div>`
+      }
+    ]
+  }
+];
+
+/* ---- ENGINE ---- */
+let selected = null, running = false;
+const cards = document.querySelectorAll('.scenario-card');
+const runBtn = document.getElementById('runBtn');
+const outputPanel = document.getElementById('outputPanel');
+const progressWrap = document.getElementById('progressWrap');
+const progressBar = document.getElementById('progressBar');
+
+cards.forEach(c => c.addEventListener('click', () => {
+  if (running) return;
+  cards.forEach(x => x.classList.remove('selected'));
+  c.classList.add('selected');
+  selected = parseInt(c.dataset.scenario);
+  runBtn.disabled = false;
+  runBtn.textContent = 'Run Agent ▸';
+}));
+
+runBtn.addEventListener('click', async () => {
+  if (selected === null || running) return;
+  running = true;
+  runBtn.disabled = true;
+  runBtn.textContent = 'Agent Running...';
+  progressWrap.style.display = 'block';
+  progressBar.style.width = '0%';
+
+  const sc = scenarios[selected];
+  outputPanel.innerHTML = `<h3>🛡️ ${sc.name} — Gap Assessment</h3>`;
+
+  for (let i = 0; i < sc.steps.length; i++) {
+    const step = sc.steps[i];
+    // typing indicator
+    const typing = document.createElement('div');
+    typing.className = 'agent-step visible';
+    typing.innerHTML = `<div class="step-header"><div class="step-icon ${step.icon}">●</div><div class="step-label">${step.label}</div></div><div class="step-content"><div class="typing"><span></span><span></span><span></span></div></div>`;
+    outputPanel.appendChild(typing);
+    outputPanel.scrollTop = outputPanel.scrollHeight;
+
+    await sleep(1200 + Math.random() * 800);
+
+    // replace with content
+    typing.querySelector('.step-content').innerHTML = step.html;
+    progressBar.style.width = ((i + 1) / sc.steps.length * 100) + '%';
+    outputPanel.scrollTop = outputPanel.scrollHeight;
+
+    await sleep(800 + Math.random() * 600);
+  }
+
+  running = false;
+  runBtn.textContent = 'Run Again ▸';
+  runBtn.disabled = false;
+});
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+</script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-QZ9C4MLQS8");
+</script>
+<title>Board AI Report Agent — Enterprise.AI Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="_shared.css"/>
+<style>
+/* ---- AGENT UI (shared styles) ---- */
+.agent-workspace{display:grid;grid-template-columns:320px 1fr;gap:20px;margin:24px 0;min-height:600px}
+@media(max-width:900px){.agent-workspace{grid-template-columns:1fr;min-height:auto}}
+.scenario-panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px}
+.scenario-panel h3{font-family:'Space Grotesk',sans-serif;font-size:17px;margin-bottom:16px}
+.scenario-card{background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.25s}
+.scenario-card:hover{border-color:rgba(124,92,255,0.4)}
+.scenario-card.selected{border-color:var(--accent);background:rgba(124,92,255,0.08)}
+.scenario-card .sc-name{font-weight:600;font-size:14px;color:var(--text);margin-bottom:4px}
+.scenario-card .sc-meta{font-size:12px;color:var(--text-muted)}
+.scenario-card .sc-desc{font-size:12.5px;color:var(--text-dim);margin-top:8px;line-height:1.5}
+.run-btn{width:100%;padding:14px;background:var(--gradient);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;margin-top:16px;font-family:inherit;transition:opacity 0.2s}
+.run-btn:hover{opacity:0.9}
+.run-btn:disabled{opacity:0.4;cursor:not-allowed}
+.output-panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;overflow-y:auto;max-height:900px}
+.output-panel h3{font-family:'Space Grotesk',sans-serif;font-size:18px;margin-bottom:20px}
+.agent-step{margin-bottom:16px;opacity:0;transform:translateY(8px);transition:all 0.4s ease}
+.agent-step.visible{opacity:1;transform:translateY(0)}
+.step-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.step-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.step-icon.thinking{background:rgba(124,92,255,0.15);color:var(--accent)}
+.step-icon.data{background:rgba(34,211,238,0.15);color:var(--accent-2)}
+.step-icon.analysis{background:rgba(255,193,7,0.15);color:#ffd54f}
+.step-icon.output{background:rgba(255,122,192,0.15);color:var(--accent-3)}
+.step-icon.done{background:rgba(34,211,238,0.15);color:var(--accent-2)}
+.step-label{font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em}
+.step-content{background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:16px;font-size:13.5px;color:var(--text-dim);line-height:1.7}
+.typing{display:inline-flex;gap:4px;padding:8px 14px}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:typingDot 1.4s infinite;opacity:0.3}
+.typing span:nth-child(2){animation-delay:0.2s}
+.typing span:nth-child(3){animation-delay:0.4s}
+@keyframes typingDot{0%,60%,100%{opacity:0.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+.empty-state{text-align:center;padding:80px 20px;color:var(--text-muted)}
+.empty-state .es-icon{font-size:48px;margin-bottom:16px;opacity:0.3}
+.empty-state p{font-size:15px;max-width:360px;margin:0 auto}
+.progress-wrap{margin:16px 0 8px;height:4px;background:var(--bg);border-radius:2px;overflow:hidden}
+.progress-bar{height:100%;background:var(--gradient);border-radius:2px;width:0;transition:width 0.6s ease}
+
+/* Board report specific */
+.opp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0}
+.opp-item{background:rgba(124,92,255,0.06);border:1px solid rgba(124,92,255,0.15);border-radius:10px;padding:12px 14px}
+.opp-item .opp-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
+.opp-item .opp-val{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--accent)}
+.opp-item .opp-desc{font-size:11.5px;color:var(--text-muted);margin-top:4px}
+
+.roadmap-step{display:flex;gap:14px;margin-bottom:14px;padding:14px;background:rgba(255,255,255,0.02);border-radius:10px;border-left:3px solid var(--accent)}
+.roadmap-step .rs-phase{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:var(--accent-2);min-width:80px;flex-shrink:0}
+.roadmap-step .rs-body{font-size:13px;color:var(--text-dim)}
+.roadmap-step .rs-body strong{color:var(--text)}
+
+.risk-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:8px;margin-bottom:8px;font-size:13px}
+.risk-item.high{background:rgba(255,122,192,0.1);border:1px solid rgba(255,122,192,0.2);color:var(--accent-3)}
+.risk-item.medium{background:rgba(255,193,7,0.08);border:1px solid rgba(255,193,7,0.15);color:#ffd54f}
+.risk-item.low{background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);color:var(--accent-2)}
+
+.exec-summary{background:rgba(124,92,255,0.08);border:1px solid rgba(124,92,255,0.2);border-radius:12px;padding:18px;margin-top:16px}
+.exec-summary h4{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--accent);margin-bottom:8px}
+.exec-summary p{font-size:14px;color:var(--text-dim);margin:0 0 8px}
+.exec-summary p:last-child{margin:0}
+
+.value-banner{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+.vb-item{text-align:center;padding:18px 12px;background:var(--bg-2);border-radius:12px;border:1px solid var(--border)}
+.vb-item .vb-num{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;margin-bottom:4px}
+.vb-item .vb-lbl{font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em}
+@media(max-width:760px){.value-banner,.opp-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="../tools.html" class="back">← Back to Enterprise.AI</a>
+  <div class="hero-banner">
+    <div class="eyebrow"><span class="dot"></span>Agent Prototype · AI Strategy</div>
+    <h1 class="display">Board AI Report <span class="gradient-text">Agent</span></h1>
+    <p class="lead">Watch an AI agent analyse a bank's public data and produce a board-ready AI opportunity assessment — value-at-stake estimates, priority use cases, risk considerations, and a 90-day roadmap. The briefing your board wishes it had six months ago.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">120 sec</div><div class="hero-stat-label">vs 2–3 weeks manual</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">6</div><div class="hero-stat-label">Use Cases Prioritised</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">90-day</div><div class="hero-stat-label">Actionable Roadmap</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>The Problem</h2>
+    <p>Every bank board is asking the same question: "What is our AI strategy?" Most banks are 6–12 months into this conversation and still don't have a clear answer. The typical response is a 40-page slide deck from a Big 4 firm that took 8 weeks to produce. This agent generates the core of that analysis in 2 minutes — using public data as a starting point.</p>
+    <div class="value-banner">
+      <div class="vb-item"><div class="vb-num" style="color:var(--accent)">95%</div><div class="vb-lbl">Time Reduction</div></div>
+      <div class="vb-item"><div class="vb-num" style="color:var(--accent-2)">SAR 40.8B</div><div class="vb-lbl">Sector Value at Stake</div></div>
+      <div class="vb-item"><div class="vb-num" style="color:var(--accent-3)">90 days</div><div class="vb-lbl">To First Value</div></div>
+    </div>
+  </div>
+
+  <!-- AGENT WORKSPACE -->
+  <div class="card" style="padding:0;overflow:hidden">
+    <div style="padding:24px 28px 0">
+      <h2><span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>Try the Agent</h2>
+      <p>Select a bank profile and click "Run Agent" to generate a board-ready AI opportunity assessment.</p>
+    </div>
+    <div class="agent-workspace" style="padding:0 28px 28px">
+      <div class="scenario-panel">
+        <h3>Select Bank Profile</h3>
+        <div class="scenario-card" data-scenario="0">
+          <div class="sc-name">Tier-1 Saudi Commercial Bank</div>
+          <div class="sc-meta">SAR 180B Assets · 8,500 Employees</div>
+          <div class="sc-desc">Full-service bank with retail, corporate, and treasury. Ambitious digital transformation agenda. Currently piloting GenAI in two business lines.</div>
+        </div>
+        <div class="scenario-card" data-scenario="1">
+          <div class="sc-name">Mid-Tier UAE Islamic Bank</div>
+          <div class="sc-meta">AED 95B Assets · 3,200 Employees</div>
+          <div class="sc-desc">Islamic bank with strong retail franchise. Early-stage AI exploration. Sharia compliance adds complexity to AI governance requirements.</div>
+        </div>
+        <div class="scenario-card" data-scenario="2">
+          <div class="sc-name">Qatari Investment Bank</div>
+          <div class="sc-meta">QAR 45B AUM · 650 Employees</div>
+          <div class="sc-desc">Specialist investment bank focused on GCC capital markets and private equity. Lean team, high per-capita revenue. Looking for AI to scale without headcount.</div>
+        </div>
+        <button class="run-btn" id="runBtn" disabled>Select a bank to begin</button>
+        <div class="progress-wrap" id="progressWrap" style="display:none">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+      <div class="output-panel" id="outputPanel">
+        <div class="empty-state" id="emptyState">
+          <div class="es-icon">📊</div>
+          <p>Select a bank profile and click "Run Agent" to generate a board-ready AI opportunity assessment.</p>
+        </div>
+        <div id="agentOutput" style="display:none"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="card" style="text-align:center;padding:40px">
+    <h2 style="margin-bottom:10px">Want the full assessment for your bank?</h2>
+    <p style="max-width:520px;margin:0 auto 20px">This prototype uses public data. The full Enterprise.AI assessment uses your internal data, interviews with your leadership team, and benchmarking against 10 GCC banks. Book a free briefing to see the difference.</p>
+    <a href="../about.html#contact" style="display:inline-block;padding:14px 32px;background:var(--gradient);color:#fff;font-weight:600;border-radius:10px;font-size:15px;text-decoration:none">Book a Free Briefing →</a>
+    <div style="margin-top:12px"><a href="agentic-ai-ecosystem.html" style="font-size:14px">← View the full Agentic AI Ecosystem Map</a></div>
+  </div>
+
+  <div class="footer-note">
+    &copy; 2026 Enterprise.AI — advisor@rodney-ai.com<br/>
+    <a href="../tools.html">Tools</a> · <a href="../services.html">Services</a> · <a href="../research.html">Research</a> · <a href="../about.html">About</a>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+var scenarios = [
+  {
+    name:"Tier-1 Saudi Commercial Bank",
+    profile:"SAR 180B Total Assets · ROE 14.2% · Cost-to-Income 38% · 8,500 FTEs · 180 Branches",
+    steps:[
+      {type:"thinking",label:"Scoping assessment",content:"Analysing a Tier-1 Saudi commercial bank with SAR 180B in assets. I'll estimate AI value-at-stake across four levers (revenue monetization, asset tokenization, capital efficiency, sovereign AI infrastructure), identify the top 6 priority use cases, assess risks, and produce a 90-day action plan aligned to Vision 2030."},
+      {type:"data",label:"Benchmarking against sector",content:'<strong>Bank Profile vs Saudi Banking Sector</strong><br><br>• <strong>ROE:</strong> 14.2% (sector avg: 13.8%) — slightly above peer but below Vision 2030 target of 18–20%<br>• <strong>Cost-to-Income:</strong> 38% (sector avg: 41%) — efficiency leader, but AI can push to 32–34%<br>• <strong>Digital Adoption:</strong> 72% of transactions digital (sector avg: 65%) — above average, good foundation<br>• <strong>AI Maturity:</strong> Stage 2 of 5 (Piloting) — two use cases in production, no enterprise framework<br>• <strong>Data Readiness:</strong> Partial — data warehouse exists but no data catalogue, limited lineage, NDMO compliance gaps<br><br><strong>Banking 2030 Scoreboard Position:</strong> This bank represents approximately 18% of Saudi banking sector assets, suggesting SAR 7.3B in AI-enabled value at stake (18% × SAR 40.8B total).'},
+      {type:"analysis",label:"Sizing the opportunity",content:'<div class="opp-grid"><div class="opp-item"><div class="opp-name">Revenue Monetization</div><div class="opp-val">SAR 2.8B</div><div class="opp-desc">Hyper-personalisation, next-best-action, dynamic pricing, cross-sell acceleration</div></div><div class="opp-item"><div class="opp-name">Capital Efficiency</div><div class="opp-val">SAR 1.9B</div><div class="opp-desc">Credit risk optimisation, RWA reduction, operational loss reduction, fraud prevention</div></div><div class="opp-item"><div class="opp-name">Asset Tokenization</div><div class="opp-val">SAR 1.8B</div><div class="opp-desc">Real estate tokenization, sukuk digitisation, custody modernisation, settlement efficiency</div></div><div class="opp-item"><div class="opp-name">Sovereign AI Infra</div><div class="opp-val">SAR 0.8B</div><div class="opp-desc">Regulatory reporting automation, NDMO compliance, Arabic NLP, data sovereignty</div></div></div><br><strong>Total estimated value at stake: SAR 7.3B annually</strong> (base case). Of this, SAR 1.2–1.8B is capturable within 18 months with focused execution.'},
+      {type:"analysis",label:"Prioritising use cases",content:'<strong>Top 6 Priority Use Cases (ranked by impact × feasibility):</strong><br><br><strong>1. Credit Decisioning Agent</strong> — Automate corporate credit memo generation and retail credit scoring. <em>Impact: SAR 280M/yr · Feasibility: High · Timeline: 3–6 months</em><br><br><strong>2. Customer Intelligence Platform</strong> — Next-best-action engine for relationship managers. Personalised product recommendations across 2M+ retail customers. <em>Impact: SAR 420M/yr · Feasibility: Medium · Timeline: 6–9 months</em><br><br><strong>3. Regulatory Compliance Agent</strong> — Automated SAMA reporting, AML transaction monitoring, and regulatory change management. <em>Impact: SAR 180M/yr (cost avoidance) · Feasibility: High · Timeline: 3–6 months</em><br><br><strong>4. Enterprise AI Copilot</strong> — Claude/Gemini deployment for 8,500 employees. Document drafting, email summarisation, meeting notes, knowledge search. <em>Impact: SAR 150M/yr (productivity) · Feasibility: High · Timeline: 6 weeks</em><br><br><strong>5. Treasury Optimisation Agent</strong> — ALM analytics, FX hedging recommendations, liquidity forecasting. <em>Impact: SAR 210M/yr · Feasibility: Medium · Timeline: 6–12 months</em><br><br><strong>6. Fraud Detection Enhancement</strong> — AI-augmented real-time fraud detection across card, digital, and wire channels. <em>Impact: SAR 95M/yr (loss reduction) · Feasibility: Medium · Timeline: 6–9 months</em>'},
+      {type:"analysis",label:"Identifying risks",content:'<div class="risk-item high"><strong>Data Readiness Gap:</strong> No enterprise data catalogue. Data quality is inconsistent across core banking, CRM, and treasury systems. NDMO compliance is partial. Recommendation: invest 60–90 days in data foundation before scaling AI use cases.</div><div class="risk-item high"><strong>Governance Vacuum:</strong> No AI governance framework. No model risk management policy. SAMA expects regulated entities to have AI risk frameworks — this is a regulatory exposure. Recommendation: establish AI governance council and framework in parallel with first use cases.</div><div class="risk-item medium"><strong>Talent Concentration:</strong> AI capability is concentrated in 12 people within IT. No business-line AI champions. Recommendation: executive AI training programme for top 50 leaders + embedded AI leads per business line.</div><div class="risk-item medium"><strong>Vendor Lock-in Risk:</strong> Current pilots are single-vendor (one LLM provider). Recommendation: multi-model architecture with abstraction layer. Evaluate at least 3 providers before enterprise commitment.</div><div class="risk-item low"><strong>Change Management:</strong> Previous digital transformation had 40% adoption. AI rollout needs structured change management from day one. Recommendation: pilot-to-production playbook with measurable adoption KPIs.</div>'},
+      {type:"output",label:"Generating board report",content:'<div class="exec-summary"><h4>Executive Summary — Board AI Opportunity Assessment</h4><p><strong>Opportunity:</strong> This bank has SAR 7.3B in annual AI-enabled value at stake, of which SAR 1.2–1.8B is capturable within 18 months. The bank is currently at Stage 2 (Piloting) on the AI maturity scale — ahead of most Saudi peers but well behind global leaders.</p><p><strong>Recommendation:</strong> Approve a three-phase AI programme with SAR 45M initial investment (Phase 1: 90 days). Focus on two quick-win use cases (Credit Agent + Compliance Agent) while building data foundation and governance framework in parallel.</p><p><strong>90-Day Roadmap:</strong></p></div><div style="margin-top:16px"><div class="roadmap-step"><div class="rs-phase">Week 1–2</div><div class="rs-body"><strong>AI Governance Setup</strong> — Establish AI Council (CEO, CRO, CIO, CDO). Appoint Head of AI. Draft AI Risk Framework aligned to SAMA expectations.</div></div><div class="roadmap-step"><div class="rs-phase">Week 2–4</div><div class="rs-body"><strong>Data Foundation Sprint</strong> — Deploy data catalogue. Run NDMO readiness assessment. Establish data quality baselines for priority use case data domains.</div></div><div class="roadmap-step"><div class="rs-phase">Week 3–6</div><div class="rs-body"><strong>Enterprise AI Rollout</strong> — Deploy Claude/Gemini for 500 pilot users across corporate banking and compliance. Measure productivity impact.</div></div><div class="roadmap-step"><div class="rs-phase">Week 4–8</div><div class="rs-body"><strong>Credit Agent MVP</strong> — Build and test credit memo agent on 50 historical cases. Validate accuracy against senior analyst benchmarks. Target: 85% first-draft quality.</div></div><div class="roadmap-step"><div class="rs-phase">Week 6–10</div><div class="rs-body"><strong>Compliance Agent MVP</strong> — Automate 3 SAMA regulatory returns. Build regulatory change monitoring for SAMA + SDAIA publications.</div></div><div class="roadmap-step"><div class="rs-phase">Week 10–12</div><div class="rs-body"><strong>Board Review</strong> — Present Phase 1 results. Demonstrate working agents. Seek approval for Phase 2 (SAR 120M, 6-month programme covering all 6 priority use cases).</div></div></div>'},
+      {type:"done",label:"Complete",content:"Board AI opportunity assessment generated in <strong>118 seconds</strong>. A comparable assessment from a consulting firm: 6–8 weeks and SAR 500K–1M in fees. This agent provides the analytical foundation — the full Enterprise.AI engagement adds proprietary benchmarking, leadership interviews, and regulator-tested governance frameworks."}
+    ]
+  },
+  {
+    name:"Mid-Tier UAE Islamic Bank",
+    profile:"AED 95B Total Assets · ROE 11.8% · Cost-to-Income 44% · 3,200 FTEs · 65 Branches",
+    steps:[
+      {type:"thinking",label:"Scoping assessment",content:"Analysing a mid-tier UAE Islamic bank. Key considerations: Sharia compliance requirements add a governance layer to AI deployment. Islamic finance products have unique structures (Murabaha, Ijara, Sukuk) that AI models need to understand. I'll factor in CBUAE and AAOIFI requirements alongside standard AI opportunity sizing."},
+      {type:"data",label:"Benchmarking against sector",content:'<strong>Bank Profile vs UAE Islamic Banking Sector</strong><br><br>• <strong>ROE:</strong> 11.8% (sector avg: 12.5%) — below peer, AI-driven efficiency can close the gap<br>• <strong>Cost-to-Income:</strong> 44% (sector avg: 40%) — above average, significant room for AI-driven optimisation<br>• <strong>Digital Adoption:</strong> 58% of transactions digital (sector avg: 70%) — lagging peers, catch-up needed<br>• <strong>AI Maturity:</strong> Stage 1 of 5 (Exploring) — no production AI, early conversations with vendors<br>• <strong>Sharia Compliance:</strong> Full Sharia board with 5 scholars. AI governance must integrate with existing Sharia governance structure<br><br><strong>Unique Consideration:</strong> Islamic banking products require Sharia-compliant AI frameworks. Model outputs must be auditable against AAOIFI standards. This is both a constraint and a differentiator — few competitors have solved this.'},
+      {type:"analysis",label:"Sizing the opportunity",content:'<div class="opp-grid"><div class="opp-item"><div class="opp-name">Revenue Monetization</div><div class="opp-val">AED 680M</div><div class="opp-desc">Islamic product recommendation, Sharia-compliant robo-advisory, SME financing acceleration</div></div><div class="opp-item"><div class="opp-name">Capital Efficiency</div><div class="opp-val">AED 420M</div><div class="opp-desc">Islamic credit risk models, profit-rate risk optimisation, operational loss reduction</div></div><div class="opp-item"><div class="opp-name">Asset Tokenization</div><div class="opp-val">AED 350M</div><div class="opp-desc">Sukuk tokenization, Islamic fund distribution, Sharia-compliant digital assets</div></div><div class="opp-item"><div class="opp-name">Sovereign AI Infra</div><div class="opp-val">AED 180M</div><div class="opp-desc">CBUAE reporting, Arabic NLP for Sharia documents, AAOIFI compliance automation</div></div></div><br><strong>Total estimated value at stake: AED 1.63B annually.</strong> First-mover advantage in Sharia-compliant AI could capture disproportionate share.'},
+      {type:"analysis",label:"Prioritising use cases",content:'<strong>Top 6 Priority Use Cases:</strong><br><br><strong>1. Sharia-Compliant Product Advisor</strong> — AI agent that recommends Islamic finance products based on customer needs, ensuring full Sharia compliance. First in UAE market. <em>Impact: AED 180M/yr · Feasibility: Medium · Timeline: 6–9 months</em><br><br><strong>2. Islamic Credit Assessment Agent</strong> — Automate Murabaha/Ijara credit assessments with Sharia-compliant risk scoring. <em>Impact: AED 120M/yr · Feasibility: High · Timeline: 3–6 months</em><br><br><strong>3. Enterprise AI Copilot</strong> — Deploy for 3,200 employees with Arabic/English bilingual capability. <em>Impact: AED 85M/yr · Feasibility: High · Timeline: 6 weeks</em><br><br><strong>4. AAOIFI Compliance Agent</strong> — Automate Sharia audit documentation and AAOIFI standard compliance checking. <em>Impact: AED 45M/yr · Feasibility: High · Timeline: 3–6 months</em><br><br><strong>5. Customer Onboarding Agent</strong> — Reduce Islamic banking account opening from 5 days to same-day with automated KYC and Sharia-compliant documentation. <em>Impact: AED 65M/yr · Feasibility: High · Timeline: 3–6 months</em><br><br><strong>6. Sukuk Analytics Agent</strong> — AI-powered sukuk structuring, pricing, and documentation for the treasury desk. <em>Impact: AED 95M/yr · Feasibility: Medium · Timeline: 6–12 months</em>'},
+      {type:"analysis",label:"Identifying risks",content:'<div class="risk-item high"><strong>Sharia Governance Integration:</strong> AI decisions must be auditable against Sharia principles. The Sharia board needs to approve AI governance framework before any customer-facing deployment. This is a 60–90 day dependency. Recommendation: engage Sharia board early — position AI as enhancing, not replacing, Sharia oversight.</div><div class="risk-item high"><strong>Digital Maturity Gap:</strong> At 58% digital adoption, the bank lacks the digital foundation for advanced AI. Core banking modernisation may be a prerequisite. Recommendation: focus first use cases on back-office and employee productivity (no core system dependency).</div><div class="risk-item medium"><strong>Arabic NLP Quality:</strong> Islamic finance terminology requires specialised Arabic language models. Standard LLMs have limited understanding of Murabaha, Ijara, Takaful concepts. Recommendation: fine-tune or RAG-augment models with AAOIFI standards and Sharia board rulings.</div><div class="risk-item low"><strong>Competitive Window:</strong> No UAE Islamic bank has deployed production AI agents. First-mover advantage is available but time-limited — expect 12–18 months before peers catch up.</div>'},
+      {type:"output",label:"Generating board report",content:'<div class="exec-summary"><h4>Executive Summary — Board AI Opportunity Assessment</h4><p><strong>Opportunity:</strong> AED 1.63B in annual AI-enabled value at stake. The bank has a unique strategic opportunity to become the first Sharia-compliant AI-native bank in the UAE — a positioning that no competitor has claimed.</p><p><strong>Recommendation:</strong> Approve a Sharia-integrated AI programme with AED 18M initial investment (Phase 1: 90 days). Focus on employee productivity (AI Copilot) and back-office automation (AAOIFI Compliance Agent) while building the Sharia AI governance framework.</p><p><strong>90-Day Roadmap:</strong></p></div><div style="margin-top:16px"><div class="roadmap-step"><div class="rs-phase">Week 1–3</div><div class="rs-body"><strong>Sharia AI Governance</strong> — Present AI framework to Sharia board. Establish dual governance: AI Council + Sharia oversight. Draft Sharia-compliant AI policy (unique to Islamic banking).</div></div><div class="roadmap-step"><div class="rs-phase">Week 2–4</div><div class="rs-body"><strong>Arabic AI Foundation</strong> — Evaluate bilingual LLMs. Build RAG pipeline with AAOIFI standards, Sharia board rulings, and Islamic finance glossary.</div></div><div class="roadmap-step"><div class="rs-phase">Week 3–6</div><div class="rs-body"><strong>Enterprise Copilot</strong> — Deploy for 500 pilot users. Focus on document drafting, Sharia compliance research, and customer communication in Arabic + English.</div></div><div class="roadmap-step"><div class="rs-phase">Week 4–8</div><div class="rs-body"><strong>AAOIFI Compliance Agent</strong> — Automate Sharia audit trail documentation. Build compliance checker against 5 key AAOIFI standards.</div></div><div class="roadmap-step"><div class="rs-phase">Week 8–12</div><div class="rs-body"><strong>Board Review + Phase 2 Proposal</strong> — Present results, demonstrate working agents, seek approval for customer-facing Sharia Product Advisor (Phase 2).</div></div></div>'},
+      {type:"done",label:"Complete",content:"Board assessment generated in <strong>124 seconds</strong>. Key differentiator: this analysis identified the Sharia-compliant AI opportunity — a strategic positioning that generic consulting assessments typically miss. The full Enterprise.AI engagement includes AAOIFI-specific governance frameworks and Arabic NLP benchmarking."}
+    ]
+  },
+  {
+    name:"Qatari Investment Bank",
+    profile:"QAR 45B AUM · ROE 18.5% · Cost-to-Income 52% · 650 FTEs · 3 Offices",
+    steps:[
+      {type:"thinking",label:"Scoping assessment",content:"Analysing a Qatari investment bank — lean team, high AUM, specialist focus. The AI opportunity here is different from retail banks: it's about scaling intellectual output (research, deal origination, portfolio analytics) without scaling headcount. QCB and Qatar Financial Centre regulatory requirements apply."},
+      {type:"data",label:"Benchmarking against sector",content:'<strong>Bank Profile vs GCC Investment Banking Sector</strong><br><br>• <strong>ROE:</strong> 18.5% (sector avg: 15.2%) — strong performer, AI can defend and extend this premium<br>• <strong>Cost-to-Income:</strong> 52% (sector avg: 55%) — reasonable for an IB, but high-value staff drive the ratio<br>• <strong>Revenue per Employee:</strong> QAR 1.8M (sector avg: QAR 1.2M) — top quartile, but vulnerable to talent attrition<br>• <strong>AI Maturity:</strong> Stage 1 of 5 (Exploring) — using ChatGPT informally, no governance, no enterprise deployment<br>• <strong>Key Risk:</strong> Revenue concentrated in 15 senior bankers. AI can partially de-risk this by codifying institutional knowledge<br><br><strong>Investment banking AI differs from retail banking:</strong> The value isn\'t in volume (millions of transactions) but in quality (deeper analysis, faster origination, better risk assessment on fewer, larger deals).'},
+      {type:"analysis",label:"Sizing the opportunity",content:'<div class="opp-grid"><div class="opp-item"><div class="opp-name">Deal Origination</div><div class="opp-val">QAR 180M</div><div class="opp-desc">AI-powered deal screening, pitchbook generation, market intelligence synthesis</div></div><div class="opp-item"><div class="opp-name">Portfolio Analytics</div><div class="opp-val">QAR 140M</div><div class="opp-desc">Real-time portfolio monitoring, risk attribution, client reporting automation</div></div><div class="opp-item"><div class="opp-name">Operational Efficiency</div><div class="opp-val">QAR 85M</div><div class="opp-desc">Compliance automation, regulatory reporting, back-office streamlining</div></div><div class="opp-item"><div class="opp-name">Knowledge Capital</div><div class="opp-val">QAR 65M</div><div class="opp-desc">Institutional memory capture, research synthesis, junior analyst augmentation</div></div></div><br><strong>Total estimated value at stake: QAR 470M annually.</strong> For a 650-person firm, this translates to QAR 723K per employee — transformational at the individual level.'},
+      {type:"analysis",label:"Prioritising use cases",content:'<strong>Top 6 Priority Use Cases:</strong><br><br><strong>1. Research & Market Intelligence Agent</strong> — Synthesise broker research, news, filings, and market data into actionable investment briefs. <em>Impact: QAR 85M/yr · Feasibility: High · Timeline: 4–8 weeks</em><br><br><strong>2. Pitchbook & Memo Agent</strong> — Generate M&A pitchbooks, investment memos, and client presentations from structured inputs. <em>Impact: QAR 65M/yr · Feasibility: High · Timeline: 6–10 weeks</em><br><br><strong>3. Portfolio Risk Dashboard Agent</strong> — Real-time portfolio monitoring with AI-generated risk commentary and attribution analysis. <em>Impact: QAR 95M/yr · Feasibility: Medium · Timeline: 3–6 months</em><br><br><strong>4. Deal Screening Agent</strong> — Monitor GCC corporate events, M&A activity, and capital markets to identify origination opportunities. <em>Impact: QAR 55M/yr · Feasibility: High · Timeline: 6–8 weeks</em><br><br><strong>5. QCB Regulatory Agent</strong> — Automate QCB prudential reporting and compliance monitoring for QFCRA-regulated activities. <em>Impact: QAR 25M/yr · Feasibility: High · Timeline: 3–4 months</em><br><br><strong>6. Client Advisory Intelligence</strong> — Personalised market views and investment recommendations for institutional clients based on their portfolio and mandate. <em>Impact: QAR 45M/yr · Feasibility: Medium · Timeline: 6–9 months</em>'},
+      {type:"analysis",label:"Identifying risks",content:'<div class="risk-item medium"><strong>Shadow AI:</strong> Staff are already using ChatGPT with client-confidential data. This is an immediate governance risk. Recommendation: deploy enterprise AI platform within 30 days with data loss prevention controls — this is urgent.</div><div class="risk-item medium"><strong>Small Team, High Impact:</strong> With 650 FTEs, every AI deployment touches a significant percentage of the firm. Change management must be handled carefully — one bad experience can poison adoption across the firm.</div><div class="risk-item low"><strong>Regulatory Proportionality:</strong> QCB and QFCRA apply proportional regulation to investment banks. AI governance requirements are lighter than for commercial banks. This is an advantage — faster deployment with less bureaucracy.</div><div class="risk-item low"><strong>Data Advantage:</strong> Investment banks have rich, structured data (deal data, portfolio positions, market data). The data foundation for AI is stronger than typical retail banks. Main gap: unstructured data (research, memos, client communications).</div>'},
+      {type:"output",label:"Generating board report",content:'<div class="exec-summary"><h4>Executive Summary — Board AI Opportunity Assessment</h4><p><strong>Opportunity:</strong> QAR 470M in annual AI-enabled value — QAR 723K per employee. For an investment bank, AI is not about processing volume but amplifying the intellectual output of a lean team. The immediate priority is stopping shadow AI risk while deploying enterprise-grade tools.</p><p><strong>Recommendation:</strong> Approve a rapid AI programme with QAR 8M initial investment (Phase 1: 60 days). The smaller team size means faster deployment — Enterprise AI Copilot for all 650 staff in 4 weeks, two specialist agents in production by Week 10.</p><p><strong>60-Day Roadmap (accelerated for IB scale):</strong></p></div><div style="margin-top:16px"><div class="roadmap-step"><div class="rs-phase">Week 1</div><div class="rs-body"><strong>Stop Shadow AI</strong> — Deploy enterprise Claude/Gemini with SSO and data controls. Block personal ChatGPT usage on corporate devices. Communicate policy firm-wide.</div></div><div class="roadmap-step"><div class="rs-phase">Week 1–3</div><div class="rs-body"><strong>AI Governance (Light)</strong> — Draft AI usage policy (10 pages, not 100). Appoint AI lead (CTO or COO). Establish acceptable use guidelines per asset class.</div></div><div class="roadmap-step"><div class="rs-phase">Week 2–4</div><div class="rs-body"><strong>Full Firm Copilot</strong> — All 650 staff on enterprise AI. Training programme: 2-hour workshop per team. Focus on research synthesis and document drafting.</div></div><div class="roadmap-step"><div class="rs-phase">Week 4–8</div><div class="rs-body"><strong>Research Agent MVP</strong> — Deploy market intelligence synthesis agent for the research and trading teams. Ingest broker research, news feeds, filings.</div></div><div class="roadmap-step"><div class="rs-phase">Week 6–10</div><div class="rs-body"><strong>Pitchbook Agent MVP</strong> — Deploy M&A pitchbook generator for the advisory team. Connect to deal database and template library.</div></div><div class="roadmap-step"><div class="rs-phase">Week 10</div><div class="rs-body"><strong>Board Review</strong> — Present adoption metrics, productivity gains, and Phase 2 roadmap (portfolio analytics, deal screening, client advisory).</div></div></div>'},
+      {type:"done",label:"Complete",content:"Board assessment generated in <strong>108 seconds</strong>. Key insight: investment banks can move faster than commercial banks — smaller teams, lighter regulation, richer data. The 60-day roadmap reflects this. The full Enterprise.AI engagement includes deal-level ROI modelling and GCC IB benchmarking."}
+    ]
+  }
+];
+
+/* ========== UI LOGIC ========== */
+var selectedScenario = -1;
+var isRunning = false;
+
+document.querySelectorAll('.scenario-card').forEach(function(card){
+  card.addEventListener('click', function(){
+    if (isRunning) return;
+    selectedScenario = parseInt(this.dataset.scenario);
+    document.querySelectorAll('.scenario-card').forEach(function(c){ c.classList.remove('selected'); });
+    this.classList.add('selected');
+    document.getElementById('runBtn').disabled = false;
+    document.getElementById('runBtn').textContent = 'Run Agent →';
+  });
+});
+
+document.getElementById('runBtn').addEventListener('click', function(){
+  if (selectedScenario < 0 || isRunning) return;
+  runAgent(scenarios[selectedScenario]);
+});
+
+function runAgent(scenario) {
+  isRunning = true;
+  var btn = document.getElementById('runBtn');
+  btn.disabled = true;
+  btn.textContent = 'Agent running...';
+
+  document.getElementById('emptyState').style.display = 'none';
+  var output = document.getElementById('agentOutput');
+  output.style.display = 'block';
+  output.innerHTML = '<h3>AI Opportunity Assessment: ' + scenario.name + '</h3>' +
+    '<div style="font-size:13px;color:var(--text-muted);margin-bottom:20px">' + scenario.profile + '</div>';
+
+  var progressWrap = document.getElementById('progressWrap');
+  var progressBar = document.getElementById('progressBar');
+  progressWrap.style.display = 'block';
+  progressBar.style.width = '0%';
+
+  var steps = scenario.steps;
+  var stepIndex = 0;
+  var delays = [800, 1800, 2500, 2200, 2000, 2800, 1000];
+
+  function showNextStep() {
+    if (stepIndex >= steps.length) {
+      isRunning = false;
+      btn.textContent = 'Run again →';
+      btn.disabled = false;
+      progressBar.style.width = '100%';
+      return;
+    }
+    var step = steps[stepIndex];
+    progressBar.style.width = ((stepIndex + 1) / steps.length * 100) + '%';
+
+    var typingDiv = document.createElement('div');
+    typingDiv.className = 'agent-step visible';
+    typingDiv.innerHTML = '<div class="step-header"><div class="step-icon ' + step.type + '">⟳</div><div class="step-label">' + step.label + '</div></div><div class="typing"><span></span><span></span><span></span></div>';
+    output.appendChild(typingDiv);
+    output.scrollTop = output.scrollHeight;
+
+    setTimeout(function(){
+      typingDiv.innerHTML = '<div class="step-header"><div class="step-icon ' + step.type + '">' +
+        (step.type === 'thinking' ? '🧠' : step.type === 'data' ? '📊' : step.type === 'analysis' ? '🔍' : step.type === 'output' ? '📝' : '✓') +
+        '</div><div class="step-label">' + step.label + '</div></div><div class="step-content">' + step.content + '</div>';
+      output.scrollTop = output.scrollHeight;
+      stepIndex++;
+      setTimeout(showNextStep, 400);
+    }, delays[stepIndex] || 1500);
+  }
+  showNextStep();
+}
+})();
+</script>
+</body>
+</html>
