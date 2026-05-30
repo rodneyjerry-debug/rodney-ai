@@ -274,6 +274,51 @@
   </div>
 </section>
 
+<!-- ========== FEATURED ACCELERATOR SPOTLIGHT ========== -->
+<section class="fa-spotlight" id="featuredAccelerator">
+  <div class="container">
+    <div class="fa-inner">
+      <div class="fa-badge">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Featured Accelerator
+      </div>
+      <div class="fa-content">
+        <div class="fa-icon" id="faIcon"></div>
+        <div class="fa-text">
+          <h3 class="fa-name" id="faName"></h3>
+          <p class="fa-hook" id="faHook"></p>
+        </div>
+        <a href="#" class="fa-cta" id="faCta">Try it free →</a>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var accs=[
+    {icon:"📊",name:"AI Maturity Assessment",hook:"Benchmark your institution across 6 AI capability dimensions with peer comparison.",url:"accelerators/fs-ai-maturity-assessment.html"},
+    {icon:"🛡️",name:"AI Governance Framework",hook:"Board-ready governance structure mapped to SR 11-7, SS1/23, NIST AI RMF and EU AI Act.",url:"accelerators/ai-governance-framework.html"},
+    {icon:"⚖️",name:"AI Risk Taxonomy",hook:"175+ risk scenarios across 8 banking domains — scored by likelihood, impact, and velocity.",url:"accelerators/ai-risk-taxonomy.html"},
+    {icon:"🎯",name:"GenAI Prioritization Matrix",hook:"Score and rank AI use cases by value, feasibility, and risk — board-ready output in minutes.",url:"accelerators/genai-prioritization-matrix.html"},
+    {icon:"📋",name:"Model Risk Checklist",hook:"40-point SR 11-7 checklist for GenAI models — what your supervisor will actually ask.",url:"accelerators/mrm-checklist.html"},
+    {icon:"🇪🇺",name:"EU AI Act Readiness Tracker",hook:"Track compliance across all EU AI Act obligations with gap analysis and remediation timeline.",url:"accelerators/eu-ai-act-tracker.html"},
+    {icon:"🏛️",name:"NDMO Data Readiness",hook:"Assess Saudi NDMO compliance across 7 data governance domains with maturity scoring.",url:"accelerators/ndmo-data-readiness.html"},
+    {icon:"💰",name:"Capital Efficiency / RWA",hook:"Model RWA density impact of AI on credit risk, market risk, and operational risk capital.",url:"accelerators/capital-efficiency-rwa.html"},
+    {icon:"🪙",name:"AI Tokenomics",hook:"Size the tokenization opportunity — sukuk, real estate, trade finance — across Gulf markets.",url:"accelerators/ai-tokenomics.html"},
+    {icon:"🏢",name:"Agentic AI for CEOs & CFOs",hook:"Executive briefing on agentic AI — what it means for your P&L, risk, and competitive position.",url:"accelerators/agentic-ai-ceo-cfo.html"},
+    {icon:"🗺️",name:"IB Ecosystem Map",hook:"42 AI agents across 7 investment banking divisions — interactive heatmap with ROI sizing.",url:"accelerators/agentic-ai-ecosystem.html"},
+    {icon:"📈",name:"Exchange AI Use Cases",hook:"48 AI applications for exchanges, custodians, and market infrastructure operators.",url:"accelerators/exchange-ai-use-cases.html"},
+    {icon:"🎓",name:"Executive AI Training",hook:"Half-day to 3-day board and C-suite AI programmes — customised to your institution.",url:"accelerators/executive-ai-training.html"}
+  ];
+  var today=Math.floor(Date.now()/86400000)%accs.length;
+  var a=accs[today];
+  document.getElementById("faIcon").textContent=a.icon;
+  document.getElementById("faName").textContent=a.name;
+  document.getElementById("faHook").textContent=a.hook;
+  document.getElementById("faCta").href=a.url;
+})();
+</script>
+
 <!-- ========== CREDENTIAL STRIP ========== -->
 <div class="cred-strip">
   <div class="cred-item">

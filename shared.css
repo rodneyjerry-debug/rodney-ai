@@ -877,6 +877,105 @@ img { max-width: 100%; display: block; }
 }
 .ontology-visual svg { width: 100%; height: auto; }
 
+/* ========== FEATURED ACCELERATOR SPOTLIGHT ========== */
+.fa-spotlight {
+  background: var(--navy);
+  padding: 0 0 12px;
+}
+.fa-inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: linear-gradient(135deg, rgba(0,107,94,0.12) 0%, rgba(201,162,39,0.08) 100%);
+  border: 1px solid rgba(0,107,94,0.25);
+  border-radius: 14px;
+  padding: 18px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.fa-inner:hover {
+  border-color: rgba(0,107,94,0.5);
+}
+.fa-inner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 10% 50%, rgba(0,107,94,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.fa-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(201,162,39,0.1);
+  border: 1px solid rgba(201,162,39,0.2);
+  border-radius: 20px;
+  padding: 5px 14px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.fa-badge svg { stroke: var(--gold); flex-shrink: 0; }
+.fa-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
+}
+.fa-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.04);
+  border-radius: 10px;
+}
+.fa-text { flex: 1; min-width: 0; }
+.fa-name {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  line-height: 1.3;
+}
+.fa-hook {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  margin: 3px 0 0;
+  line-height: 1.4;
+}
+.fa-cta {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--teal);
+  text-decoration: none;
+  border: 1px solid var(--teal);
+  border-radius: 8px;
+  padding: 8px 18px;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.fa-cta:hover {
+  background: var(--teal);
+  color: #fff;
+}
+@media (max-width: 768px) {
+  .fa-inner { flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px 20px; }
+  .fa-content { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .fa-icon { width: 36px; height: 36px; font-size: 22px; }
+}
+
 /* ========== AGENT BAR (Scrolling Ticker) ========== */
 .agent-bar {
   background: var(--navy);
