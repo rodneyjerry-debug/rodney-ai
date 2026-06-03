@@ -277,7 +277,7 @@
 <!-- ========== FEATURED ACCELERATOR SPOTLIGHT ========== -->
 <section class="fa-spotlight" id="featuredAccelerator">
   <div class="container">
-    <div class="fa-inner">
+    <a href="#" class="fa-inner" id="faLink">
       <div class="fa-badge">
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         Featured Accelerator
@@ -288,9 +288,9 @@
           <h3 class="fa-name" id="faName"></h3>
           <p class="fa-hook" id="faHook"></p>
         </div>
-        <a href="#" class="fa-cta" id="faCta">Try it free →</a>
+        <span class="fa-cta">Try it free →</span>
       </div>
-    </div>
+    </a>
   </div>
 </section>
 <script>
@@ -306,6 +306,7 @@
     {icon:"💰",name:"Capital Efficiency / RWA",hook:"Model RWA density impact of AI on credit risk, market risk, and operational risk capital.",url:"accelerators/capital-efficiency-rwa.html"},
     {icon:"🪙",name:"AI Tokenomics",hook:"Size the tokenization opportunity — sukuk, real estate, trade finance — across Gulf markets.",url:"accelerators/ai-tokenomics.html"},
     {icon:"🏢",name:"Agentic AI for CEOs & CFOs",hook:"Executive briefing on agentic AI — what it means for your P&L, risk, and competitive position.",url:"accelerators/agentic-ai-ceo-cfo.html"},
+    {icon:"⚙️",name:"AI Operating Model",hook:"Roles, processes, and org design for AI at scale — from CoE structure to platform team rhythm.",url:"accelerators/ai-operating-model.html"},
     {icon:"🗺️",name:"IB Ecosystem Map",hook:"42 AI agents across 7 investment banking divisions — interactive heatmap with ROI sizing.",url:"accelerators/agentic-ai-ecosystem.html"},
     {icon:"📈",name:"Exchange AI Use Cases",hook:"48 AI applications for exchanges, custodians, and market infrastructure operators.",url:"accelerators/exchange-ai-use-cases.html"},
     {icon:"🎓",name:"Executive AI Training",hook:"Half-day to 3-day board and C-suite AI programmes — customised to your institution.",url:"accelerators/executive-ai-training.html"}
@@ -315,7 +316,7 @@
   document.getElementById("faIcon").textContent=a.icon;
   document.getElementById("faName").textContent=a.name;
   document.getElementById("faHook").textContent=a.hook;
-  document.getElementById("faCta").href=a.url;
+  document.getElementById("faLink").href=a.url;
 })();
 </script>
 
