@@ -360,7 +360,7 @@ a:hover{color:var(--gold-2)}
       </div>
       <div class="form-group">
         <label>Contact Email for Gate CTA</label>
-        <input type="email" id="gateEmail" placeholder="advisor@rodney-ai.com">
+        <input type="email" id="gateEmail" placeholder="rodney@theenterpriseai.co.uk">
       </div>
     </div>
     <button class="btn btn-outline btn-sm" onclick="saveGateSettings()">Update Gate Settings</button>
@@ -1040,7 +1040,7 @@ function saveMetadata() {
 
 async function saveGateSettings() {
   STATE.gateKey = document.getElementById('gateKey').value || 'rodney';
-  STATE.gateEmail = document.getElementById('gateEmail').value || 'advisor@rodney-ai.com';
+  STATE.gateEmail = document.getElementById('gateEmail').value || 'rodney@theenterpriseai.co.uk';
   saveState();
   markChanged('accelerators/_gate.js');
   showToast('Gate settings saved — publish to go live');
@@ -1439,7 +1439,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var footerNote = document.querySelector('.footer-note');
   if (footerNote) footerNote.style.display = 'none';
 
-  var email = '${STATE.gateEmail || 'advisor@rodney-ai.com'}';
+  var email = '${STATE.gateEmail || 'rodney@theenterpriseai.co.uk'}';
   var cta = document.createElement('div');
   cta.className = 'gate-cta';
   cta.innerHTML =

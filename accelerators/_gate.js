@@ -8,7 +8,7 @@
 
   /* ── CONFIG ─────────────────────────────────────────────── */
   var PASSWORD_HASH = '57f9ff1d28a75d789a4c91829f2b8284e66a510d6b9f37b85fee2c6167a6df48';
-  var CONTACT_EMAIL = 'advisor@rodney-ai.com';
+  var CONTACT_EMAIL = 'rodney@theenterpriseai.co.uk';
   var SHOW_CARDS    = 2;   // cards visible before gate
 
   /* ── HELPERS ────────────────────────────────────────────── */
