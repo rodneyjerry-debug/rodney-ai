@@ -13,8 +13,11 @@
 | 1 | L1 · Monetization | The $295B Saudi bank market cap unlock | LIVE | [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7448958079272054784/) |
 | 2 | L2 · Tokenization | Which Saudi bank puts the first sukuk on-chain? | LIVE | [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7451215346319028224/) |
 | 3 | L3 · Capital Efficiency | Every basis point of RWA density is a board decision now | LIVE | [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7456026322725711873/) |
-| 4 | L4 · Sovereign Ecosystem | PIF, HUMAIN, and the demand side of AI | QUEUED | Scheduled: Tuesday 6 May 2026 |
-| 5 | The Scoreboard | All four levers, three scenarios, one number for the board | QUEUED | TBD |
+| 4 | L4 · Sovereign Ecosystem | PIF, HUMAIN, and the demand side of AI | LIVE | TBD — add post URL |
+| 5 | The Scoreboard | All four levers, three scenarios, one number for the board | LIVE | TBD — add post URL |
+
+All five parts are published. Parts 4 and 5 still need their LinkedIn post URLs recorded above,
+and matching insight cards added to `research.html`.
 
 ---
 
@@ -68,7 +71,9 @@ series/
 6. **PDF** — Convert docx → PDF via LibreOffice
 7. **Post** — Upload PDF carousel to LinkedIn, paste caption, pin comment
 8. **Site** — Update Enterprise.AI site (series ribbon, thought leadership cards, CTA links)
-9. **Sync** — Copy index.html → index-staging.html + meridian.html
+
+Step 9 used to be "Sync — copy index.html → index-staging.html + meridian.html". Those duplicate
+copies were deleted in August 2026; `index.html` is now the single source. Do not recreate them.
 
 ## Brand Assets Used
 
