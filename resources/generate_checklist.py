@@ -50,7 +50,7 @@ class NumberedCanvasWithFooter(canvas.Canvas):
         self.drawRightString(
             PAGE_WIDTH - MARGIN,
             0.4 * inch,
-            "advisor@rodney-ai.com"
+            "rodney@theenterpriseai.co.uk"
         )
         # Draw footer line
         self.setStrokeColor(GOLD)
@@ -193,7 +193,7 @@ def create_cover_page(story, styles):
     # Footer
     story.append(Spacer(1, 0.5 * inch))
     story.append(Paragraph(
-        "Contact: <b>advisor@rodney-ai.com</b>",
+        "Contact: <b>rodney@theenterpriseai.co.uk</b>",
         styles['BodyText']
     ))
     story.append(Paragraph(
@@ -838,7 +838,7 @@ def create_contact_page(story, styles):
     story.append(Spacer(1, 0.2 * inch))
 
     contact_data = [
-        ["Email:", "advisor@rodney-ai.com"],
+        ["Email:", "rodney@theenterpriseai.co.uk"],
         ["Services:", "Strategic AI advisory, governance frameworks, regulatory alignment, capability building"],
         ["Expertise:", "Financial Services AI, Risk Management, Regulatory Compliance"],
     ]
@@ -906,6 +906,8 @@ def create_pdf(output_path):
     print(f"PDF created successfully: {output_path}")
 
 if __name__ == "__main__":
-    output_path = "/sessions/cool-elegant-cori/mnt/Claude/rodney-ai/resources/ai-governance-readiness-checklist.pdf"
+    # Always write alongside this script, wherever the repo happens to live.
+    output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                               "ai-governance-readiness-checklist.pdf")
     create_pdf(output_path)
     print(f"\nFile size: {os.path.getsize(output_path) / 1024:.1f} KB")

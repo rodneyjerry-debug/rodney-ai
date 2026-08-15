@@ -6,3 +6,6 @@ node_modules/
 
 # Local scratch
 _to_delete/
+
+# Client-specific decks are not published
+resources/KFH-*.pptx

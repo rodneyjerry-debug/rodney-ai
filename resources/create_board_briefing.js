@@ -1687,7 +1687,7 @@ slide12.addText(
   [
     { text: "Questions? Contact: ", options: { breakLine: false } },
     {
-      text: "advisor@rodney-ai.com",
+      text: "rodney@theenterpriseai.co.uk",
       options: { bold: true, breakLine: true },
     },
     { text: "Enterprise.AI AI Advisory Practice", options: {} },
