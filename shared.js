@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /* Scroll reveal */
   var revealEls = document.querySelectorAll(
-    '.sf-row, .service-card, .insight-card, .acc-card, .resource-card, .faq-item, ' +
+    '.sf-row, .svc-card, .service-card, .insight-card, .acc-card, .resource-card, .faq-item, ' +
     '.about-highlight, .fr-part, .fr-scoreboard-card, .cred-item, .contact-card'
   );
   var revealObs = new IntersectionObserver(function(entries){

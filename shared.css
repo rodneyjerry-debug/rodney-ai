@@ -893,6 +893,9 @@ img { max-width: 100%; display: block; }
   position: relative;
   overflow: hidden;
   transition: border-color 0.3s;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 .fa-inner:hover {
   border-color: rgba(0,107,94,0.5);
