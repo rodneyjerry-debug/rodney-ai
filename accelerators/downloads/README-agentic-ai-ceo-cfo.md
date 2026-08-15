@@ -60,7 +60,7 @@ This document complements:
 ## Questions or Support
 
 For guidance on implementation, business case validation, or governance setup:
-- Email: advisor@rodney-ai.com
+- Email: rodney@theenterpriseai.co.uk
 - Reference: Rodney.AI Agentic AI Business Case Framework
 
 ---

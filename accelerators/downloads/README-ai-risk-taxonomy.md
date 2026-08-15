@@ -104,4 +104,4 @@ Track these risk KPIs monthly:
 *This taxonomy is designed to be adapted to your firm's specific risk appetite and regulatory environment.*
 
 **Questions or Support**  
-Email: advisor@rodney-ai.com
+Email: rodney@theenterpriseai.co.uk

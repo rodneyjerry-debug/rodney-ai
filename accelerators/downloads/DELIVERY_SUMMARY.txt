@@ -318,7 +318,7 @@ USAGE RIGHTS & LICENSING
 License: Proprietary - Rodney.AI
 Permission: Client-ready for sharing with stakeholders, board, and partners
 Customization: Organizations may adapt templates for their context
-Redistribution: Contact advisor@rodney-ai.com for licensing questions
+Redistribution: Contact rodney@theenterpriseai.co.uk for licensing questions
 
 Brand: All documents carry Rodney.AI branding
 Consistency: Maintain brand identity in any customization
@@ -328,7 +328,7 @@ SUPPORT & MAINTENANCE
 ================================================================================
 
 Contact Information
-Email: advisor@rodney-ai.com
+Email: rodney@theenterpriseai.co.uk
 Website: [Rodney.AI website]
 
 Support Services Available
@@ -426,5 +426,5 @@ The documents are production-ready and deliver immediate value.
 ================================================================================
 End of Delivery Summary
 Generated: April 20, 2025
-Contact: advisor@rodney-ai.com
+Contact: rodney@theenterpriseai.co.uk
 ================================================================================

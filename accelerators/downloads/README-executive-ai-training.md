@@ -242,4 +242,4 @@ This program complements:
 *Executive AI literacy is foundational for organizational success in the AI era. This program ensures informed decision-making at the highest levels.*
 
 **Questions or Support**  
-Email: advisor@rodney-ai.com
+Email: rodney@theenterpriseai.co.uk

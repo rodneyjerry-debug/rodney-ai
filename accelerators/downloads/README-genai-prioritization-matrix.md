@@ -288,4 +288,4 @@ This document complements:
 *Strategic prioritization of use cases is critical for GenAI success. Start with quick wins to build momentum, then move to strategic initiatives.*
 
 **Questions or Support**  
-Email: advisor@rodney-ai.com
+Email: rodney@theenterpriseai.co.uk

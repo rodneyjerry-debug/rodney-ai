@@ -27,7 +27,7 @@ DARK_GRAY = colors.HexColor("#333333")
 # Brand Info
 BRAND_NAME = "Enterprise.AI"
 BRAND_TAGLINE = "SCALE · GOVERN · UNLOCK"
-CONTACT_EMAIL = "advisor@rodney-ai.com"
+CONTACT_EMAIL = "rodney@theenterpriseai.co.uk"
 
 class PDFGenerator:
     """Base class for generating Enterprise.AI branded PDFs"""
@@ -2277,7 +2277,8 @@ def main():
     """Generate all 12 PDFs"""
     print("\nGenerating Enterprise.AI Accelerator Companion PDFs...\n")
 
-    os.chdir("/sessions/cool-elegant-cori/mnt/CV/Claude/rodney-ai/accelerators/downloads")
+    # Always write alongside this script, wherever the repo happens to live.
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
     pdf_generators = [
         create_agentic_ai_ceo_cfo,

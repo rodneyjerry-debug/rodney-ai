@@ -10,7 +10,7 @@
 This directory contains 10 professional, client-ready companion PDF documents that complement the interactive HTML accelerators. Each PDF is designed to be a standalone, comprehensive resource that a Head of AI or C-suite executive can use in real engagements.
 
 **Brand:** Rodney.AI | SCALE · GOVERN · UNLOCK  
-**Contact:** advisor@rodney-ai.com
+**Contact:** rodney@theenterpriseai.co.uk
 
 ---
 
@@ -293,7 +293,7 @@ These documents are:
 - **Client-ready** and suitable for sharing with stakeholders, board members, and external partners
 - **Customizable** - organizations may modify them for their specific context
 - **Branded** with Rodney.AI identity for professional presentation
-- **Subject to Rodney.AI licensing** - contact advisor@rodney-ai.com for licensing questions
+- **Subject to Rodney.AI licensing** - contact rodney@theenterpriseai.co.uk for licensing questions
 
 ---
 
@@ -310,11 +310,11 @@ These documents are:
 ## Support & Questions
 
 **For questions, customization, or implementation support:**
-- Email: advisor@rodney-ai.com
+- Email: rodney@theenterpriseai.co.uk
 - Reference: Rodney.AI Accelerator Companion PDFs
 
 **Key Contacts:**
-- General inquiries: advisor@rodney-ai.com
+- General inquiries: rodney@theenterpriseai.co.uk
 - Implementation support: [Your implementation team]
 - Custom development: [Engagement management]
 

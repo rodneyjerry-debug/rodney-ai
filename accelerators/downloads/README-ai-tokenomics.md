@@ -121,4 +121,4 @@ This document complements:
 *Use this guide to build accurate cost models and establish cost management discipline in your AI program.*
 
 **Questions or Support**  
-Email: advisor@rodney-ai.com
+Email: rodney@theenterpriseai.co.uk

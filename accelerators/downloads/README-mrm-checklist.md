@@ -337,4 +337,4 @@ This checklist aligns with:
 *Sound model risk management is foundational for safe AI deployment in regulated financial institutions.*
 
 **Questions or Support**  
-Email: advisor@rodney-ai.com
+Email: rodney@theenterpriseai.co.uk

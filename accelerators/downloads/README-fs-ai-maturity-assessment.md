@@ -218,4 +218,4 @@ This document complements:
 *Maturity assessment provides an objective baseline and roadmap for building world-class AI capability in your organization.*
 
 **Questions or Support**  
-Email: advisor@rodney-ai.com
+Email: rodney@theenterpriseai.co.uk

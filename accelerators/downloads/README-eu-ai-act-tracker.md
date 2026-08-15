@@ -160,4 +160,4 @@ This document complements:
 *Early preparation is critical - the clock is ticking toward February 2026 when requirements take effect.*
 
 **Questions or Support**  
-Email: advisor@rodney-ai.com
+Email: rodney@theenterpriseai.co.uk

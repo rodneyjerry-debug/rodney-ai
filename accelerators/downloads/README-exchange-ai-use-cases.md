@@ -195,4 +195,4 @@ This document complements:
 *Capital markets AI is rapidly evolving. Early movers gain competitive advantage through better execution, risk management, and operational efficiency.*
 
 **Questions or Support**  
-Email: advisor@rodney-ai.com
+Email: rodney@theenterpriseai.co.uk
