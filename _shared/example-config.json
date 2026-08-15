@@ -1,0 +1,195 @@
+{
+  "meta": {
+    "title": "Agent-Washing: How to Spot It Before It Costs You Millions",
+    "slug": "AgentWashing",
+    "footerLabel": "STANDALONE ARTICLE  //  AGENT-WASHING",
+    "heroImage": "../standalone-articles/agent-washing/hero_agent_washing.png",
+    "heroWidth": 648,
+    "heroHeight": 432,
+    "outputDir": "../standalone-articles/agent-washing/",
+    "copyTo": "../../AgentWashing-Carousel.docx"
+  },
+  "slides": [
+    {
+      "type": "text",
+      "blocks": [
+        {
+          "type": "callout",
+          "text": "84% of C-suite executives plan to increase spend on agentic AI.  But Gartner found that fewer than 130 out of thousands of 'agentic AI' vendors are genuinely agentic. The rest are chatbots, copilots, and RPA tools with a new label.",
+          "accent": "GOLD",
+          "italics": true
+        },
+        {
+          "type": "paragraph",
+          "text": "This is the emerging risk of agent-washing: vendors relabelling existing products as 'agents' without meeting the technical bar.",
+          "size": 28
+        },
+        {
+          "type": "paragraph",
+          "text": "In this article, I walk through what makes a real AI agent, the seven questions I use in every evaluation, and why boards need to treat agent-washing as a procurement risk -- not a marketing nuisance.",
+          "size": 26
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "heading": "THE SCALE OF THE PROBLEM",
+      "blocks": [
+        {
+          "type": "headline",
+          "label": "GARTNER FINDING",
+          "stat": "Only ~130 genuine agent vendors",
+          "context": "Out of thousands of vendors claiming 'agentic AI' capabilities",
+          "caption": "Gartner IT Symposium/Xpo 2024 -- Agentic AI Hype Cycle"
+        },
+        {
+          "type": "stats",
+          "items": [
+            ["84%", "C-SUITE INCREASING SPEND"],
+            ["40%+", "PROJECTS CANCELLED BY 2027"],
+            ["<130", "GENUINELY AGENTIC"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The gap between spend appetite and genuine capability is where agent-washing thrives.",
+          "size": 26,
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "heading": "WHAT ACTUALLY MAKES AN AGENT?",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "An AI agent is software that pursues a defined goal by autonomously decomposing it into sub-tasks, orchestrating actions across multiple systems, handling exceptions without human intervention, and maintaining an auditable decision trail.",
+          "size": 26
+        },
+        {
+          "type": "paragraph",
+          "text": "If it cannot do all four, it is not an agent -- regardless of what the vendor slide deck says.",
+          "size": 26,
+          "bold": true
+        },
+        {
+          "type": "spacer",
+          "after": 200
+        },
+        {
+          "type": "callout",
+          "text": "A chatbot that got promoted is not an agent. A copilot that answers questions is not an agent. An RPA script with a new label is not an agent.",
+          "accent": "RED",
+          "bold": true,
+          "italics": false,
+          "color": "RED"
+        }
+      ]
+    },
+    {
+      "type": "cards",
+      "heading": "THE SEVEN-QUESTION TEST (1 OF 2)",
+      "intro": "Use these in the room, with the engineers -- not just the sales team.",
+      "cards": [
+        {
+          "num": "1",
+          "title": "Goal decomposition",
+          "body": "Can it break a high-level objective into sub-tasks without being told the steps?"
+        },
+        {
+          "num": "2",
+          "title": "Cross-system orchestration",
+          "body": "Does it call APIs, databases, and external tools -- or just generate text?"
+        },
+        {
+          "num": "3",
+          "title": "Exception handling",
+          "body": "When a step fails, does it retry, reroute, or escalate -- without human intervention?"
+        },
+        {
+          "num": "4",
+          "title": "Audit trail",
+          "body": "Can you trace every decision, every data source, every tool call after the fact?"
+        }
+      ]
+    },
+    {
+      "type": "cards",
+      "heading": "THE SEVEN-QUESTION TEST (2 OF 2)",
+      "cards": [
+        {
+          "num": "5",
+          "title": "Human override",
+          "body": "Can a human intervene at any point -- pause, correct, redirect -- without breaking the workflow?"
+        },
+        {
+          "num": "6",
+          "title": "Persistence",
+          "body": "Does it maintain state across sessions, or does every conversation start from scratch?"
+        },
+        {
+          "num": "7",
+          "title": "Failure mode",
+          "body": "When it fails, does it fail gracefully -- or does it hallucinate, loop, or silently drop tasks?"
+        }
+      ]
+    },
+    {
+      "type": "qa",
+      "heading": "THE ADVISORY CONVERSATION",
+      "intro": "The questions a board should be asking right now.",
+      "pairs": [
+        {
+          "q": "How do we know if what we are buying is genuinely agentic?",
+          "a": "Run the seven-question test in the room with the engineers. If they cannot demo goal decomposition, cross-system orchestration, and exception handling live, it is not an agent."
+        },
+        {
+          "q": "What is the governance risk?",
+          "a": "Agent-washing inflates procurement spend, creates audit gaps, and exposes you to regulatory action under the EU AI Act. The risk is not just financial -- it is reputational."
+        },
+        {
+          "q": "What should we do next?",
+          "a": "Mandate the seven-question test in every AI vendor evaluation. Build an internal taxonomy. Require live demos -- not slide decks."
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "heading": "THE BOTTOM LINE",
+      "blocks": [
+        {
+          "type": "callout",
+          "text": "Agent-washing is not a marketing problem. It is a procurement risk, a governance gap, and a board-level issue. Treat it accordingly.",
+          "accent": "GOLD",
+          "bold": true,
+          "italics": false,
+          "color": "NAVY",
+          "size": 30
+        },
+        {
+          "type": "spacer",
+          "after": 300
+        },
+        {
+          "type": "paragraph",
+          "text": "If you are evaluating agentic AI vendors, deploying agents into regulated workflows, or advising a board on AI strategy -- I would welcome the conversation.",
+          "size": 26
+        },
+        {
+          "type": "spacer",
+          "after": 200
+        },
+        {
+          "type": "callout",
+          "text": "rodney@bost.sa  //  theenterpriseai.co.uk",
+          "accent": "BLUE",
+          "bold": true,
+          "italics": false,
+          "color": "BLUE",
+          "size": 24
+        }
+      ]
+    }
+  ]
+}
