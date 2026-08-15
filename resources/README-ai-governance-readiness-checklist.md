@@ -419,7 +419,7 @@ Rodney.AI is an AI executive advisory practice specializing in governance, risk 
 - Board and executive training on AI governance
 - Remediation roadmap execution and oversight
 
-**Contact:** advisor@rodney-ai.com
+**Contact:** rodney@theenterpriseai.co.uk
 
 **Brand Promise:** SCALE · GOVERN · UNLOCK
 
@@ -439,7 +439,7 @@ Rodney.AI is an AI executive advisory practice specializing in governance, risk 
 
 For questions about this assessment framework or to request advisory support:
 
-**Email:** advisor@rodney-ai.com
+**Email:** rodney@theenterpriseai.co.uk
 
 **Suggested Discussion Topics:**
 - Your assessment results and interpretation

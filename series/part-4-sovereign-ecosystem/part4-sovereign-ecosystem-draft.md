@@ -111,4 +111,4 @@ The overlap between L1 and L4 is estimated at SAR 0.3B (Low) to SAR 2.7B (High),
 
 *Rodney Coutinho is an Executive Advisor on AI, specialising in banking, capital markets, and sovereign institutions across the Middle East. He advises boards and C-suites on AI strategy, governance, and transformation.*
 
-*Contact: meridian@rodney-ai.com*
+*Contact: rodney@theenterpriseai.co.uk*

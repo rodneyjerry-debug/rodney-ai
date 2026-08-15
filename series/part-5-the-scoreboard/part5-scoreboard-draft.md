@@ -119,4 +119,4 @@ The model behind this series is available on request. It is an open Excel workbo
 
 *Rodney Coutinho is an Executive Advisor on AI, specialising in banking, capital markets, and sovereign institutions across the Middle East. He advises boards and C-suites on AI strategy, governance, and transformation.*
 
-*For the full Scoreboard model or to discuss how these levers apply to your institution, contact: meridian@rodney-ai.com*
+*For the full Scoreboard model or to discuss how these levers apply to your institution, contact: rodney@theenterpriseai.co.uk*

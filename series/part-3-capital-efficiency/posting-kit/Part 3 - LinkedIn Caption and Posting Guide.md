@@ -64,7 +64,7 @@ Word count: ~220. First two lines are the scroll-stopper.
 >
 > Parts 1 & 2: [paste LinkedIn URLs here]
 >
-> The open Excel model behind the Scoreboard is available on request. DM or email meridian@rodney-ai.com.
+> The open Excel model behind the Scoreboard is available on request. DM or email rodney@theenterpriseai.co.uk.
 
 ---
 

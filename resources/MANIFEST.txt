@@ -203,7 +203,7 @@ QUALITY ASSURANCE
 ✓ 44 items properly organized across 7 domains
 ✓ Scoring methodology clearly documented
 ✓ README provides comprehensive guidance
-✓ Contact information valid (advisor@rodney-ai.com)
+✓ Contact information valid (rodney@theenterpriseai.co.uk)
 
 FILE LOCATIONS
 ==============
@@ -283,12 +283,12 @@ CONTACT & SUPPORT
 ================================================================================
 
 Rodney.AI
-Email: advisor@rodney-ai.com
+Email: rodney@theenterpriseai.co.uk
 Brand: SCALE · GOVERN · UNLOCK
 
 For questions about this assessment or to request advisory support in
 governance framework development, control implementation, or regulatory
-alignment, contact advisor@rodney-ai.com
+alignment, contact rodney@theenterpriseai.co.uk
 
 ================================================================================
 DISCLAIMER

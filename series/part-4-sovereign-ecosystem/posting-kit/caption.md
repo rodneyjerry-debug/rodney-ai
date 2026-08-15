@@ -38,7 +38,7 @@ Part 3: Every basis point of RWA density is a board decision — Capital Efficie
 → Part 4 (this one): PIF, HUMAIN, and the demand side of AI — Sovereign Ecosystem (SAR 7.1B base)
 Part 5 (next): The Scoreboard — all four levers, three scenarios, one number for the board
 
-The open Excel model behind the Scoreboard is available on request. DM or email meridian@rodney-ai.com.
+The open Excel model behind the Scoreboard is available on request. DM or email rodney@theenterpriseai.co.uk.
 
 One question for the board: does your bank have a named owner for sovereign ecosystem banking — someone whose job it is to capture the AI infrastructure build as a revenue line?
 

@@ -285,7 +285,7 @@ Rodney.AI offers comprehensive implementation support for this framework:
 - **Training & Awareness:** Team workshops and executive briefings
 - **Ongoing Advisory:** Quarterly reviews and emerging threat monitoring
 
-**Contact:** advisor@rodney-ai.com
+**Contact:** rodney@theenterpriseai.co.uk
 
 ---
 

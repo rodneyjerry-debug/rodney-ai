@@ -314,7 +314,7 @@ This 12-slide template provides a comprehensive structure for board-level AI str
 
 **Contact Information:**
 - Update with your project lead or advisory partner
-- **Current:** advisor@rodney-ai.com
+- **Current:** rodney@theenterpriseai.co.uk
 - Include: Rodney.AI AI Advisory Practice
 
 **Key Tips:**
@@ -445,7 +445,7 @@ Access notes in PowerPoint by clicking "Notes" view at bottom of editor.
 ## Support & Next Steps
 
 **Questions about content:**
-- Contact Enterprise.AI advisory team at advisor@rodney-ai.com
+- Contact Enterprise.AI advisory team at rodney@theenterpriseai.co.uk
 - Request regulatory guidance for specific geographies
 - Discuss use case customization or financial modeling
 
@@ -460,7 +460,7 @@ Access notes in PowerPoint by clicking "Notes" view at bottom of editor.
 
 This template is provided by Rodney.AI for client presentations and internal use. Customization is permitted and encouraged. Attribution to Rodney.AI is appreciated but not required.
 
-For template updates, modifications, or feedback: advisor@rodney-ai.com
+For template updates, modifications, or feedback: rodney@theenterpriseai.co.uk
 
 ---
 

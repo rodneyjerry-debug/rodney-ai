@@ -136,7 +136,7 @@ The Scoreboard is not four independent levers. It is a system. And capital effic
 
 **Rodney Coutinho** is the founder of Enterprise.AI and a Partner at Deloitte's AI & Data practice in the Middle East. He advises bank boards, regulators, and sovereign institutions on AI strategy, governance, and delivery — with a focus on connecting AI investment to P&L, ROE, and market cap.
 
-The Banking 2030 Scoreboard is a 5-part series sizing the AI-led opportunity for the Saudi banking sector. The open Excel model behind the Scoreboard is available on request at meridian@rodney-ai.com.
+The Banking 2030 Scoreboard is a 5-part series sizing the AI-led opportunity for the Saudi banking sector. The open Excel model behind the Scoreboard is available on request at rodney@theenterpriseai.co.uk.
 
 ---
 
@@ -172,4 +172,4 @@ Part 2: Which Saudi bank puts the first sukuk on-chain? — Tokenization
 Part 4 (next): The Sovereign Ecosystem — PIF, HUMAIN, and the demand side of AI
 Part 5: The Scoreboard — all four levers, three scenarios, one number for the board
 
-The open Excel model behind the Scoreboard is available on request. DM or email meridian@rodney-ai.com.
+The open Excel model behind the Scoreboard is available on request. DM or email rodney@theenterpriseai.co.uk.

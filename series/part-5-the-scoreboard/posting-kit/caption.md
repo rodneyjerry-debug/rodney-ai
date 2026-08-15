@@ -23,7 +23,7 @@ The question is whether banks can match that velocity.
 
 The open Excel model behind this Scoreboard is available on request — with assumptions you can challenge and scenarios you can customise for your institution.
 
-DM or email meridian@rodney-ai.com.
+DM or email rodney@theenterpriseai.co.uk.
 
 Full carousel below. All five parts linked in comments.
 
@@ -43,7 +43,7 @@ Part 4: PIF, HUMAIN, and the demand side of AI — Sovereign Ecosystem (SAR 7.1B
 
 The Scoreboard model is an open Excel workbook. Assumptions are transparent. Sensitivities are built in. Scenarios are customisable.
 
-Request a copy: meridian@rodney-ai.com
+Request a copy: rodney@theenterpriseai.co.uk
 
 One question for every bank board in Saudi Arabia: do you have a single executive who sees all four levers — and owns the programme to capture them?
 

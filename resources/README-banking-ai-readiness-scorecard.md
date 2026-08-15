@@ -179,7 +179,7 @@ This scorecard reflects Rodney.AI's brand promise: **SCALE · GOVERN · UNLOCK**
 
 For questions about the scorecard framework, interpretations, or how to apply findings:
 
-**Email:** advisor@rodney-ai.com
+**Email:** rodney@theenterpriseai.co.uk
 
 ---
 
