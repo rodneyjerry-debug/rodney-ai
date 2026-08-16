@@ -1,13 +1,22 @@
-/* Enterprise.AI — Accelerator content gate + password-protected downloads
-   Shows header + first 2 cards, fades rest with CTA overlay.
-   Download button requires SHA-256 password check.
-   Default password: EnterpriseAI — change the hash below to update. */
+/* Enterprise.AI — Accelerator content gate + download prompt
+   Shows header + first 2 cards, fades the rest behind a CTA overlay.
+   The download button prompts for a password and compares its SHA-256
+   against PASSWORD_HASH below.
+
+   To change the password, replace PASSWORD_HASH with the SHA-256 of the
+   new one and update BYPASS_KEY to match:
+     node -e "console.log(require('crypto').createHash('sha256').update('NEW').digest('hex'))"
+
+   This is a courtesy gate, not access control. It runs entirely in the
+   browser, and the PDFs under downloads/ are served directly by URL, so
+   anyone who wants them can fetch them without passing through here. */
 
 (function () {
   'use strict';
 
   /* ── CONFIG ─────────────────────────────────────────────── */
   var PASSWORD_HASH = '57f9ff1d28a75d789a4c91829f2b8284e66a510d6b9f37b85fee2c6167a6df48';
+  var BYPASS_KEY    = 'EnterpriseAI';   // ?key=... reveals the gated cards
   var CONTACT_EMAIL = 'rodney@theenterpriseai.co.uk';
   var SHOW_CARDS    = 2;   // cards visible before gate
 
@@ -114,9 +123,9 @@
 
   /* ── CONTENT GATE (preview / fade) ──────────────────────── */
   function applyContentGate() {
-    // Bypass gate with ?key=rodney
+    // Bypass the gate with ?key=<BYPASS_KEY>
     var params = new URLSearchParams(window.location.search);
-    if (params.get('key') === 'EnterpriseAI') return;
+    if (params.get('key') === BYPASS_KEY) return;
 
     var cards = document.querySelectorAll('.card, .domain-section, .agent-card');
     if (cards.length < SHOW_CARDS + 1) return;
