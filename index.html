@@ -296,6 +296,7 @@
 <script>
 (function(){
   var accs=[
+    {icon:"🔌",name:"MCP Data Agent — SEC EDGAR",hook:"Call real Model Context Protocol tools against SEC filings — every figure carrying the XBRL tag it came from.",url:"accelerators/mcp-edgar-agent.html"},
     {icon:"📊",name:"AI Maturity Assessment",hook:"Benchmark your institution across 6 AI capability dimensions with peer comparison.",url:"accelerators/fs-ai-maturity-assessment.html"},
     {icon:"🛡️",name:"AI Governance Framework",hook:"Board-ready governance structure mapped to SR 11-7, SS1/23, NIST AI RMF and EU AI Act.",url:"accelerators/ai-governance-framework.html"},
     {icon:"⚖️",name:"AI Risk Taxonomy",hook:"175+ risk scenarios across 8 banking domains — scored by likelihood, impact, and velocity.",url:"accelerators/ai-risk-taxonomy.html"},
@@ -312,7 +313,8 @@
     {icon:"🎓",name:"Executive AI Training",hook:"Half-day to 3-day board and C-suite AI programmes — customised to your institution.",url:"accelerators/executive-ai-training.html"}
   ];
   var today=Math.floor(Date.now()/86400000)%accs.length;
-  var a=accs[today];
+  var PIN_UNTIL=Date.parse("2026-09-30");   // launch pin: newest accelerator first, then normal rotation
+  var a=(Date.now()<PIN_UNTIL)?accs[0]:accs[today];
   document.getElementById("faIcon").textContent=a.icon;
   document.getElementById("faName").textContent=a.name;
   document.getElementById("faHook").textContent=a.hook;

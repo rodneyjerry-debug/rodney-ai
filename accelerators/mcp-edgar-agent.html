@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-QZ9C4MLQS8");
+</script>
+<title>MCP Data Agent — SEC EDGAR | Enterprise.AI Accelerator</title>
+<meta name="description" content="Call real Model Context Protocol tools against SEC EDGAR filings. Four tools, five companies, every figure carrying the XBRL tag it came from."/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="_shared.css"/>
+<style>
+:root{
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ok:#34d399; --ok-bg:rgba(52,211,153,.12); --ok-bd:rgba(52,211,153,.30);
+  --warn:#fbbf24; --warn-bg:rgba(251,191,36,.13); --warn-bd:rgba(251,191,36,.34);
+  --none:#94a3b8; --none-bg:rgba(148,163,184,.12); --none-bd:rgba(148,163,184,.28);
+}
+.snapshot-note{
+  display:flex;gap:12px;align-items:flex-start;
+  background:rgba(251,191,36,.07);border:1px solid var(--warn-bd);
+  border-radius:12px;padding:14px 18px;margin:0 0 24px;font-size:13.5px;color:var(--text-dim);
+}
+.snapshot-note b{color:var(--warn);font-weight:600}
+.snapshot-note .ico{color:var(--warn);flex:none;font-size:15px;line-height:1.4}
+
+/* ---------- CONSOLE ---------- */
+.console{display:grid;grid-template-columns:238px minmax(0,1fr);gap:0;
+  border:1px solid var(--border-strong);border-radius:16px;overflow:hidden;background:var(--surface)}
+@media(max-width:820px){.console{grid-template-columns:1fr}}
+.rail{background:var(--bg-2);border-right:1px solid var(--border);padding:20px 18px}
+@media(max-width:820px){.rail{border-right:none;border-bottom:1px solid var(--border)}}
+.rail-lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-muted);margin:0 0 9px}
+.rail-lbl.mt{margin-top:22px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--mono);font-size:12px;font-weight:500;padding:5px 10px;border-radius:6px;
+  border:1px solid var(--border-strong);background:transparent;color:var(--text-dim);
+  cursor:pointer;transition:all .18s;font-feature-settings:"tnum"}
+.chip:hover{border-color:rgba(124,92,255,.5);color:var(--text)}
+.chip[aria-pressed="true"]{background:rgba(124,92,255,.18);border-color:var(--accent);color:#cfc4ff;font-weight:600}
+.chip:focus-visible,.toolbtn:focus-visible,.tab:focus-visible,.callbtn:focus-visible{
+  outline:2px solid var(--accent-2);outline-offset:2px}
+.tools{display:flex;flex-direction:column;gap:5px}
+.toolbtn{font-family:var(--mono);font-size:12px;text-align:left;padding:8px 10px;border-radius:6px;
+  border:1px solid var(--border);background:transparent;color:var(--text-dim);cursor:pointer;transition:all .18s}
+.toolbtn:hover{border-color:rgba(124,92,255,.45);color:var(--text)}
+.toolbtn[aria-pressed="true"]{border-color:var(--accent);background:rgba(124,92,255,.14);color:#cfc4ff;font-weight:600}
+.params{margin-top:14px;display:none}
+.params.show{display:block}
+.params select{font-family:var(--mono);font-size:12px;background:var(--surface-2);color:var(--text);
+  border:1px solid var(--border-strong);border-radius:6px;padding:6px 8px;width:100%}
+.hint{font-size:11px;color:var(--text-muted);margin-top:8px;line-height:1.5}
+.callbtn{margin-top:20px;width:100%;background:var(--gradient);color:#0a0e1a;border:none;border-radius:8px;
+  padding:11px;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer;transition:filter .18s}
+.callbtn:hover{filter:brightness(1.12)}
+.callbtn:disabled{opacity:.45;cursor:not-allowed}
+
+.out{display:flex;flex-direction:column;min-width:0}
+.tabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg-2);flex-wrap:wrap}
+.tab{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;padding:11px 16px;background:none;
+  border:none;border-bottom:2px solid transparent;color:var(--text-muted);cursor:pointer;transition:all .18s}
+.tab:hover{color:var(--text-dim)}
+.tab[aria-selected="true"]{color:var(--accent-2);border-bottom-color:var(--accent-2);font-weight:600}
+.out-body{padding:20px;min-height:330px}
+.empty{color:var(--text-muted);font-size:13.5px;display:flex;align-items:center;
+  justify-content:center;min-height:290px;text-align:center;padding:0 20px;line-height:1.7}
+
+.ident{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding-bottom:14px;
+  border-bottom:1px solid var(--border);margin-bottom:16px}
+.ident .tkr{font-family:var(--mono);font-size:20px;font-weight:600;color:var(--text)}
+.ident .nm{font-size:14.5px;color:var(--text-dim)}
+.ident .cik{font-family:var(--mono);font-size:11.5px;color:var(--text-muted)}
+
+.tbl-scroll{overflow-x:auto}
+table.data{border-collapse:collapse;width:100%;font-size:13px}
+table.data th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--text-muted);font-weight:500;padding:0 14px 8px 0;
+  border-bottom:1px solid var(--border-strong);white-space:nowrap}
+table.data th.r,table.data td.r{text-align:right}
+table.data td{padding:9px 14px 9px 0;border-bottom:1px solid var(--border);color:var(--text-dim);vertical-align:middle}
+table.data td.lbl{color:var(--text);font-weight:500}
+table.data td.val{font-family:var(--mono);font-weight:600;font-variant-numeric:tabular-nums;
+  white-space:nowrap;color:var(--text)}
+table.data td.prov{font-family:var(--mono);font-size:11px;color:var(--text-muted);white-space:nowrap}
+tr.is-stale td.val{color:var(--warn)}
+tr.is-unres td.val{color:var(--none);font-style:italic;font-weight:400}
+.pill{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;padding:3px 7px;border-radius:4px;font-weight:600;white-space:nowrap;border:1px solid}
+.pill.ok{background:transparent;color:var(--text-muted);border-color:transparent;font-weight:500;padding-left:0}
+.pill.warn{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-bd)}
+.pill.none{background:var(--none-bg);color:var(--none);border-color:var(--none-bd)}
+.flag{display:flex;gap:10px;align-items:flex-start;border-radius:10px;padding:12px 15px;
+  margin:16px 0 0;font-size:12.5px;line-height:1.6}
+.flag.warn{background:var(--warn-bg);border:1px solid var(--warn-bd);color:var(--text-dim)}
+.flag.none{background:var(--none-bg);border:1px solid var(--none-bd);color:var(--text-dim)}
+.flag b{font-weight:600}
+.flag.warn b{color:var(--warn)}
+.flag.none b{color:var(--none)}
+pre.wire{font-family:var(--mono);font-size:12px;line-height:1.65;background:#070a14;
+  border:1px solid var(--border);border-radius:10px;padding:16px;overflow-x:auto;
+  color:#c8d3e8;margin:0;white-space:pre}
+pre.wire .k{color:#7dd3fc}
+pre.wire .s{color:#a5f3c8}
+pre.wire .c{color:#5f6b85}
+.calls{font-family:var(--mono);font-size:11px;color:var(--text-muted);margin-bottom:10px}
+
+/* ---------- SEQUENCE ---------- */
+.seq{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:22px 0 6px}
+.seq-step{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:16px}
+.seq-step .n{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--accent-2);
+  display:block;margin-bottom:8px}
+.seq-step .t{font-family:var(--mono);font-size:13px;color:var(--text);font-weight:600;margin-bottom:6px}
+.seq-step .d{font-size:12.5px;color:var(--text-dim);line-height:1.55}
+.two-col{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <a href="../tools.html" class="back">← Back to Enterprise.AI</a>
+
+  <div class="header">
+    <div class="eyebrow"><span class="dot"></span>Accelerator · Model Context Protocol</div>
+    <h1 class="display">MCP Data Agent — <span class="gradient-text">SEC EDGAR</span></h1>
+    <p class="lead">Every other prototype here shows an agent doing a task. This one shows the layer underneath — how a model reaches a data source it has never seen before, and what it has to be told before the answer can be trusted.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">4</div><div class="hero-stat-label">MCP Tools Exposed</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-label">Companies in Scope</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">8</div><div class="hero-stat-label">Concepts per Filer</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-label">Figures Tag-Traceable</div></div>
+    </div>
+  </div>
+
+  <div class="snapshot-note">
+    <span class="ico">◆</span>
+    <div><b>Real SEC data, served from a snapshot.</b> These are genuine XBRL figures pulled from EDGAR company facts on <span id="snapDate">—</span> by a working MCP server, then bundled with this page so the tools respond without a live backend. Five companies only. Nothing here is invented, and nothing here is live — if a filer amends a statement tomorrow, this page will not know.</div>
+  </div>
+
+  <div class="card" style="padding:0;overflow:hidden">
+    <div class="console">
+      <div class="rail">
+        <p class="rail-lbl">Company</p>
+        <div class="chips" id="tickerChips"></div>
+        <p class="rail-lbl mt">Tool</p>
+        <div class="tools" id="toolBtns"></div>
+        <div class="params" id="paramFilings">
+          <p class="rail-lbl">Filings to return</p>
+          <select id="limitSel"><option>3</option><option selected>5</option></select>
+          <p class="hint">Form type fixed to 10-K in this snapshot.</p>
+        </div>
+        <div class="params" id="paramPeers">
+          <p class="hint">Select two or more companies above to build a peer set.</p>
+        </div>
+        <button class="callbtn" id="callBtn">Call tool</button>
+      </div>
+
+      <div class="out">
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" aria-selected="true" data-view="rendered">Rendered</button>
+          <button class="tab" role="tab" aria-selected="false" data-view="wire">JSON-RPC</button>
+          <button class="tab" role="tab" aria-selected="false" data-view="raw">Raw text</button>
+        </div>
+        <div class="out-body" id="outBody">
+          <div class="empty">Pick a company and a tool, then call it.<br/>The rendered tab reads the response; the other two show it untouched.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>What just happened</h2>
+    <p>A client that has never seen this server asks what it can do, and the server answers with typed tool definitions. No integration code is written on either side — that handshake is the whole point of the protocol.</p>
+    <div class="seq">
+      <div class="seq-step"><span class="n">STEP 1</span><div class="t">initialize</div><div class="d">Client and server agree a protocol version and exchange capabilities.</div></div>
+      <div class="seq-step"><span class="n">STEP 2</span><div class="t">tools/list</div><div class="d">The server returns each tool's name, description and JSON schema. This is how a model knows <code>get_fundamentals</code> takes a ticker.</div></div>
+      <div class="seq-step"><span class="n">STEP 3</span><div class="t">tools/call</div><div class="d">One tool, arguments matching the schema. The server does the work and returns content blocks.</div></div>
+      <div class="seq-step"><span class="n">STEP 4</span><div class="t">Read the answer</div><div class="d">Text comes back. What the caller does with it — including how honestly it renders gaps — is the part nobody else can do for you.</div></div>
+    </div>
+    <p style="margin-top:18px">The same server runs over stdio as a subprocess or over HTTP as a service, and one flag switches between them. Every message above is identical either way. What is <em>not</em> identical is the security posture: over stdio the server inherits the trust of whoever launched it; over HTTP it is reachable by anything on the network and authentication, rate limiting and entitlement checks all become its problem. That distinction is where most enterprise MCP conversations should start.</p>
+  </div>
+
+  <div class="card">
+    <h2>Three decisions that make the data usable</h2>
+    <div class="two-col">
+      <div>
+        <h3>Filers disagree on tags</h3>
+        <p>The same economic concept is filed under different XBRL tags by different registrants. Revenue alone resolves through four candidates. The server tries them in priority order and records which one won — that tag travels with the number to the screen.</p>
+      </div>
+      <div>
+        <h3>Missing is not zero</h3>
+        <p>When no candidate tag resolves, the concept is reported <em>unresolved</em> and never as zero. Intuit files no separate depreciation and amortisation line. A pipeline that substituted zero there would produce an EBITDA that is simply wrong, and would look entirely plausible doing it.</p>
+      </div>
+      <div>
+        <h3>Abandoned tags go stale</h3>
+        <p>A filer that stops using a tag leaves its last value in the fact set forever. Adobe's non-current debt still resolves to a 2009 figure. Presented next to current numbers it reads as current, so anything far behind the reference period is flagged rather than shown unqualified.</p>
+      </div>
+      <div>
+        <h3>And one honest limit</h3>
+        <p>EDGAR carries no share price and no market capitalisation. Enterprise value, EV/EBITDA and P/E cannot be produced from this source at all. Naming what a dataset cannot do is worth more than any number it can.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="text-align:center">
+    <h2>Considering MCP for your institution?</h2>
+    <p style="max-width:560px;margin:0 auto 20px">The interesting questions are not about the protocol. They are about entitlements, audit trails, and which of your systems should be a server at all.</p>
+    <a href="mailto:rodney@theenterpriseai.co.uk?subject=MCP%20and%20agent%20architecture" class="btn-cta">Book a briefing →</a>
+  </div>
+
+  <p style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:8px">
+    Source data: SEC EDGAR XBRL company facts, public domain. Enterprise.AI · Riyadh · Doha · Dubai · London
+  </p>
+</div>
+<script>window.__EDGAR_SNAPSHOT__={"generated":"2026-08-31","source":"SEC EDGAR XBRL companyfacts + submissions","server":"edgar_server.py","concept_order":["revenue","operating_income","depreciation_amortization","net_income","cash","debt_current","debt_noncurrent","shares_outstanding"],"tag_candidates":{"revenue":["RevenueFromContractWithCustomerExcludingAssessedTax","Revenues","RevenueFromContractWithCustomerIncludingAssessedTax","SalesRevenueNet"],"operating_income":["OperatingIncomeLoss"],"depreciation_amortization":["DepreciationDepletionAndAmortization","DepreciationAmortizationAndAccretionNet","DepreciationAndAmortization"],"net_income":["NetIncomeLoss"],"cash":["CashAndCashEquivalentsAtCarryingValue","CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents"],"debt_current":["LongTermDebtCurrent","DebtCurrent"],"debt_noncurrent":["LongTermDebtNoncurrent","LongTermDebt"],"shares_outstanding":["EntityCommonStockSharesOutstanding"]},"companies":{"ADBE":{"name":"ADOBE INC.","cik":"0000796343","reference_period":"2026-01-09","fiscal_year_end":"2025-11-28","concepts":{"revenue":{"value":23769000000,"tag":"Revenues","period_end":"2025-11-28","stale":false,"display":"$23.77B"},"operating_income":{"value":8706000000,"tag":"OperatingIncomeLoss","period_end":"2025-11-28","stale":false,"display":"$8.71B"},"depreciation_amortization":{"value":818000000,"tag":"DepreciationDepletionAndAmortization","period_end":"2025-11-28","stale":false,"display":"$818.0M"},"net_income":{"value":7130000000,"tag":"NetIncomeLoss","period_end":"2025-11-28","stale":false,"display":"$7.13B"},"cash":{"value":5431000000,"tag":"CashAndCashEquivalentsAtCarryingValue","period_end":"2025-11-28","stale":false,"display":"$5.43B"},"debt_current":{"value":0,"tag":"LongTermDebtCurrent","period_end":"2025-11-28","stale":false,"display":"$0"},"debt_noncurrent":{"value":1000000000,"tag":"LongTermDebtNoncurrent","period_end":"2009-11-27","stale":true,"display":"$1.00B"},"shares_outstanding":{"value":410500000,"tag":"EntityCommonStockSharesOutstanding","period_end":"2026-01-09","stale":false,"display":"410,500,000"}},"unresolved":[],"stale":[{"concept":"debt_noncurrent","last":"2009-11-27"}],"filings":[{"filed":"2026-01-15","period":"2025-11-28","accession":"0000796343-26-000003","url":"https://www.sec.gov/Archives/edgar/data/796343/000079634326000003/"},{"filed":"2025-01-13","period":"2024-11-29","accession":"0000796343-25-000004","url":"https://www.sec.gov/Archives/edgar/data/796343/000079634325000004/"},{"filed":"2024-01-17","period":"2023-12-01","accession":"0000796343-24-000006","url":"https://www.sec.gov/Archives/edgar/data/796343/000079634324000006/"},{"filed":"2023-01-17","period":"2022-12-02","accession":"0000796343-23-000007","url":"https://www.sec.gov/Archives/edgar/data/796343/000079634323000007/"},{"filed":"2022-01-21","period":"2021-12-03","accession":"0000796343-22-000032","url":"https://www.sec.gov/Archives/edgar/data/796343/000079634322000032/"}],"raw":{"lookup_company":"ADBE - ADOBE INC.\nCIK: 0000796343\nMost recent annual period end: 2025-11-28","get_fundamentals":"ADBE - ADOBE INC.  (CIK 0000796343)\nReference period: 2026-01-09\n\n  revenue                               $23.77B   [Revenues @ 2025-11-28]\n  operating income                       $8.71B   [OperatingIncomeLoss @ 2025-11-28]\n  depreciation amortization             $818.0M   [DepreciationDepletionAndAmortization @ 2025-11-28]\n  net income                             $7.13B   [NetIncomeLoss @ 2025-11-28]\n  cash                                   $5.43B   [CashAndCashEquivalentsAtCarryingValue @ 2025-11-28]\n  debt current                               $0   [LongTermDebtCurrent @ 2025-11-28]\n  debt noncurrent                        $1.00B   [LongTermDebtNoncurrent @ 2009-11-27]  <-- STALE\n  shares outstanding                410,500,000   [EntityCommonStockSharesOutstanding @ 2026-01-09]\n\nSTALE - the filer appears to have stopped reporting these;\nthe value shown is the last one filed and is NOT current:\n  debt_noncurrent (last reported 2009-11-27)","list_filings":"ADBE - ADOBE INC.: most recent 10-K filings\n\n  2026-01-15  period 2025-11-28    0000796343-26-000003\n      https://www.sec.gov/Archives/edgar/data/796343/000079634326000003/\n  2025-01-13  period 2024-11-29    0000796343-25-000004\n      https://www.sec.gov/Archives/edgar/data/796343/000079634325000004/\n  2024-01-17  period 2023-12-01    0000796343-24-000006\n      https://www.sec.gov/Archives/edgar/data/796343/000079634324000006/\n  2023-01-17  period 2022-12-02    0000796343-23-000007\n      https://www.sec.gov/Archives/edgar/data/796343/000079634323000007/\n  2022-01-21  period 2021-12-03    0000796343-22-000032\n      https://www.sec.gov/Archives/edgar/data/796343/000079634322000032/"}},"INTU":{"name":"INTUIT INC.","cik":"0000896878","reference_period":"2025-08-26","fiscal_year_end":"2025-07-31","concepts":{"revenue":{"value":18831000000,"tag":"RevenueFromContractWithCustomerExcludingAssessedTax","period_end":"2025-07-31","stale":false,"display":"$18.83B"},"operating_income":{"value":4923000000,"tag":"OperatingIncomeLoss","period_end":"2025-07-31","stale":false,"display":"$4.92B"},"depreciation_amortization":null,"net_income":{"value":3869000000,"tag":"NetIncomeLoss","period_end":"2025-07-31","stale":false,"display":"$3.87B"},"cash":{"value":2884000000,"tag":"CashAndCashEquivalentsAtCarryingValue","period_end":"2025-07-31","stale":false,"display":"$2.88B"},"debt_current":{"value":0,"tag":"LongTermDebtCurrent","period_end":"2025-07-31","stale":false,"display":"$0"},"debt_noncurrent":{"value":5973000000,"tag":"LongTermDebtNoncurrent","period_end":"2025-07-31","stale":false,"display":"$5.97B"},"shares_outstanding":{"value":278805000,"tag":"EntityCommonStockSharesOutstanding","period_end":"2025-08-26","stale":false,"display":"278,805,000"}},"unresolved":["depreciation_amortization"],"stale":[],"filings":[{"filed":"2025-09-03","period":"2025-07-31","accession":"0000896878-25-000035","url":"https://www.sec.gov/Archives/edgar/data/896878/000089687825000035/"},{"filed":"2024-09-04","period":"2024-07-31","accession":"0000896878-24-000039","url":"https://www.sec.gov/Archives/edgar/data/896878/000089687824000039/"},{"filed":"2023-09-01","period":"2023-07-31","accession":"0000896878-23-000034","url":"https://www.sec.gov/Archives/edgar/data/896878/000089687823000034/"},{"filed":"2022-09-02","period":"2022-07-31","accession":"0000896878-22-000028","url":"https://www.sec.gov/Archives/edgar/data/896878/000089687822000028/"},{"filed":"2021-09-08","period":"2021-07-31","accession":"0000896878-21-000233","url":"https://www.sec.gov/Archives/edgar/data/896878/000089687821000233/"}],"raw":{"lookup_company":"INTU - INTUIT INC.\nCIK: 0000896878\nMost recent annual period end: 2025-07-31","get_fundamentals":"INTU - INTUIT INC.  (CIK 0000896878)\nReference period: 2025-08-26\n\n  revenue                               $18.83B   [RevenueFromContractWithCustomerExcludingAssessedTax @ 2025-07-31]\n  operating income                       $4.92B   [OperatingIncomeLoss @ 2025-07-31]\n  depreciation amortization          unresolved\n  net income                             $3.87B   [NetIncomeLoss @ 2025-07-31]\n  cash                                   $2.88B   [CashAndCashEquivalentsAtCarryingValue @ 2025-07-31]\n  debt current                               $0   [LongTermDebtCurrent @ 2025-07-31]\n  debt noncurrent                        $5.97B   [LongTermDebtNoncurrent @ 2025-07-31]\n  shares outstanding                278,805,000   [EntityCommonStockSharesOutstanding @ 2025-08-26]\n\nUNRESOLVED - do not treat these as zero:\n  depreciation_amortization","list_filings":"INTU - INTUIT INC.: most recent 10-K filings\n\n  2025-09-03  period 2025-07-31    0000896878-25-000035\n      https://www.sec.gov/Archives/edgar/data/896878/000089687825000035/\n  2024-09-04  period 2024-07-31    0000896878-24-000039\n      https://www.sec.gov/Archives/edgar/data/896878/000089687824000039/\n  2023-09-01  period 2023-07-31    0000896878-23-000034\n      https://www.sec.gov/Archives/edgar/data/896878/000089687823000034/\n  2022-09-02  period 2022-07-31    0000896878-22-000028\n      https://www.sec.gov/Archives/edgar/data/896878/000089687822000028/\n  2021-09-08  period 2021-07-31    0000896878-21-000233\n      https://www.sec.gov/Archives/edgar/data/896878/000089687821000233/"}},"CRM":{"name":"Salesforce, Inc.","cik":"0001108524","reference_period":"2026-02-25","fiscal_year_end":"2026-01-31","concepts":{"revenue":{"value":41525000000,"tag":"RevenueFromContractWithCustomerExcludingAssessedTax","period_end":"2026-01-31","stale":false,"display":"$41.52B"},"operating_income":{"value":8331000000,"tag":"OperatingIncomeLoss","period_end":"2026-01-31","stale":false,"display":"$8.33B"},"depreciation_amortization":{"value":1200000000,"tag":"DepreciationDepletionAndAmortization","period_end":"2026-01-31","stale":false,"display":"$1.20B"},"net_income":{"value":7457000000,"tag":"NetIncomeLoss","period_end":"2026-01-31","stale":false,"display":"$7.46B"},"cash":{"value":7327000000,"tag":"CashAndCashEquivalentsAtCarryingValue","period_end":"2026-01-31","stale":false,"display":"$7.33B"},"debt_current":{"value":4000000000,"tag":"LongTermDebtCurrent","period_end":"2026-01-31","stale":false,"display":"$4.00B"},"debt_noncurrent":{"value":10439000000,"tag":"LongTermDebtNoncurrent","period_end":"2026-01-31","stale":false,"display":"$10.44B"},"shares_outstanding":{"value":923000000,"tag":"EntityCommonStockSharesOutstanding","period_end":"2026-02-25","stale":false,"display":"923,000,000"}},"unresolved":[],"stale":[],"filings":[{"filed":"2026-03-02","period":"2026-01-31","accession":"0001108524-26-000060","url":"https://www.sec.gov/Archives/edgar/data/1108524/000110852426000060/"},{"filed":"2025-03-05","period":"2025-01-31","accession":"0001108524-25-000006","url":"https://www.sec.gov/Archives/edgar/data/1108524/000110852425000006/"},{"filed":"2024-03-06","period":"2024-01-31","accession":"0001108524-24-000005","url":"https://www.sec.gov/Archives/edgar/data/1108524/000110852424000005/"}],"raw":{"lookup_company":"CRM - Salesforce, Inc.\nCIK: 0001108524\nMost recent annual period end: 2026-01-31","get_fundamentals":"CRM - Salesforce, Inc.  (CIK 0001108524)\nReference period: 2026-02-25\n\n  revenue                               $41.52B   [RevenueFromContractWithCustomerExcludingAssessedTax @ 2026-01-31]\n  operating income                       $8.33B   [OperatingIncomeLoss @ 2026-01-31]\n  depreciation amortization              $1.20B   [DepreciationDepletionAndAmortization @ 2026-01-31]\n  net income                             $7.46B   [NetIncomeLoss @ 2026-01-31]\n  cash                                   $7.33B   [CashAndCashEquivalentsAtCarryingValue @ 2026-01-31]\n  debt current                           $4.00B   [LongTermDebtCurrent @ 2026-01-31]\n  debt noncurrent                       $10.44B   [LongTermDebtNoncurrent @ 2026-01-31]\n  shares outstanding                923,000,000   [EntityCommonStockSharesOutstanding @ 2026-02-25]","list_filings":"CRM - Salesforce, Inc.: most recent 10-K filings\n\n  2026-03-02  period 2026-01-31    0001108524-26-000060\n      https://www.sec.gov/Archives/edgar/data/1108524/000110852426000060/\n  2025-03-05  period 2025-01-31    0001108524-25-000006\n      https://www.sec.gov/Archives/edgar/data/1108524/000110852425000006/\n  2024-03-06  period 2024-01-31    0001108524-24-000005\n      https://www.sec.gov/Archives/edgar/data/1108524/000110852424000005/"}},"WDAY":{"name":"Workday, Inc.","cik":"0001327811","reference_period":"2026-01-31","fiscal_year_end":"2026-01-31","concepts":{"revenue":{"value":9552000000,"tag":"RevenueFromContractWithCustomerExcludingAssessedTax","period_end":"2026-01-31","stale":false,"display":"$9.55B"},"operating_income":{"value":721000000,"tag":"OperatingIncomeLoss","period_end":"2026-01-31","stale":false,"display":"$721.0M"},"depreciation_amortization":{"value":17722000,"tag":"DepreciationDepletionAndAmortization","period_end":"2013-01-31","stale":true,"display":"$17.7M"},"net_income":{"value":693000000,"tag":"NetIncomeLoss","period_end":"2026-01-31","stale":false,"display":"$693.0M"},"cash":{"value":1501000000,"tag":"CashAndCashEquivalentsAtCarryingValue","period_end":"2026-01-31","stale":false,"display":"$1.50B"},"debt_current":{"value":0,"tag":"LongTermDebtCurrent","period_end":"2023-01-31","stale":true,"display":"$0"},"debt_noncurrent":{"value":2987000000,"tag":"LongTermDebtNoncurrent","period_end":"2026-01-31","stale":false,"display":"$2.99B"},"shares_outstanding":{"value":212000000,"tag":"EntityCommonStockSharesOutstanding","period_end":"2018-02-28","stale":true,"display":"212,000,000"}},"unresolved":[],"stale":[{"concept":"depreciation_amortization","last":"2013-01-31"},{"concept":"debt_current","last":"2023-01-31"},{"concept":"shares_outstanding","last":"2018-02-28"}],"filings":[{"filed":"2026-03-06","period":"2026-01-31","accession":"0001327811-26-000014","url":"https://www.sec.gov/Archives/edgar/data/1327811/000132781126000014/"},{"filed":"2025-03-11","period":"2025-01-31","accession":"0001327811-25-000056","url":"https://www.sec.gov/Archives/edgar/data/1327811/000132781125000056/"},{"filed":"2024-03-08","period":"2024-01-31","accession":"0001327811-24-000044","url":"https://www.sec.gov/Archives/edgar/data/1327811/000132781124000044/"},{"filed":"2023-02-27","period":"2023-01-31","accession":"0001327811-23-000024","url":"https://www.sec.gov/Archives/edgar/data/1327811/000132781123000024/"},{"filed":"2022-02-28","period":"2022-01-31","accession":"0001327811-22-000030","url":"https://www.sec.gov/Archives/edgar/data/1327811/000132781122000030/"}],"raw":{"lookup_company":"WDAY - Workday, Inc.\nCIK: 0001327811\nMost recent annual period end: 2026-01-31","get_fundamentals":"WDAY - Workday, Inc.  (CIK 0001327811)\nReference period: 2026-01-31\n\n  revenue                                $9.55B   [RevenueFromContractWithCustomerExcludingAssessedTax @ 2026-01-31]\n  operating income                      $721.0M   [OperatingIncomeLoss @ 2026-01-31]\n  depreciation amortization              $17.7M   [DepreciationDepletionAndAmortization @ 2013-01-31]  <-- STALE\n  net income                            $693.0M   [NetIncomeLoss @ 2026-01-31]\n  cash                                   $1.50B   [CashAndCashEquivalentsAtCarryingValue @ 2026-01-31]\n  debt current                               $0   [LongTermDebtCurrent @ 2023-01-31]  <-- STALE\n  debt noncurrent                        $2.99B   [LongTermDebtNoncurrent @ 2026-01-31]\n  shares outstanding                212,000,000   [EntityCommonStockSharesOutstanding @ 2018-02-28]  <-- STALE\n\nSTALE - the filer appears to have stopped reporting these;\nthe value shown is the last one filed and is NOT current:\n  depreciation_amortization (last reported 2013-01-31)\n  debt_current (last reported 2023-01-31)\n  shares_outstanding (last reported 2018-02-28)","list_filings":"WDAY - Workday, Inc.: most recent 10-K filings\n\n  2026-03-06  period 2026-01-31    0001327811-26-000014\n      https://www.sec.gov/Archives/edgar/data/1327811/000132781126000014/\n  2025-03-11  period 2025-01-31    0001327811-25-000056\n      https://www.sec.gov/Archives/edgar/data/1327811/000132781125000056/\n  2024-03-08  period 2024-01-31    0001327811-24-000044\n      https://www.sec.gov/Archives/edgar/data/1327811/000132781124000044/\n  2023-02-27  period 2023-01-31    0001327811-23-000024\n      https://www.sec.gov/Archives/edgar/data/1327811/000132781123000024/\n  2022-02-28  period 2022-01-31    0001327811-22-000030\n      https://www.sec.gov/Archives/edgar/data/1327811/000132781122000030/"}},"NOW":{"name":"ServiceNow, Inc.","cik":"0001373715","reference_period":"2026-01-23","fiscal_year_end":"2025-12-31","concepts":{"revenue":{"value":13278000000,"tag":"RevenueFromContractWithCustomerExcludingAssessedTax","period_end":"2025-12-31","stale":false,"display":"$13.28B"},"operating_income":{"value":1824000000,"tag":"OperatingIncomeLoss","period_end":"2025-12-31","stale":false,"display":"$1.82B"},"depreciation_amortization":{"value":738000000,"tag":"DepreciationDepletionAndAmortization","period_end":"2025-12-31","stale":false,"display":"$738.0M"},"net_income":{"value":1748000000,"tag":"NetIncomeLoss","period_end":"2025-12-31","stale":false,"display":"$1.75B"},"cash":{"value":3726000000,"tag":"CashAndCashEquivalentsAtCarryingValue","period_end":"2025-12-31","stale":false,"display":"$3.73B"},"debt_current":{"value":0,"tag":"LongTermDebtCurrent","period_end":"2022-12-31","stale":true,"display":"$0"},"debt_noncurrent":null,"shares_outstanding":{"value":1046000000,"tag":"EntityCommonStockSharesOutstanding","period_end":"2026-01-23","stale":false,"display":"1,046,000,000"}},"unresolved":["debt_noncurrent"],"stale":[{"concept":"debt_current","last":"2022-12-31"}],"filings":[{"filed":"2026-01-29","period":"2025-12-31","accession":"0001373715-26-000007","url":"https://www.sec.gov/Archives/edgar/data/1373715/000137371526000007/"},{"filed":"2025-01-30","period":"2024-12-31","accession":"0001373715-25-000010","url":"https://www.sec.gov/Archives/edgar/data/1373715/000137371525000010/"},{"filed":"2024-01-25","period":"2023-12-31","accession":"0001373715-24-000030","url":"https://www.sec.gov/Archives/edgar/data/1373715/000137371524000030/"},{"filed":"2023-01-31","period":"2022-12-31","accession":"0001373715-23-000035","url":"https://www.sec.gov/Archives/edgar/data/1373715/000137371523000035/"}],"raw":{"lookup_company":"NOW - ServiceNow, Inc.\nCIK: 0001373715\nMost recent annual period end: 2025-12-31","get_fundamentals":"NOW - ServiceNow, Inc.  (CIK 0001373715)\nReference period: 2026-01-23\n\n  revenue                               $13.28B   [RevenueFromContractWithCustomerExcludingAssessedTax @ 2025-12-31]\n  operating income                       $1.82B   [OperatingIncomeLoss @ 2025-12-31]\n  depreciation amortization             $738.0M   [DepreciationDepletionAndAmortization @ 2025-12-31]\n  net income                             $1.75B   [NetIncomeLoss @ 2025-12-31]\n  cash                                   $3.73B   [CashAndCashEquivalentsAtCarryingValue @ 2025-12-31]\n  debt current                               $0   [LongTermDebtCurrent @ 2022-12-31]  <-- STALE\n  debt noncurrent                    unresolved\n  shares outstanding              1,046,000,000   [EntityCommonStockSharesOutstanding @ 2026-01-23]\n\nSTALE - the filer appears to have stopped reporting these;\nthe value shown is the last one filed and is NOT current:\n  debt_current (last reported 2022-12-31)\n\nUNRESOLVED - do not treat these as zero:\n  debt_noncurrent","list_filings":"NOW - ServiceNow, Inc.: most recent 10-K filings\n\n  2026-01-29  period 2025-12-31    0001373715-26-000007\n      https://www.sec.gov/Archives/edgar/data/1373715/000137371526000007/\n  2025-01-30  period 2024-12-31    0001373715-25-000010\n      https://www.sec.gov/Archives/edgar/data/1373715/000137371525000010/\n  2024-01-25  period 2023-12-31    0001373715-24-000030\n      https://www.sec.gov/Archives/edgar/data/1373715/000137371524000030/\n  2023-01-31  period 2022-12-31    0001373715-23-000035\n      https://www.sec.gov/Archives/edgar/data/1373715/000137371523000035/"}}},"raw_compare_peers":"Ticker  FY end            Revenue   Op income  Net income        Cash\n---------------------------------------------------------------------\nADBE    2025-11-28        $23.77B      $8.71B      $7.13B      $5.43B\nINTU    2025-07-31        $18.83B      $4.92B      $3.87B      $2.88B\nCRM     2026-01-31        $41.52B      $8.33B      $7.46B      $7.33B\nWDAY    2026-01-31         $9.55B     $721.0M     $693.0M      $1.50B\nNOW     2025-12-31        $13.28B      $1.82B      $1.75B      $3.73B\n\nUnresolved concepts (not zero):\n  INTU: depreciation_amortization\n  NOW: debt_noncurrent\n\nNOTE: 4 different fiscal year ends in this set. Normalise before computing multiples."};</script>
+<script>
+(function(){
+  "use strict";
+  var SNAP = window.__EDGAR_SNAPSHOT__;
+  var LABELS = {
+    revenue:"Revenue", operating_income:"Operating income",
+    depreciation_amortization:"Depreciation & amortisation", net_income:"Net income",
+    cash:"Cash & equivalents", debt_current:"Debt — current",
+    debt_noncurrent:"Debt — non-current", shares_outstanding:"Shares outstanding"
+  };
+  var TOOLS = ["lookup_company","get_fundamentals","list_filings","compare_peers"];
+  var TICKERS = Object.keys(SNAP.companies);
+
+  var state = { tool:"get_fundamentals", sel:["ADBE"], view:"rendered", called:null, reqId:2 };
+
+  var $ = function(id){ return document.getElementById(id); };
+  var esc = function(s){ return String(s).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); };
+  var isMulti = function(){ return state.tool === "compare_peers"; };
+
+  /* ---------- rail ---------- */
+  $("snapDate").textContent = new Date(SNAP.generated + "T00:00:00Z")
+    .toLocaleDateString("en-GB", {day:"numeric", month:"long", year:"numeric"});
+
+  TICKERS.forEach(function(t){
+    var b = document.createElement("button");
+    b.className = "chip"; b.type = "button"; b.textContent = t;
+    b.setAttribute("aria-pressed", state.sel.indexOf(t) > -1 ? "true" : "false");
+    b.addEventListener("click", function(){
+      if (isMulti()) {
+        var i = state.sel.indexOf(t);
+        if (i > -1) { if (state.sel.length > 1) state.sel.splice(i,1); }
+        else state.sel.push(t);
+      } else { state.sel = [t]; }
+      sync();
+    });
+    $("tickerChips").appendChild(b);
+  });
+
+  TOOLS.forEach(function(name){
+    var b = document.createElement("button");
+    b.className = "toolbtn"; b.type = "button"; b.textContent = name;
+    b.setAttribute("aria-pressed", name === state.tool ? "true" : "false");
+    b.addEventListener("click", function(){
+      state.tool = name;
+      if (isMulti()) { if (state.sel.length < 2) state.sel = TICKERS.slice(); }
+      else if (state.sel.length > 1) state.sel = [state.sel[0]];
+      sync();
+    });
+    $("toolBtns").appendChild(b);
+  });
+
+  function sync(){
+    Array.prototype.forEach.call($("tickerChips").children, function(b){
+      b.setAttribute("aria-pressed", state.sel.indexOf(b.textContent) > -1 ? "true" : "false");
+    });
+    Array.prototype.forEach.call($("toolBtns").children, function(b){
+      b.setAttribute("aria-pressed", b.textContent === state.tool ? "true" : "false");
+    });
+    $("paramFilings").className = "params" + (state.tool === "list_filings" ? " show" : "");
+    $("paramPeers").className   = "params" + (isMulti() ? " show" : "");
+  }
+
+  /* ---------- call ---------- */
+  $("callBtn").addEventListener("click", function(){
+    state.reqId += 1;
+    state.called = {
+      tool: state.tool,
+      sel: state.sel.slice(),
+      limit: parseInt($("limitSel").value, 10),
+      id: state.reqId
+    };
+    render();
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll(".tab"), function(tab){
+    tab.addEventListener("click", function(){
+      state.view = tab.getAttribute("data-view");
+      Array.prototype.forEach.call(document.querySelectorAll(".tab"), function(t){
+        t.setAttribute("aria-selected", t === tab ? "true" : "false");
+      });
+      render();
+    });
+  });
+
+  /* ---------- argument shape, matching the server's schemas ---------- */
+  function argsFor(c){
+    if (c.tool === "compare_peers") return { tickers: c.sel };
+    if (c.tool === "list_filings")  return { ticker: c.sel[0], form_type: "10-K", limit: c.limit };
+    return { ticker: c.sel[0] };
+  }
+
+  function rawFor(c){
+    if (c.tool === "compare_peers") return SNAP.raw_compare_peers;
+    return SNAP.companies[c.sel[0]].raw[c.tool];
+  }
+
+  /* ---------- renderers ---------- */
+  function identStrip(t){
+    var co = SNAP.companies[t];
+    return '<div class="ident"><span class="tkr">' + esc(t) + '</span>' +
+           '<span class="nm">' + esc(co.name) + '</span>' +
+           '<span class="cik">CIK ' + esc(co.cik) + ' · FY end ' + esc(co.fiscal_year_end) + '</span></div>';
+  }
+
+  function renderLookup(c){
+    var co = SNAP.companies[c.sel[0]];
+    return identStrip(c.sel[0]) +
+      '<table class="data"><tbody>' +
+      '<tr><td class="lbl">Registrant name</td><td>' + esc(co.name) + '</td></tr>' +
+      '<tr><td class="lbl">CIK</td><td class="val">' + esc(co.cik) + '</td></tr>' +
+      '<tr><td class="lbl">Most recent annual period end</td><td class="val">' + esc(co.fiscal_year_end) + '</td></tr>' +
+      '</tbody></table>' +
+      '<div class="flag none"><span>◆</span><div>The fiscal year end is returned deliberately. Peer sets routinely mix year ends, and comparing across them without saying so is a material error.</div></div>';
+  }
+
+  function renderFundamentals(c){
+    var t = c.sel[0], co = SNAP.companies[t];
+    var rows = SNAP.concept_order.map(function(k){
+      var h = co.concepts[k];
+      if (!h) {
+        return '<tr class="is-unres"><td class="lbl">' + esc(LABELS[k]) + '</td>' +
+               '<td class="val r">unresolved</td><td class="prov">no candidate tag resolved</td>' +
+               '<td><span class="pill none">Unresolved</span></td></tr>';
+      }
+      var cls = h.stale ? ' class="is-stale"' : '';
+      var pill = h.stale ? '<span class="pill warn">Stale</span>' : '<span class="pill ok">Current</span>';
+      return '<tr' + cls + '><td class="lbl">' + esc(LABELS[k]) + '</td>' +
+             '<td class="val r">' + esc(h.display) + '</td>' +
+             '<td class="prov">' + esc(h.tag) + ' @ ' + esc(h.period_end) + '</td>' +
+             '<td>' + pill + '</td></tr>';
+    }).join("");
+
+    var flags = "";
+    if (co.stale.length) {
+      flags += '<div class="flag warn"><span>▲</span><div><b>Stale — not current.</b> ' +
+        co.stale.map(function(s){ return esc(LABELS[s.concept]) + ' was last filed ' + esc(s.last); }).join('; ') +
+        '. The filer appears to have stopped reporting under this tag; the value shown is the last one on file.</div></div>';
+    }
+    if (co.unresolved.length) {
+      flags += '<div class="flag none"><span>◆</span><div><b>Unresolved — do not read as zero.</b> ' +
+        co.unresolved.map(function(k){ return esc(LABELS[k]); }).join(', ') +
+        '. No candidate tag resolved for this filer. Any metric depending on it cannot be computed.</div></div>';
+    }
+
+    return identStrip(t) +
+      '<div class="tbl-scroll"><table class="data"><thead><tr><th>Concept</th><th class="r">Value</th>' +
+      '<th>Provenance</th><th>Status</th></tr></thead><tbody>' + rows + '</tbody></table></div>' + flags;
+  }
+
+  function renderFilings(c){
+    var t = c.sel[0], co = SNAP.companies[t];
+    var rows = co.filings.slice(0, c.limit).map(function(f){
+      return '<tr><td class="val">' + esc(f.filed) + '</td><td class="val">' + esc(f.period) + '</td>' +
+             '<td class="prov">' + esc(f.accession) + '</td>' +
+             '<td><a href="' + esc(f.url) + '" target="_blank" rel="noopener">View on sec.gov →</a></td></tr>';
+    }).join("");
+    var shown = Math.min(c.limit, co.filings.length);
+    return identStrip(t) +
+      '<div class="calls">form_type "10-K" · limit ' + c.limit + ' · ' + shown + ' returned</div>' +
+      '<div class="tbl-scroll"><table class="data"><thead><tr><th>Filed</th><th>Period</th>' +
+      '<th>Accession</th><th>Document</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+  }
+
+  function renderPeers(c){
+    var sel = c.sel;
+    var head = '<th>Concept</th>' + sel.map(function(t){
+      return '<th class="r">' + esc(t) + '</th>'; }).join("");
+    var rows = SNAP.concept_order.map(function(k){
+      var cells = sel.map(function(t){
+        var h = SNAP.companies[t].concepts[k];
+        if (!h) return '<td class="val r" style="color:var(--none);font-style:italic;font-weight:400">unresolved</td>';
+        var style = h.stale ? ' style="color:var(--warn)"' : '';
+        return '<td class="val r"' + style + '>' + esc(h.display) + (h.stale ? ' ▲' : '') + '</td>';
+      }).join("");
+      return '<tr><td class="lbl">' + esc(LABELS[k]) + '</td>' + cells + '</tr>';
+    }).join("");
+
+    var fyRow = '<tr><td class="lbl">Fiscal year end</td>' + sel.map(function(t){
+      return '<td class="val r">' + esc(SNAP.companies[t].fiscal_year_end) + '</td>'; }).join("") + '</tr>';
+
+    var ends = sel.map(function(t){ return SNAP.companies[t].fiscal_year_end; });
+    var mixed = ends.some(function(e){ return e.slice(5) !== ends[0].slice(5); });
+
+    var banner = mixed
+      ? '<div class="flag warn" style="margin:0 0 16px"><span>▲</span><div><b>Fiscal year ends differ across this set.</b> ' +
+        sel.map(function(t,i){ return esc(t) + ' ' + esc(ends[i]); }).join(' · ') +
+        '. These columns do not cover the same twelve months. Any comparison must say so before it says anything else.</div></div>'
+      : '';
+
+    return banner +
+      '<div class="tbl-scroll"><table class="data"><thead><tr>' + head + '</tr></thead><tbody>' +
+      fyRow + rows + '</tbody></table></div>' +
+      '<div class="flag none" style="margin-top:16px"><span>◆</span><div>▲ marks a stale tag. No trading multiples appear here because EDGAR carries no share price — enterprise value and every ratio built on it need a separate market data source.</div></div>';
+  }
+
+  function renderWire(c){
+    var req = { jsonrpc:"2.0", id:c.id, method:"tools/call",
+                params:{ name:c.tool, arguments:argsFor(c) } };
+    var raw = rawFor(c);
+    var res = { jsonrpc:"2.0", id:c.id,
+                result:{ content:[{ type:"text", text: raw.length > 220 ? raw.slice(0,220) + "\n…" : raw }],
+                         isError:false } };
+    function paint(o){
+      return esc(JSON.stringify(o, null, 2))
+        .replace(/&quot;([a-zA-Z_]+)&quot;:/g, '<span class="k">&quot;$1&quot;</span>:')
+        .replace(/: (&quot;(?:[^&]|&(?!quot;))*&quot;)/g, ': <span class="s">$1</span>');
+    }
+    return '<pre class="wire"><span class="c">// request  →  server</span>\n' + paint(req) +
+           '\n\n<span class="c">// response  ←  server   (text truncated for display)</span>\n' + paint(res) + '</pre>';
+  }
+
+  function renderRaw(c){
+    var note = "";
+    if (c.tool === "compare_peers" && c.sel.length !== Object.keys(SNAP.companies).length) {
+      note = '<div class="flag none" style="margin:0 0 14px"><span>◆</span><div>The snapshot stores the raw response for the full five-company set. The rendered tab reflects your selection; this is the text as the server returned it.</div></div>';
+    }
+    return note + '<pre class="wire">' + esc(rawFor(c)) + '</pre>';
+  }
+
+  function render(){
+    var c = state.called, body = $("outBody");
+    if (!c) return;
+    if (state.view === "wire")     { body.innerHTML = renderWire(c); return; }
+    if (state.view === "raw")      { body.innerHTML = renderRaw(c);  return; }
+    if (c.tool === "lookup_company")    body.innerHTML = renderLookup(c);
+    else if (c.tool === "get_fundamentals") body.innerHTML = renderFundamentals(c);
+    else if (c.tool === "list_filings")     body.innerHTML = renderFilings(c);
+    else                                     body.innerHTML = renderPeers(c);
+  }
+
+  sync();
+  $("callBtn").click();   /* open on ADBE fundamentals — the stale-tag case */
+})();
+</script>
+</body>
+</html>
