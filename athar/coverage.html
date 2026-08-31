@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regulatory coverage — Athar | Enterprise.AI</title>
+<meta name="description" content="Your position against each Saudi instrument, computed from the register, with every gap traceable to a named system.">
+<link rel="icon" type="image/png" href="../assets/brand/04_avatar_square.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_demo.css">
+<style>
+.insts{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:12px;margin-bottom:26px}
+.inst{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:16px;cursor:pointer;transition:.15s;display:flex;gap:14px;align-items:center;text-align:start}
+.inst:hover{border-color:var(--line2)}
+.inst.on{border-color:var(--accent-dim);background:var(--surface)}
+.ring{flex:0 0 46px;position:relative}
+.ring svg{display:block;transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700}
+.inst h3{margin:0 0 3px;font-size:13.5px;font-weight:600;line-height:1.3}
+.inst p{margin:0;font-size:11.5px;color:var(--fg3);line-height:1.35}
+.ihead{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;margin-bottom:20px}
+.ihead h2{font-family:var(--serif);font-weight:600;font-size:24px;margin:0 0 6px;letter-spacing:-.015em}
+.ihead .bd{font-size:13px;color:var(--fg3);margin-bottom:18px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:16px;border-top:1px solid var(--line);padding-top:16px}
+.meta dt{font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg3);margin-bottom:4px}
+.meta dd{margin:0;font-size:13px;color:var(--fg2)}
+.pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px}
+.pill-b{background:rgba(229,103,95,.12);color:#EE8A83;border:1px solid rgba(229,103,95,.25)}
+.pill-g{background:rgba(159,176,192,.09);color:var(--fg2);border:1px solid var(--line2)}
+.sum{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:18px;flex-wrap:wrap}
+.sumc{background:var(--bg2);padding:15px 20px;flex:1;min-width:140px}
+.sumc .n{font-family:var(--serif);font-size:26px;font-weight:600;line-height:1.1}
+.sumc .l{font-size:11.5px;color:var(--fg3);margin-top:3px}
+.stack{height:8px;border-radius:4px;overflow:hidden;display:flex;gap:1px;background:var(--line2);margin-bottom:12px}
+.stack i{display:block;height:100%}
+.legend{display:flex;gap:16px;font-size:11.5px;color:var(--fg3);flex-wrap:wrap;margin-bottom:22px}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend em{width:8px;height:8px;border-radius:2px;font-style:normal}
+.area{border:1px solid var(--line);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;background:var(--bg2)}
+.arow{display:flex;align-items:center;gap:16px;padding:15px 18px;cursor:pointer;transition:background .12s}
+.arow:hover{background:var(--surface)}
+.aname{flex:1;min-width:0}
+.aname b{display:block;font-size:14px;font-weight:600;margin-bottom:3px}
+.aname span{font-size:11.5px;color:var(--fg3)}
+.cids{display:flex;gap:4px;flex-wrap:wrap;max-width:230px}
+.apct{flex:0 0 130px;display:flex;align-items:center;gap:10px}
+.mini{flex:1;height:4px;background:var(--line2);border-radius:2px;overflow:hidden}
+.mini i{display:block;height:100%}
+.apn{font-size:12.5px;color:var(--fg2);min-width:34px;text-align:end}
+.chev{color:var(--fg3);font-size:11px;transition:transform .18s}
+.area.open .chev{transform:rotate(90deg)}
+@media(max-width:760px){.cids,.apct{display:none}}
+.adet{display:none;border-top:1px solid var(--line);padding:16px 18px 18px;background:var(--surface)}
+.area.open .adet{display:block}
+.lbl{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg3);margin-bottom:10px;font-weight:600}
+.gap{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+.gap:last-child{border-bottom:none}
+.gid{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--fg3);white-space:nowrap}
+.gn{flex:1;color:var(--fg2)}
+.gc{font-size:11px;color:var(--bad);white-space:nowrap}
+.gt{font-size:11px;color:var(--fg3);white-space:nowrap}
+.allok{font-size:13px;color:var(--ok);display:flex;align-items:center;gap:8px}
+.scrim{position:fixed;inset:0;background:rgba(4,8,12,.68);display:none;align-items:center;justify-content:center;z-index:60;padding:22px}
+.scrim.on{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--line2);border-radius:var(--radius-lg);width:min(540px,100%);max-height:86vh;overflow-y:auto}
+.mhead{padding:22px 26px 16px;border-bottom:1px solid var(--line)}
+.mhead h3{font-family:var(--serif);font-weight:600;font-size:21px;margin:0 0 5px}
+.mhead p{margin:0;font-size:12.5px;color:var(--fg3)}
+.mbody{padding:20px 26px}
+.pk{display:flex;gap:11px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;align-items:flex-start}
+.pk:last-child{border-bottom:none}
+.pk .n{color:var(--accent);font-family:ui-monospace,Menlo,monospace;font-size:11px;margin-top:2px}
+.pk .t{flex:1;color:var(--fg2)}
+.pk .t em{display:block;font-style:normal;font-size:11.5px;color:var(--fg3);margin-top:2px}
+.mfoot{padding:16px 26px 22px;display:flex;gap:10px;justify-content:flex-end}
+</style>
+</head>
+<body>
+
+<div class="demo-bar"><div class="demo-in">
+  <b>Athar</b> — working prototype on illustrative data. Nakhla Bank is fictional.
+  <span class="sp">
+    <a href="../athar.html">← Product page</a><span class="sep">·</span>
+    <a href="register.html">Register</a><span class="sep">·</span>
+    <a href="intake.html">Intake</a><span class="sep">·</span>
+    <a href="approvals.html">Approvals</a><span class="sep">·</span>
+    <a href="map.html">Product map</a>
+  </span>
+</div></div>
+
+<div class="app">
+  <aside class="side">
+    <div class="brand"><b>Athar</b><span>أثر</span></div>
+    <div class="brand-sub">an Enterprise.AI platform</div>
+    <div class="navgrp">Govern</div>
+    <a class="nav" href="register.html">Register</a>
+    <a class="nav" href="intake.html">Intake queue</a>
+    <a class="nav" href="approvals.html">Approvals<span class="badge">6</span></a>
+    <a class="nav">Exceptions</a>
+    <div class="navgrp">Evidence</div>
+    <a class="nav">Control library</a>
+    <a class="nav on" href="coverage.html">Regulatory coverage</a>
+    <a class="nav">Incidents</a>
+    <div class="tenant"><b>Nakhla Bank</b><span>Content pack KSA-BANK v2026.3</span></div>
+  </aside>
+
+  <div>
+    <div class="top">
+      <h1>Regulatory coverage</h1>
+      <div class="spacer"></div>
+      <button class="btn" id="reverify">Re-verify instruments</button>
+      <button class="btn btn-p" id="exp">Export regulator pack</button>
+    </div>
+    <div class="main">
+      <div class="insts" id="insts"></div>
+      <div class="ihead" id="ihead"></div>
+      <div class="sum" id="sum"></div>
+      <div class="stack" id="stack"></div>
+      <div class="legend">
+        <span><em style="background:var(--ok)"></em>Fully evidenced</span>
+        <span><em style="background:var(--warn)"></em>Partial</span>
+        <span><em style="background:var(--bad)"></em>Gap</span>
+        <span style="margin-inline-start:auto">Computed from the register — not self-declared</span>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+        <button class="chip on" data-g="all">All requirement areas</button>
+        <button class="chip" data-g="gaps">Gaps and partials only</button>
+      </div>
+      <div id="areas"></div>
+      <p class="note">Coverage is derived, not asserted. Each requirement area maps to control IDs in the KSA-BANK content pack; each control applies to systems whose attributes trigger it; a system either has evidence attached or it does not. So a gap is always traceable to named systems and a named owner — expand any area to see them. Requirement-area groupings here are illustrative for prototype purposes; the shipped pack cites the instrument's own structure and clause references, and every instrument row carries the date we last verified it and by whom.</p>
+    </div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim">
+  <div class="modal">
+    <div class="mhead"><h3>Regulator pack</h3><p id="mp"></p></div>
+    <div class="mbody" id="mb"></div>
+    <div class="mfoot"><button class="btn" id="cancel">Cancel</button><button class="btn btn-p">Generate PDF</button></div>
+  </div>
+</div>
+
+<script src="_data.js"></script>
+<script>
+(function(){
+var LIVE=ATHAR.systems().filter(function(d){return d.st!=='ret'});
+var ALL=ATHAR.systems();
+var INS=ATHAR.INSTRUMENTS;
+var cur=INS[0],mode='all';
+
+function areaStats(area){
+ var tot=0,met=0,gaps=[];
+ area.c.forEach(function(cid){
+  LIVE.forEach(function(d){
+   if(d.app.indexOf(cid)<0)return;
+   tot++;
+   if(d.met[cid])met++; else gaps.push({sys:d,cid:cid});
+  });
+ });
+ return {tot:tot,met:met,gaps:gaps,pct:tot?Math.round(met/tot*100):100};
+}
+function instStats(inst){
+ var t=0,m=0,full=0,part=0,gap=0;
+ inst.areas.forEach(function(a){
+  var s=areaStats(a);t+=s.tot;m+=s.met;
+  if(s.pct===100)full++; else if(s.pct>=60)part++; else gap++;
+ });
+ return {pct:t?Math.round(m/t*100):100,full:full,part:part,gap:gap,tot:t,met:m};
+}
+function ring(pct){
+ var r=19,c=2*Math.PI*r,off=c*(1-pct/100);
+ var col=pct>=85?'var(--ok)':pct>=60?'var(--warn)':'var(--bad)';
+ return '<div class="ring"><svg width="46" height="46"><circle cx="23" cy="23" r="'+r+'" fill="none" stroke="var(--line2)" stroke-width="4"/>'+
+  '<circle cx="23" cy="23" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="4" stroke-linecap="round" stroke-dasharray="'+c+'" stroke-dashoffset="'+off+'"/></svg>'+
+  '<b style="color:'+col+'">'+pct+'</b></div>';
+}
+function drawInsts(){
+ document.getElementById('insts').innerHTML=INS.map(function(i){
+  var s=instStats(i);
+  return '<button class="inst'+(i.k===cur.k?' on':'')+'" data-k="'+i.k+'">'+ring(s.pct)+
+   '<div><h3>'+i.name+'</h3><p>'+i.body+' · '+(i.bind?'Binding':'Framework')+'</p></div></button>';
+ }).join('');
+ Array.prototype.forEach.call(document.querySelectorAll('.inst'),function(b){
+  b.addEventListener('click',function(){
+   cur=INS.filter(function(x){return x.k===b.getAttribute('data-k')})[0];
+   drawInsts();drawHead();drawSum();drawAreas();
+  });
+ });
+}
+function drawHead(){
+ document.getElementById('ihead').innerHTML=
+  '<h2>'+cur.name+'</h2><div class="bd">'+cur.body+' · '+cur.ver+'</div>'+
+  '<dl class="meta">'+
+  '<div><dt>Status</dt><dd><span class="pill '+(cur.bind?'pill-b':'pill-g')+'">'+cur.status+'</span></dd></div>'+
+  '<div><dt>Who it binds</dt><dd>'+cur.binds+'</dd></div>'+
+  '<div><dt>Last verified</dt><dd>'+cur.verOn+'</dd></div>'+
+  '<div><dt>Verified by</dt><dd>'+cur.by+'</dd></div>'+
+  '<div><dt>Systems in scope</dt><dd>'+LIVE.length+' of '+ALL.length+'</dd></div></dl>';
+}
+function drawSum(){
+ var s=instStats(cur);
+ document.getElementById('sum').innerHTML=
+  '<div class="sumc"><div class="n" style="color:'+(s.pct>=85?'var(--ok)':s.pct>=60?'var(--warn)':'var(--bad)')+'">'+s.pct+'%</div><div class="l">Overall coverage</div></div>'+
+  '<div class="sumc"><div class="n">'+s.full+'</div><div class="l">Areas fully evidenced</div></div>'+
+  '<div class="sumc"><div class="n" style="color:var(--warn)">'+s.part+'</div><div class="l">Partial</div></div>'+
+  '<div class="sumc"><div class="n" style="color:var(--bad)">'+s.gap+'</div><div class="l">Material gaps</div></div>'+
+  '<div class="sumc"><div class="n">'+(s.tot-s.met)+'</div><div class="l">Control instances outstanding</div></div>';
+ var t=cur.areas.length;
+ document.getElementById('stack').innerHTML=
+  '<i style="background:var(--ok);width:'+(s.full/t*100)+'%"></i>'+
+  '<i style="background:var(--warn);width:'+(s.part/t*100)+'%"></i>'+
+  '<i style="background:var(--bad);width:'+(s.gap/t*100)+'%"></i>';
+}
+function drawAreas(){
+ var list=cur.areas.map(function(a){return{a:a,s:areaStats(a)}});
+ if(mode==='gaps')list=list.filter(function(x){return x.s.pct<100});
+ document.getElementById('areas').innerHTML=list.map(function(x,ix){
+  var col=x.s.pct===100?'var(--ok)':x.s.pct>=60?'var(--warn)':'var(--bad)';
+  var det;
+  if(!x.s.gaps.length){
+   det='<div class="allok"><span>&#10003;</span><span>Every applicable control is evidenced across all systems in scope.</span></div>';
+  }else{
+   det='<div class="lbl">Outstanding — '+x.s.gaps.length+' control instance'+(x.s.gaps.length>1?'s':'')+'</div>'+
+    x.s.gaps.map(function(g){
+     return '<div class="gap"><span class="gid">'+g.sys.id+'</span><span class="gn">'+g.sys.n+'</span>'+
+      '<span class="gt">'+g.sys.own+' · '+g.sys.tier.n+'</span><span class="gc">'+g.cid+'</span></div>';
+    }).join('');
+  }
+  return '<div class="area" data-i="'+ix+'"><div class="arow">'+
+   '<span class="tdot" style="background:'+col+'"></span>'+
+   '<span class="aname"><b>'+x.a.n+'</b><span>'+x.s.met+' of '+x.s.tot+' control instances evidenced</span></span>'+
+   '<span class="cids">'+x.a.c.map(function(c){return '<span class="cid">'+c.replace('CTL-M08-','')+'</span>'}).join('')+'</span>'+
+   '<span class="apct"><span class="mini"><i style="background:'+col+';width:'+x.s.pct+'%"></i></span><span class="apn">'+x.s.pct+'%</span></span>'+
+   '<span class="chev">&#9654;</span></div><div class="adet">'+det+'</div></div>';
+ }).join('')||'<div style="padding:36px;text-align:center;color:var(--fg3);border:1px solid var(--line);border-radius:var(--radius)">No gaps. Every requirement area is fully evidenced.</div>';
+ Array.prototype.forEach.call(document.querySelectorAll('.area'),function(el){
+  el.querySelector('.arow').addEventListener('click',function(){el.classList.toggle('open')});
+ });
+}
+Array.prototype.forEach.call(document.querySelectorAll('.chip'),function(c){
+ c.addEventListener('click',function(){
+  Array.prototype.forEach.call(document.querySelectorAll('.chip'),function(x){x.classList.remove('on')});
+  c.classList.add('on');mode=c.getAttribute('data-g');drawAreas();
+ });
+});
+document.getElementById('exp').addEventListener('click',function(){
+ var s=instStats(cur);
+ document.getElementById('mp').textContent=cur.name+' · '+cur.body+' · generated '+new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+ document.getElementById('mb').innerHTML=[
+  ['01','Scope statement',LIVE.length+' AI systems in the register, '+ALL.length+' including retired'],
+  ['02','Instrument mapping',cur.areas.length+' requirement areas mapped to control IDs, with the content pack version'],
+  ['03','Coverage position',s.met+' of '+s.tot+' control instances evidenced — '+s.pct+'%'],
+  ['04','Gap schedule',(s.tot-s.met)+' outstanding, each with the system, owner and remediation date'],
+  ['05','Evidence index','Document list with hashes, not the documents themselves'],
+  ['06','Decision history','Approval chain per system with verification result'],
+  ['07','Exceptions register','7 open, with approver and expiry'],
+  ['08','Verification statement','Instrument edition, who it binds, date last verified and by whom']
+ ].map(function(p){return '<div class="pk"><span class="n">'+p[0]+'</span><span class="t">'+p[1]+'<em>'+p[2]+'</em></span></div>'}).join('');
+ document.getElementById('scrim').classList.add('on');
+});
+document.getElementById('cancel').addEventListener('click',function(){document.getElementById('scrim').classList.remove('on')});
+document.getElementById('scrim').addEventListener('click',function(e){if(e.target.id==='scrim')this.classList.remove('on')});
+document.getElementById('reverify').addEventListener('click',function(){
+ var b=this;b.textContent='All 5 verified today';b.style.color='var(--ok)';b.style.borderColor='rgba(52,201,160,.35)';
+ setTimeout(function(){b.textContent='Re-verify instruments';b.style.color='';b.style.borderColor=''},2600);
+});
+drawInsts();drawHead();drawSum();drawAreas();
+})();
+</script>
+</body></html>

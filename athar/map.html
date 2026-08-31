@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product map — Athar | Enterprise.AI</title>
+<meta name="description" content="Every Athar module, the object model, release bands, and how the twelve operating-model modules map onto the platform.">
+<link rel="icon" type="image/png" href="../assets/brand/04_avatar_square.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_demo.css">
+<style>
+body{background:var(--bg)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 26px}
+header.pg{padding:52px 0 34px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;font-weight:600}
+h1.pg{font-family:var(--serif);font-weight:600;font-size:clamp(32px,5vw,46px);margin:0 0 14px;letter-spacing:-.025em}
+.lede{color:var(--fg2);font-size:16px;max-width:70ch;margin:0}
+.legend{display:flex;gap:20px;flex-wrap:wrap;padding:20px 0;border-bottom:1px solid var(--line);font-size:12.5px;color:var(--fg2)}
+.legend span{display:flex;align-items:center;gap:7px}
+.legend em{width:9px;height:9px;border-radius:2px;font-style:normal;flex:0 0 9px}
+section{padding:52px 0;border-bottom:1px solid var(--line)}
+.kicker{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--fg3);margin-bottom:14px;font-weight:600}
+h2{font-family:var(--serif);font-weight:600;font-size:clamp(24px,3.4vw,33px);margin:0 0 12px;letter-spacing:-.02em}
+.sub{color:var(--fg2);max-width:72ch;margin:0 0 32px;font-size:15px}
+.spine{display:flex;overflow-x:auto;padding-bottom:12px}
+.sn{flex:0 0 auto;min-width:132px;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--radius);padding:14px;position:relative}
+.sn+.sn{margin-inline-start:28px}
+.sn+.sn:before{content:"";position:absolute;top:50%;inset-inline-start:-28px;width:28px;height:1px;background:var(--line2)}
+.sn+.sn:after{content:"";position:absolute;top:calc(50% - 3.5px);inset-inline-start:-8px;width:7px;height:7px;border-radius:50%;background:var(--accent-dim)}
+.sn b{display:block;font-size:13px;font-weight:600;margin-bottom:4px}
+.sn span{font-size:11px;color:var(--fg3);line-height:1.4;display:block}
+.sn i{display:block;width:100%;height:2px;border-radius:1px;margin-top:10px}
+.loop{margin-top:14px;font-size:12px;color:var(--fg3);display:flex;align-items:center;gap:8px}
+.loop em{font-style:normal;color:var(--accent)}
+.area{margin-bottom:34px}
+.ah{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.ah b{font-family:var(--serif);font-size:20px;font-weight:600}
+.ah span{font-size:12.5px;color:var(--fg3)}
+.ah .cnt{margin-inline-start:auto;font-size:11.5px;color:var(--fg3)}
+.mods{display:grid;grid-template-columns:repeat(auto-fill,minmax(226px,1fr));gap:10px}
+.mod{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:14px 15px;cursor:pointer;transition:.15s;text-align:start;position:relative;overflow:hidden}
+.mod:hover{border-color:var(--line2);background:var(--surface)}
+.mod.on{border-color:var(--accent);background:var(--surface)}
+.mod:before{content:"";position:absolute;inset-inline-start:0;top:0;bottom:0;width:2px}
+.mod.built:before{background:var(--ok)}
+.mod.spec:before{background:var(--accent)}
+.mod.v2:before{background:#5B8FC7}
+.mod.v3:before{background:var(--fg3)}
+.mod b{display:block;font-size:13.5px;font-weight:600;margin-bottom:4px}
+.mod span{font-size:11.5px;color:var(--fg3);line-height:1.45;display:block}
+.mtag{display:inline-block;font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;padding:1px 6px;border-radius:2px;margin-top:9px;font-weight:700}
+.built .mtag{background:rgba(52,201,160,.12);color:var(--ok);border:1px solid rgba(52,201,160,.28)}
+.spec .mtag{background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-bd)}
+.v2 .mtag{background:rgba(91,143,199,.13);color:#7FA9D8;border:1px solid rgba(91,143,199,.28)}
+.v3 .mtag{background:rgba(107,130,153,.13);color:var(--fg3);border:1px solid var(--line2)}
+.detail{background:var(--surface);border:1px solid var(--line2);border-radius:var(--radius);padding:24px;margin-top:6px;display:none}
+.detail.on{display:block}
+.dh{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.dh b{font-family:var(--serif);font-size:23px;font-weight:600;letter-spacing:-.015em}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.dgrid dt{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg3);margin-bottom:6px}
+.dgrid dd{margin:0;font-size:13px;color:var(--fg2)}
+.obj{display:inline-block;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--accent);background:var(--accent-bg);border:1px solid var(--accent-bd);padding:1px 5px;border-radius:2px;margin:0 4px 4px 0}
+.open{display:inline-flex;align-items:center;gap:7px;margin-top:18px;padding:8px 15px;border-radius:var(--radius);background:var(--accent);color:#04231E;font-size:13px;font-weight:600;text-decoration:none}
+.open:hover{background:#00C4A8}
+.omwrap{border:1px solid var(--line);border-radius:var(--radius);background:var(--bg2);padding:10px;overflow-x:auto}
+svg.om{display:block;min-width:660px;width:100%;height:auto}
+.nd{fill:var(--surface2);stroke:var(--line2)}
+.nd-c{fill:rgba(0,168,145,.1);stroke:var(--accent-dim)}
+.lk{stroke:var(--line2);stroke-width:1}
+.lb{fill:var(--fg2);font-size:11px;font-family:'Inter',sans-serif}
+.lb-c{fill:var(--accent);font-size:12px;font-weight:700;font-family:'Inter',sans-serif}
+.lb-s{fill:var(--fg3);font-size:9px;font-family:'Inter',sans-serif}
+.rel{display:grid;grid-template-columns:repeat(auto-fit,minmax(252px,1fr));gap:14px}
+.band{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:20px;display:flex;flex-direction:column}
+.band.now{border-color:var(--accent-dim);background:var(--surface)}
+.bt{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg3);margin-bottom:10px;font-weight:600}
+.band.now .bt{color:var(--accent)}
+.band h3{font-family:var(--serif);font-weight:600;font-size:21px;margin:0 0 6px}
+.band .when{font-size:12px;color:var(--fg3);margin-bottom:14px}
+.band ul{margin:0 0 16px;padding:0;list-style:none;font-size:13px;color:var(--fg2)}
+.band li{padding:5px 0;border-bottom:1px solid var(--line)}
+.band li:last-child{border-bottom:none}
+.band .buyer{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--fg3)}
+.band .buyer b{color:var(--fg2);display:block;font-weight:600;font-size:12.5px}
+.mid{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--accent);white-space:nowrap}
+.rp{font-size:10.5px;padding:1px 7px;border-radius:20px;white-space:nowrap;border:1px solid var(--line2);color:var(--fg3)}
+.rp.a{background:rgba(52,201,160,.11);color:var(--ok);border-color:rgba(52,201,160,.28)}
+.rp.b{background:rgba(91,143,199,.11);color:#7FA9D8;border-color:rgba(91,143,199,.26)}
+footer.pg{padding:34px 0 60px;color:var(--fg3);font-size:12.5px}
+</style>
+</head>
+<body>
+
+<div class="demo-bar"><div class="demo-in">
+  <b>Athar</b> — working prototype on illustrative data. Nakhla Bank is fictional.
+  <span class="sp">
+    <a href="../athar.html">← Product page</a><span class="sep">·</span>
+    <a href="register.html">Register</a><span class="sep">·</span>
+    <a href="intake.html">Intake</a><span class="sep">·</span>
+    <a href="approvals.html">Approvals</a><span class="sep">·</span>
+    <a href="coverage.html">Coverage</a>
+  </span>
+</div></div>
+
+<header class="pg"><div class="wrap">
+  <div class="eyebrow">Athar · product map</div>
+  <h1 class="pg">The whole platform, in one picture.</h1>
+  <p class="lede">Every module, what it does, which objects it touches, and when it ships. Five modules exist as working prototypes — click any card to open them. The rest are specified, not built.</p>
+</div></header>
+
+<div class="wrap legend">
+  <span><em style="background:var(--ok)"></em>Working prototype</span>
+  <span><em style="background:var(--accent)"></em>Specified · v1 build</span>
+  <span><em style="background:#5B8FC7"></em>v2 · value layer</span>
+  <span><em style="background:var(--fg3)"></em>v3 · later</span>
+</div>
+
+<section><div class="wrap">
+  <div class="kicker">The spine</div>
+  <h2>One object moves through nine states.</h2>
+  <p class="sub">Everything in the platform is a service to an AI system moving along this line. Modules are not features bolted together — each one owns a transition.</p>
+  <div class="spine" id="spine"></div>
+  <div class="loop"><em>&#8635;</em><span>Review returns a live system to assessment. A material change creates a new assessment version and can re-tier it, which re-opens approval.</span></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="kicker">Modules</div>
+  <h2>Twenty-two modules, six areas.</h2>
+  <p class="sub">Click any module for what it does and which objects it writes.</p>
+  <div id="areas"></div>
+  <div class="detail" id="detail"></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="kicker">Object model</div>
+  <h2>Everything hangs off one record.</h2>
+  <p class="sub">The AI system is the centre. Assessments version rather than overwrite, decisions chain rather than update, and evidence attaches to control instances rather than floating free. That shape is what makes the history defensible.</p>
+  <div class="omwrap">
+    <svg class="om" viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg">
+      <g class="lk" stroke-linecap="round">
+        <line x1="450" y1="200" x2="215" y2="88"/><line x1="450" y1="200" x2="215" y2="200"/>
+        <line x1="450" y1="200" x2="215" y2="312"/><line x1="450" y1="200" x2="685" y2="88"/>
+        <line x1="450" y1="200" x2="685" y2="200"/><line x1="450" y1="200" x2="685" y2="312"/>
+        <line x1="450" y1="200" x2="450" y2="62"/><line x1="450" y1="200" x2="450" y2="338"/>
+        <line x1="685" y1="200" x2="795" y2="278"/><line x1="215" y1="200" x2="112" y2="278"/>
+      </g>
+      <rect class="nd-c" x="368" y="176" width="164" height="48" rx="4"/>
+      <text class="lb-c" x="450" y="196" text-anchor="middle">ai_system</text>
+      <text class="lb-s" x="450" y="212" text-anchor="middle">the register entry</text>
+      <rect class="nd" x="378" y="40" width="144" height="42" rx="4"/>
+      <text class="lb" x="450" y="59" text-anchor="middle">tenant</text><text class="lb-s" x="450" y="73" text-anchor="middle">schema isolated</text>
+      <rect class="nd" x="140" y="66" width="150" height="44" rx="4"/>
+      <text class="lb" x="215" y="85" text-anchor="middle">assessment</text><text class="lb-s" x="215" y="99" text-anchor="middle">versioned, never edited</text>
+      <rect class="nd" x="140" y="178" width="150" height="44" rx="4"/>
+      <text class="lb" x="215" y="197" text-anchor="middle">control_instance</text><text class="lb-s" x="215" y="211" text-anchor="middle">control applied to system</text>
+      <rect class="nd" x="140" y="290" width="150" height="44" rx="4"/>
+      <text class="lb" x="215" y="309" text-anchor="middle">exception</text><text class="lb-s" x="215" y="323" text-anchor="middle">accepted risk, expires</text>
+      <rect class="nd" x="610" y="66" width="150" height="44" rx="4"/>
+      <text class="lb" x="685" y="85" text-anchor="middle">decision</text><text class="lb-s" x="685" y="99" text-anchor="middle">hash-chained</text>
+      <rect class="nd" x="610" y="178" width="150" height="44" rx="4"/>
+      <text class="lb" x="685" y="197" text-anchor="middle">vendor</text><text class="lb-s" x="685" y="211" text-anchor="middle">third-party supply</text>
+      <rect class="nd" x="610" y="290" width="150" height="44" rx="4"/>
+      <text class="lb" x="685" y="309" text-anchor="middle">incident</text><text class="lb-s" x="685" y="323" text-anchor="middle">AI failure log</text>
+      <rect class="nd" x="378" y="316" width="144" height="42" rx="4"/>
+      <text class="lb" x="450" y="335" text-anchor="middle">audit_event</text><text class="lb-s" x="450" y="349" text-anchor="middle">append only</text>
+      <rect class="nd" x="34" y="256" width="156" height="44" rx="4"/>
+      <text class="lb" x="112" y="275" text-anchor="middle">evidence</text><text class="lb-s" x="112" y="289" text-anchor="middle">hashed, CMEK encrypted</text>
+      <rect class="nd" x="716" y="256" width="160" height="44" rx="4"/>
+      <text class="lb" x="796" y="275" text-anchor="middle">instrument</text><text class="lb-s" x="796" y="289" text-anchor="middle">edition, binds, verified</text>
+    </svg>
+  </div>
+  <p class="note">Two more sit behind these: <span class="obj">control</span> and <span class="obj">tier_rule</span>, which are content-pack rows rather than tenant data — they arrive with a content release and every tenant records the version it is on. That separation is what lets a regulatory change ship without a code release, and one engine serve banking, telecom and healthcare from different packs.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="kicker">Release bands</div>
+  <h2>Three releases, three buyers.</h2>
+  <p class="sub">The wedge is deliberately narrow. Each band earns the right to the next by holding real data the next band needs.</p>
+  <div class="rel">
+    <div class="band now"><div class="bt">v1 · the wedge</div><h3>Register &amp; Guardrails</h3>
+      <div class="when">Design partners Jan 2027 · GA Jul 2027</div>
+      <ul><li>Inventory and risk tiering</li><li>Control library, KSA content pack</li><li>Approvals with enforced quorum</li><li>Tamper-evident decision chain</li><li>Regulatory coverage and evidence packs</li><li>Reviews, exceptions, incidents</li></ul>
+      <div class="buyer"><b>Chief Risk Officer</b>Cannot answer the regulator today</div></div>
+    <div class="band"><div class="bt">v2 · the value layer</div><h3>Value &amp; Portfolio</h3>
+      <div class="when">From late 2027</div>
+      <ul><li>Value case with baseline and sensitivity</li><li>Transparent prioritisation scoring</li><li>Portfolio view against strategy</li><li>Benefit reconciliation to a P&amp;L line</li><li>Cost and FinOps tracking</li></ul>
+      <div class="buyer"><b>CFO and Chief Data Officer</b>Built on a register that already holds the portfolio</div></div>
+    <div class="band"><div class="bt">v3 · the operating model</div><h3>Delivery &amp; Supply</h3>
+      <div class="when">2028</div>
+      <ul><li>Vendor register and concentration limits</li><li>Delivery-tool integration</li><li>Model monitoring and drift hooks</li><li>Data readiness gates</li><li>Discovery connectors for shadow AI</li></ul>
+      <div class="buyer"><b>CIO and Head of Procurement</b>Only credible once v1 and v2 are embedded</div></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="kicker">Methodology</div>
+  <h2>Where the twelve modules went.</h2>
+  <p class="sub">The operating model was never the deliverable — it is what the software computes. Each methodology module becomes data models, forms, gates and computed fields, or it stays advisory and out of the platform.</p>
+  <div class="tw"><table style="min-width:620px"><thead><tr><th>Module</th><th>Becomes</th><th>Band</th></tr></thead><tbody id="meth"></tbody></table></div>
+  <p class="note">M09 Talent is the one module that does not become software. Skills ladders, Saudization planning and adoption mechanics are advisory work — putting them in the platform would produce a feature nobody opens. Naming that honestly is better than shipping a module to complete a set.</p>
+</div></section>
+
+<footer class="pg"><div class="wrap">Athar is a placeholder name · Nakhla Bank is fictional · illustrative content pack throughout · <a href="../athar.html" style="color:var(--accent)">Back to the product page</a></div></footer>
+
+<script>
+(function(){
+var COL={built:'var(--ok)',spec:'var(--accent)',v2:'#5B8FC7',v3:'var(--fg3)'};
+var SPINE=[['Discover','Find what already runs','v3'],['Register','Enter the inventory','built'],['Assess','Answer the questionnaire','built'],['Tier','Derive risk tier','built'],['Control','Attach the control set','built'],['Approve','Gate with quorum','built'],['Operate','Run with conditions','spec'],['Review','Re-check on interval','spec'],['Evidence','Prove it to a regulator','built']];
+document.getElementById('spine').innerHTML=SPINE.map(function(n){
+ return '<div class="sn"><b>'+n[0]+'</b><span>'+n[1]+'</span><i style="background:'+COL[n[2]]+'"></i></div>';
+}).join('');
+
+var AREAS=[
+ {n:'Govern',d:'The lifecycle of a system, from proposal to retirement',mods:[
+  {n:'Intake',s:'Plain-language questionnaire that derives tier and controls',st:'built',url:'intake.html',does:'A business user describes a use case in ordinary language. The platform derives the risk tier, assigns the control set, sets the review interval and routes to the right forum. No governance expertise needed at the point of entry — which is the only way the inventory ever becomes complete.',obj:['ai_system','assessment','control_instance'],w:'Creates the system record and the first assessment version',o:'Requesting business function'},
+  {n:'Register',s:'The inventory of record, filterable and exportable',st:'built',url:'register.html',does:'Every model, copilot, agent and embedded vendor feature with its owner, tier, control coverage and review date. The detail view shows tier derivation as arithmetic, not as a verdict.',obj:['ai_system','assessment','control_instance','decision'],w:'Reads everything, writes profile edits only',o:'Second line'},
+  {n:'Approvals',s:'Decision workspace with enforced quorum',st:'built',url:'approvals.html',does:'Forums vote against evidence readiness. Gating controls disable outright approval, quorum rules are enforced rather than encouraged, and a rationale is mandatory. The record cannot be edited afterwards.',obj:['decision','control_instance','exception'],w:'Appends to the hash chain',o:'AI Council and second line'},
+  {n:'Exceptions',s:'Accepted risk with an approver and an expiry',st:'spec',does:'Every governance buyer asks for this on day one. An exception records what was accepted, by whom, why, and when it lapses — and the register shows it against the system rather than hiding it in a memo.',obj:['exception','ai_system','decision'],w:'Exception records, chained to the approving decision',o:'Risk function'},
+  {n:'Incidents',s:'AI failure log with notification triggers',st:'spec',does:'Cheap to build and required for SAMA and NCA credibility. Links an incident to the system, the controls that should have caught it, and the notification clock.',obj:['incident','ai_system','control_instance'],w:'Incident records and notification deadlines',o:'Second line'},
+  {n:'Change and re-assessment',s:'Material change re-opens the gate',st:'spec',does:'A system that changes materially gets a new assessment version, may re-tier, and re-enters approval. Without this the register decays into a snapshot from the day it was populated.',obj:['assessment','ai_system','decision'],w:'New assessment version',o:'System owner'}
+ ]},
+ {n:'Evidence',d:'What you show a regulator, and what proves you did the work',mods:[
+  {n:'Control library',s:'Versioned controls with stable IDs, mapped to instruments',st:'spec',does:'The moat. Pre-loaded KSA content, extensible by the tenant, applied automatically by tier. Stable IDs survive across content versions and across jurisdiction and sector packs.',obj:['control','control_instrument_map'],w:'Content-pack data, not tenant data',o:'Enterprise.AI, with tenant extensions'},
+  {n:'Regulatory coverage',s:'Position against each instrument, computed from the register',st:'built',url:'coverage.html',does:'Requirement areas map to control IDs, controls apply to systems by attribute, evidence is present or absent. A gap is therefore always traceable to a named system and owner rather than a percentage.',obj:['instrument','control','control_instance','ai_system'],w:'Reads only — coverage is derived, never asserted',o:'Compliance'},
+  {n:'Evidence vault',s:'Versioned, hashed, encrypted with tenant keys',st:'spec',does:'Documents and links attached to control instances rather than floating in a folder. Retention follows the content pack schedule. The regulator pack exports the index of hashes, not the documents.',obj:['evidence','control_instance'],w:'Evidence records with content hashes',o:'Control owners'},
+  {n:'Regulator pack',s:'Eight-section export with a verification statement',st:'built',url:'coverage.html',does:'The artefact the CRO is actually buying — scope, mapping, coverage position, gap schedule, evidence index, decision history, exceptions and a verification statement naming each instrument edition.',obj:['instrument','ai_system','decision','evidence','exception'],w:'Generates a dated, versioned export',o:'Compliance'},
+  {n:'Instrument register',s:'Edition, who it binds, verified date, verifier',st:'spec',does:'Every instrument the product relies on, with its version, whether it binds public or private entities, and the 90-day re-verification clock. A regulatory claim not traceable to a row here is a defect.',obj:['instrument'],w:'Content-pack data with verification metadata',o:'Enterprise.AI regulatory function'}
+ ]},
+ {n:'Operate',d:'Keeping a live estate honest after go-live',mods:[
+  {n:'Reviews and lifecycle',s:'Interval by tier, overdue escalation, retirement',st:'spec',does:'Review intervals derive from tier. Overdue reviews escalate on a configured clock, and retirement is a workflow rather than a deletion, so the history survives the system.',obj:['ai_system','assessment','decision'],w:'Review records and status transitions',o:'System owner, chased by second line'},
+  {n:'Conditions tracking',s:'Go-live blocked until conditions clear',st:'spec',does:'Conditions attached at approval become tracked obligations with owners and dates. A conditionally approved system cannot be marked live until they clear.',obj:['decision','control_instance'],w:'Condition status against the decision',o:'System owner'},
+  {n:'Monitoring hooks',s:'Ingest drift and performance signals',st:'v2',does:'Athar does not monitor models. It ingests signals from whatever does, so a drift alert can trigger re-assessment rather than sitting in an engineering dashboard.',obj:['ai_system','incident'],w:'Signal records that can trigger re-assessment',o:'Engineering, surfaced to second line'},
+  {n:'Data readiness gates',s:'Quality and lineage checks before a tier can proceed',st:'v3',does:'From M07. A system cannot pass its gate until the data it depends on meets defined readiness criteria.',obj:['ai_system','control_instance'],w:'Readiness assessments',o:'Data function'}
+ ]},
+ {n:'Value',d:'v2 — the layer the register earns the right to build',mods:[
+  {n:'Value case',s:'Baseline, formula, assumption owner, sensitivity',st:'v2',does:'Every figure carries its baseline, its formula, the source of each input, a named assumption owner and a sensitivity range. A benefit claim without a stated baseline is not accepted by the form.',obj:['value_case','ai_system'],w:'Versioned value cases',o:'Business sponsor with Finance'},
+  {n:'Prioritisation',s:'Transparent scoring, configurable weights',st:'v2',does:'Compares initiatives on one signal with the derivation always visible. The differentiator against a black-box score is that a client can see and change every weight.',obj:['value_case','ai_system','tier_rule'],w:'Portfolio ranking',o:'AI Council'},
+  {n:'Benefit reconciliation',s:'Claimed against actual, to a P&L line',st:'v2',does:'Post-live checks compare claimed benefit to actual, reconciled to a financial statement line or explicitly labelled non-cashable. Designed to survive internal audit.',obj:['value_case','ai_system'],w:'Reconciliation records signed by Finance',o:'Finance'},
+  {n:'Cost and FinOps',s:'Run cost per system against benefit',st:'v2',does:'Inference, licence and people cost tracked per system, so a benefit claim can be stated net rather than gross.',obj:['ai_system','value_case'],w:'Cost records',o:'Finance and engineering'},
+  {n:'Portfolio view',s:'Estate against strategic themes',st:'v2',does:'From M01. Shows where the estate concentrates against declared strategic priorities, and where it does not.',obj:['ai_system','value_case'],w:'Reads only',o:'Executive'}
+ ]},
+ {n:'Configure and report',d:'What makes it a product rather than an implementation',mods:[
+  {n:'Content pack manager',s:'Version, preview, apply, roll back',st:'spec',does:'The mechanism that makes a regulatory change a content release rather than a code release. Tenants see what changed, preview the impact on their estate, then apply.',obj:['control','instrument','tier_rule'],w:'Content version pinning per tenant',o:'Enterprise.AI publishes, tenant applies'},
+  {n:'Tier rules',s:'Weights and boundaries, set by the tenant',st:'spec',does:'The answer to "is this a black box?" — the risk function sets every weight and boundary, changes are versioned, and the derivation is shown to users at every point.',obj:['tier_rule'],w:'Versioned rule sets',o:'Risk function'},
+  {n:'Forums and decision rights',s:'Quorum, required roles, SLA, escalation',st:'spec',does:'From M02. Defines who decides what alone, what jointly, what they only advise on, and what happens on disagreement — then enforces it in the approvals module.',obj:['forum','decision'],w:'Forum definitions and membership',o:'Governance'},
+  {n:'Users, roles and SSO',s:'SAML, OIDC, SCIM provisioning',st:'spec',does:'Enterprise identity from the tenant\'s own provider. A bank will not accept separate credentials, and SCIM matters because leavers must lose access automatically.',obj:['user','role'],w:'Identity and permission records',o:'Tenant IT'},
+  {n:'Dashboards',s:'Inventory, coverage, overdue, exceptions, incidents',st:'spec',does:'The operational view for the second line — what moved, what is late, what is exposed.',obj:['ai_system','control_instance','exception','incident'],w:'Reads only',o:'Second line'},
+  {n:'Board pack',s:'Quarterly committee output, bilingual',st:'spec',does:'Generates the committee paper directly from the register, in either language, so a board pack is not rebuilt by hand every quarter.',obj:['ai_system','decision','exception','incident'],w:'Dated export',o:'CRO'},
+  {n:'Audit trail',s:'Append-only, every object, every change',st:'spec',does:'Underneath everything. Who changed what, when, from what value to what value — separate from the decision chain, which records governance acts rather than field edits.',obj:['audit_event'],w:'Append only, never updated or deleted',o:'System'}
+ ]},
+ {n:'Supply',d:'v3 — vendor and third-party exposure',mods:[
+  {n:'Vendor register',s:'Third-party AI and embedded features',st:'v3',does:'From M12. Which vendors supply AI into the estate, under what contract, with what exit plan.',obj:['vendor','ai_system'],w:'Vendor records',o:'Procurement'},
+  {n:'Concentration limits',s:'Exposure to a single supplier',st:'v3',does:'Flags when too much of the estate depends on one vendor or one foundation model — a SAMA outsourcing concern before it is a commercial one.',obj:['vendor','ai_system'],w:'Concentration assessments',o:'Risk and procurement'},
+  {n:'Discovery connectors',s:'Find shadow AI in SaaS already licensed',st:'v3',does:'The hardest and most valuable module. Reads from identity, expense and SaaS management systems to surface AI nobody registered — which is where most of the real exposure sits.',obj:['ai_system','vendor'],w:'Candidate systems for triage',o:'Second line'}
+ ]}
+];
+var TAGS={built:'Prototype',spec:'v1 spec',v2:'v2',v3:'v3'};
+var flat=[];AREAS.forEach(function(a){a.mods.forEach(function(m){m.area=a.n;flat.push(m)})});
+document.getElementById('areas').innerHTML=AREAS.map(function(a){
+ var b=a.mods.filter(function(m){return m.st==='built'}).length;
+ return '<div class="area"><div class="ah"><b>'+a.n+'</b><span>'+a.d+'</span>'+
+  '<span class="cnt">'+a.mods.length+' modules'+(b?' · '+b+' built':'')+'</span></div><div class="mods">'+
+  a.mods.map(function(m){return '<button class="mod '+m.st+'" data-n="'+m.n+'"><b>'+m.n+'</b><span>'+m.s+'</span><span class="mtag">'+TAGS[m.st]+'</span></button>'}).join('')+
+  '</div></div>';
+}).join('');
+var det=document.getElementById('detail');
+Array.prototype.forEach.call(document.querySelectorAll('.mod'),function(b){
+ b.addEventListener('click',function(){
+  var m=flat.filter(function(x){return x.n===b.getAttribute('data-n')})[0];
+  Array.prototype.forEach.call(document.querySelectorAll('.mod'),function(x){x.classList.remove('on')});
+  b.classList.add('on');
+  var col=m.st==='built'?'var(--ok)':m.st==='spec'?'var(--accent)':m.st==='v2'?'#5B8FC7':'var(--fg3)';
+  det.innerHTML='<div class="dh"><b>'+m.n+'</b><span class="mtag" style="border:1px solid '+col+';color:'+col+'">'+TAGS[m.st]+'</span>'+
+   '<span style="font-size:12.5px;color:var(--fg3)">'+m.area+'</span></div>'+
+   '<p style="margin:0;color:var(--fg2);font-size:14.5px;max-width:74ch">'+m.does+'</p>'+
+   '<dl class="dgrid"><div><dt>Objects</dt><dd>'+m.obj.map(function(o){return '<span class="obj">'+o+'</span>'}).join('')+'</dd></div>'+
+   '<div><dt>Writes</dt><dd>'+m.w+'</dd></div><div><dt>Primary user</dt><dd>'+m.o+'</dd></div></dl>'+
+   (m.url?'<a class="open" href="'+m.url+'">Open the prototype &rarr;</a>':'');
+  det.classList.add('on');
+  det.scrollIntoView({behavior:'smooth',block:'nearest'});
+ });
+});
+var METH=[
+ ['M08','Guardrails, Risk &amp; Compliance','Register, tiering, control library, approvals, evidence, coverage — the entire v1','v1','a'],
+ ['M03','Discovery &amp; Intake','The intake questionnaire and triage queue','v1','a'],
+ ['M02','Operating Model Design','Forums, quorum rules, decision rights, escalation — enforced in approvals','v1','a'],
+ ['M11','Run, Scale &amp; Lifecycle','Reviews, conditions tracking, retirement; monitoring hooks in v2','v1','a'],
+ ['M07','Data Foundation','Data attributes and transfer basis in v1; readiness gates in v3','v1','a'],
+ ['M12','Vendor &amp; Partner Model','Vendor fields in v1; full register and concentration in v3','v1','a'],
+ ['M04','Value Map &amp; Prioritisation','Value case forms and the transparent prioritisation engine','v2','b'],
+ ['M10','Value Reporting &amp; Assurance','Benefit reconciliation to a P&amp;L line, audit-ready','v2','b'],
+ ['M01','Strategy &amp; Ambition','Portfolio view of the estate against declared strategic themes','v2','b'],
+ ['M06','Technology Blueprint','Architecture patterns as reference content, not enforced workflow','v3',''],
+ ['M05','Solution Design &amp; Delivery','Integration with existing delivery tooling rather than replacing it','v3',''],
+ ['M09','Talent, Capability &amp; Change','Stays advisory — deliberately not built as software','—','']
+];
+document.getElementById('meth').innerHTML=METH.map(function(r){
+ return '<tr><td><span class="mid">'+r[0]+'</span><br><b style="color:var(--fg)">'+r[1]+'</b></td><td>'+r[2]+'</td><td><span class="rp '+r[4]+'">'+r[3]+'</span></td></tr>';
+}).join('');
+})();
+</script>
+</body></html>

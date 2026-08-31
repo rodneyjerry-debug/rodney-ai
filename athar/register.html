@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register — Athar | Enterprise.AI</title>
+<meta name="description" content="The AI register of record — inventory, risk tiering, control coverage and decision history.">
+<link rel="icon" type="image/png" href="../assets/brand/04_avatar_square.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_demo.css">
+<style>
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.filters .search{flex:1;min-width:170px}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--surface)}
+.sid{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--fg3);white-space:nowrap}
+.sname{font-weight:600;color:var(--fg)}
+.smeta{font-size:11.5px;color:var(--fg3);margin-top:2px}
+.tier{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;white-space:nowrap}
+.st{font-size:11.5px;padding:2px 8px;border-radius:3px;border:1px solid var(--line2);color:var(--fg2);white-space:nowrap}
+.st.live{border-color:rgba(52,201,160,.3);color:#5FD9B6;background:rgba(52,201,160,.08)}
+.st.rev{border-color:rgba(224,178,76,.3);color:#EBC66F;background:rgba(224,178,76,.08)}
+.cov{font-size:12px;color:var(--fg2)}
+.due{font-size:12.5px;color:var(--fg2);white-space:nowrap}
+.due.od{color:#EE8A83}
+.flags{display:flex;gap:4px}
+.fl{font-size:9.5px;font-weight:700;padding:2px 5px;border-radius:2px;background:var(--surface3);color:var(--fg3);letter-spacing:.04em}
+.fl.a{background:var(--accent-bg);color:var(--accent)}
+.empty{padding:44px;text-align:center;color:var(--fg3);font-size:13.5px}
+.scrim{position:fixed;inset:0;background:rgba(4,8,12,.66);opacity:0;pointer-events:none;transition:opacity .2s;z-index:60}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;inset-inline-end:0;height:100%;width:min(620px,94vw);background:var(--bg2);border-inline-start:1px solid var(--line2);z-index:61;display:flex;flex-direction:column;transform:translateX(102%);transition:transform .24s var(--ease)}
+.drawer.on{transform:translateX(0)}
+.dhead{padding:22px 26px 0;border-bottom:1px solid var(--line);position:relative}
+.dclose{position:absolute;top:18px;inset-inline-end:22px;background:none;border:none;color:var(--fg3);font-size:24px;cursor:pointer;line-height:1;padding:4px}
+.dclose:hover{color:var(--fg)}
+.dtitle{font-family:var(--serif);font-weight:600;font-size:24px;margin:6px 0 4px;padding-inline-end:34px;letter-spacing:-.015em}
+.dsub{font-size:12.5px;color:var(--fg3);margin-bottom:16px}
+.tabs{display:flex;gap:2px}
+.tab{padding:9px 14px;font-size:13px;color:var(--fg3);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer}
+.tab:hover{color:var(--fg2)}
+.tab.on{color:var(--accent);border-bottom-color:var(--accent)}
+.dbody{flex:1;overflow-y:auto;padding:22px 26px 40px}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:9px 16px;font-size:13.5px;margin-bottom:24px}
+.kv dt{color:var(--fg3);font-size:12.5px}
+.kv dd{margin:0;color:var(--fg2)}
+@media(max-width:520px){.kv{grid-template-columns:1fr;gap:2px}.kv dd{margin-bottom:10px}}
+.derivrow{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--line);font-size:13px}
+.derivrow:last-of-type{border-bottom:none}
+.derivrow b{color:var(--accent);font-weight:600}
+.derivtot{display:flex;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid var(--line2);align-items:baseline}
+.derivtot b{font-family:var(--serif);font-size:20px;font-weight:600}
+.cl{list-style:none;margin:0;padding:0}
+.cl li{padding:12px 0;border-bottom:1px solid var(--line);display:flex;gap:11px;align-items:flex-start}
+.cl li:last-child{border-bottom:none}
+.dot{flex:0 0 8px;width:8px;height:8px;border-radius:50%;margin-top:6px}
+.cbody{flex:1;font-size:13.5px;color:var(--fg2);line-height:1.45}
+.cmeta{font-size:11.5px;color:var(--fg3);margin-top:4px}
+.step{position:relative;padding-inline-start:26px;padding-bottom:20px}
+.step:before{content:"";position:absolute;inset-inline-start:4px;top:14px;bottom:-4px;width:1px;background:var(--line2)}
+.step:last-child:before{display:none}
+.step:after{content:"";position:absolute;inset-inline-start:0;top:5px;width:9px;height:9px;border-radius:50%;background:var(--accent);border:2px solid var(--bg2)}
+.sh{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--accent);word-break:break-all;margin-bottom:4px}
+.st2{font-size:13.5px;color:var(--fg);font-weight:600}
+.sm{font-size:11.5px;color:var(--fg3);margin-top:3px}
+.verify{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#5FD9B6;background:rgba(52,201,160,.07);border:1px solid rgba(52,201,160,.22);border-radius:var(--radius);padding:9px 12px;margin-bottom:18px}
+.ev{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13px}
+.ev:last-child{border-bottom:none}
+.ev span:last-child{color:var(--fg3);font-size:11.5px;white-space:nowrap}
+</style>
+</head>
+<body>
+
+<div class="demo-bar"><div class="demo-in">
+  <b>Athar</b> — working prototype on illustrative data. Nakhla Bank is fictional.
+  <span class="sp">
+    <a href="../athar.html">← Product page</a><span class="sep">·</span>
+    <a href="intake.html">Intake</a><span class="sep">·</span>
+    <a href="approvals.html">Approvals</a><span class="sep">·</span>
+    <a href="coverage.html">Coverage</a><span class="sep">·</span>
+    <a href="map.html">Product map</a>
+  </span>
+</div></div>
+
+<div class="app">
+  <aside class="side">
+    <div class="brand"><b>Athar</b><span>أثر</span></div>
+    <div class="brand-sub">an Enterprise.AI platform</div>
+    <div class="navgrp">Govern</div>
+    <a class="nav on" href="register.html">Register</a>
+    <a class="nav" href="intake.html">Intake queue</a>
+    <a class="nav" href="approvals.html">Approvals<span class="badge">6</span></a>
+    <a class="nav">Exceptions</a>
+    <div class="navgrp">Evidence</div>
+    <a class="nav">Control library</a>
+    <a class="nav" href="coverage.html">Regulatory coverage</a>
+    <a class="nav">Incidents</a>
+    <div class="tenant"><b>Nakhla Bank</b><span>Content pack KSA-BANK v2026.3</span></div>
+  </aside>
+
+  <div>
+    <div class="top">
+      <h1>AI Register</h1>
+      <div class="spacer"></div>
+      <a class="btn" href="coverage.html">Export regulator pack</a>
+      <a class="btn btn-p" href="intake.html">Register a system</a>
+    </div>
+
+    <div class="main">
+      <div class="kpis" id="kpis"></div>
+      <div class="filters">
+        <button class="chip on" data-f="all">All</button>
+        <button class="chip" data-f="Critical"><span class="tdot" style="background:var(--t4);margin-inline-end:6px"></span>Critical</button>
+        <button class="chip" data-f="High"><span class="tdot" style="background:var(--t3);margin-inline-end:6px"></span>High</button>
+        <button class="chip" data-f="Elevated"><span class="tdot" style="background:var(--t2);margin-inline-end:6px"></span>Elevated</button>
+        <button class="chip" data-f="Limited"><span class="tdot" style="background:var(--t1);margin-inline-end:6px"></span>Limited</button>
+        <button class="chip" data-f="overdue">Review overdue</button>
+        <button class="chip" data-f="xb">Processes outside KSA</button>
+        <input class="search" id="q" placeholder="Search systems, owners, functions…">
+      </div>
+      <div class="tw">
+        <table>
+          <thead><tr>
+            <th>System</th><th>Tier</th><th>Status</th><th>Owner</th>
+            <th>Control coverage</th><th>Next review</th><th>Flags</th>
+          </tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <div class="empty" id="empty" style="display:none">No systems match these filters.</div>
+      </div>
+      <p class="note">Illustrative tenant. Nakhla Bank is fictional and every record is invented — no real institution's data appears here. Tier is derived from the attributes shown in each system's detail, using the content pack's weightings, which the bank's own risk function configures.</p>
+    </div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer">
+  <div class="dhead">
+    <button class="dclose" id="dclose">&times;</button>
+    <div class="sid" id="d-id"></div>
+    <div class="dtitle" id="d-name"></div>
+    <div class="dsub" id="d-sub"></div>
+    <div class="tabs">
+      <button class="tab on" data-t="profile">Profile</button>
+      <button class="tab" data-t="controls">Controls</button>
+      <button class="tab" data-t="decisions">Decisions</button>
+      <button class="tab" data-t="evidence">Evidence</button>
+    </div>
+  </div>
+  <div class="dbody" id="dbody"></div>
+</aside>
+
+<script src="_data.js"></script>
+<script>
+(function(){
+var ATTRS=ATHAR.ATTRS, CTRL=ATHAR.CTRL, DATA=ATHAR.systems();
+var STATUS={live:{t:'Live',c:'live'},rev:{t:'In review',c:'rev'},ret:{t:'Retired',c:''}};
+var filter='all',q='',cur=null,tab='profile';
+
+function kpis(){
+ var live=DATA.filter(function(d){return d.st!=='ret'});
+ var hi=live.filter(function(d){return d.sc>=6}).length;
+ var od=live.filter(function(d){return d.od}).length;
+ var cov=Math.round(live.reduce(function(a,d){return a+d.cov},0)/live.length);
+ var xb=live.filter(function(d){return d.a.xb}).length;
+ var k=[
+  [live.length,'Systems in register','3 registered this quarter'],
+  [hi,'High or Critical','of which 4 customer-facing'],
+  [cov+'%','Control coverage','weighted across all tiers'],
+  [od,'Reviews overdue','escalates at 30 days'],
+  [xb,'Processing outside KSA','each needs a transfer basis'],
+  [7,'Open exceptions','2 expire within 60 days']
+ ];
+ document.getElementById('kpis').innerHTML=k.map(function(x){
+  return '<div class="kpi"><div class="n">'+x[0]+'</div><div class="l">'+x[1]+'</div><div class="sub">'+x[2]+'</div></div>';
+ }).join('');
+}
+
+function rows(){
+ var list=DATA.filter(function(d){
+  if(filter==='overdue')return d.od;
+  if(filter==='xb')return d.a.xb;
+  if(filter!=='all'&&d.tier.n!==filter)return false;
+  if(q&&(d.n+' '+d.own+' '+d.fn+' '+d.id).toLowerCase().indexOf(q)<0)return false;
+  return true;
+ }).filter(function(d){
+  if(!q)return true;
+  return (d.n+' '+d.own+' '+d.fn+' '+d.id).toLowerCase().indexOf(q)>=0;
+ });
+ document.getElementById('empty').style.display=list.length?'none':'block';
+ document.getElementById('rows').innerHTML=list.map(function(d){
+  var fl=[];
+  if(d.a.pd)fl.push('<span class="fl">PD</span>');
+  if(d.a.dec)fl.push('<span class="fl a">AUTO</span>');
+  if(d.a.xb)fl.push('<span class="fl a">X-B</span>');
+  if(d.a.gen)fl.push('<span class="fl">GEN</span>');
+  var s=STATUS[d.st];
+  return '<tr data-id="'+d.id+'">'+
+   '<td><div class="sname">'+d.n+'</div><div class="smeta">'+d.id+' · '+d.fn+'</div></td>'+
+   '<td><span class="tier"><span class="tdot" style="background:'+d.tier.c+'"></span>'+d.tier.n+'</span></td>'+
+   '<td><span class="st '+s.c+'">'+s.t+'</span></td>'+
+   '<td style="font-size:13px;color:var(--fg2);white-space:nowrap">'+d.own+'</td>'+
+   '<td><span class="bar"><i style="width:'+d.cov+'%"></i></span><span class="cov">'+d.cov+'%</span></td>'+
+   '<td><span class="due'+(d.od?' od':'')+'">'+d.rev+(d.od?' &#9873;':'')+'</span></td>'+
+   '<td><div class="flags">'+fl.join('')+'</div></td></tr>';
+ }).join('');
+ Array.prototype.forEach.call(document.querySelectorAll('#rows tr'),function(tr){
+  tr.addEventListener('click',function(){open(tr.getAttribute('data-id'))});
+ });
+}
+
+function open(id){
+ cur=DATA.filter(function(d){return d.id===id})[0];tab='profile';
+ Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(t){t.classList.toggle('on',t.getAttribute('data-t')==='profile')});
+ document.getElementById('d-id').textContent=cur.id;
+ document.getElementById('d-name').textContent=cur.n;
+ document.getElementById('d-sub').textContent=cur.fn+' · '+cur.own+' · '+STATUS[cur.st].t;
+ body();
+ document.getElementById('drawer').classList.add('on');
+ document.getElementById('scrim').classList.add('on');
+}
+function close(){document.getElementById('drawer').classList.remove('on');document.getElementById('scrim').classList.remove('on')}
+
+function body(){
+ var d=cur,h='';
+ if(tab==='profile'){
+  h+='<dl class="kv">'+
+   '<dt>Business function</dt><dd>'+d.fn+'</dd>'+
+   '<dt>Accountable owner</dt><dd>'+d.own+'</dd>'+
+   '<dt>Lifecycle status</dt><dd>'+STATUS[d.st].t+'</dd>'+
+   '<dt>Assessment version</dt><dd>v3 · 14 Mar 2026</dd>'+
+   '<dt>Next review</dt><dd'+(d.od?' style="color:#EE8A83"':'')+'>'+d.rev+(d.od?' · overdue':'')+'</dd>'+
+   '<dt>Content pack</dt><dd>KSA-BANK v2026.3</dd></dl>';
+  h+='<div class="panel"><div class="ptitle"><span>Tier derivation</span></div>';
+  ATTRS.forEach(function(a){if(d.a[a.k])h+='<div class="derivrow"><span>'+a.l+'</span><b>+'+a.w+'</b></div>'});
+  if(!d.sc)h+='<div class="derivrow" style="color:var(--fg3)">No risk-bearing attributes recorded</div>';
+  h+='<div class="derivtot"><span style="font-size:12.5px;color:var(--fg3)">Derived tier</span><b style="color:'+d.tier.c+'">'+d.tier.n+' · '+d.sc+'</b></div></div>';
+  h+='<p class="note">Boundaries: Limited 0–2, Elevated 3–5, High 6–8, Critical 9+. Weightings and boundaries are content, not code — the bank\'s risk function sets them and a change is logged against the content version.</p>';
+ }
+ if(tab==='controls'){
+  var app=ATHAR.controlsFor(d), met=Math.round(app.length*d.cov/100);
+  h+='<div class="panel" style="padding:14px 18px;margin-bottom:18px"><div style="display:flex;justify-content:space-between;font-size:13.5px"><span style="color:var(--fg3)">Applicable controls</span><span><b style="color:var(--accent)">'+met+'</b> of '+app.length+' evidenced</span></div></div>';
+  h+='<ul class="cl">'+app.map(function(c,ix){
+   var ok=ix<met;
+   return '<li><span class="dot" style="background:'+(ok?'var(--t1)':'var(--t3)')+'"></span><div class="cbody">'+c.t+
+    '<div class="cmeta"><span class="cid">'+c.id+'</span> &nbsp;'+c.i+' &nbsp;·&nbsp; '+(ok?'evidenced':'outstanding')+'</div></div></li>';
+  }).join('')+'</ul>';
+ }
+ if(tab==='decisions'){
+  h+='<div class="verify"><span>&#10003;</span><span>Chain verified — 4 records, no gaps, last checked today</span></div>';
+  [['a7f3…c210','Intake accepted','12 Jan 2026 · AI Council · quorum 4 of 5'],
+   ['b1e9…44da','Tier confirmed: '+d.tier.n,'19 Jan 2026 · Risk · quorum 3 of 3'],
+   ['c8d2…9f07','Conditional approval, 2 conditions','02 Feb 2026 · AI Council · quorum 5 of 5'],
+   ['d4a6…1b83','Deployment authorised','28 Feb 2026 · Second line']
+  ].forEach(function(s){h+='<div class="step"><div class="sh">'+s[0]+'</div><div class="st2">'+s[1]+'</div><div class="sm">'+s[2]+'</div></div>'});
+  h+='<p class="note">Each record carries a hash of the one before it. Altering an earlier decision breaks verification for every record after it, so the history cannot be quietly revised.</p>';
+ }
+ if(tab==='evidence'){
+  [['Model risk assessment v3.pdf','2.4 MB · 14 Mar 2026'],
+   ['DPIA — signed by DPO.pdf','880 KB · 06 Feb 2026'],
+   ['Fairness testing results.xlsx','1.1 MB · 22 Jan 2026'],
+   ['Second-line review memo.docx','340 KB · 26 Feb 2026'],
+   ['Vendor DPA — executed.pdf','1.6 MB · 11 Dec 2025']
+  ].forEach(function(e){h+='<div class="ev"><span>'+e[0]+'</span><span>'+e[1]+'</span></div>'});
+  h+='<p class="note">Evidence is versioned, hashed and encrypted with the tenant\'s own keys. Retention follows the content pack\'s schedule.</p>';
+ }
+ document.getElementById('dbody').innerHTML=h;
+}
+
+Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(t){
+ t.addEventListener('click',function(){
+  tab=t.getAttribute('data-t');
+  Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(x){x.classList.remove('on')});
+  t.classList.add('on');body();
+ });
+});
+Array.prototype.forEach.call(document.querySelectorAll('.chip'),function(c){
+ c.addEventListener('click',function(){
+  Array.prototype.forEach.call(document.querySelectorAll('.chip'),function(x){x.classList.remove('on')});
+  c.classList.add('on');filter=c.getAttribute('data-f');rows();
+ });
+});
+document.getElementById('q').addEventListener('input',function(e){q=e.target.value.toLowerCase();rows()});
+document.getElementById('dclose').addEventListener('click',close);
+document.getElementById('scrim').addEventListener('click',close);
+document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+
+kpis();rows();
+})();
+</script>
+</body></html>

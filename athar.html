@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ9C4MLQS8"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-QZ9C4MLQS8');</script>
+<title>Athar — AI Register &amp; Guardrails | Enterprise.AI</title>
+<meta name="description" content="The register of record for every AI system in your organisation. Risk tiering, a control library mapped to Saudi instruments, approval gates and regulator-ready evidence. Hosted in Dammam.">
+<link rel="icon" type="image/png" href="assets/brand/04_avatar_square.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Naskh+Arabic:wght@400;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ===== Athar page-scoped styles ===== */
+.ath-hero{background:var(--navy);color:#fff;padding:88px 0 92px;text-align:center;position:relative;overflow:hidden}
+.ath-hero .container{position:relative;z-index:2}
+.ath-eyebrow{font-size:11px;color:var(--gold-light);font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:22px}
+.ath-h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(34px,6vw,64px);line-height:1.06;letter-spacing:-.025em;color:#F5EDE0;margin:0 auto 4px;max-width:17ch}
+.ath-rule{width:60px;height:3px;background:var(--gold-light);border-radius:2px;margin:24px auto 22px}
+.ath-lede{font-size:clamp(16px,1.9vw,19px);color:rgba(255,255,255,.72);max-width:62ch;margin:0 auto 30px;line-height:1.62}
+.ath-hbtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.ath-hnote{margin-top:28px;font-size:13.5px;color:rgba(255,255,255,.5);max-width:60ch;margin-left:auto;margin-right:auto}
+.ath-ar{font-family:'Amiri','Noto Naskh Arabic',serif;color:var(--gold-light);opacity:.75;font-size:17px;direction:rtl}
+
+.ath-sec{padding:80px 0}
+.ath-sand{background:var(--bg-warm)}
+.ath-white{background:#fff}
+.ath-head{text-align:center;margin-bottom:46px}
+.ath-head .ath-rule{margin:18px auto}
+.ath-sub{font-size:15.5px;color:var(--text-secondary);max-width:64ch;margin:0 auto;line-height:1.65}
+.ath-head.left{text-align:start}
+.ath-head.left .ath-rule,.ath-head.left .ath-sub{margin-inline-start:0}
+
+.ath-qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.ath-q{background:#fff;border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:26px 24px;box-shadow:var(--shadow-sm)}
+.ath-q h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:19px;color:var(--navy);margin:0 0 9px}
+.ath-q p{margin:0;font-size:14.5px;color:var(--text-secondary);line-height:1.6}
+
+/* calculator */
+.ath-calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);background:#fff;border:1px solid var(--border-light);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow)}
+@media(max-width:900px){.ath-calc{grid-template-columns:1fr}}
+.ath-pane{padding:28px}
+.ath-pane+.ath-pane{border-inline-start:1px solid var(--border-light)}
+@media(max-width:900px){.ath-pane+.ath-pane{border-inline-start:none;border-top:1px solid var(--border-light)}}
+.ath-phead{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted);margin-bottom:18px}
+.ath-attr{display:flex;gap:13px;padding:12px 0;border-bottom:1px solid var(--border-light);cursor:pointer;align-items:flex-start}
+.ath-attr:last-of-type{border-bottom:none}
+.ath-box{flex:0 0 19px;width:19px;height:19px;margin-top:2px;border:1.5px solid var(--border);border-radius:4px;background:#fff;position:relative;transition:all .18s var(--ease)}
+.ath-attr.on .ath-box{background:var(--gold);border-color:var(--gold)}
+.ath-attr.on .ath-box:after{content:"";position:absolute;left:5.5px;top:1.5px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)}
+.ath-atx{flex:1;font-size:14px;color:var(--text-secondary);line-height:1.45}
+.ath-attr.on .ath-atx{color:var(--text)}
+.ath-wt{font-size:11.5px;color:var(--text-muted);margin-top:3px}
+.ath-attr.on .ath-wt{color:var(--gold);font-weight:700}
+.ath-tbox{border:1px solid var(--border);border-radius:var(--radius);padding:19px;margin-bottom:18px;background:var(--bg);transition:border-color .25s}
+.ath-ttop{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:7px}
+.ath-tname{font-family:'Fraunces',Georgia,serif;font-size:30px;font-weight:600;line-height:1.1;letter-spacing:-.02em}
+.ath-tscore{font-size:12.5px;color:var(--text-muted)}
+.ath-deriv{font-size:12.5px;color:var(--text-muted);line-height:1.75}
+.ath-deriv b{color:var(--gold);font-weight:700}
+.ath-cth{display:flex;justify-content:space-between;align-items:baseline;margin:22px 0 8px;gap:10px}
+.ath-cth span:first-child{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted)}
+.ath-ccount{font-size:13.5px;color:var(--gold);font-weight:700}
+.ath-ctrls{max-height:320px;overflow-y:auto;margin:0;padding:0;list-style:none}
+.ath-ctrls li{padding:10px 0;border-bottom:1px solid var(--border-light);display:flex;gap:10px;align-items:flex-start}
+.ath-ctrls li:last-child{border-bottom:none}
+.ath-cid{flex:0 0 auto;font-size:10px;color:var(--gold);font-family:ui-monospace,Menlo,monospace;background:var(--gold-bg);border:1px solid var(--gold-border);padding:2px 6px;border-radius:3px;margin-top:1px;white-space:nowrap}
+.ath-ctxt{font-size:13.5px;color:var(--text-secondary);line-height:1.45}
+.ath-inst{display:block;font-size:11px;color:var(--text-muted);margin-top:3px}
+.ath-guid{color:#B8860B}
+
+.ath-caps{display:grid;grid-template-columns:repeat(auto-fit,minmax(262px,1fr));gap:16px}
+.ath-cap{background:#fff;border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:24px 22px;box-shadow:var(--shadow-sm)}
+.ath-capn{font-size:11px;color:var(--gold);font-weight:700;letter-spacing:.1em;margin-bottom:10px}
+.ath-cap h3{font-size:16px;font-weight:600;color:var(--navy);margin:0 0 6px}
+.ath-cap p{margin:0;font-size:14px;color:var(--text-secondary);line-height:1.55}
+
+.ath-chain{display:flex;overflow-x:auto;padding-bottom:8px}
+.ath-blk{flex:0 0 auto;min-width:192px;background:#fff;border:1px solid var(--border-light);border-radius:var(--radius);padding:15px;position:relative;box-shadow:var(--shadow-sm)}
+.ath-blk+.ath-blk{margin-inline-start:34px}
+.ath-blk+.ath-blk:before{content:"";position:absolute;top:50%;inset-inline-start:-34px;width:34px;height:1.5px;background:var(--gold-border)}
+.ath-blk+.ath-blk:after{content:"";position:absolute;top:calc(50% - 3.5px);inset-inline-start:-9px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.ath-blkh{font-size:10px;font-family:ui-monospace,Menlo,monospace;color:var(--gold);margin-bottom:8px;word-break:break-all}
+.ath-blkt{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.ath-blkm{font-size:11px;color:var(--text-muted)}
+
+.ath-tw{border:1px solid var(--border-light);border-radius:var(--radius-lg);overflow-x:auto;background:#fff;box-shadow:var(--shadow-sm)}
+.ath-tw table{width:100%;border-collapse:collapse;font-size:14px;min-width:620px}
+.ath-tw th{text-align:start;padding:14px 18px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);font-weight:700;background:var(--bg);border-bottom:1px solid var(--border-light)}
+.ath-tw td{padding:15px 18px;border-bottom:1px solid var(--border-light);color:var(--text-secondary);vertical-align:top}
+.ath-tw tr:last-child td{border-bottom:none}
+.ath-tw td b{color:var(--navy);font-weight:600}
+.ath-tw td span.small{font-size:12.5px;color:var(--text-muted)}
+.ath-pill{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;white-space:nowrap;font-weight:600}
+.ath-pill-b{background:rgba(155,28,28,.07);color:#9B1C1C;border:1px solid rgba(155,28,28,.2)}
+.ath-pill-g{background:var(--bg);color:var(--text-muted);border:1px solid var(--border)}
+
+.ath-rungs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.ath-rung{background:#fff;border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:28px 24px;display:flex;flex-direction:column;box-shadow:var(--shadow-sm)}
+.ath-rung.mid{border-color:var(--gold-border);box-shadow:var(--shadow)}
+.ath-rtag{font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px}
+.ath-rung.mid .ath-rtag{color:var(--gold)}
+.ath-rung h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:22px;color:var(--navy);margin:0 0 10px}
+.ath-rung p{margin:0 0 18px;font-size:14.5px;color:var(--text-secondary);line-height:1.55}
+.ath-rung dl{margin:auto 0 0;font-size:13px;border-top:1px solid var(--border-light);padding-top:14px}
+.ath-rung dt{color:var(--text-muted);font-size:11px;margin-bottom:2px}
+.ath-rung dd{margin:0 0 11px;color:var(--text-secondary)}
+.ath-rung dd:last-child{margin-bottom:0}
+
+.ath-split{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+@media(max-width:860px){.ath-split{grid-template-columns:1fr;gap:32px}}
+.ath-arcard{background:#fff;border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:28px;direction:rtl;font-family:'Noto Naskh Arabic','Amiri',serif;box-shadow:var(--shadow-sm)}
+.ath-arcard .k{font-size:12px;color:var(--text-muted);margin-bottom:8px}
+.ath-arow{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border-light);font-size:15px;gap:14px}
+.ath-arow:last-child{border-bottom:none}
+.ath-arow span:last-child{color:var(--navy);font-weight:600}
+.ath-arow span:first-child{color:var(--text-muted)}
+
+.ath-screens{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.ath-scr{display:block;background:#fff;border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:22px 20px;text-decoration:none;transition:all .25s var(--ease);box-shadow:var(--shadow-sm)}
+.ath-scr:hover{border-color:var(--gold-border);box-shadow:var(--shadow);transform:translateY(-2px)}
+.ath-scr .n{font-size:10.5px;font-weight:700;color:var(--gold);letter-spacing:.1em;margin-bottom:9px}
+.ath-scr h4{font-size:15.5px;font-weight:600;color:var(--navy);margin:0 0 5px}
+.ath-scr p{margin:0 0 12px;font-size:13px;color:var(--text-secondary);line-height:1.5}
+.ath-scr .go{font-size:11px;color:var(--gold);font-weight:700}
+
+.ath-note{margin-top:22px;font-size:12.5px;color:var(--text-muted);line-height:1.65;border-inline-start:3px solid var(--gold-border);padding-inline-start:15px;max-width:76ch}
+.ath-cta{background:var(--navy);padding:78px 0;text-align:center}
+.ath-cta .ath-h2{color:#F5EDE0}
+.ath-h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(26px,4vw,40px);line-height:1.14;letter-spacing:-.02em;color:var(--navy);margin:0 auto;max-width:22ch}
+.ath-head.left .ath-h2{margin-inline-start:0}
+</style>
+</head>
+<body id="top">
+
+<!-- ========== LOCALE STRIP ========== -->
+<div class="locale-strip">
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center">
+    <span class="locale-geo">Riyadh · Doha · Dubai · London</span>
+    <span class="locale-date" id="hijriDate"></span>
+  </div>
+</div>
+
+<!-- ========== NAV ========== -->
+<header class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div>
+        <div class="logo-text">Enterprise<span class="dot">.AI</span></div>
+        <div class="logo-tag">AI Strategy · Governance · Execution</div>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="index.html#storefront" class="nav-link">What We Do</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="training.html" class="nav-link">Training</a>
+      <a href="research.html" class="nav-link">Research</a>
+      <a href="agents.html" class="nav-link">Agents</a>
+      <a href="tools.html" class="nav-link">Tools</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="about.html#contact" class="btn btn-primary">Book a Free Briefing</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <a href="index.html">Home</a>
+  <a href="index.html#storefront">What We Do</a>
+  <a href="services.html">Services</a>
+  <a href="training.html">Training</a>
+  <a href="research.html">Research</a>
+  <a href="agents.html">Agents</a>
+  <a href="tools.html">Tools</a>
+  <a href="about.html">About</a>
+  <a href="about.html#contact" style="color:var(--gold);font-weight:700">Book a Free Briefing →</a>
+</div>
+
+<main>
+
+<!-- ========== HERO ========== -->
+<section class="ath-hero">
+  <div class="container">
+    <div class="ath-eyebrow">Athar &nbsp;<span class="ath-ar">أثر</span>&nbsp; · an Enterprise.AI platform</div>
+    <h1 class="ath-h1">When the regulator asks, you have one answer.</h1>
+    <div class="ath-rule"></div>
+    <p class="ath-lede">The register of record for every AI system in your organisation — what it does, who owns it, what risk it carries, which controls apply, and who approved it. Built on a control library mapped to Saudi instruments, hosted in Dammam, in Arabic and English.</p>
+    <div class="ath-hbtns">
+      <a href="#tier" class="btn btn-gold">Tier a system now →</a>
+      <a href="athar/register.html" class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.3)">See the platform</a>
+    </div>
+    <p class="ath-hnote">For the Chief Risk Officer who has been asked how many AI systems the bank runs — and does not yet have a defensible answer.</p>
+  </div>
+</section>
+
+<!-- ========== PROBLEM ========== -->
+<section class="ath-sec">
+  <div class="container">
+    <div class="ath-head reveal">
+      <div class="section-tag">The problem</div>
+      <h2 class="ath-h2">AI arrived faster than the governance around it</h2>
+      <div class="ath-rule"></div>
+      <p class="ath-sub">Not because anyone was careless. Because models, copilots, vendor features and agents entered through a dozen doors at once, and none of those doors reported to the same place.</p>
+    </div>
+    <div class="ath-qgrid">
+      <div class="ath-q reveal"><h3>No single inventory</h3><p>Procurement knows the vendors. Data science knows the models. Nobody holds the list — and the embedded AI inside SaaS you already bought is on nobody's list at all.</p></div>
+      <div class="ath-q reveal reveal-delay-1"><h3>Risk assessed by opinion</h3><p>Two teams look at the same use case and reach different conclusions, because no written rule turns attributes into a tier. Consistency cannot be evidenced.</p></div>
+      <div class="ath-q reveal reveal-delay-2"><h3>Approvals that cannot be reconstructed</h3><p>The decision was made in a meeting. The evidence was in an attachment. Eighteen months later, nobody can show what was known when it was signed off.</p></div>
+      <div class="ath-q reveal reveal-delay-2"><h3>Evidence assembled in a panic</h3><p>A regulatory request arrives and three people spend two weeks rebuilding a story from email. The answer is usually correct. It is never defensible.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TIERING DEMO ========== -->
+<section class="ath-sec ath-sand" id="tier">
+  <div class="container">
+    <div class="ath-head reveal">
+      <div class="section-tag">Working demonstration</div>
+      <h2 class="ath-h2">Tier a system. See exactly why.</h2>
+      <div class="ath-rule"></div>
+      <p class="ath-sub">Select what is true of one AI system. The tier and its control set are derived in front of you, from rules your own risk function configures — not from a score you are asked to trust.</p>
+    </div>
+    <div class="ath-calc reveal">
+      <div class="ath-pane">
+        <div class="ath-phead">System attributes</div>
+        <div id="athAttrs"></div>
+      </div>
+      <div class="ath-pane">
+        <div class="ath-phead">Derived outcome</div>
+        <div class="ath-tbox" id="athTbox">
+          <div class="ath-ttop"><div class="ath-tname" id="athTname">Limited</div><div class="ath-tscore" id="athTscore">0 points</div></div>
+          <div class="ath-deriv" id="athDeriv"></div>
+        </div>
+        <div class="ath-cth"><span>Controls applied</span><span class="ath-ccount" id="athCcount">3</span></div>
+        <ul class="ath-ctrls" id="athCtrls"></ul>
+      </div>
+    </div>
+    <p class="ath-note">Illustrative content pack. Control IDs, weightings and tier boundaries are configuration, not code — a client's risk function sets them, and a regulatory change ships as a content release rather than a software release. Instruments marked guidance are exactly that: SDAIA's Generative AI Guidelines do not bind a private company, and we say so rather than inflating the obligation.</p>
+  </div>
+</section>
+
+<!-- ========== PLATFORM SCREENS ========== -->
+<section class="ath-sec ath-white">
+  <div class="container">
+    <div class="ath-head reveal">
+      <div class="section-tag">Walk the product</div>
+      <h2 class="ath-h2">Five screens, one loop</h2>
+      <div class="ath-rule"></div>
+      <p class="ath-sub">A system enters, gets tiered, controls attach, approvals route, coverage recomputes, evidence exports. Open any screen — these are working prototypes on illustrative data.</p>
+    </div>
+    <div class="ath-screens">
+      <a class="ath-scr reveal" href="athar/intake.html"><div class="n">01</div><h4>Intake</h4><p>Plain-language questions that derive tier, controls and the approval route.</p><span class="go">Open →</span></a>
+      <a class="ath-scr reveal reveal-delay-1" href="athar/register.html"><div class="n">02</div><h4>Register</h4><p>The inventory of record, with tier derivation shown as arithmetic.</p><span class="go">Open →</span></a>
+      <a class="ath-scr reveal reveal-delay-1" href="athar/approvals.html"><div class="n">03</div><h4>Approvals</h4><p>Enforced quorum, gating controls, and a decision that cannot be edited.</p><span class="go">Open →</span></a>
+      <a class="ath-scr reveal reveal-delay-2" href="athar/coverage.html"><div class="n">04</div><h4>Regulatory coverage</h4><p>Your position against each instrument, computed from the register.</p><span class="go">Open →</span></a>
+      <a class="ath-scr reveal reveal-delay-2" href="athar/map.html"><div class="n">05</div><h4>Product map</h4><p>All 22 modules, the object model, and what ships when.</p><span class="go">Open →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== NINE CAPABILITIES ========== -->
+<section class="ath-sec ath-sand">
+  <div class="container">
+    <div class="ath-head reveal">
+      <div class="section-tag">The platform</div>
+      <h2 class="ath-h2">Nine things, done properly</h2>
+      <div class="ath-rule"></div>
+      <p class="ath-sub">Athar governs the AI lifecycle. It does not build models — that stays with you and your vendors.</p>
+    </div>
+    <div class="ath-caps">
+      <div class="ath-cap reveal"><div class="ath-capn">01</div><h3>Register</h3><p>Every model, copilot, agent and embedded vendor feature. Owner, purpose, data, lifecycle status, review date.</p></div>
+      <div class="ath-cap reveal"><div class="ath-capn">02</div><h3>Intake and assessment</h3><p>A versioned questionnaire producing a tier and a control set. Never overwritten — each assessment is a new version.</p></div>
+      <div class="ath-cap reveal"><div class="ath-capn">03</div><h3>Risk tiering</h3><p>Configurable rules with the derivation shown on screen. A user can always see why a system landed where it did.</p></div>
+      <div class="ath-cap reveal reveal-delay-1"><div class="ath-capn">04</div><h3>Control library</h3><p>Pre-loaded Saudi content, extensible by you, applied automatically by tier.</p></div>
+      <div class="ath-cap reveal reveal-delay-1"><div class="ath-capn">05</div><h3>Regulatory coverage</h3><p>Your position against a named instrument, on one screen. Export a regulator-ready pack.</p></div>
+      <div class="ath-cap reveal reveal-delay-1"><div class="ath-capn">06</div><h3>Gates and decision log</h3><p>Forums with quorum rules, an approval queue, and a decision chain that cannot be edited after the fact.</p></div>
+      <div class="ath-cap reveal reveal-delay-2"><div class="ath-capn">07</div><h3>Evidence vault</h3><p>Versioned attachments and links, retention rules, encrypted with your own keys.</p></div>
+      <div class="ath-cap reveal reveal-delay-2"><div class="ath-capn">08</div><h3>Reviews and lifecycle</h3><p>Review intervals by tier, overdue alerts, exceptions with expiry dates, and a retirement path.</p></div>
+      <div class="ath-cap reveal reveal-delay-2"><div class="ath-capn">09</div><h3>Board reporting</h3><p>Inventory by tier, control coverage, overdue reviews, open exceptions, incident trend — in either language.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DECISION CHAIN ========== -->
+<section class="ath-sec">
+  <div class="container">
+    <div class="ath-head reveal">
+      <div class="section-tag">Why it holds up</div>
+      <h2 class="ath-h2">A decision history that cannot be rewritten</h2>
+      <div class="ath-rule"></div>
+      <p class="ath-sub">Every approval carries a hash of the one before it. Change any earlier record and the chain no longer verifies. An auditor does not have to take your word that the history is intact — they can check it.</p>
+    </div>
+    <div class="ath-chain reveal">
+      <div class="ath-blk"><div class="ath-blkh">a7f3…c210</div><div class="ath-blkt">Intake accepted</div><div class="ath-blkm">12 Jan · AI Council · 4 of 5</div></div>
+      <div class="ath-blk"><div class="ath-blkh">b1e9…44da</div><div class="ath-blkt">Tier confirmed: High</div><div class="ath-blkm">19 Jan · Risk · 3 of 3</div></div>
+      <div class="ath-blk"><div class="ath-blkh">c8d2…9f07</div><div class="ath-blkt">Conditional approval</div><div class="ath-blkm">02 Feb · AI Council · 5 of 5</div></div>
+      <div class="ath-blk"><div class="ath-blkh">d4a6…1b83</div><div class="ath-blkt">Live, 2 conditions open</div><div class="ath-blkm">28 Feb · Second line</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== REGULATORY CONTENT ========== -->
+<section class="ath-sec ath-sand" id="content">
+  <div class="container">
+    <div class="ath-head reveal">
+      <div class="section-tag">Regulatory content</div>
+      <h2 class="ath-h2">Maintained, versioned, honest about what binds you</h2>
+      <div class="ath-rule"></div>
+      <p class="ath-sub">Every instrument carries its edition, who it actually binds, and the date we last verified it. Content older than ninety days is re-verified before it reaches you. Most vendors map to the EU AI Act and treat Saudi as a backlog item.</p>
+    </div>
+    <div class="ath-tw reveal">
+      <table>
+        <thead><tr><th>Instrument</th><th>Body</th><th>Binds</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><b>AI Adoption Framework</b><br><span class="small">September 2024</span></td><td>SDAIA</td><td>Public and private</td><td><span class="ath-pill ath-pill-g">Framework</span></td></tr>
+          <tr><td><b>Personal Data Protection Law</b><br><span class="small">+ Implementing Regulations</span></td><td>SDAIA</td><td>Private sector</td><td><span class="ath-pill ath-pill-b">Binding</span></td></tr>
+          <tr><td><b>Transfer of Personal Data Outside the Kingdom</b><br><span class="small">September 2024</span></td><td>SDAIA</td><td>Private sector</td><td><span class="ath-pill ath-pill-b">Binding</span></td></tr>
+          <tr><td><b>ECC-2:2024 · CCC-2:2024</b><br><span class="small">Supersedes ECC-1:2018</span></td><td>NCA</td><td>In-scope organisations</td><td><span class="ath-pill ath-pill-b">Binding</span></td></tr>
+          <tr><td><b>Cyber Security Framework, outsourcing rules</b></td><td>SAMA</td><td>Banking, finance, fintech</td><td><span class="ath-pill ath-pill-b">Binding</span></td></tr>
+          <tr><td><b>Generative AI Guidelines</b><br><span class="small">Government and Public editions</span></td><td>SDAIA</td><td>Neither binds a private company</td><td><span class="ath-pill ath-pill-g">Guidance</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="ath-note">As of August 2026 there is no binding standalone AI statute in the Kingdom. Obligations bite through PDPL, sector regulators and cybersecurity controls, with SDAIA instruments acting as national framework and guidance. We say that plainly rather than manufacturing urgency — a client who adopts these controls is positioned for regulation when it lands, and compliant with what already applies.</p>
+  </div>
+</section>
+
+<!-- ========== ARABIC ========== -->
+<section class="ath-sec ath-white">
+  <div class="container ath-split">
+    <div>
+      <div class="ath-head left reveal" style="margin-bottom:0">
+        <div class="section-tag">Arabic</div>
+        <h2 class="ath-h2" style="max-width:17ch">Built bilingual, not translated afterwards</h2>
+        <div class="ath-rule"></div>
+        <p class="ath-sub" style="margin:0">Right-to-left throughout, a governance glossary reviewed by a person rather than a model, and board packs that go to an Arabic-speaking committee without a translation step in between.</p>
+      </div>
+    </div>
+    <div class="ath-arcard reveal reveal-delay-1">
+      <div class="k">لجنة الذكاء الاصطناعي · التقرير الربعي</div>
+      <div class="ath-arow"><span>أنظمة مسجّلة</span><span>١٤٢</span></div>
+      <div class="ath-arow"><span>تصنيف مرتفع أو حرج</span><span>١٩</span></div>
+      <div class="ath-arow"><span>تغطية الضوابط</span><span>٪٨٧</span></div>
+      <div class="ath-arow"><span>مراجعات متأخرة</span><span>٣</span></div>
+      <div class="ath-arow"><span>استثناءات مفتوحة</span><span>٧</span></div>
+      <div class="ath-arow"><span>حوادث هذا الربع</span><span>٠</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DEPLOYMENT ========== -->
+<section class="ath-sec ath-sand" id="deploy">
+  <div class="container">
+    <div class="ath-head reveal">
+      <div class="section-tag">Deployment</div>
+      <h2 class="ath-h2">Three ways to run it. One product.</h2>
+      <div class="ath-rule"></div>
+      <p class="ath-sub">Sovereignty is really three questions — where the data sits, who holds the keys, and who can see it. Pick the rung that answers all three for your second line.</p>
+    </div>
+    <div class="ath-rungs">
+      <div class="ath-rung reveal">
+        <div class="ath-rtag">Rung one</div><h3>Shared</h3>
+        <p>Our environment in Dammam, isolated per tenant at the database schema. Fastest to start.</p>
+        <dl><dt>Operated by</dt><dd>Enterprise.AI</dd><dt>Data resides</dt><dd>Our GCP project, me-central2</dd></dl>
+      </div>
+      <div class="ath-rung mid reveal reveal-delay-1">
+        <div class="ath-rtag">Rung two · most regulated buyers</div><h3>Dedicated instance</h3>
+        <p>Your own Google Cloud organisation, your VPC, your encryption keys. We operate it, so your content stays current.</p>
+        <dl><dt>Operated by</dt><dd>Enterprise.AI, under a managed agreement</dd><dt>Data resides</dt><dd>Your cloud organisation, in-Kingdom</dd></dl>
+      </div>
+      <div class="ath-rung reveal reveal-delay-2">
+        <div class="ath-rtag">Rung three</div><h3>Client-operated</h3>
+        <p>You run it entirely. Regulatory content still arrives as a subscription feed, so the library does not go stale.</p>
+        <dl><dt>Operated by</dt><dd>You</dd><dt>Data resides</dt><dd>Your infrastructure</dd></dl>
+      </div>
+    </div>
+    <p class="ath-note">Everything runs in Google Cloud's Dammam region by default, with residency enforced by organisation policy rather than promised in a contract. Rung three is on the roadmap and priced to reflect its support cost.</p>
+  </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section class="ath-cta">
+  <div class="container">
+    <div class="section-tag" style="color:var(--gold-light)">Design partners</div>
+    <h2 class="ath-h2">We are selecting three design partners</h2>
+    <div class="ath-rule"></div>
+    <p class="ath-sub" style="color:rgba(255,255,255,.72);margin-bottom:30px">Saudi enterprises willing to run their real AI inventory in Athar before general release, in exchange for candour. Free for the duration.</p>
+    <div class="ath-hbtns">
+      <a href="about.html#contact" class="btn btn-gold">Book a Free 30-Min Briefing →</a>
+      <a href="#tier" class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.3)">Try the tiering demo</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div>
+          <div class="footer-wordmark">Enterprise<span class="dot">.AI</span></div>
+          <div class="footer-sgu">Strategy · Governance · Execution</div>
+          <div style="font-family:'Amiri','Noto Naskh Arabic',serif; font-size:12px; color:var(--gold); opacity:0.5; direction:rtl; margin-top:4px;">الاستراتيجية · الحوكمة · التنفيذ</div>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="services.html">Services</a>
+        <a href="research.html">Research</a>
+        <a href="agents.html">Agents</a>
+        <a href="tools.html">Tools</a>
+        <a href="about.html">About</a>
+        <a href="mailto:rodney@theenterpriseai.co.uk">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 Enterprise.AI. All rights reserved.</span>
+      <span class="footer-copy">Riyadh · Doha · Dubai · London</span>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky-cta" id="stickyCta">
+  <a href="about.html#contact" class="btn btn-primary">Book a Free 30-Min Briefing →</a>
+</div>
+<a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top">↑</a>
+
+<script src="shared.js"></script>
+<script>
+(function(){
+var ATTRS=[
+ {k:'cf', w:2, t:'Customer-facing — an individual outside the organisation interacts with it'},
+ {k:'pd', w:2, t:'Processes personal data'},
+ {k:'dec',w:3, t:'Makes or materially informs a decision about a person'},
+ {k:'gen',w:1, t:'Generative or agentic — produces content or takes actions'},
+ {k:'ven',w:1, t:'Third-party model, or an AI feature embedded in purchased software'},
+ {k:'xb', w:2, t:'Any processing occurs outside the Kingdom'},
+ {k:'saf',w:3, t:'Clinical, safety or physical-security relevant'}
+];
+var CONTROLS=[
+ {id:'CTL-M08-001',t:'Named business owner recorded in the register',i:'SDAIA AI Adoption Framework',f:function(){return true}},
+ {id:'CTL-M08-004',t:'Purpose, scope and intended use documented',i:'SDAIA AI Adoption Framework',f:function(){return true}},
+ {id:'CTL-M08-058',t:'Periodic review at a defined interval',i:'SDAIA AI Adoption Framework',f:function(){return true}},
+ {id:'CTL-M08-052',t:'AI incident response plan with a named responder',i:'NCA ECC-2:2024',f:function(s){return s.score>=3}},
+ {id:'CTL-M08-011',t:'PDPL lawful basis recorded for each data category',i:'PDPL + Implementing Regulations',f:function(s){return s.pd}},
+ {id:'CTL-M08-014',t:'Data protection impact assessment completed and signed',i:'PDPL Implementing Regulations',f:function(s){return s.pd&&s.score>=6}},
+ {id:'CTL-M08-018',t:'Cross-border transfer assessment and documented basis',i:'Transfer Regulation, Sept 2024',f:function(s){return s.xb}},
+ {id:'CTL-M08-022',t:'Human review before an automated decision takes effect',i:'SDAIA AI Ethics Principles',f:function(s){return s.dec}},
+ {id:'CTL-M08-027',t:'Disclosure to the individual that AI is in use',i:'SDAIA AI Ethics Principles',f:function(s){return s.cf}},
+ {id:'CTL-M08-035',t:'Recourse path for an adversely affected individual',i:'SDAIA AI Ethics Principles',f:function(s){return s.dec&&s.cf}},
+ {id:'CTL-M08-041',t:'Output grounding and review controls for generative use',i:'SDAIA Generative AI Guidelines',g:true,f:function(s){return s.gen}},
+ {id:'CTL-M08-044',t:'Vendor due diligence, exit plan and concentration check',i:'SAMA outsourcing rules',f:function(s){return s.ven}},
+ {id:'CTL-M08-031',t:'Explainability record proportionate to tier',i:'SDAIA AI Adoption Framework',f:function(s){return s.score>=6}},
+ {id:'CTL-M08-047',t:'Independent pre-deployment review by second line',i:'NCA ECC-2:2024',f:function(s){return s.score>=6}},
+ {id:'CTL-M08-061',t:'Safety case and fail-safe behaviour documented',i:'Sector regulator',f:function(s){return s.saf}}
+];
+var TIERS=[{min:9,n:'Critical',c:'#9B1C1C'},{min:6,n:'High',c:'#C2410C'},{min:3,n:'Elevated',c:'#B8860B'},{min:0,n:'Limited',c:'#006B5E'}];
+var state={};ATTRS.forEach(function(a){state[a.k]=false});
+var host=document.getElementById('athAttrs');
+if(host){
+ ATTRS.forEach(function(a){
+  var d=document.createElement('div');d.className='ath-attr';
+  d.innerHTML='<div class="ath-box"></div><div class="ath-atx">'+a.t+'<div class="ath-wt">+'+a.w+'</div></div>';
+  d.addEventListener('click',function(){state[a.k]=!state[a.k];d.classList.toggle('on',state[a.k]);render()});
+  host.appendChild(d);
+ });
+}
+function render(){
+ var score=0,parts=[];
+ ATTRS.forEach(function(a){if(state[a.k]){score+=a.w;parts.push('<b>+'+a.w+'</b> '+a.t.split(' — ')[0])}});
+ var s={score:score};ATTRS.forEach(function(a){s[a.k]=state[a.k]});
+ var tier=TIERS.filter(function(t){return score>=t.min})[0];
+ document.getElementById('athTname').textContent=tier.n;
+ document.getElementById('athTname').style.color=tier.c;
+ document.getElementById('athTbox').style.borderColor=tier.c;
+ document.getElementById('athTscore').textContent=score+(score===1?' point':' points');
+ document.getElementById('athDeriv').innerHTML=parts.length?parts.join(' &nbsp;·&nbsp; '):'No attributes selected — baseline controls apply.';
+ var app=CONTROLS.filter(function(c){return c.f(s)});
+ document.getElementById('athCcount').textContent=app.length;
+ document.getElementById('athCtrls').innerHTML=app.map(function(c){
+  return '<li><span class="ath-cid">'+c.id+'</span><span class="ath-ctxt">'+c.t+
+   '<span class="ath-inst'+(c.g?' ath-guid':'')+'">'+c.i+(c.g?' · guidance, not binding':'')+'</span></span></li>';
+ }).join('');
+}
+render();
+})();
+</script>
+</body></html>

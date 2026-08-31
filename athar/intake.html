@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register a system — Athar | Enterprise.AI</title>
+<meta name="description" content="Plain-language intake that derives risk tier, control set and approval route.">
+<link rel="icon" type="image/png" href="../assets/brand/04_avatar_square.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_demo.css">
+<style>
+.body2{display:grid;grid-template-columns:minmax(0,1fr) 306px}
+@media(max-width:1060px){.body2{grid-template-columns:1fr}}
+.col{padding:26px}
+.rail{border-inline-start:1px solid var(--line);background:var(--bg2);padding:26px 24px}
+@media(max-width:1060px){.rail{border-inline-start:none;border-top:1px solid var(--line)}}
+.steps{display:flex;margin-bottom:30px;flex-wrap:wrap}
+.step{display:flex;align-items:center;gap:9px;padding-inline-end:20px}
+.step .num{width:24px;height:24px;border-radius:50%;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:11.5px;color:var(--fg3);flex:0 0 24px}
+.step.on .num{border-color:var(--accent);background:var(--accent);color:#04231E;font-weight:700}
+.step.done .num{border-color:var(--accent-dim);color:var(--accent)}
+.step .lb{font-size:12.5px;color:var(--fg3);white-space:nowrap}
+.step.on .lb{color:var(--fg)}
+.step.done .lb{color:var(--fg2)}
+.sechead{font-family:var(--serif);font-weight:600;font-size:23px;margin:0 0 6px;letter-spacing:-.015em}
+.secsub{color:var(--fg2);font-size:14px;margin:0 0 26px;max-width:62ch}
+.field{margin-bottom:20px;max-width:620px}
+.field label{display:block;font-size:12.5px;color:var(--fg2);margin-bottom:6px}
+.hint{font-size:11.5px;color:var(--fg3);margin-top:5px}
+.req{color:var(--accent)}
+input[type=text],select,textarea{width:100%;padding:9px 12px;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--radius);color:var(--fg);font-size:13.5px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent-dim)}
+input::placeholder,textarea::placeholder{color:var(--fg3)}
+textarea{resize:vertical;min-height:74px;line-height:1.5}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:620px}
+@media(max-width:620px){.row2{grid-template-columns:1fr}}
+.q{border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:10px;max-width:620px;background:var(--bg2);transition:.15s}
+.q.yes{border-color:var(--accent-dim);background:var(--surface)}
+.qtop{display:flex;gap:16px;align-items:flex-start}
+.qt{flex:1}
+.qt b{display:block;font-size:14px;font-weight:600;margin-bottom:4px}
+.qt span{font-size:12.5px;color:var(--fg3);line-height:1.45}
+.seg{display:flex;border:1px solid var(--line2);border-radius:var(--radius);overflow:hidden;flex:0 0 auto}
+.seg button{padding:6px 15px;font-size:12.5px;background:transparent;border:none;color:var(--fg3);cursor:pointer}
+.seg button:hover{color:var(--fg2)}
+.seg button.on{background:var(--accent);color:#04231E;font-weight:600}
+.seg button.on.no{background:var(--line2);color:var(--fg2)}
+.qw{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);font-size:12px;color:var(--accent);display:none}
+.q.yes .qw{display:block}
+.cond{margin-top:12px;padding-top:14px;border-top:1px solid var(--line);display:none}
+.q.yes .cond{display:block}
+.rtitle{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--fg3);margin-bottom:14px;font-weight:600}
+.tierbox{border:1px solid var(--line2);border-radius:var(--radius);padding:18px;margin-bottom:18px;transition:border-color .25s}
+.tiern{font-family:var(--serif);font-size:28px;font-weight:600;line-height:1.1}
+.tiers{font-size:12px;color:var(--fg3);margin-top:3px}
+.drow{display:flex;justify-content:space-between;gap:10px;font-size:12px;padding:5px 0;color:var(--fg2)}
+.drow b{color:var(--accent);font-weight:600}
+.rstat{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+.rstat:last-child{border-bottom:none}
+.rstat span:first-child{color:var(--fg3);font-size:12.5px}
+.rstat b{font-weight:600}
+.rnote{font-size:11.5px;color:var(--fg3);line-height:1.55;margin-top:16px;border-inline-start:2px solid var(--line2);padding-inline-start:11px}
+.kv{display:grid;grid-template-columns:170px 1fr;gap:9px 16px;font-size:13.5px;margin-bottom:24px;max-width:660px}
+.kv dt{color:var(--fg3);font-size:12.5px}
+.kv dd{margin:0;color:var(--fg2)}
+@media(max-width:560px){.kv{grid-template-columns:1fr;gap:2px}.kv dd{margin-bottom:10px}}
+.panel{max-width:660px;margin-bottom:20px}
+.cl{list-style:none;margin:0;padding:0}
+.cl li{padding:10px 0;border-bottom:1px solid var(--line);display:flex;gap:11px;align-items:flex-start;font-size:13.5px;color:var(--fg2)}
+.cl li:last-child{border-bottom:none}
+.cmeta{font-size:11.5px;color:var(--fg3);margin-top:3px}
+.route{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--line)}
+.route:last-child{border-bottom:none}
+.rn{width:22px;height:22px;border-radius:50%;border:1px solid var(--accent-dim);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;flex:0 0 22px;margin-top:1px}
+.rb b{display:block;font-size:13.5px;font-weight:600;margin-bottom:2px}
+.rb span{font-size:12px;color:var(--fg3)}
+.nav-btns{display:flex;gap:10px;margin-top:30px;max-width:660px;flex-wrap:wrap;align-items:center}
+.warn{background:rgba(229,103,95,.07);border:1px solid rgba(229,103,95,.25);color:#EE8A83;border-radius:var(--radius);padding:11px 14px;font-size:12.5px;margin-bottom:18px;max-width:660px}
+.done{max-width:600px;padding:14px 0}
+.tick{width:52px;height:52px;border-radius:50%;background:rgba(52,201,160,.11);border:1px solid rgba(52,201,160,.32);color:#5FD9B6;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:22px}
+.done h2{font-family:var(--serif);font-weight:600;font-size:27px;margin:0 0 10px;letter-spacing:-.02em}
+.done p{color:var(--fg2);margin:0 0 26px;font-size:14.5px}
+.chainrow{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.chainrow:last-child{border-bottom:none}
+.hash{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--accent);flex:0 0 78px;margin-top:3px}
+.cw b{display:block;font-size:13.5px;font-weight:600}
+.cw span{font-size:11.5px;color:var(--fg3)}
+</style>
+</head>
+<body>
+
+<div class="demo-bar"><div class="demo-in">
+  <b>Athar</b> — working prototype on illustrative data. Nakhla Bank is fictional.
+  <span class="sp">
+    <a href="../athar.html">← Product page</a><span class="sep">·</span>
+    <a href="register.html">Register</a><span class="sep">·</span>
+    <a href="approvals.html">Approvals</a><span class="sep">·</span>
+    <a href="coverage.html">Coverage</a><span class="sep">·</span>
+    <a href="map.html">Product map</a>
+  </span>
+</div></div>
+
+<div class="app">
+  <aside class="side">
+    <div class="brand"><b>Athar</b><span>أثر</span></div>
+    <div class="brand-sub">an Enterprise.AI platform</div>
+    <div class="navgrp">Govern</div>
+    <a class="nav" href="register.html">Register</a>
+    <a class="nav on" href="intake.html">Intake queue</a>
+    <a class="nav" href="approvals.html">Approvals<span class="badge">6</span></a>
+    <a class="nav">Exceptions</a>
+    <div class="navgrp">Evidence</div>
+    <a class="nav">Control library</a>
+    <a class="nav" href="coverage.html">Regulatory coverage</a>
+    <a class="nav">Incidents</a>
+    <div class="tenant"><b>Nakhla Bank</b><span>Content pack KSA-BANK v2026.3</span></div>
+  </aside>
+
+  <div>
+    <div class="top">
+      <h1>Register a system</h1>
+      <div class="spacer"></div>
+      <button class="btn" id="example">Fill with example</button>
+      <button class="btn">Save draft</button>
+    </div>
+    <div class="body2">
+      <div class="col">
+        <div class="steps" id="steps"></div>
+        <div id="pane"></div>
+        <div class="nav-btns" id="navb"></div>
+      </div>
+      <aside class="rail" id="rail"></aside>
+    </div>
+  </div>
+</div>
+
+<script src="_data.js"></script>
+<script>
+(function(){
+var ATTRS=ATHAR.ATTRS, CTRL=ATHAR.CTRL;
+var STEP_ATTRS={2:['cf','dec','saf'],3:['pd','xb','gen','ven']};
+var S={name:'',fn:'',own:'',purpose:'',type:'',vendor:'',region:'',cats:''};
+ATTRS.forEach(function(a){S[a.k]=null});
+var step=1,submitted=false;
+
+function A(k){return ATTRS.filter(function(x){return x.k===k})[0]}
+function score(){return ATTRS.reduce(function(x,a){return x+(S[a.k]===true?a.w:0)},0)}
+function tier(){return ATHAR.tierOf(score())}
+function ctx(){var o={sc:score()};ATTRS.forEach(function(a){o[a.k]=S[a.k]===true});return o}
+function controls(){var c=ctx();return CTRL.filter(function(x){return x.f(c)})}
+function route(){
+ var t=tier().n;
+ if(t==='Limited')return [['Function head sign-off','Single approver · 5 working day SLA'],['Registered as Limited','Annual review, no gate required']];
+ if(t==='Elevated')return [['Second-line review','Risk function · 10 working day SLA'],['AI Council notification','Tabled, not voted'],['Annual review','Escalates at 30 days overdue']];
+ if(t==='High')return [['Second-line review','Risk function · 10 working day SLA'],['AI Council decision','Quorum 4 of 5, Risk and Finance required'],['Pre-deployment independent review','CTL-M08-047 must be evidenced before go-live'],['Semi-annual review','Six-month interval']];
+ return [['Second-line review','Risk function · 10 working day SLA'],['AI Council decision','Quorum 5 of 5, unanimous'],['Board Risk Committee ratification','Next scheduled sitting'],['Pre-deployment independent review','CTL-M08-047 must be evidenced before go-live'],['Semi-annual review','Six-month interval']];
+}
+function stepOK(n){
+ if(n===1)return S.name.trim()&&S.own&&S.fn&&S.type;
+ if(n===2)return STEP_ATTRS[2].every(function(k){return S[k]!==null});
+ if(n===3)return STEP_ATTRS[3].every(function(k){return S[k]!==null})&&(S.xb!==true||S.region);
+ return true;
+}
+function drawSteps(){
+ var names=['Identity','Use and impact','Data and technology','Review'];
+ document.getElementById('steps').innerHTML=names.map(function(n,i){
+  var k=i+1,cls=submitted?'done':k===step?'on':k<step?'done':'';
+  return '<div class="step '+cls+'"><span class="num">'+(k<step||submitted?'&#10003;':k)+'</span><span class="lb">'+n+'</span></div>';
+ }).join('');
+}
+function qHTML(k){
+ var a=A(k),extra='';
+ if(k==='xb')extra='<div class="cond"><label style="display:block;font-size:12.5px;color:var(--fg2);margin-bottom:6px">Where does that processing occur? <span class="req">*</span></label>'+
+  '<select data-fld="region"><option value="">Select…</option>'+['EU — vendor inference endpoint','United States','UAE','Multiple, vendor-managed','Not yet determined'].map(function(o){return '<option'+(S.region===o?' selected':'')+'>'+o+'</option>'}).join('')+'</select>'+
+  '<div class="hint">A transfer basis under the 2024 Regulation must be recorded before go-live.</div></div>';
+ if(k==='ven')extra='<div class="cond"><label style="display:block;font-size:12.5px;color:var(--fg2);margin-bottom:6px">Vendor or product</label><input type="text" data-fld="vendor" value="'+S.vendor+'" placeholder="e.g. Microsoft, in-house wrapper over a hosted model"></div>';
+ if(k==='pd')extra='<div class="cond"><label style="display:block;font-size:12.5px;color:var(--fg2);margin-bottom:6px">Data categories</label><input type="text" data-fld="cats" value="'+S.cats+'" placeholder="e.g. identity, income, transaction history"></div>';
+ return '<div class="q'+(S[k]===true?' yes':'')+'" data-k="'+k+'"><div class="qtop"><div class="qt"><b>'+a.q+'</b><span>'+a.h+'</span></div>'+
+  '<div class="seg"><button data-v="1" class="'+(S[k]===true?'on':'')+'">Yes</button><button data-v="0" class="no '+(S[k]===false?'on no':'')+'">No</button></div></div>'+
+  '<div class="qw">Adds +'+a.w+' to the risk score</div>'+extra+'</div>';
+}
+function pane(){
+ var h='';
+ if(submitted){
+  var t=tier();
+  h='<div class="done"><div class="tick">&#10003;</div><h2>AIS-0079 created</h2>'+
+   '<p>'+S.name+' is in the register as '+t.n+' tier, with '+controls().length+' controls assigned and '+route().length+' approval steps queued. The first decision record has been written to the chain.</p>'+
+   '<div class="panel"><div class="ptitle"><span>Decision chain</span></div>'+
+   '<div class="chainrow"><span class="hash">e2b7…08fc</span><div class="cw"><b>Intake submitted</b><span>Today · '+S.own+' · assessment v1</span></div></div>'+
+   '<div class="chainrow"><span class="hash" style="color:var(--fg3)">pending</span><div class="cw"><b style="color:var(--fg3)">Second-line review</b><span>Due in 10 working days</span></div></div></div>'+
+   '<div class="nav-btns"><button class="btn btn-p" id="again">Register another</button><a class="btn" href="register.html">Open in register</a></div></div>';
+  document.getElementById('pane').innerHTML=h;
+  document.getElementById('navb').innerHTML='';
+  document.getElementById('again').addEventListener('click',function(){
+   S={name:'',fn:'',own:'',purpose:'',type:'',vendor:'',region:'',cats:''};
+   ATTRS.forEach(function(a){S[a.k]=null});step=1;submitted=false;render();
+  });
+  return;
+ }
+ if(step===1){
+  h='<h2 class="sechead">What are you registering?</h2>'+
+   '<p class="secsub">Anything that uses a model to produce an output the bank relies on — including AI features inside software already licensed.</p>'+
+   '<div class="field"><label>System name <span class="req">*</span></label><input type="text" data-fld="name" value="'+S.name+'" placeholder="How people refer to it internally"></div>'+
+   '<div class="row2"><div class="field"><label>Business function <span class="req">*</span></label><select data-fld="fn"><option value="">Select…</option>'+
+   ['Retail Banking','Corporate Banking','Financial Crime','Contact Centre','Cards','Channels','Human Resources','Collections','Trade Finance','Group Technology','Marketing','Distribution','Physical Security'].map(function(o){return '<option'+(S.fn===o?' selected':'')+'>'+o+'</option>'}).join('')+'</select></div>'+
+   '<div class="field"><label>Accountable owner <span class="req">*</span></label><select data-fld="own"><option value="">Select…</option>'+
+   ['H. Al-Qahtani','N. Baeshen','S. Al-Dosari','R. Al-Otaibi','M. Faqih','A. Zahrani','K. Al-Harbi','L. Nassar'].map(function(o){return '<option'+(S.own===o?' selected':'')+'>'+o+'</option>'}).join('')+'</select>'+
+   '<div class="hint">A person, not a team. They answer for it at review.</div></div></div>'+
+   '<div class="field"><label>System type <span class="req">*</span></label><select data-fld="type"><option value="">Select…</option>'+
+   ['Predictive model','Generative assistant','Agentic workflow','Embedded vendor feature','Computer vision','Optimisation'].map(function(o){return '<option'+(S.type===o?' selected':'')+'>'+o+'</option>'}).join('')+'</select></div>'+
+   '<div class="field"><label>What is it for?</label><textarea data-fld="purpose" placeholder="One or two sentences. What decision or task does it support, and who relies on the output?">'+S.purpose+'</textarea></div>';
+ }
+ if(step===2){
+  h='<h2 class="sechead">Use and impact</h2><p class="secsub">Answer for how the system is actually used today, not how it was originally scoped. These answers derive the risk tier and cannot be edited later without creating a new assessment version.</p>'+STEP_ATTRS[2].map(qHTML).join('');
+ }
+ if(step===3){
+  h='<h2 class="sechead">Data and technology</h2><p class="secsub">Where the data goes matters as much as what the model does.</p>'+STEP_ATTRS[3].map(qHTML).join('');
+ }
+ if(step===4){
+  var t=tier(),cs=controls();
+  h='<h2 class="sechead">Review and submit</h2><p class="secsub">Nothing below was chosen by hand. The tier, the control set and the approval route are all derived from your answers using the KSA-BANK content pack.</p>';
+  if(S.xb===true)h+='<div class="warn">Processing occurs outside the Kingdom. A documented transfer basis under the September 2024 Regulation is required before this system can go live — CTL-M08-018 is now mandatory.</div>';
+  h+='<dl class="kv"><dt>System</dt><dd>'+(S.name||'—')+'</dd><dt>Function</dt><dd>'+(S.fn||'—')+'</dd>'+
+   '<dt>Accountable owner</dt><dd>'+(S.own||'—')+'</dd><dt>Type</dt><dd>'+(S.type||'—')+'</dd>'+
+   (S.vendor?'<dt>Vendor</dt><dd>'+S.vendor+'</dd>':'')+
+   (S.region?'<dt>Processing location</dt><dd>'+S.region+'</dd>':'')+
+   (S.cats?'<dt>Data categories</dt><dd>'+S.cats+'</dd>':'')+
+   '<dt>Derived tier</dt><dd style="color:'+t.c+'">'+t.n+' · '+score()+' points</dd></dl>';
+  h+='<div class="panel"><div class="ptitle"><span>Controls assigned</span><em>'+cs.length+'</em></div><ul class="cl">'+
+   cs.map(function(c){return '<li><span class="cid">'+c.id+'</span><div>'+c.t+'<div class="cmeta">'+c.i+(c.g?' · guidance, not binding':'')+'</div></div></li>'}).join('')+'</ul></div>';
+  h+='<div class="panel"><div class="ptitle"><span>Approval route for '+t.n+' tier</span></div>'+
+   route().map(function(r,i){return '<div class="route"><span class="rn">'+(i+1)+'</span><div class="rb"><b>'+r[0]+'</b><span>'+r[1]+'</span></div></div>'}).join('')+'</div>';
+ }
+ document.getElementById('pane').innerHTML=h;
+ bind();navb();
+}
+function navb(){
+ if(submitted)return;
+ var ok=stepOK(step),h='';
+ if(step>1)h+='<button class="btn" id="back">Back</button>';
+ if(step<4)h+='<button class="btn btn-p" id="next"'+(ok?'':' disabled')+'>Continue</button>';
+ else h+='<button class="btn btn-p" id="submit">Submit for review</button>';
+ if(!ok&&step<4)h+='<span style="font-size:12px;color:var(--fg3)">Answer every question to continue</span>';
+ document.getElementById('navb').innerHTML=h;
+ var b=document.getElementById('back'),n=document.getElementById('next'),s=document.getElementById('submit');
+ if(b)b.addEventListener('click',function(){step--;render()});
+ if(n)n.addEventListener('click',function(){step++;render()});
+ if(s)s.addEventListener('click',function(){submitted=true;render()});
+}
+function bind(){
+ Array.prototype.forEach.call(document.querySelectorAll('[data-fld]'),function(el){
+  el.addEventListener(el.tagName==='SELECT'?'change':'input',function(){
+   S[el.getAttribute('data-fld')]=el.value;navb();rail();
+  });
+ });
+ Array.prototype.forEach.call(document.querySelectorAll('.q'),function(q){
+  var k=q.getAttribute('data-k');
+  Array.prototype.forEach.call(q.querySelectorAll('.seg button'),function(b){
+   b.addEventListener('click',function(){
+    S[k]=b.getAttribute('data-v')==='1';
+    if(k==='xb'&&S[k]===false)S.region='';
+    if(k==='ven'&&S[k]===false)S.vendor='';
+    if(k==='pd'&&S[k]===false)S.cats='';
+    pane();rail();
+   });
+  });
+ });
+}
+function rail(){
+ var t=tier(),s=score(),cs=controls();
+ var answered=ATTRS.filter(function(a){return S[a.k]!==null}).length;
+ var h='<div class="rtitle">Derived live</div><div class="tierbox" style="border-color:'+t.c+'">'+
+  '<div class="tiern" style="color:'+t.c+'">'+t.n+'</div>'+
+  '<div class="tiers">'+s+' point'+(s===1?'':'s')+' · '+answered+' of '+ATTRS.length+' answered</div>';
+ var any=false;
+ ATTRS.forEach(function(a){if(S[a.k]===true){any=true;h+='<div class="drow"><span>'+a.l+'</span><b>+'+a.w+'</b></div>'}});
+ if(!any)h+='<div class="drow" style="color:var(--fg3)"><span>Nothing scored yet</span></div>';
+ h+='</div><div class="rstat"><span>Controls assigned</span><b>'+cs.length+'</b></div>'+
+  '<div class="rstat"><span>Approval steps</span><b>'+route().length+'</b></div>'+
+  '<div class="rstat"><span>Review interval</span><b>'+(s>=6?'6 months':'12 months')+'</b></div>'+
+  '<div class="rstat"><span>Content pack</span><b style="font-size:12px">v2026.3</b></div>'+
+  '<div class="rnote">Boundaries: Limited 0–2, Elevated 3–5, High 6–8, Critical 9+. Weights and boundaries are set by the bank\'s risk function in the content pack, not hard-coded — and a change is versioned.</div>';
+ document.getElementById('rail').innerHTML=h;
+}
+document.getElementById('example').addEventListener('click',function(){
+ S={name:'Mortgage pre-approval assistant',fn:'Retail Banking',own:'H. Al-Qahtani',type:'Generative assistant',
+    purpose:'Reads an applicant\'s submitted documents and produces an indicative pre-approval decision with a rationale, which a relationship manager reviews before it is shared.',
+    vendor:'Hosted foundation model via vendor API',region:'EU — vendor inference endpoint',cats:'identity, income, employment, credit history',
+    cf:true,dec:true,saf:false,pd:true,xb:true,gen:true,ven:true};
+ step=4;submitted=false;render();
+});
+function render(){drawSteps();pane();rail()}
+render();
+})();
+</script>
+</body></html>
